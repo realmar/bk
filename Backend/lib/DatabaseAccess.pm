@@ -3,15 +3,16 @@
 sub new {
     my $class = shift;
     my $self = {
-        _db => shift
+        _db => ConnectToDatabase(shift, shift)
     };
     bless $self, $class;
     return $self;
 }
 
 sub ConnectToDatabase {
-    my ($self) = @_;
-
+    my ($self, $driver, $file) = @_;
+    return undef if !defined($driver) || $driver == '';
+    $self->{_db} = DBI->connect('dbi:' . $driver . ':dbname=' . $file, '', '');
     return $self->{_db};
 }
 
