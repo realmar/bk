@@ -15,7 +15,8 @@ my $database_connection = DatabaseAccess->new('SQLite', '../Database/BKDatabase.
 my $doors = Doors->new(Constants::DOORS);
 
 while(2) {
-    my $input_barc = chomp(<STDIN>);
+    my $input_barc = <STDIN>;
+    chomp($input_barc);
 
     my $database_entries = $database_connection->ReadEntryDatabase('users', {'username' => $input_barc});
 
