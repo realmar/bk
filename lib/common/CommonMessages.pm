@@ -63,7 +63,7 @@ sub ThrowMessage {
         case Constants::ERROR {
             switch ($owner_typ) {
                 case Constants::DB {
-                    $self->SUPER::DBError($msg_typ, $msg_string);
+                    $self->SUPER::DBError($owner_typ, $msg_prio, $msg_typ, $msg_string);
                     last;
                 }
             }
@@ -72,13 +72,18 @@ sub ThrowMessage {
         case Constants::LOG {
             switch ($owner_typ) {
                 case Constants::SCANNER {
-                    $self->SUPER::ScannerLogInput($msg_typ, $msg_string);
+                    $self->SUPER::ScannerLogInput($owner_typ, $msg_prio, $msg_typ, $msg_string);
                     last;
                 }
             }
             last;
         }
     }
+}
+
+sub CreateLogString {
+    my ($owner_typ, $msg_prio, $msg_typ, $msg_string) = @_;
+    return '[' . localtime . '][' . $owner_typ . '][' . $msg_prio . '][' . $msg_typ . '] ' . $msg_string . "\n";
 }
 
 1;

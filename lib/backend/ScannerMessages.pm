@@ -3,10 +3,9 @@
 package ScannerMessages;
 
 sub ScannerLogInput {
-    my ($self, $log_typ, $log_string) = @_;
+    my ($self, $owner_typ, $msg_prio, $log_typ, $log_string) = @_;
 
-    print('[' . localtime . '][' . $log_typ . '] got input: ' . $log_string);
-    print("\nTESTPURPOSES THIS GOES TO AN LOG FILE\n");
+    $main::filehandle_log_message->WriteToFile(CommonMessages::CreateLogString($owner_typ, $msg_prio, $log_typ, $log_string));
 }
 
 1;
