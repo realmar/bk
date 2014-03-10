@@ -3,15 +3,18 @@
 use 5.010;
 use strict;
 
-use lib 'lib/';
+use lib 'lib/common/';
+use lib 'lib/backend/';
 
 use Constants;
+use CommonMessages;
+use DBMessages;
 use DatabaseAccess;
 use Doors;
 
 use DBI;
 
-my $database_connection = DatabaseAccess->new('SQLite', '../Database/BKDatabase.db');
+my $database_connection = DatabaseAccess->new('SQLite', 'database/BKDatabase.db');
 my $doors = Doors->new(Constants::DOORS);
 
 while(2) {
@@ -23,6 +26,7 @@ while(2) {
     while(my $database_entries_row = $database_entries->fetchrow_hashref) {
         $doors->OpenDoor($database_entries_row->{doornumber});
         $database_connection->DeleteEntryDatabase('users', {'username' => $input_barc});
+        $database_connection->CommitChanges();
 
         ##  Send E-Mail
         ##  To Correspondant Person
