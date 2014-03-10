@@ -7,11 +7,12 @@ use parent -norequire, 'CommonMessages';
 sub new {
     my $class = shift;
     my $self = {
+        _owner_desc => 'dbaccess',
         _db => undef,
         _msg => undef
     };
     bless $self, $class;
-    $self->{_msg} = $self->SUPER::newcomsg('DBAccess', 0);
+    $self->{_msg} = $self->SUPER::newcomsg($self->{_owner_desc}, 0);
     $self->ConnectToDatabase(shift, shift);
     return $self;
 }

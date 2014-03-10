@@ -2,7 +2,7 @@
 
 package CommonMessages;
 
-use parent -norequire, 'DBMessages';
+use parent -norequire, 'DBMessages', 'ScannerMessages';
 
 use Switch;
 
@@ -64,6 +64,15 @@ sub ThrowMessage {
             switch ($owner_typ) {
                 case Constants::DB {
                     $self->SUPER::DBError($msg_typ, $msg_string);
+                    last;
+                }
+            }
+            last;
+        }
+        case Constants::LOG {
+            switch ($owner_typ) {
+                case Constants::SCANNER {
+                    $self->SUPER::ScannerLogInput($msg_typ, $msg_string);
                     last;
                 }
             }

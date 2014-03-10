@@ -2,12 +2,17 @@
 
 package Doors;
 
+use parent -norequire, 'CommonMessages';
+
 sub new {
     $class = shift;
     $self = {
-        _doors => shift
+        _owner_desc => 'doors',
+        _doors => shift,
+        _msg => undef
     };
     bless $self, $class;
+    $self->{_msg} = $self->SUPER::newcomsg($self->{_owner_desc}, 0);
     return $self;
 }
 
