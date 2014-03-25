@@ -30,13 +30,15 @@ while(2) {
 
     while(my $database_entries_row = $database_entries->fetchrow_hashref) {
         $doors->OpenDoor($database_entries_row->{doornumber});
-        $database_connection->DeleteEntryDatabase('users', {'username' => $input_barc});
+        $database_connection->UpdateEntryDatabase('users', {'username' => ''}, {'username' => $input_barc});
         $database_connection->CommitChanges();
 
         ##  Send E-Mail
         ##  To Correspondant Person
     }
 }
+
+$database_connection->DESTROY();
 
 $filehandle_log_message->CloseFileHandle();
 $filehandle_log_error->CloseFileHandle();

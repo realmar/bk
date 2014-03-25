@@ -43,6 +43,7 @@ any ['get'] => '/message' => sub {
 any ['get'] => '/:action' => sub {
     my $recv_action = ActionHandler->new(param('action'), []);
     $recv_action->ProcessAction();
+    $recv_action->DESTROY();
 };
 
 any ['post'] => '/:action' => sub {
@@ -60,6 +61,7 @@ any ['post'] => '/:action' => sub {
             param('bookbox10')
         ]);
     $recv_action->ProcessAction();
+    $recv_action->DESTROY();
 };
 
 builder {

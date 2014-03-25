@@ -17,6 +17,13 @@ sub new {
     return $self;
 }
 
+sub DESTROY {
+    my $self = shift;
+
+    $self->DisconnectFromDatabase();
+    $self->{handle}->close() if $self->{handle};
+}
+
 sub ConnectToDatabase {
     my ($self, $driver, $file) = @_;
     #  return undef if (!defined($driver) || $driver == '');
