@@ -55,15 +55,15 @@ sub RaiseErrCount {
 }
 
 sub ThrowMessage {
-    my ($self, $owner_typ, $msg_prio, $msg_typ, $msg_string) = @_;
+    my ($self, $msg_prio, $msg_typ, $msg_string) = @_;
 
     switch ($msg_prio) {
         case Constants::ERROR {
-            $self->LogError($owner_typ, $msg_prio, $msg_typ, $msg_string);
+            $self->LogError($msg_prio, $msg_typ, $msg_string);
             last;
         }
         case Constants::LOG {
-            $self->LogMessage($owner_typ, $msg_prio, $msg_typ, $msg_string);
+            $self->LogMessage($msg_prio, $msg_typ, $msg_string);
             last;
         }
     }
@@ -75,18 +75,18 @@ sub CreateLogString {
 }
 
 sub LogError {
-    my ($self, $owner_typ, $msg_prio, $msg_typ, $msg_string) = @_;
+    my ($self, $msg_prio, $msg_typ, $msg_string) = @_;
     if($owner_typ == Constants::DB) {
         $self->RollbackChanges();
     }
     $self->RaiseErrCount(1);
-    $main::filehandle_log_error->WriteToFile(CommonMessages::CreateLogString($owner_typ, $msg_prio, $msg_typ, $msg_string));
+    $main::filehandle_log_error->WriteToFile(CommonMessages::CreateLogString($self->{_owner_desc}, $msg_prio, $msg_typ, $msg_string));
     return 1;
 }
 
 sub LogMessage {
-    my ($self, $owner_typ, $msg_prio, $msg_typ, $msg_string) = @_;
-    $main::filehandle_log_message->WriteToFile(CommonMessages::CreateLogString($owner_typ, $msg_prio, $msg_typ, $msg_string));
+    my ($self, $msg_prio, $msg_typ, $msg_string) = @_;
+    $main::filehandle_log_message->WriteToFile(CommonMessages::CreateLogString($self->{_owner_desc}, $msg_prio, $msg_typ, $msg_string));
     return 1;
 }
 

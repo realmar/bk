@@ -21,7 +21,7 @@ sub GetInput {
     $self->{_input} = <STDIN>;
     chomp($self->{_input});
 
-    $self->SUPER::ThrowMessage($self->{_owner_desc}, Constants::LOG, Constants::SCLOGGOTINPUT, $self->{_input});
+    $self->SUPER::ThrowMessage(Constants::LOG, Constants::SCLOGGOTINPUT, $self->{_input});
 
     return $self->{_input};
 }

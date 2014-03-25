@@ -7,6 +7,7 @@ use lib 'lib/common';
 use lib 'lib/frontend';
 
 use Constants;
+use MessagesTextConstants;
 use BKFileHandler;
 use CommonMessages;
 use DatabaseAccess;

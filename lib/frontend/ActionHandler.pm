@@ -39,17 +39,17 @@ sub ProcessAction {
     my $self = shift;
     switch ($self->{_action}) {
         case Constants::AHREFRESH {
-            $self->SUPER::ThrowMessage($self->{_owner_desc}, Constants::LOG, Constants::AHREFRESH, Constants::AHREFRESH);
+            $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHREFRESH, Constants::AHREFRESH);
             $self->RefreshData();
             last;
         }
         case Constants::AHSAVEDATA {
-            $self->SUPER::ThrowMessage($self->{_owner_desc}, Constants::LOG, Constants::AHSAVEDATA, $self->{_data});
+            $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, $self->{_data});
             $self->SaveData();
             last;
         }
         else {
-            $self->SUPER::ThrowMessage($self->{_owner_desc}, Constants::ERROR, Constants::AHUNKNOWNACTION, $self->{_action});
+            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHUNKNOWNACTION, $self->{_action});
             last;
         }
     }
