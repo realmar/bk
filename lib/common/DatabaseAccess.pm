@@ -21,14 +21,14 @@ sub ConnectToDatabase {
     my ($self, $driver, $file) = @_;
     #  return undef if (!defined($driver) || $driver == '');
     $self->{_db} = DBI->connect('dbi:' . $driver . ':dbname=' . $file, '', '', {RaiseError => 1, AutoCommit => 0})
-        or $self->SUPER::ThrowMessage(Constants::DB, Constants::ERROR, Constants::DBERRCONN, $DBI::Errstr);
+        or $self->SUPER::ThrowMessage(Constants::DB, Constants::ERROR, Constants::DBERRCONN, MessagesTextConstants::DBERRCONNMSG . $DBI::Errstr);
     return $self->{_db};
 }
 
 sub DisconnectFromDatabase {
     my $self = shift;
     $self->{_db}->disconnect
-        or $self->SUPER::ThrowMessage(Constants::DB, Constants::ERROR, Constants::DBERRDISCONN, $DBI::Errstr);
+        or $self->SUPER::ThrowMessage(Constants::DB, Constants::ERROR, Constants::DBERRDISCONN, MessagesTextConstants::DBERRDISCONNMSG . $DBI::Errstr);
     return 1;
 }
 
@@ -39,7 +39,7 @@ sub CreateEntryDatabase {
 
     my $database_query = $self->{_db}->prepare($sql_query);
     $database_query->execute()
-        or $self_>SUPER::ThrowMessage(Constants::DB, Constants::ERROR, Cosntants::DBERRCREATE, $DBI::Errstr);
+        or $self_>SUPER::ThrowMessage(Constants::DB, Constants::ERROR, Cosntants::DBERRCREATE, MessagesTextConstants::DBERRCREATEMSG . $DBI::Errstr);
 
     return 1;
 }
@@ -57,7 +57,7 @@ sub ReadEntryDatabase {
 
     my $database_query = $self->{_db}->prepare($sql_query);
     $database_query->execute()
-        or $self->SUPER::ThrowMessage(Constants::DB, Constanst::ERROR, Constants::DBERRREAD, $DBI::Errstr);
+        or $self->SUPER::ThrowMessage(Constants::DB, Constanst::ERROR, Constants::DBERRREAD, MessagesTextConstants::DBERRREADMSG . $DBI::Errstr);
 
     return $database_query;
 }

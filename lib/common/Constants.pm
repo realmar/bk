@@ -22,6 +22,10 @@ BEGIN {
         DB
         DOORS
         SCANNER
+        ACTIONHANDLER
+        AHREFRESH
+        AHSAVEDATA
+        AHUNKNOWNACTION
     );
 
     ##  --
@@ -44,6 +48,13 @@ BEGIN {
     };
 
     ##  --
+    ##  action handler exceptions
+
+    use constant {
+        AHUNKNOWNACTION => 'ahunknownaction'
+    };
+
+    ##  --
     ##  scanner log messages
 
     use constant {
@@ -62,10 +73,19 @@ BEGIN {
     ##  owner typ
 
     use constant {
-        DB      => 'db',
-        DOORS   => 'doors',
-        SCANNER => 'scanner'
-    }
+        DB            => 'db',
+        DOORS         => 'doors',
+        SCANNER       => 'scanner',
+        ACTIONHANDLER => 'actionhandler'
+    };
+
+    ##  --
+    ##  action handler types
+
+    use constant {
+        AHREFRESH  => 'ahrefresh',
+        AHSAVEDATA => 'ahsavedata'
+    };
 
 }
 

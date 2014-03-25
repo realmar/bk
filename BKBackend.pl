@@ -7,10 +7,9 @@ use lib 'lib/common/';
 use lib 'lib/backend/';
 
 use Constants;
+use MessagesTextConstants;
 use BKFileHandler;
 use CommonMessages;
-use DBMessages;
-use ScannerMessages;
 use Scanner;
 use DatabaseAccess;
 use Doors;

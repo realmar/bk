@@ -2,8 +2,6 @@
 
 package CommonMessages;
 
-use parent -norequire, 'DBMessages', 'ScannerMessages';
-
 use Switch;
 
 sub newcomsg {
@@ -61,21 +59,11 @@ sub ThrowMessage {
 
     switch ($msg_prio) {
         case Constants::ERROR {
-            switch ($owner_typ) {
-                case Constants::DB {
-                    $self->SUPER::DBError($owner_typ, $msg_prio, $msg_typ, $msg_string);
-                    last;
-                }
-            }
+            $self->LogError($owner_typ, $msg_prio, $msg_typ, $msg_string);
             last;
         }
         case Constants::LOG {
-            switch ($owner_typ) {
-                case Constants::SCANNER {
-                    $self->SUPER::ScannerLogInput($owner_typ, $msg_prio, $msg_typ, $msg_string);
-                    last;
-                }
-            }
+            $self->LogMessage($owner_typ, $msg_prio, $msg_typ, $msg_string);
             last;
         }
     }
@@ -84,6 +72,22 @@ sub ThrowMessage {
 sub CreateLogString {
     my ($owner_typ, $msg_prio, $msg_typ, $msg_string) = @_;
     return '[' . localtime . '][' . $owner_typ . '][' . $msg_prio . '][' . $msg_typ . '] ' . $msg_string . "\n";
+}
+
+sub LogError {
+    my ($self, $owner_typ, $msg_prio, $msg_typ, $msg_string) = @_;
+    if($owner_typ == Constants::DB) {
+        $self->RollbackChanges();
+    }
+    $self->RaiseErrCount(1);
+    $main::filehandle_log_error->WriteToFile(CommonMessages::CreateLogString($owner_typ, $msg_prio, $msg_typ, $msg_string));
+    return 1;
+}
+
+sub LogMessage {
+    my ($self, $owner_typ, $msg_prio, $msg_typ, $msg_string) = @_;
+    $main::filehandle_log_message->WriteToFile(CommonMessages::CreateLogString($owner_typ, $msg_prio, $msg_typ, $msg_string));
+    return 1;
 }
 
 1;
