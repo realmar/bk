@@ -10,7 +10,9 @@ BEGIN {
         DOORSOUTPUT
         DBERRCONN
         DBERRDISCONN
+        DBERRCREATE
         DBERRREAD
+        DBERRUPDATE
         DBERRDELETE
         DBERRCOMMIT
         DBERRROLLBACK
@@ -33,7 +35,9 @@ BEGIN {
     use constant {
         DBERRCONN     => 'errconn',
         DBERRDISCONN  => 'errdisconn',
+        DBERRCREATE   => 'errcreate',
         DBERRREAD     => 'errread',
+        DBERRUPDATE   => 'errupdate',
         DBERRDELETE   => 'errdel',
         DBERRCOMMIT   => 'errcommit',
         DBERRROLLBACK => 'errrollback'

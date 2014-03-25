@@ -32,6 +32,18 @@ sub DisconnectFromDatabase {
     return 1;
 }
 
+sub CreateEntryDatabase {
+    my ($self, $table, $column) = @_;
+
+    my $sql_query = 'INSERT INTO ' . $table . '(' . $column . ') VALUES(NULL)';
+
+    my $database_query = $self->{_db}->prepare($sql_query);
+    $database_query->execute()
+        or $self_>SUPER::ThrowMessage(Constants::DB, Constants::ERROR, Cosntants::DBERRCREATE, $DBI::Errstr);
+
+    return 1;
+}
+
 sub ReadEntryDatabase {
     my ($self, $table, $name_values) = @_;
 
@@ -48,6 +60,36 @@ sub ReadEntryDatabase {
         or $self->SUPER::ThrowMessage(Constants::DB, Constanst::ERROR, Constants::DBERRREAD, $DBI::Errstr);
 
     return $database_query;
+}
+
+sub UpdateEntryDatabase {
+    my ($self, $table, $set_values, $name_values) = @_;
+
+    my %set_values_hash = %{$set_values};
+    my %name_values_hash = %{$name_values};
+
+    my $sql_query = 'UPDATE ' . $table;
+
+    my $first_set_entry = 2;
+
+    foreach my $set_values_key (keys(%set_values_hash)) {
+        if(defined($first_set_entry)) {
+            $sql_query .= 'SET ' . $set_values_key . '=' . $set_values_hash{$set_values_key};
+            $first_set_entry = undef;
+        }else{
+            $sql_query .= ', ' . $set_values_key . '=' . $set_values_hash{$set_values_key};
+        }
+    }
+
+    foreach my $name_values_key (keys(%name_values_hash)) {
+        $sql_query .= 'WHERE ' . $name_values_key . '=' . $name_values_hash{$name_values_key};
+    }
+
+    my $database_query = $self->{_db}->prepare($sql_query);
+    $database_query->execute()
+        or $self->SUPER::ThrowMessage(Constants::DB, Constants::ERROR, Constants::DBERRUPDATE, $DBI::Errstr);
+
+    return 1;
 }
 
 sub DeleteEntryDatabase {
