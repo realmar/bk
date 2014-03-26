@@ -12,7 +12,7 @@ sub new {
         _msg => undef
     };
     bless $self, $class;
-    $self->{_msg} = $self->SUPER::newcomsg($self->{_owner_desc}, 0);
+    $self->SUPER::newcomsg();
     $self->ConnectToDatabase(shift, shift);
     return $self;
 }

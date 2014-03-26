@@ -43,6 +43,13 @@ BEGIN {
         AHSDNEW  => 'New Data is getting Inserted in Database'  ##  action handler save data is added a new value by user data is getting inserted in to database
     };
 
+    ##  --
+    ##  action handler exceptions
+
+    use constant {
+        AHUNKNOWNACTIONMSG => 'unknown request'
+    };
+
 }
 
 1;

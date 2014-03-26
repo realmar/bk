@@ -2,14 +2,18 @@
 
 package BKFileHandler;
 
+use parent -norequire, 'CommonMessages';
+
 use Data::Dumper;
 
 sub new {
     my $class = shift;
     my $self = {
-        _filehandle => undef
+        _filehandle => undef,
+        _msg => undef
     };
     bless $self, $class;
+    $self->SUPER::newcomsg();
     $self->OpenFileHandle(shift, shift);
     return $self;
 }

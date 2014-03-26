@@ -7,45 +7,41 @@ use Switch;
 sub newcomsg {
     my $self = shift;
     my $err = {
-        _owner_desc => shift,
-        _err_count => shift
+        _error_type => undef,
+        _error_msg => undef,
+        _err_count => undef
     };
     bless $err;
+    $self->InitCoMSG();
     return $err;
 }
 
-sub SetMsg {
-    my ($self, $owner_desc, $err_count) = @_;
-    $self->SetOwnerDesc($owner_desc) if !undef($owner_desc);
-    $self->SetErrCount($err_count) if !undef($err_count);
-    return $self->GetMsg();
+sub SetErrorType {
+    my ($self, $type) = @_;
+    $self->{_msg}->{_error_type} = $type if defined($type);
+    return $self->{_msg}->{_error_type};
 }
 
-sub GetMsg {
+sub SetErrorMSG {
+    my ($self, $msg) = @_;
+    $self->{_msg}->{_error_msg} = $msg if defined($msg);
+    return $self->{_msg}->{_error_msg};
+}
+
+sub GetErrorType {
     my $self = shift;
-    return {owner_desc => $self->GetOwnerDesc(), err_count => $self->GetErrCount};
+    return $self->{_msg}->{_error_type};
 }
 
-sub SetOwnerDesc {
-    my ($self, $owner_desc) = @_;
-    $self->{_msg}->{_owner_desc} = $owner_desc if defined($owner_desc);
-    return $self->{_msg}->{_owner_desc};
-}
-
-sub SetErrCount {
-    my ($self, $err_count) = @_;
-    $self->{_msg}->{_err_count} = $err_count if defined($err_count);
-    return $self->{_msg}->{_err_count};
-}
-
-sub GetOwnerDesc {
+sub GetErrorMSG {
     my $self = shift;
-    return $self->{_msg}->{_owner_desc};
+    return $self->{_msg}->{_error_msg};
 }
 
-sub GetErrCount {
+sub InitCoMSG {
     my $self = shift;
-    return $self->{_msg}->{_err_count};
+    $self->{_msg}->{_error_count} = 0;
+    return $self;
 }
 
 sub RaiseErrCount {
@@ -59,6 +55,8 @@ sub ThrowMessage {
 
     switch ($msg_prio) {
         case Constants::ERROR {
+            $self->SetErrorType($msg_type);
+            $self->SetErrorMSG($msg_string);
             $self->LogError($msg_prio, $msg_typ, $msg_string);
             last;
         }
@@ -90,4 +88,4 @@ sub LogMessage {
     return 1;
 }
 
-1;
+???

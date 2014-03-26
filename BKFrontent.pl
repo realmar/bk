@@ -44,7 +44,7 @@ any ['get'] => '/message' => sub {
     $recv_action->FromJSON();
     $recv_action->PrepareWebScoketData();
     $recv_action->ProcessAction();
-    my $data_to_send = $recv_action->ToJSON();
+    my $data_to_send = $recv_action->PrepareDataToSend();
     $topic->publish($data_to_send);
     $recv_action->DESTROY();
 };
@@ -59,7 +59,7 @@ any ['get, post'] => '/:action' => sub {
     my $recv_action = ActionHandler->new(param('action'), param('msg_data'));
     $recv_action->FromJSON();
     $recv_action->ProcessAction();
-    my $data_to_send = $recv_action->ToJSON();
+    my $data_to_send = $recv_action->PrepareDataToSend();
     $recv_action->DESTROY();
     return $data_to_send;
 };

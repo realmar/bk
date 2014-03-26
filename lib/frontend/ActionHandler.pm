@@ -16,6 +16,7 @@ sub new {
         _msg        => undef
     };
     bless $self, $class;
+    $self->SUPER::newcomsg();
     return $self;
 }
 
@@ -148,9 +149,33 @@ sub FromJSON {
 
 sub PrepareWebSocketData {
     my $self = shift;
-    $self->{_action} = $self->{_data}{'action'};
-    $self->{_data} = $self->{_data}{'msg_data'};
+    $self->{_action} = $self->{_data}->{'action'};
+    $self->{_data} = $self->{_data}->{'msg_data'};
     return 1;
+}
+
+sub CollectAllErrors {
+    my $self = shift;
+    return {
+        'action_handler' => {
+            'error_type' => $self->SUPER::GetErrorType(),
+            'error_msg' => $self->SUPER::GetErrorMSG()
+        },
+        'database_access' => {
+            'error_type' => $self->{_db_conn}->SUPER::GetErrorType(),
+            'error_msg' => $self->{_db_conn}->SUPER::GetErrorMSG()
+        }
+    };
+}
+
+sub PrepareDataToSend {
+    my $self = shift;
+    $self->{_data} = {
+        'msg_data' => $self->{_data},
+        'all_errors' => $self->CollectAllError()
+    };
+    $self->ToJSON();
+    return $self->{_data};
 }
 
 1;
