@@ -20,6 +20,7 @@ use AnyMQ;
 use Plack::Builder;
 use FileHandle;
 use DBI;
+use JSON;
 
 set views => path(dirname(__FILE__), 'wwwcontent/templates');
 
@@ -38,27 +39,27 @@ any ['get'] => '/new_listener' => sub {
 };
 
 any ['get'] => '/message' => sub {
+    my $msg_data = request->env->{'hippie.message'};
+    my $recv_action = ActionHandler->new(undef, $msg_data);
+    $recv_action->FromJSON();
+    $recv_action->PrepareWebScoketData();
+    $recv_action->ProcessAction();
+    my $data_to_send = $recv_action->ToJSON();
+    $topic->publish($data_to_send);
+    $recv_action->DESTROY();
 };
 
 any => '/send_msg' => sub {
+    $topic->publish({
+            msg_data => params->{data_to_send}
+        });
 };
 
 any ['get, post'] => '/:action' => sub {
-    my $recv_action = ActionHandler->new(param('action'), [
-            param('bookbox0'),
-            param('bookbox1'),
-            param('bookbox2'),
-            param('bookbox3'),
-            param('bookbox4'),
-            param('bookbox5'),
-            param('bookbox6'),
-            param('bookbox7'),
-            param('bookbox8'),
-            param('bookbox9'),
-            param('bookbox10')
-        ]);
+    my $recv_action = ActionHandler->new(param('action'), param('msg_data'));
+    $recv_action->FromJSON();
     $recv_action->ProcessAction();
-    my $data_to_send = $recv_action->PrepareDataJQuery();
+    my $data_to_send = $recv_action->ToJSON();
     $recv_action->DESTROY();
     return $data_to_send;
 };

@@ -26,7 +26,7 @@ sub DESTROY {
     $self->{handle}->close() if $self->{handle};
 }
 
-sub SetAction {
+sub SetActionHandler {
     my ($self, $action, $data) = @_;
     if(defined($action) && defined($data)) {
         $self->{_action} = $action;
@@ -35,12 +35,34 @@ sub SetAction {
     return $self;
 }
 
-sub GetAction {
+sub GetActionHandler {
     my $self = shift;
     return {
         'action' => $self->{_action},
         'data'   => $self->{_data}
     };
+}
+
+sub SetAHAction {
+    my ($self, $action) = @_;
+    $self->{_action} = $action if defined($action);
+    return $self->{_action};
+}
+
+sub SetAHData {
+    my ($self, $data) = @_;
+    $self->{_data} = $data if defined($data);
+    return $self->{_data};
+}
+
+sub GetSHAction {
+    my $self = shift;
+    return $self->{_action};
+}
+
+sub GetAHData {
+    my $self = shift;
+    return $self->{_data};
 }
 
 sub ProcessAction {
@@ -112,9 +134,23 @@ sub GetAllEntries {
     return $db_entries_array;
 }
 
-sub PrepareDataJQuery {
+sub ToJSON {
     my $self = shift;
-    return join('|', @[$self->{_data}]);
+    $self->{_data} = to_json($self->{_data});
+    return $self->{_data};
+}
+
+sub FromJSON {
+    my $self = shift;
+    $self->{_data} = from_json($self->{_data});
+    return $self->{_data};
+}
+
+sub PrepareWebSocketData {
+    my $self = shift;
+    $self->{_action} = $self->{_data}{'action'};
+    $self->{_data} = $self->{_data}{'msg_data'};
+    return 1;
 }
 
 1;
