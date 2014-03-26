@@ -43,15 +43,7 @@ any ['get'] => '/message' => sub {
 any => '/send_msg' => sub {
 };
 
-any ['get'] => '/:action' => sub {
-    my $recv_action = ActionHandler->new(param('action'), []);
-    $recv_action->ProcessAction();
-    my $data_to_send = $recv_action->PrepareDataJQuery();
-    $recv_action->DESTROY();
-    return $data_to_send;
-};
-
-any ['post'] => '/:action' => sub {
+any ['get, post'] => '/:action' => sub {
     my $recv_action = ActionHandler->new(param('action'), [
             param('bookbox0'),
             param('bookbox1'),

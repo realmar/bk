@@ -39,6 +39,9 @@ sub DisconnectFromDatabase {
     return 1;
 }
 
+##  --
+##  CreateEntryDatabase currenlty not in use
+
 sub CreateEntryDatabase {
     my ($self, $table, $column) = @_;
 
@@ -98,6 +101,9 @@ sub UpdateEntryDatabase {
 
     return 1;
 }
+
+##  --
+##  DeleteEntryDatabase currenlty not in use
 
 sub DeleteEntryDatabase {
     my ($self, $table, $name_values) = @_;
