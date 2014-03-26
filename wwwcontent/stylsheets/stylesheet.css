@@ -13,6 +13,13 @@ main {
     margin-left: auto;
 }
 
+div#msg_error {
+    font-weight: bold;
+    color: red;
+    background-color: black;
+    padding: 0.1em;
+}
+
 div.display_inline,p.display_inline,img.display_inline,h1.display_inline {
     display: inline-block;
 }

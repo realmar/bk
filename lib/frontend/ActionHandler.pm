@@ -156,16 +156,16 @@ sub PrepareWebSocketData {
 
 sub CollectAllErrors {
     my $self = shift;
-    return {
-        'action_handler' => {
+    return [
+        {
             'error_type' => $self->SUPER::GetErrorType(),
             'error_msg' => $self->SUPER::GetErrorMSG()
         },
-        'database_access' => {
+        {
             'error_type' => $self->{_db_conn}->SUPER::GetErrorType(),
             'error_msg' => $self->{_db_conn}->SUPER::GetErrorMSG()
         }
-    };
+    ];
 }
 
 sub PrepareDataToSend {
