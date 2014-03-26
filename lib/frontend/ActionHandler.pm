@@ -112,4 +112,9 @@ sub GetAllEntries {
     return $db_entries_array;
 }
 
+sub PrepareDataJQuery {
+    my $self = shift;
+    return join('|', @[$self->{_data}]);
+}
+
 1;
