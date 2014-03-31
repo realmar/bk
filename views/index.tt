@@ -14,14 +14,14 @@
         <script src="javascript/source/jquery.min.js"></script>
         <script src="javascript/scripts/variables/Constants.js"></script>
         <script src="javascript/scripts/variables/Intervalls.js"></script>
-        <script srv="javascript/scripts/variables/VariablesDefinition.js"></script>
+        <script src="javascript/scripts/variables/VariablesDefinition.js"></script>
         <script src="javascript/scripts/prototypes/ActionHandler.js"></script>
         <script src="javascript/scripts/prototypes/AJAXData.js"></script>
         <script src="javascript/scripts/prototypes/ProgrammHandler.js"></script>
         <script src="javascript/scripts/prototypes/WebSockets.js"></script>
         <script src="javascript/scripts/functions/DOMChanges.js"></script>
-        <script src="javascript/scripts/executation/InitializeFuntions.js></script>
-        <script src="javascript/scripts/executation/<ain.js"></script>
+        <script src="javascript/scripts/executation/InitializeFunctions.js"></script>
+        <script src="javascript/scripts/executation/Main.js"></script>
     </head>
     <body>
         <header>
