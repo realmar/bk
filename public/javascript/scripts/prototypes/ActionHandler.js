@@ -5,7 +5,7 @@ function ActionHandler(msg_data_arg) {
 function ProcessAction() {
     if(this.msg_data{"all_errors"}.length <= 0) {
         for(var i = 0; i < this.msg_data{"msg_data"}.length; i++) {
-            $("input#bookbox" + i).value = this.msg_data{"msg_data"}[i];
+            $("input#bookbox" + i).value = this.msg_data["msg_data"][i];
         }
     }else{
         foreach(var err_data in this.msg_data{"all_errors"}) {
