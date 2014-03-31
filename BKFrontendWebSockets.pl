@@ -4,7 +4,7 @@ use 5.010;
 use strict;
 
 use lib '/opt/BK/lib/common';
-use lib '/opt/BK/lib/frontent';
+use lib '/opt/BK/lib/frontend';
 
 use Constants;
 use MessagesTextConstants;
