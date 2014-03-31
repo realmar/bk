@@ -12,7 +12,9 @@ function BKWebSocket(ws_path_arg) {
 
     programm_handler.ProcessWebSocketReadyState(this.socket.readystate);
 
-    this.socket.onmessage = OnMessageWS(e);
+    this.socket.onmessage = function(e) {
+        this.OnMessageWS(e);
+    };
 
     function OpenWebSocket(ws_path_arg) {
         this.socket = new WebSocket(ws_path_arg);
