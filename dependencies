@@ -1,0 +1,18 @@
+# Dependencies BK
+
+## BKBackend
+
+## BKFrontend
+
+  -  AnyMQ
+  -  libmoosex-traits-perl
+  -  libany-moose-perl
+  -  libextutils-autoinstall-perl
+  -  libmousex-nativetraits-perl
+  -  libdbd-sqlite3-perl
+
+  -  Plack::Builder contains
+       -  dirname
+       -  JSON
+
+  -  make

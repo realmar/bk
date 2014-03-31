@@ -97,9 +97,9 @@ sub RefreshData {
 
 sub SaveData {
     my $self = shift;
-    my $db_data = $self->GetAllEntries();
-    for (my $i = 0; $i < #$self->{_data}; $i++) {
-        switch ($self->{_data}[$i]) {
+    my @db_data = $self->GetAllEntries();
+    for (my $i = 0; $i < scalar($self->{_data}); $i++) {
+        switch ($self->{_data}->[$i]) {
             case $db_data[$i] {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDIDEN);
                 last;
@@ -122,17 +122,17 @@ sub SaveData {
 
 sub GetAllEntries {
     my $self = shift;
-    my $db_entries_hash = {};
-    my $db_entries_array = [];
+    my %db_entries_hash = {};
+    my @db_entries_array = [];
     my $db_entries = $self->{_db_conn}->ReadEntryDatabase('users', {});
     while (my $db_entries_row = $db_entries->fetchrow_hashref) {
         $db_entries_hash{$db_entries_row->{doornumber}} = $db_entries_row->{username};
     }
     foreach my $entry_pos (sort(keys($db_entries_hash))) {
-        push($db_entries_array, $db_entries_hash{$entry_pos});
+        push(@db_entries_array, $db_entries_hash{$entry_pos});
     }
 
-    return $db_entries_array;
+    return @db_entries_array;
 }
 
 sub ToJSON {

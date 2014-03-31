@@ -3,15 +3,17 @@
 use 5.010;
 use strict;
 
-use lib 'lib/common';
-use lib 'lib/frontend';
+use Cwd qw(abs_path);
+use File::Basename qw(dirname);
+
+use lib dirname(abs_path($0)) . '/lib/common';
+use lib dirname(abs_path($0)) . '/lib/frontend';
 
 use Constants;
 use MessagesTextConstants;
 use BKFileHandler;
 use CommonMessages;
 use DatabaseAccess;
-use DBMessages;
 use ActionHandler;
 
 use Dancer;

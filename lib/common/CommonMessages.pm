@@ -88,4 +88,4 @@ sub LogMessage {
     return 1;
 }
 
-???
+1;
