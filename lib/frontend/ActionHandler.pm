@@ -100,11 +100,11 @@ sub SaveData {
     my @db_data = $self->GetAllEntries();
     for (my $i = 0; $i < scalar($self->{_data}); $i++) {
         switch ($self->{_data}->[$i]) {
-            case $db_data[$i] {
+            case ($db_data[$i]) {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDIDEN);
                 last;
             }
-            case '' {
+            case ('') {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDDEL);
                 $self->{_db_conn}->UpdateEntryDatabase('users', {'username' => ''}, {'doornumber' => $i});
                 last;
