@@ -3,10 +3,8 @@
 use 5.010;
 use strict;
 
-my $lib_path = '/opt/BK/';
-
-use lib $lib_path . 'lib/common';
-use lib $lib_path . 'lib/frontend';
+use lib '/opt/BK/lib/common';
+use lib '/opt/BK/lib/frontend';
 
 use Constants;
 use MessagesTextConstants;
