@@ -4,6 +4,8 @@
 
 ## BKFrontend
 
+  --  Version 1  --
+
   -  AnyMQ
   -  libmoosex-traits-perl
   -  libany-moose-perl
@@ -16,3 +18,26 @@
        -  JSON
 
   -  make
+
+  --  Version 2  --
+
+  -  AnyQM
+  -  Web::Hippie
+  -  Dancer::Plugin::WebSocket
+  -  CPAN
+
+  --  Verison 3  --
+
+  -  Net::WebSocket::Server
+  -  Net::WebSocket::Connection
+  -  Protocol::WebSocket
+  -  Digest::SHA1
+
+  -  libdigest-sha-perl
+  -  libdigest-perl
+
+  -  make
+       -  gcc
+       -  libc6-dev
+
+  --  Version 4  --
