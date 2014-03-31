@@ -25,7 +25,7 @@ function SetConnectionType(conn_type_arg) {
     this.conn_type = conn_type_arg;
 }
 
-function ProcessWebSocketReadyState(ws_ready_state) {'
+function ProcessWebSocketReadyState(ws_ready_state) {
     switch(ws_ready_state) {
         case WS_READY_STATE_CONNECTING:
             break;
