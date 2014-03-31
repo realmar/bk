@@ -1,9 +1,9 @@
 function AJAXRequest(ajax_path_arg) {
     this.ajax_path = ajax_path_arg;
 
-    this.AJAXGetData = AJAXGetData();
-    this.AJAXDone = AJAXDone();
-    this.AJAXFail = AJAXFail();
+    this.AJAXGetData = AJAXGetData;
+    this.AJAXDone = AJAXDone;
+    this.AJAXFail = AJAXFail;
 
     function AJAXGetData(action, send_type) {
         $.ajax({

@@ -4,11 +4,11 @@ function ProgrammHandler() {
     this.bk_websocket;
     this.bk_ajax_data;
 
-    this.InitializeProgramm = InitializeProgramm();
-    this.SetConnectionType = SetConnectionType();
-    this.ProcessWebSocketReadyState = ProcessWebSocketReadyState();
-    this.RefreshData = RefreshData();
-    this.SaveData = SaveData();
+    this.InitializeProgramm = InitializeProgramm;
+    this.SetConnectionType = SetConnectionType;
+    this.ProcessWebSocketReadyState = ProcessWebSocketReadyState;
+    this.RefreshData = RefreshData;
+    this.SaveData = SaveData;
 
     function InitializeProgramm() {
         this.bk_websocket = new BKWebSocket(ws_path);

@@ -1,11 +1,11 @@
 function BKWebSocket(ws_path_arg) {
     this.socket;
 
-    this.OpenWebSocket = OpenWebSocket();
-    this.OnOpenWS = OnOpenWS();
-    this.OnMessageWS = OnMessageWS();
-    this.SendMSGWS = SendMSGWS();
-    this.CheckWSReadyState = CheckWSReadyState();
+    this.OpenWebSocket = OpenWebSocket;
+    this.OnOpenWS = OnOpenWS;
+    this.OnMessageWS = OnMessageWS;
+    this.SendMSGWS = SendMSGWS;
+    this.CheckWSReadyState = CheckWSReadyState;
 
     this.OpenWebSocket(ws_path_arg);
     this.socket.onopen = OnOpenWS();
