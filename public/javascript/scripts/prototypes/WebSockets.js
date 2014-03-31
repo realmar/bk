@@ -1,31 +1,38 @@
 function BKWebSocket(ws_path_arg) {
-    var socket;
+    this.socket;
+
+    this.OpenWebSocket = OpenWebSocket();
+    this.OnOpenWS = OnOpenWS();
+    this.OnMessageWS = OnMessageWS();
+    this.SendMSGWS = SendMSGWS();
+    this.CheckWSReadyState = CheckWSReadyState();
+
     this.OpenWebSocket(ws_path_arg);
     this.socket.onopen = OnOpenWS();
 
     programm_handler.ProcessWebSocketReadyState(this.socket.readystate);
 
     this.socket.onmessage = OnMessageWS(e);
-}
 
-function OpenWebSocket(ws_path_arg) {
-    this.socket = new WebSocket(ws_path_arg);
-}
+    function OpenWebSocket(ws_path_arg) {
+        this.socket = new WebSocket(ws_path_arg);
+    }
 
-function OnOpenWS(callback) {
-}
+    function OnOpenWS(callback) {
+    }
 
-function OnMessageWS(e) {
-    this.data = JSON.parse(e.data);
-}
+    function OnMessageWS(e) {
+        this.data = JSON.parse(e.data);
+    }
 
-function SendMSGWS(action, msg_data) {
-    socket.send(JSON.stringify({
-        'action'   : action,
-        'msg_data' : msg_data
-    }));
-}
+    function SendMSGWS(action, msg_data) {
+        socket.send(JSON.stringify({
+            'action'   : action,
+            'msg_data' : msg_data
+        }));
+    }
 
-function CheckWSReadyState() {
-    programm_handler.ProcessWebSocketReadyState(this.socket.readystate);
+    function CheckWSReadyState() {
+        programm_handler.ProcessWebSocketReadyState(this.socket.readystate);
+    }
 }

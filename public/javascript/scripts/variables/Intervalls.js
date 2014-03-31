@@ -1,10 +1,13 @@
 function IntervallsCollector() {
-    var intervalls = {};
-}
+    this.intervalls = {};
 
-function RegisterIntervall(func, diff_time, name) {
-    this.intervalls[name] = setInterval(func, diff_time);
-}
+    this.RegisterIntervall = RegisterIntervall();
+    this.RegisterIntervall = RegisterIntervall();
 
-function RemoveIntervall(name) {
+    function RegisterIntervall(func, diff_time, name) {
+        this.intervalls[name] = setInterval(func, diff_time);
+    }
+
+    function RemoveIntervall(name) {
+    }
 }
