@@ -3,11 +3,10 @@
 use 5.010;
 use strict;
 
-use Cwd qw(abs_path);
-use File::Basename qw(dirname);
+my $lib_path = '/opt/BK/';
 
-use lib dirname(abs_path($0)) . '/lib/common';
-use lib dirname(abs_path($0)) . '/lib/frontend';
+use lib $lib_path . 'lib/common';
+use lib $lib_path . 'lib/frontend';
 
 use Constants;
 use MessagesTextConstants;
