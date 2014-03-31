@@ -1,5 +1,5 @@
 function AJAXRequest(ajax_path_arg) {
-    var this.ajax_path = ajax_path_arg;
+    var ajax_path = ajax_path_arg;
 }
 
 function AJAXGetData(action, send_type) {

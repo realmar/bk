@@ -1,5 +1,5 @@
 function IntervallsCollector() {
-    var this.intervalls = {};
+    var intervalls = {};
 }
 
 function RegisterIntervall(func, diff_time, name) {

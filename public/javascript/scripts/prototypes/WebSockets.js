@@ -1,5 +1,5 @@
 function BKWebSocket(ws_path_arg) {
-    var this.socket;
+    var socket;
     this.OpenWebSocket(ws_path_arg);
     this.socket.onopen = OnOpenWS();
 

@@ -1,8 +1,8 @@
 function ProgrammHandler() {
-    var this.intervalls_collector = new IntervallsCollector();
-    var this.conn_type;
-    var this.bk_websocket;
-    var this.bk_ajax_data;
+    var intervalls_collector = new IntervallsCollector();
+    var conn_type;
+    var bk_websocket;
+    var bk_ajax_data;
 }
 
 function InitializeProgramm() {

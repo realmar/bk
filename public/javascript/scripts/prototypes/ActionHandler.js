@@ -1,5 +1,5 @@
 function ActionHandler(msg_data_arg) {
-    var this.msg_data = msg_data_arg;
+    var msg_data = msg_data_arg;
 }
 
 function ProcessAction() {
