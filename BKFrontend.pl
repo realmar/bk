@@ -19,8 +19,6 @@ use FileHandle;
 use DBI;
 use JSON;
 
-set views => path(dirname(__FILE__), 'wwwcontent/templates');
-
 our $filehandle_log_message = BKFileHandler->new('>>', 'log/message_log');
 our $filehandle_log_error = BKFileHandler->new('>>', 'log/error_log');
 
