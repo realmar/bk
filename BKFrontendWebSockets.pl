@@ -33,8 +33,6 @@ websocket '/echo' => sub {
         $recv_action->FromJSON();
         $recv_action->PrepareWebScoketData();
         $recv_action->ProcessAction();
-##          my $data_to_send = $recv_action->PrepareDataToSend();
-##          $topic->publish($data_to_send);
         $self->send($recv_action->PrepareWebScoketData());
         $recv_action->DESTROY();
     });
