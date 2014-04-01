@@ -9,7 +9,9 @@ function IntervalsCollector() {
     }
 
     function RemoveInterval(name) {
-        window.clearInterval(this.intervals[name]);
-        delete(this.intervals[name]);
+        if(this.intervals[name]) {
+            window.clearInterval(this.intervals[name]);
+            delete(this.intervals[name]);
+        }
     }
 }
