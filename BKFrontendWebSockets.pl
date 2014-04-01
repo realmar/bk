@@ -21,7 +21,7 @@ use JSON;
 our $filehandle_log_message = BKFileHandler->new('>>', 'log/message_log');
 our $filehandle_log_error = BKFileHandler->new('>>', 'log/error_log');
 
-websocket '/echo' => sub {
+websocket '/ws' => sub {
     my $self = shift;
 
     $self->on(message => sub {
