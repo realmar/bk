@@ -1,20 +1,26 @@
 function ProgrammHandler() {
     this.intervals_collector = new IntervalsCollector();
     this.conn_type;
+    this.conn_state;
     this.bk_websocket;
     this.bk_ajax_data;
 
     this.InitializeProgramm = InitializeProgramm;
+    this.ConnectToWebSocket = ConnectToWebSocket;
     this.SetConnectionType = SetConnectionType;
+    this.SetConnectionState = SetConnectionState;
     this.ProcessWebSocketReadyState = ProcessWebSocketReadyState;
     this.RefreshData = RefreshData;
     this.SaveData = SaveData;
 
+    this.ws_tries = 100;
+    this.ws_wait = 2;
+
     function InitializeProgramm() {
-        this.bk_websocket = new BKWebSocket(ws_path);
-        this.bk_websocket.CheckWSReadyState();
+        this.ConnectToWebSocket();
         switch(this.conn_type) {
             case CONN_TYPE_WEBSOCKETS:
+                this.intervals_collector.RegisterInterval(this.bk_websocket.KeepAliveWS(), 80, 'bk_websocket_keep_alive');
                 this.intervals_collector.RegisterInterval(this.bk_websocket.CheckWSReadyState(), 20, 'bk_websocket_check_readystate');
                 this.intervals_collector.RegisterInterval(this.RefreshData(), 2000, 'bk_websocket_refresh');
                 break;
@@ -31,19 +37,32 @@ function ProgrammHandler() {
         this.conn_type = conn_type_arg;
     }
     
+    function SetConnectionState(conn_state_arg) {
+        this.conn_state = conn_state_arg;
+    }
+
+    function ConnectToWebSocket() {
+        this.bk_websocket = new BKWebSocket(ws_path);
+        this.bk_websocket.CheckWSReadyState();
+    }
+
     function ProcessWebSocketReadyState(ws_ready_state) {
         switch(ws_ready_state) {
             case WS_READY_STATE_CONNECTING:
                 this.SetConnectionType(CONN_TYPE_WEBSOCKETS);
+                this.SetConnectionTypeState(WS_READY_STATE_CONNECTING);
                 break;
             case WS_READY_STATE_OPEN:
                 this.SetConnectionType(CONN_TYPE_WEBSOCKETS);
+                this.SetConnectionTypeState(WS_READY_STATE_OPEN);
                 break;
             case WS_READY_STATE_CLOSING:
                 this.SetConnectionType(CONN_TYPE_AJAX);
+                this.SetConnectionTypeState(WS_READY_STATE_CLOSING)
                 break;
             case WS_READY_STATE_CLOSED:
                 this.SetConnectionType(CONN_TYPE_AJAX);
+                this.SetConnectionTypeState(WS_READY_STATE_CLOSED);
                 break;
         }
     }

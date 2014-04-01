@@ -31,7 +31,7 @@ any ['get, post'] => '/:action' => sub {
     $recv_action->FromJSON();
     $recv_action->ProcessAction();
     my $data_to_send = $recv_action->PrepareDataToSend();
-    $recv_action->DESTROY();
+    ##  $recv_action->DESTROY();
     return $data_to_send;
 };
 
