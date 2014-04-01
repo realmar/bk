@@ -12,6 +12,7 @@ function ProgrammHandler() {
 
     function InitializeProgramm() {
         this.bk_websocket = new BKWebSocket(ws_path);
+        this.bk_websocket.CheckWSReadyState();
         switch(this.conn_type) {
             case CONN_TYPE_WEBSOCKETS:
                 this.intervals_collector.RegisterInterval(this.bk_websocket.CheckWSReadyState(), 20, 'bk_websocket_check_readystate');
@@ -26,18 +27,20 @@ function ProgrammHandler() {
     }
     
     function SetConnectionType(conn_type_arg) {
-        RefreshConnectionType(CONN_TYPE_WEBSOCKETS);
+        RefreshConnectionType(conn_type_arg);
         this.conn_type = conn_type_arg;
     }
     
     function ProcessWebSocketReadyState(ws_ready_state) {
         switch(ws_ready_state) {
             case WS_READY_STATE_CONNECTING:
+                this.SetConnectionType(CONN_TYPE_WEBSOCKETS);
                 break;
             case WS_READY_STATE_OPEN:
                 this.SetConnectionType(CONN_TYPE_WEBSOCKETS);
                 break;
             case WS_READY_STATE_CLOSING:
+                this.SetConnectionType(CONN_TYPE_AJAX);
                 break;
             case WS_READY_STATE_CLOSED:
                 this.SetConnectionType(CONN_TYPE_AJAX);
