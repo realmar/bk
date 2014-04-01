@@ -4,6 +4,7 @@ function BKWebSocket(ws_path_arg) {
     this.OpenWebSocket = OpenWebSocket;
     this.OnOpenWS = OnOpenWS;
     this.OnMessageWS = OnMessageWS;
+    this.SendDataWS = SendDataWS;
     this.SendMSGWS = SendMSGWS;
     this.CheckWSReadyState = CheckWSReadyState;
     this.KeepAliveWS = KeepAliveWS;
@@ -26,16 +27,28 @@ function BKWebSocket(ws_path_arg) {
         this.data = JSON.parse(e.data);
     }
 
-    function SendMSGWS(action, msg_data, ws_tries_local) {
-        if(programm_handler.conn_state != WS_READY_STATE_OPEN) {
-            if(ws_tries_local <= programm_handler.ws_tries) {
-                setTimeout(SendMSGWS(action, msg_data, ws_tries_local), programm_handler.ws_wait);
-            }else{
-                programm_handler.InitializeProgramm();
+    function SendDataWS(data) {
+            var ws_tries_local = 0;
+            while(programm_handler.conn_attempt == WS_SEND_WAIT) {
+            }
+            if(programm_handler.conn_attempt == WS_SEND_ABORD) {
                 return 0;
             }
+            while(programm_handler.conn_state != WS_READY_STATE_OPEN) {
+                if(ws_tries_local <= programm_handler.ws_tries) {
+                    sleep(programm_handler.ws_wait);
+                }else{
+                    programm_handler.conn_attempt = WS_SEND_ABORD;
+                    programm_handler.InitializeConnTypeAJAX();
+                    return 0;
+                }
+            }
+            this.socket.send(data);
         }
-        this.socket.send(JSON.stringify({
+    }
+
+    function SendMSGWS(action, msg_data, ws_tries_local) {
+        this.SendDataWS(JSON.stringify({
             'action'   : action,
             'msg_data' : msg_data
         }));
@@ -46,6 +59,6 @@ function BKWebSocket(ws_path_arg) {
     }
 
     function KeepAliveWS() {
-        this.socket.send('keep alive');
+        this.SendDataWS('keep alive');
     }
 }

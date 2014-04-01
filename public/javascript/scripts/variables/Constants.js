@@ -9,6 +9,10 @@ var WS_READY_STATE_OPEN       = 1;
 var WS_READY_STATE_CLOSING    = 2;
 var WS_READY_STATE_CLOSED     = 3;
 
+var WS_SEND_NO_WAIT = 0;
+var WS_SEND_WAIT    = 1;
+var WS_SEND_ABORD   = 2;
+
 var AJAX_SEND_TYPE_GET = 'get';
 var AJAX_SEND_TYPE_POST = 'post';
 

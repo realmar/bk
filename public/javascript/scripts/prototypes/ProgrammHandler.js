@@ -2,10 +2,13 @@ function ProgrammHandler() {
     this.intervals_collector = new IntervalsCollector();
     this.conn_type;
     this.conn_state;
+    this.conn_attempt = WS_SEND_NO_WAIT;
     this.bk_websocket;
     this.bk_ajax_data;
 
     this.InitializeProgramm = InitializeProgramm;
+    this.InitializeConnTypeWebSockets = InitializeConnTypeWebSockets;
+    this.InitializeConnTypeAJAX = InitializeConnTypeAJAX;
     this.ConnectToWebSocket = ConnectToWebSocket;
     this.SetConnectionType = SetConnectionType;
     this.SetConnectionState = SetConnectionState;
@@ -14,24 +17,32 @@ function ProgrammHandler() {
     this.SaveData = SaveData;
 
     this.ws_tries = 100;
-    this.ws_wait = 2;
+    this.ws_wait = 20;
 
     function InitializeProgramm() {
         this.ConnectToWebSocket();
         switch(this.conn_type) {
             case CONN_TYPE_WEBSOCKETS:
-                this.intervals_collector.RegisterInterval(this.bk_websocket.KeepAliveWS(), 80, 'bk_websocket_keep_alive');
-                this.intervals_collector.RegisterInterval(this.bk_websocket.CheckWSReadyState(), 20, 'bk_websocket_check_readystate');
-                this.intervals_collector.RegisterInterval(this.RefreshData(), 2000, 'bk_websocket_refresh');
+                this.InitializeConnTypeWebSockets();
                 break;
             case CONN_TYPE_AJAX:
-                this.bk_ajax_data = new AJAXRequest(ajax_path);
-                this.intervals_collector.RegisterInterval(this.RefreshData(), 2000, 'bk_ajax_data_refresh');
+                this.InitializeConnTypeAJAX();
                 break;
         }
         InitializeButtons();
     }
     
+    function InitializeConnTypeWebSockets() {
+        this.intervals_collector.RegisterInterval(this.bk_websocket.KeepAliveWS(), 80, 'bk_websocket_keep_alive');
+        this.intervals_collector.RegisterInterval(this.bk_websocket.CheckWSReadyState(), 20, 'bk_websocket_check_readystate');
+        this.intervals_collector.RegisterInterval(this.RefreshData(), 2000, 'bk_websocket_refresh');
+    }
+
+    function InitializeConnTypeAJAX() {
+        this.bk_ajax_data = new AJAXRequest(ajax_path);
+        this.intervals_collector.RegisterInterval(this.RefreshData(), 2000, 'bk_ajax_data_refresh');
+    }
+
     function SetConnectionType(conn_type_arg) {
         RefreshConnectionType(conn_type_arg);
         this.conn_type = conn_type_arg;
@@ -50,19 +61,19 @@ function ProgrammHandler() {
         switch(ws_ready_state) {
             case WS_READY_STATE_CONNECTING:
                 this.SetConnectionType(CONN_TYPE_WEBSOCKETS);
-                this.SetConnectionTypeState(WS_READY_STATE_CONNECTING);
+                this.SetConnectionState(WS_READY_STATE_CONNECTING);
                 break;
             case WS_READY_STATE_OPEN:
                 this.SetConnectionType(CONN_TYPE_WEBSOCKETS);
-                this.SetConnectionTypeState(WS_READY_STATE_OPEN);
+                this.SetConnectionState(WS_READY_STATE_OPEN);
                 break;
             case WS_READY_STATE_CLOSING:
                 this.SetConnectionType(CONN_TYPE_AJAX);
-                this.SetConnectionTypeState(WS_READY_STATE_CLOSING)
+                this.SetConnectionState(WS_READY_STATE_CLOSING)
                 break;
             case WS_READY_STATE_CLOSED:
                 this.SetConnectionType(CONN_TYPE_AJAX);
-                this.SetConnectionTypeState(WS_READY_STATE_CLOSED);
+                this.SetConnectionState(WS_READY_STATE_CLOSED);
                 break;
         }
     }

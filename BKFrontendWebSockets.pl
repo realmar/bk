@@ -14,6 +14,7 @@ use DatabaseAccess;
 use ActionHandler;
 
 use Mojolicious::Lite;
+use Mojo::IOLoop;
 use FileHandle;
 use DBI;
 use JSON;
@@ -23,6 +24,8 @@ our $filehandle_log_error = BKFileHandler->new('>>', 'log/error_log');
 
 websocket '/ws' => sub {
     my $self = shift;
+
+    Mojo::IOLoop->stream($self->tx->connection)->timeout(800);
 
     $self->on(message => sub {
         my ($self, $msg_data) = @_;

@@ -5,9 +5,11 @@ function IntervalsCollector() {
     this.RemoveInterval = RemoveInterval;
 
     function RegisterInterval(func, diff_time, name) {
-        this.intervals[name] = setInterval(func(), diff_time);
+        this.intervals[name] = setInterval(func, diff_time);
     }
 
     function RemoveInterval(name) {
+        window.clearInterval(this.intervals[name]);
+        delete(this.intervals[name]);
     }
 }
