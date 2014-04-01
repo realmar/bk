@@ -26,13 +26,13 @@ function BKWebSocket(ws_path_arg) {
     }
 
     function SendMSGWS(action, msg_data) {
-        socket.send(JSON.stringify({
+        this.socket.send(JSON.stringify({
             'action'   : action,
             'msg_data' : msg_data
         }));
     }
 
     function CheckWSReadyState() {
-        programm_handler.ProcessWebSocketReadyState(this.socket.readystate);
+        programm_handler.ProcessWebSocketReadyState(this.socket.readyState);
     }
 }
