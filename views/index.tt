@@ -13,7 +13,7 @@
         <link href="stylesheets/stylesheet.css" rel="stylesheet">
         <script src="javascript/source/jquery.min.js"></script>
         <script src="javascript/scripts/variables/Constants.js"></script>
-        <script src="javascript/scripts/variables/Intervalls.js"></script>
+        <script src="javascript/scripts/variables/Intervals.js"></script>
         <script src="javascript/scripts/variables/VariablesDefinition.js"></script>
         <script src="javascript/scripts/prototypes/ActionHandler.js"></script>
         <script src="javascript/scripts/prototypes/AJAXData.js"></script>

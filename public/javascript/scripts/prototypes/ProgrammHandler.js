@@ -1,5 +1,5 @@
 function ProgrammHandler() {
-    this.intervals_collector = new IntervallsCollector();
+    this.intervals_collector = new IntervalsCollector();
     this.conn_type;
     this.bk_websocket;
     this.bk_ajax_data;
@@ -14,12 +14,12 @@ function ProgrammHandler() {
         this.bk_websocket = new BKWebSocket(ws_path);
         switch(this.conn_type) {
             case CONN_TYPE_WEBSOCKETS:
-                this.intervals_collector.RegisterIntervall(this.bk_websocket.CheckWSReadyState(), 20, 'bk_websocket_check_readystate');
-                this.intervals_collector.RegisterIntervall(this.RefreshData(), 2000, 'bk_websocket_refresh');
+                this.intervals_collector.RegisterInterval(this.bk_websocket.CheckWSReadyState(), 20, 'bk_websocket_check_readystate');
+                this.intervals_collector.RegisterInterval(this.RefreshData(), 2000, 'bk_websocket_refresh');
                 break;
             case CONN_TYPE_AJAX:
                 this.bk_ajax_data = new AJAXRequest(ajax_path);
-                this.intervals_collector.RegisterIntervall(this.RefreshData(), 2000, 'bk_ajax_data_refresh');
+                this.intervals_collector.RegisterInterval(this.RefreshData(), 2000, 'bk_ajax_data_refresh');
                 break;
         }
         InitializeButtons();

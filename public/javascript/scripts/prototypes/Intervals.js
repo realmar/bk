@@ -1,13 +1,13 @@
-function IntervallsCollector() {
+function IntervalsCollector() {
     this.intervals = {};
 
-    this.RegisterIntervall = RegisterIntervall;
-    this.RemoveIntervall = RemoveIntervall;
+    this.RegisterInterval = RegisterInterval;
+    this.RemoveInterval = RemoveInterval;
 
-    function RegisterIntervall(func, diff_time, name) {
+    function RegisterInterval(func, diff_time, name) {
         this.intervals[name] = setInterval(func, diff_time);
     }
 
-    function RemoveIntervall(name) {
+    function RemoveInterval(name) {
     }
 }
