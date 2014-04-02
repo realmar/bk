@@ -41,7 +41,5 @@ while(2) {
     }
 }
 
-$database_connection->DESTROY();
-
 $filehandle_log_message->CloseFileHandle();
 $filehandle_log_error->CloseFileHandle();

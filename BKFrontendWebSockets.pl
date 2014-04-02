@@ -34,7 +34,6 @@ websocket '/ws' => sub {
         $recv_action->PrepareWebScoketData();
         $recv_action->ProcessAction();
         $self->send($recv_action->PrepareWebScoketData());
-        $recv_action->DESTROY();
     });
 };
 

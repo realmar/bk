@@ -26,12 +26,11 @@ any ['get'] => '/' => sub {
     template 'index' => {};
 };
 
-any ['get, post'] => '/:action' => sub {
+any ['get', 'post'] => '/:action' => sub {
     my $recv_action = ActionHandler->new(param('action'), param('msg_data'));
     $recv_action->FromJSON();
     $recv_action->ProcessAction();
     my $data_to_send = $recv_action->PrepareDataToSend();
-    ##  $recv_action->DESTROY();
     return $data_to_send;
 };
 
