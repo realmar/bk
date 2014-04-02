@@ -2,16 +2,16 @@
 
 use 5.010;
 use strict;
+use warnings;
 
-use lib '/opt/BK/lib/common';
-use lib '/opt/BK/lib/frontend';
+use lib '/opt/BK/lib/';
 
-use Constants;
-use MessagesTextConstants;
-use BKFileHandler;
-use CommonMessages;
-use DatabaseAccess;
-use ActionHandler;
+use BK::Common::Constants;
+use BK::Common::MessagesTextConstants;
+use BK::Common::BKFileHandler;
+use BK::Common::CommonMessages;
+use BK::Common::DatabaseAccess;
+use BK::Frontend::ActionHandler;
 
 use Dancer;
 use Template;

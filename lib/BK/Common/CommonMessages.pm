@@ -4,6 +4,8 @@ package CommonMessages;
 
 use Switch;
 
+use BK::Common::DatabaseAccess;
+
 sub newcomsg {
     my $self = shift;
     my $err = {

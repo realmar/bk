@@ -4,6 +4,9 @@ package DatabaseAccess;
 
 use parent -norequire, 'CommonMessages';
 
+use BK::Common::Constants;
+use BK::Common::MessagesTextConstants;
+
 sub new {
     my $class = shift;
     my $self = {

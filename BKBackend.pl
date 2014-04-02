@@ -2,20 +2,20 @@
 
 use 5.010;
 use strict;
+use warnings;
 
 use Cwd qw(abs_path);
 use File::Basename qw(dirname);
 
-use lib dirname(abs_path($0)) . '/lib/common/';
-use lib dirname(abs_path($0)) . '/lib/backend/';
+use lib dirname(abs_path($0)) . '/lib/';
 
-use Constants;
-use MessagesTextConstants;
-use BKFileHandler;
-use CommonMessages;
-use Scanner;
-use DatabaseAccess;
-use Doors;
+use BK::Common::Constants;
+use BK::Common::MessagesTextConstants;
+use BK::Common::BKFileHandler;
+use BK::Common::CommonMessages;
+use BK::Common::DatabaseAccess;
+use BK::Backend::Doors;
+use BK::Backend::Scanner;
 
 use FileHandle;
 use DBI;
