@@ -26,6 +26,7 @@ BEGIN {
         AHREFRESH
         AHSAVEDATA
         AHUNKNOWNACTION
+        DOORCOUNT
     );
 
     ##  --
@@ -85,6 +86,13 @@ BEGIN {
     use constant {
         AHREFRESH  => 'ahrefresh',
         AHSAVEDATA => 'ahsavedata'
+    };
+
+    ##  --
+    ##  other variables
+
+    use constant {
+        DOORCOUNT => 10
     };
 
 }

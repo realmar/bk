@@ -74,7 +74,7 @@ sub CreateLogString {
 
 sub LogError {
     my ($self, $msg_prio, $msg_typ, $msg_string) = @_;
-    if($owner_typ == Constants::DB) {
+    if($self->{_owner_desc} eq Constants::DB) {
         $self->RollbackChanges();
     }
     $self->RaiseErrCount(1);

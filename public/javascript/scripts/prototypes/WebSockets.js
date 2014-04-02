@@ -14,11 +14,11 @@ function BKWebSocket(ws_path_arg) {
 
     function OpenWebSocket(ws_path_arg) {
         this.socket = new WebSocket(ws_path_arg);
-        this.socket.onopen = function (e) { this.OnOpenWS(); };
+        this.socket.onopen = function (e) { this.OnOpenWS(e); };
         this.socket.onmessage = function (e) { this.OnMessageWS(e); };
     }
 
-    function OnOpenWS() {
+    function OnOpenWS(e) {
         console.log('its open men' + this.socket.readyState);
         console.log('its open men' + this.socket.readyState);
         console.log('its open men' + this.socket.readyState);

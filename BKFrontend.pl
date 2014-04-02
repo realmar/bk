@@ -17,7 +17,6 @@ use Dancer;
 use Template;
 use FileHandle;
 use DBI;
-use JSON;
 
 our $filehandle_log_message = BKFileHandler->new('>>', 'log/message_log');
 our $filehandle_log_error = BKFileHandler->new('>>', 'log/error_log');
@@ -28,7 +27,6 @@ any ['get'] => '/' => sub {
 
 any ['get', 'post'] => '/:action' => sub {
     my $recv_action = ActionHandler->new(param('action'), param('msg_data'));
-    $recv_action->FromJSON();
     $recv_action->ProcessAction();
     my $data_to_send = $recv_action->PrepareDataToSend();
     return $data_to_send;

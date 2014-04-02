@@ -5,6 +5,7 @@ package ActionHandler;
 use parent -norequire, 'CommonMessages';
 
 use Switch;
+use JSON;
 
 sub new {
     my $class = shift;
@@ -23,7 +24,7 @@ sub new {
 sub DESTROY {
     my $self = shift;
 
-    $self->{_db_conn}->DisconnectFromDatabase();
+    $self->{_db_conn}->DisconnectFromDatabase() if defined $self->{_db_conn};
     $self->{handle}->close() if $self->{handle};
 }
 
@@ -77,6 +78,7 @@ sub ProcessAction {
         }
         case Constants::AHSAVEDATA {
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, $self->{_data});
+            $self->FromJSON();
             $self->SaveData();
             last;
         }
@@ -91,7 +93,7 @@ sub ProcessAction {
 
 sub RefreshData {
     my $self = shift;
-    $self->{_data} = $self->GetAllEntries();
+    $self->GetAllEntries();
     return 1;
 }
 
@@ -104,7 +106,7 @@ sub SaveData {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDIDEN);
                 last;
             }
-            case ('') {
+            case ('' || undef) {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDDEL);
                 $self->{_db_conn}->UpdateEntryDatabase('users', {'username' => ''}, {'doornumber' => $i});
                 last;
@@ -122,17 +124,18 @@ sub SaveData {
 
 sub GetAllEntries {
     my $self = shift;
-    my %db_entries_hash = {};
-    my @db_entries_array = [];
+    my %db_entries_hash;
+    my @db_entries_array;
     my $db_entries = $self->{_db_conn}->ReadEntryDatabase('users', {});
     while (my $db_entries_row = $db_entries->fetchrow_hashref) {
         $db_entries_hash{$db_entries_row->{doornumber}} = $db_entries_row->{username};
     }
-    foreach my $entry_pos (sort(keys($db_entries_hash))) {
-        push(@db_entries_array, $db_entries_hash{$entry_pos});
+    foreach my $entry_pos (sort(keys(%db_entries_hash))) {
+        $db_entries_array[$entry_pos] = $db_entries_hash{$entry_pos};
     }
-
-    return @db_entries_array;
+    $db_entries_array[Constants::DOORCOUNT] = undef if undef($db_entries_array[Constants::DOORCOUNT]);
+    $self->{_data} = \@db_entries_array;
+    return $self->{_data};
 }
 
 sub ToJSON {
@@ -172,7 +175,7 @@ sub PrepareDataToSend {
     my $self = shift;
     $self->{_data} = {
         'msg_data' => $self->{_data},
-        'all_errors' => $self->CollectAllError()
+        'all_errors' => $self->CollectAllErrors()
     };
     $self->ToJSON();
     return $self->{_data};
