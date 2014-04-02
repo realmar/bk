@@ -8,21 +8,25 @@ function BKWebSocket(ws_path_arg) {
     this.SendMSGWS = SendMSGWS;
     this.KeepAliveWS = KeepAliveWS;
 
-    this.OpenWebSocket(ws_path_arg);
+    if(ws_path_arg) {
+        this.OpenWebSocket(ws_path_arg);
+    }
 
     function OpenWebSocket(ws_path_arg) {
         this.socket = new WebSocket(ws_path_arg);
-        this.socket.addEventListener("open", this.OnOpenWS())
-        this.socket.addEventListener("message", this.OnMessageWS(e))
+        this.socket.onopen = function (e) { this.OnOpenWS(); };
+        this.socket.onmessage = function (e) { this.OnMessageWS(e); };
     }
 
     function OnOpenWS() {
-        console.log('its open men');
-        console.log('its open men');
-        console.log('its open men');
-        console.log('its open men');
-        programm_handler.InitializeConnTypeWebSockets();
-        programm_handler.SetConnectionType(CONN_TYPE_WEBSOCKETS);
+        console.log('its open men' + this.socket.readyState);
+        console.log('its open men' + this.socket.readyState);
+        console.log('its open men' + this.socket.readyState);
+        console.log('its open men' + this.socket.readyState);
+        if(this.socket.readyState == this.socket.OPEN) {
+            programm_handler.InitializeConnTypeWebSockets();
+            programm_handler.SetConnectionType(CONN_TYPE_WEBSOCKETS);
+        }
     }
 
     function OnMessageWS(e) {

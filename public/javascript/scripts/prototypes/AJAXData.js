@@ -10,10 +10,8 @@ function AJAXRequest(ajax_path_arg) {
             url: this.ajax_path + "/" + action,
             type: send_type
         })
-        .done(function (msg_data) {
-            AJAXDone(msg_data);
-        })
-        .fail(AJAXFail());
+        .done(function (msg_data) { AJAXDone(msg_data); })
+        .fail(function (e) { AJAXFail(); });
     }
     
     function AJAXDone(msg_data) {

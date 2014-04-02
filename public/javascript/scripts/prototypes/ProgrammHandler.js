@@ -19,7 +19,7 @@ function ProgrammHandler() {
 
     function InitializeProgramm() {
         this.ConnectToWebSocket();
-        setTimeout(ProcessWebSocketReadyState(), 200);
+        setTimeout(this.ProcessWebSocketReadyState(), 200);
         if(this.conn_type == CONN_TYPE_AJAX) {
             this.InitializeConnTypeAJAX();
         }
@@ -27,8 +27,8 @@ function ProgrammHandler() {
     }
     
     function InitializeConnTypeWebSockets() {
-        //  this.intervals_collector.RemoveInterval('bk_ajax_data_refresh');
-        //  this.bk_ajax_data = null;
+        this.intervals_collector.RemoveInterval('bk_ajax_data_refresh');
+        this.bk_ajax_data = null;
         this.intervals_collector.RegisterInterval(this.bk_websocket.KeepAliveWS(), 80, 'bk_websocket_keep_alive');
         this.intervals_collector.RegisterInterval(this.RefreshData(), 2000, 'bk_websocket_refresh');
     }
@@ -49,7 +49,7 @@ function ProgrammHandler() {
     }
 
     function ProcessWebSocketReadyState() {
-        if(this.bk_websocket.socket.readState != this.bk_websocket.socket.OPEN) {
+        if(this.bk_websocket.socket.readState != this.bk_websocket.socket.OPEN || !this.bk_websocket || !this.bk_websocket.socket) {
             this.SetConnectionType(CONN_TYPE_AJAX);
         }else{
             this.SetConnectionType(CONN_TYPE_WEBSOCKETS);
