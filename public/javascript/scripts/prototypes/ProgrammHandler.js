@@ -14,7 +14,7 @@ function ProgrammHandler() {
     this.RefreshData = RefreshData;
     this.SaveData = SaveData;
 
-    this.ws_tries = 100;
+    this.ws_tries = 10;
     this.ws_wait = 20;
 
     function InitializeProgramm() {
@@ -27,8 +27,8 @@ function ProgrammHandler() {
     }
     
     function InitializeConnTypeWebSockets() {
-        this.intervals_collector.RemoveInterval('bk_ajax_data_refresh');
-        this.bk_ajax_data = null;
+        //  this.intervals_collector.RemoveInterval('bk_ajax_data_refresh');
+        //  this.bk_ajax_data = null;
         this.intervals_collector.RegisterInterval(this.bk_websocket.KeepAliveWS(), 80, 'bk_websocket_keep_alive');
         this.intervals_collector.RegisterInterval(this.RefreshData(), 2000, 'bk_websocket_refresh');
     }

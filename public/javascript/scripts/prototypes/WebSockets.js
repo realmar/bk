@@ -9,14 +9,14 @@ function BKWebSocket(ws_path_arg) {
     this.KeepAliveWS = KeepAliveWS;
 
     this.OpenWebSocket(ws_path_arg);
-    this.socket.addEventListener("open", this.OnOpenWS(e))
-    this.socket.addEventListener("message", this.OnMessageWS(e))
 
     function OpenWebSocket(ws_path_arg) {
         this.socket = new WebSocket(ws_path_arg);
+        this.socket.addEventListener("open", this.OnOpenWS())
+        this.socket.addEventListener("message", this.OnMessageWS(e))
     }
 
-    function OnOpenWS(e) {
+    function OnOpenWS() {
         console.log('its open men');
         console.log('its open men');
         console.log('its open men');
@@ -26,7 +26,8 @@ function BKWebSocket(ws_path_arg) {
     }
 
     function OnMessageWS(e) {
-        this.data = JSON.parse(e.data);
+        var recv_action = new ActionHandler(JSON.parse(e.data));
+        recv_action.ProcessAction();
     }
 
     function SendDataWS(data) {
