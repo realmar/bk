@@ -13,11 +13,20 @@ main {
     margin-left: auto;
 }
 
+div#msg_user_client {
+    background-color: rgb(224, 235, 255);
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
 div#msg_error {
-    font-weight: bold;
     color: red;
     background-color: black;
-    padding: 0.1em;
+}
+
+div#desc_legend_container {
+    vertical-align: top;
+    margin-left: 8em;
 }
 
 div.display_inline,p.display_inline,img.display_inline,h1.display_inline {
@@ -48,10 +57,30 @@ div.button_standard:active {
 
 div.bookbox {
     margin: 8px;
+    padding: 8px;
 }
 
 div.display_none,p.display_none {
     display: none;
+}
+
+div.msg {
+    font-weight: bold;
+    padding: 0.1em;
+}
+
+div.unchanged {
+    background-color: rgb(196, 212, 255);   
+}
+
+div.changed {
+    background-color: rgb(255, 238, 212);
+}
+
+div.desc_legend {
+    width: 10px;
+    height: 10px;
+    margin-right: 1em;
 }
 
 img.loading_image {
