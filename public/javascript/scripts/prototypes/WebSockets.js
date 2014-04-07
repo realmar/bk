@@ -14,16 +14,16 @@ function BKWebSocket(ws_path_arg) {
 
     function OpenWebSocket(ws_path_arg) {
         this.socket = new WebSocket(ws_path_arg);
-        this.socket.onopen = function (e) { this.OnOpenWS(e); };
-        this.socket.onmessage = function (e) { this.OnMessageWS(e); };
+        this.socket.addEventListener("open", this.OnOpenWS);
+        this.socket.addEventListener("message", this.OnMessageWS);
     }
 
     function OnOpenWS(e) {
-        console.log('its open men' + this.socket.readyState);
-        console.log('its open men' + this.socket.readyState);
-        console.log('its open men' + this.socket.readyState);
-        console.log('its open men' + this.socket.readyState);
-        if(this.socket.readyState == this.socket.OPEN) {
+        console.log('its open men' + this.readyState);
+        console.log('its open men' + this.readyState);
+        console.log('its open men' + this.readyState);
+        console.log('its open men' + this.readyState);
+        if(this.readyState == this.OPEN) {
             programm_handler.InitializeConnTypeWebSockets();
             programm_handler.SetConnectionType(CONN_TYPE_WEBSOCKETS);
         }

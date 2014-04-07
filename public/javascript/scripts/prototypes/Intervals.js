@@ -5,7 +5,13 @@ function IntervalsCollector() {
     this.RemoveInterval = RemoveInterval;
 
     function RegisterInterval(func, diff_time, name) {
-        this.intervals[name] = setInterval(function (func) { func(); }, diff_time);
+        this.intervals[name] = setInterval(function () {
+            if(func.length <= 1) {
+                eval(this[func[0]]());
+            }else if(func.length >= 2) {
+                eval(this[func[0]][func[1]]());
+            }
+        }.bind(programm_handler), diff_time);
     }
 
     function RemoveInterval(name) {
