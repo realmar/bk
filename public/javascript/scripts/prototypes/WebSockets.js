@@ -19,10 +19,6 @@ function BKWebSocket(ws_path_arg) {
     }
 
     function OnOpenWS(e) {
-        console.log('its open men' + this.readyState);
-        console.log('its open men' + this.readyState);
-        console.log('its open men' + this.readyState);
-        console.log('its open men' + this.readyState);
         if(this.readyState == this.OPEN) {
             programm_handler.InitializeConnTypeWebSockets();
             programm_handler.SetConnectionType(CONN_TYPE_WEBSOCKETS);
@@ -61,7 +57,7 @@ function BKWebSocket(ws_path_arg) {
         this.socket.send(data);
     }
 
-    function SendMSGWS(action, msg_data, ws_tries_local) {
+    function SendMSGWS(action, msg_data) {
         this.SendDataWS(JSON.stringify({
             'action'   : action,
             'msg_data' : msg_data
@@ -69,6 +65,6 @@ function BKWebSocket(ws_path_arg) {
     }
 
     function KeepAliveWS() {
-        this.SendDataWS('keep alive');
+        this.SendMSGWS(ACTION_KEEP_ALIVE, null);
     }
 }

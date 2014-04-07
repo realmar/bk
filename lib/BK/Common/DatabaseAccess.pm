@@ -10,7 +10,7 @@ use BK::Common::MessagesTextConstants;
 sub new {
     my $class = shift;
     my $self = {
-        _owner_desc => 'dbaccess',
+        _owner_desc => Constants::DB,
         _db => undef,
         _msg => undef
     };
@@ -52,7 +52,7 @@ sub CreateEntryDatabase {
 
     my $database_query = $self->{_db}->prepare($sql_query);
     $database_query->execute()
-        or $self->SUPER::ThrowMessage(Constants::ERROR, Cosntants::DBERRCREATE, MessagesTextConstants::DBERRCREATEMSG . $DBI::Errstr);
+        or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCREATE, MessagesTextConstants::DBERRCREATEMSG . $DBI::Errstr);
 
     return 1;
 }
@@ -64,7 +64,7 @@ sub ReadEntryDatabase {
 
     my $sql_query = 'SELECT * FROM ' . $table;
 
-    foreach $name_values_key (keys(%name_values)) {
+    foreach my $name_values_key (keys(%name_values)) {
         $sql_query .= ' WHERE ' . $name_values_key . '="' . $name_values{$name_values_key} . '"';
     }
 

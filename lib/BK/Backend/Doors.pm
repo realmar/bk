@@ -4,10 +4,12 @@ package Doors;
 
 use parent -norequire, 'CommonMessages';
 
+use BK::Common::Constants;
+
 sub new {
     $class = shift;
     $self = {
-        _owner_desc => 'doors',
+        _owner_desc => Constants::DOORS,
         _doors => shift,
         _msg => undef
     };

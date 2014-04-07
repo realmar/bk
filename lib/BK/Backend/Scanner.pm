@@ -4,10 +4,12 @@ package Scanner;
 
 use parent -norequire, 'CommonMessages';
 
+use BK::Common::Constants;
+
 sub new {
     my $class = shift;
     my $self = {
-        _owner_desc => 'scanner',
+        _owner_desc => Constants::SCANNER,
         _input => undef,
         _msg => undef
     };

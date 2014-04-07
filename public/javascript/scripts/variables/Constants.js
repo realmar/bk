@@ -3,6 +3,7 @@ var CONN_TYPE_WEBSOCKETS = 'conn_type_websockets';
 
 var ACTION_REFRESH  = 'ahrefresh';
 var ACTION_SAVEDATA = 'ahsavedata';
+var ACTION_KEEP_ALIVE = 'ahkeepalive';
 
 var WS_SEND_NO_WAIT = 0;
 var WS_SEND_WAIT    = 1;

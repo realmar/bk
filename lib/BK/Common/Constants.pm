@@ -25,6 +25,7 @@ BEGIN {
         ACTIONHANDLER
         AHREFRESH
         AHSAVEDATA
+        AHKEEPALIVE
         AHUNKNOWNACTION
         DOORCOUNT
     );
@@ -74,6 +75,7 @@ BEGIN {
     ##  owner typ
 
     use constant {
+        BKFILEHANDLER => 'bkfilehandler',
         DB            => 'db',
         DOORS         => 'doors',
         SCANNER       => 'scanner',
@@ -84,8 +86,9 @@ BEGIN {
     ##  action handler types
 
     use constant {
-        AHREFRESH  => 'ahrefresh',
-        AHSAVEDATA => 'ahsavedata'
+        AHREFRESH   => 'ahrefresh',
+        AHSAVEDATA  => 'ahsavedata',
+        AHKEEPALIVE => 'ahkeepalive'
     };
 
     ##  --

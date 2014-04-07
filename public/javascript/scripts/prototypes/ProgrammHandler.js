@@ -59,7 +59,7 @@ function ProgrammHandler() {
     function RefreshData() {
         switch (this.conn_type) {
             case CONN_TYPE_WEBSOCKETS:
-                this.bk_websocket.SendMSGWS(ACTION_REFRESH);
+                this.bk_websocket.SendMSGWS(ACTION_REFRESH, null);
                 break;
             case CONN_TYPE_AJAX:
                 this.bk_ajax_data.AJAXGetData(ACTION_REFRESH, AJAX_SEND_TYPE_GET);

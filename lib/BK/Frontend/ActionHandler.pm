@@ -13,7 +13,7 @@ use JSON;
 sub new {
     my $class = shift;
     my $self = {
-        _owner_desc => 'actionhandler',
+        _owner_desc => Constants::ACTIONHANDLER,
         _action     => shift,
         _data       => shift,
         _db_conn    => undef,
@@ -84,6 +84,9 @@ sub ProcessAction {
             $self->FromJSON();
             $self->SaveData();
             last;
+        }
+        case Constants::AHKEEPALIVE {
+            $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHKEEPALIVE, $self->{_action});
         }
         else {
             $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHUNKNOWNACTION, $self->{_action});

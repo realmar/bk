@@ -4,11 +4,12 @@ package BKFileHandler;
 
 use parent -norequire, 'CommonMessages';
 
-use Data::Dumper;
+use BK::Common::Constants;
 
 sub new {
     my $class = shift;
     my $self = {
+        _owner_desc => Constants::BKFILEHANDLER,
         _filehandle => undef,
         _msg => undef
     };
