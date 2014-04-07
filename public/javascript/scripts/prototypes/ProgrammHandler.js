@@ -29,14 +29,14 @@ function ProgrammHandler() {
     function InitializeConnTypeWebSockets() {
         this.intervals_collector.RemoveInterval('bk_ajax_data_refresh');
         this.bk_ajax_data = null;
-        this.intervals_collector.RegisterInterval(this.bk_websocket.KeepAliveWS(), 80, 'bk_websocket_keep_alive');
-        this.intervals_collector.RegisterInterval(this.RefreshData(), 2000, 'bk_websocket_refresh');
+        this.intervals_collector.RegisterInterval(this.bk_websocket.KeepAliveWS, 80, 'bk_websocket_keep_alive');
+        this.intervals_collector.RegisterInterval(this.RefreshData, 2000, 'bk_websocket_refresh');
     }
 
     function InitializeConnTypeAJAX() {
         this.bk_ajax_data = new AJAXRequest(ajax_path);
         this.SetConnectionType(CONN_TYPE_AJAX);
-        this.intervals_collector.RegisterInterval(this.RefreshData(), 2000, 'bk_ajax_data_refresh');
+        this.intervals_collector.RegisterInterval(this.RefreshData, 2000, 'bk_ajax_data_refresh');
     }
 
     function SetConnectionType(conn_type_arg) {

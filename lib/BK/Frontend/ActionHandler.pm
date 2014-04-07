@@ -162,16 +162,16 @@ sub PrepareWebSocketData {
 
 sub CollectAllErrors {
     my $self = shift;
-    return [
-        {
-            'error_type' => $self->SUPER::GetErrorType(),
-            'error_msg' => $self->SUPER::GetErrorMSG()
-        },
-        {
-            'error_type' => $self->{_db_conn}->SUPER::GetErrorType(),
-            'error_msg' => $self->{_db_conn}->SUPER::GetErrorMSG()
-        }
-    ];
+    my $all_errors = [];
+    $all_errors[0] = {
+        'error_type' => $self->SUPER::GetErrorType(),
+        'error_msg' => $self->SUPER::GetErrorMSG()
+    } if defined($self->SUPER::GetErrorType() && $self->SUPER::GetErrorMSG());
+    $all_errors[1] = {
+        'error_type' => $self->{_db_conn}->SUPER::GetErrorType(),
+        'error_msg' => $self->{_db_conn}->SUPER::GetErrorMSG()
+    } if defined($self->{_db_conn}->SUPER::GetErrorType() && $self->{_db_Conn}->SUPER::GetErrorMSG());
+    return $all_errors;
 }
 
 sub PrepareDataToSend {
