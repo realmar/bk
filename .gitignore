@@ -10,3 +10,7 @@
 # Database Files
 
 *.db
+
+# Log Files
+
+log/*
