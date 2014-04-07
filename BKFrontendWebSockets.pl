@@ -33,7 +33,7 @@ websocket '/ws' => sub {
         $recv_action->FromJSON();
         $recv_action->PrepareWebSocketData();
         $recv_action->ProcessAction();
-        $self->send($recv_action->PrepareDataToSend());
+        $self->send($recv_action->PrepareDataToSend()) if !defined($recv_action->GetProcAC());
     });
 };
 

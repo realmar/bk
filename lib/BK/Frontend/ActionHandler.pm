@@ -17,6 +17,7 @@ sub new {
         _action     => shift,
         _data       => shift,
         _db_conn    => undef,
+        _proc_ac    => undef,
         _msg        => undef
     };
     bless $self, $class;
@@ -70,6 +71,11 @@ sub GetAHData {
     return $self->{_data};
 }
 
+sub GetProcAC {
+    my $self = shift;
+    return $self->{_proc_ac};
+}
+
 sub ProcessAction {
     my $self = shift;
     $self->{_db_conn} = DatabaseAccess->new('SQLite', 'database/BKDatabase.db');
@@ -87,9 +93,12 @@ sub ProcessAction {
         }
         case Constants::AHKEEPALIVE {
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHKEEPALIVE, $self->{_action});
+            $self->{_proc_ac} = 2;
+            last;
         }
         else {
             $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHUNKNOWNACTION, $self->{_action});
+            $self->{_proc_ac} = 2;
             last;
         }
     }
