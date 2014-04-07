@@ -6,3 +6,7 @@
 # Templatescache and Cache Files
 
 *.file.*.tpl.php
+
+# Database Files
+
+*.db
