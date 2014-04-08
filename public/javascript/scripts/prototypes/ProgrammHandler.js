@@ -13,9 +13,12 @@ function ProgrammHandler() {
     this.ProcessWebSocketReadyState = ProcessWebSocketReadyState;
     this.RefreshData = RefreshData;
     this.SaveData = SaveData;
+    this.CheckBookboxStates = CheckBookboxStates;
 
     this.ws_tries = 10;
     this.ws_wait = 20;
+
+    this.last_data_state = [];
 
     function InitializeProgramm() {
         this.ConnectToWebSocket();
@@ -23,7 +26,9 @@ function ProgrammHandler() {
         if(this.conn_type == CONN_TYPE_AJAX) {
             this.InitializeConnTypeAJAX();
         }
+        InitializeBookboxStates();
         InitializeButtons();
+        this.intervals_collector.RegisterInterval(['CheckBookboxStates'], 20, 'input_check');
     }
     
     function InitializeConnTypeWebSockets() {
@@ -56,7 +61,11 @@ function ProgrammHandler() {
         }
     }
     
-    function RefreshData() {
+    function RefreshData(force_refresh) {
+        if(force_refresh) {
+            this.last_data_state = [];
+            $("div.bookbox > input").val("");
+        }
         switch (this.conn_type) {
             case CONN_TYPE_WEBSOCKETS:
                 this.bk_websocket.SendMSGWS(ACTION_REFRESH, null);
@@ -65,6 +74,7 @@ function ProgrammHandler() {
                 this.bk_ajax_data.AJAXGetData(ACTION_REFRESH, AJAX_SEND_TYPE_GET);
                 break;
         }
+        CheckBookboxStates();
     }
     
     function SaveData() {
@@ -73,6 +83,23 @@ function ProgrammHandler() {
                 break;
             case CONN_TYPE_AJAX:
                 break;
+        }
+    }
+}
+
+function CheckBookboxStates() {
+    for(var i = 0; i < programm_handler.last_data_state.length; i++) {
+        var current_bookbox = $("div#bookbox" + i);
+        if(($("div#bookbox" + i + "> input").val() != programm_handler.last_data_state[i]) && !($("div#bookbox" + i + "> input").val() == "" && programm_handler.last_data_state[i] == null)) {
+            if(current_bookbox.hasClass("unchanged")) {
+                current_bookbox.removeClass("unchanged");
+            }
+            current_bookbox.addClass("changed");
+        }else{
+            if(current_bookbox.hasClass("changed")) {
+                current_bookbox.removeClass("changed");
+            }
+            current_bookbox.addClass("unchanged");
         }
     }
 }
