@@ -123,7 +123,7 @@ sub SaveData {
             }
             case ('' || undef) {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDDEL);
-                $self->{_db_conn}->UpdateEntryDatabase('users', {'username' => ''}, {'doornumber' => $i});
+                $self->{_db_conn}->UpdateEntryDatabase('users', {'username' => 'null'}, {'doornumber' => $i});
                 last;
             }
             else {
