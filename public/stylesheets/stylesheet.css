@@ -14,7 +14,7 @@ main {
 }
 
 div#msg_user_client {
-    background-color: rgb(224, 235, 255);
+    background-color: rgb(178, 208, 255);
     margin-bottom: 1em;
     margin-top: 1em;
 }
@@ -97,4 +97,8 @@ p.bookbox_text {
 
 p.connection_type {
     font-size: 0.6em;
+}
+
+span.mark_orange {
+    color: rgb(255, 238, 212);
 }

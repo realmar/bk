@@ -110,4 +110,13 @@ function CheckBookboxStates() {
             current_bookbox.addClass("unchanged");
         }
     }
+    if($(".changed.bookbox").length > 0) {
+        if($("div#msg_user_client > p").length <= 0) {
+            $("div#msg_user_client").append(apply_changes_tpl);
+            $("div#msg_user_client").removeClass("display_none");
+        }
+    }else{
+        $("div#msg_user_client").addClass("display_none");
+        $("div#msg_user_client > p").remove();
+    }
 }
