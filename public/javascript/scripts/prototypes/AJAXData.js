@@ -17,6 +17,7 @@ function AJAXRequest(ajax_path_arg) {
     function AJAXDone(msg_data) {
         var recv_action = new ActionHandler(JSON.parse(msg_data));
         recv_action.ProcessAction();
+        recv_action = null;
     }
     
     function AJAXFail() {

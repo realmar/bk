@@ -4,6 +4,9 @@ function BKWebSocket(ws_path_arg) {
     this.OpenWebSocket = OpenWebSocket;
     this.OnOpenWS = OnOpenWS;
     this.OnMessageWS = OnMessageWS;
+    this.OnCloseWS = OnCloseWS;
+    this.OnErrorWS = OnErrorWS;
+    this.CloseWebSocket = CloseWebSocket;
     this.SendDataWS = SendDataWS;
     this.SendMSGWS = SendMSGWS;
     this.KeepAliveWS = KeepAliveWS;
@@ -13,9 +16,13 @@ function BKWebSocket(ws_path_arg) {
     }
 
     function OpenWebSocket(ws_path_arg) {
+        this.socket = null;
         this.socket = new WebSocket(ws_path_arg);
+        programm_handler.conn_attempt == WS_SEND_NO_WAIT;
         this.socket.addEventListener("open", this.OnOpenWS);
         this.socket.addEventListener("message", this.OnMessageWS);
+        this.socket.addEventListener("close", this.OnCloseWS);
+        this.socket.addEventListener("error", this,OnErrorWS);
     }
 
     function OnOpenWS(e) {
@@ -28,6 +35,20 @@ function BKWebSocket(ws_path_arg) {
     function OnMessageWS(e) {
         var recv_action = new ActionHandler(JSON.parse(e.data));
         recv_action.ProcessAction();
+        recv_action = null;
+    }
+
+    function OnCloseWS(e) {
+        CloseWebSocket();
+    }
+
+    function OnErrorWS(e) {
+        CloseWebSocket();
+    }
+
+    function CloseWebSocket() {
+        programm_handler.conn_attempt == WS_SEND_ABORD;
+        programm_handler.InitializeConnTypeAJAX();
     }
 
     function SendDataWS(data) {
@@ -37,24 +58,32 @@ function BKWebSocket(ws_path_arg) {
         if(programm_handler.conn_attempt == WS_SEND_ABORD) {
             return 0;
         }
+        if(!this.socket) {
+            programm_handler.conn_attempt = WS_SEND_ABORD;
+            return 0;
+        }
         if(this.socket.readyState != this.socket.OPEN) {
             programm_handler.conn_attempt = WS_SEND_WAIT;
             setTimeout(WaitForWebSocket(), programm_handler.ws_wait);
             function WaitForWebSocket() {
+                if(!this.socket) {
+                    programm_handler.conn_attempt = WS_SEND_ABORD;
+                    return 0;
+                }
                 if(this.socket.readyState != this.socket.OPEN) {
                     if(ws_tries_local <= programm_handler.ws_tries) {
                         ws_tries_local++;
                         setTimeout(WaitForWebSocket(), programm_handler.ws_wait);
                     }else{
-                        programm_handler.conn_attempt = WS_SEND_ABORD;
-                        programm_handler.InitializeConnTypeAJAX();
                         return 0;
                     }
                 }
             }
         }
-        programm_handler.conn_attempt = WS_SEND_NO_WAIT;
-        this.socket.send(data);
+        if(programm_handler.conn_attempt != WS_SEND_ABORD) {
+            programm_handler.conn_attempt = WS_SEND_NO_WAIT;
+            !this.socket.send(data);
+        }
     }
 
     function SendMSGWS(action, msg_data) {

@@ -32,6 +32,7 @@ function ProgrammHandler() {
     }
     
     function InitializeConnTypeWebSockets() {
+        this.intervals_collector.RemoveInterval('bk_websocket_try_connect');
         this.intervals_collector.RemoveInterval('bk_ajax_data_refresh');
         this.bk_ajax_data = null;
         this.intervals_collector.RegisterInterval(['bk_websocket', 'KeepAliveWS'], 80, 'bk_websocket_keep_alive');
@@ -39,9 +40,15 @@ function ProgrammHandler() {
     }
 
     function InitializeConnTypeAJAX() {
-        this.bk_ajax_data = new AJAXRequest(ajax_path);
-        this.SetConnectionType(CONN_TYPE_AJAX);
-        this.intervals_collector.RegisterInterval(['RefreshData'], 2000, 'bk_ajax_data_refresh');
+        if(programm_handler.conn_type != CONN_TYPE_AJAX) {
+            this.intervals_collector.RemoveInterval('bk_websocket_keep_alive');
+            this.intervals_collector.RemoveInterval('bk_websocket_refresh');
+            this.bk_ajax_data = null;
+            this.bk_ajax_data = new AJAXRequest(ajax_path);
+            this.intervals_collector.RegisterInterval(['RefreshData'], 2000, 'bk_ajax_data_refresh');
+            this.intervals_collector.RegisterInterval(['ConnectToWebSocket'], 2800, 'bk_websocket_try_connect');
+            this.SetConnectionType(CONN_TYPE_AJAX);
+        }
     }
 
     function SetConnectionType(conn_type_arg) {
@@ -50,6 +57,7 @@ function ProgrammHandler() {
     }
     
     function ConnectToWebSocket() {
+        this.bk_websocket = null;
         this.bk_websocket = new BKWebSocket(ws_path);
     }
 
