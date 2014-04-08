@@ -4,6 +4,7 @@ function ActionHandler(msg_data_arg) {
     this.ProcessAction = ProcessAction;
 
     function ProcessAction() {
+        $("." + AH_ERROR).remove();
         if(this.msg_data["all_errors"].length <= 0) {
             programm_handler.CheckBookboxStates();
             for(var i = 0; i < this.msg_data["msg_data"].length; i++) {
@@ -15,7 +16,7 @@ function ActionHandler(msg_data_arg) {
             programm_handler.last_data_state = this.msg_data["msg_data"];
         }else{
             for(var err_data in this.msg_data["all_errors"]) {
-                $("div#msg_errors").append("<p class=" + MSG_ERRORS + ">ERROR: err_type: " + err_data["error_type"] + " err_string: " + err_data["error_msg"] + "</p>");
+                AddMessageData($("div#msg_errors"), "<p class=" + MSG_ERRORS + " " + AH_ERROR + "ERROR: err_type: " + err_data["err_type"] + " err_string: " + err_data["error_msg"] + "</p>");
             }
         }
     }

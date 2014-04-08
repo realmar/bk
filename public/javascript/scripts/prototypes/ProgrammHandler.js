@@ -10,10 +10,10 @@ function ProgrammHandler() {
     this.InitializeConnTypeAJAX = InitializeConnTypeAJAX;
     this.ConnectToWebSocket = ConnectToWebSocket;
     this.SetConnectionType = SetConnectionType;
-    this.ProcessWebSocketReadyState = ProcessWebSocketReadyState;
     this.RefreshData = RefreshData;
     this.SaveData = SaveData;
     this.CheckBookboxStates = CheckBookboxStates;
+    this.CheckMSGDataObjects = CheckMSGDataObjects;
 
     this.ws_tries = 10;
     this.ws_wait = 20;
@@ -22,13 +22,13 @@ function ProgrammHandler() {
 
     function InitializeProgramm() {
         this.ConnectToWebSocket();
-        setTimeout(this.ProcessWebSocketReadyState(), 200);
-        if(this.conn_type == CONN_TYPE_AJAX) {
+        if(this.conn_type != CONN_TYPE_WEBSOCKETS) {
             this.InitializeConnTypeAJAX();
         }
         InitializeBookboxStates();
         InitializeButtons();
         this.intervals_collector.RegisterInterval(['CheckBookboxStates'], 20, 'input_check');
+        this.intervals_collector.RegisterInterval(['CheckMSGDataObjects'], 20, 'msg_data_objects_check');
     }
     
     function InitializeConnTypeWebSockets() {
@@ -61,14 +61,6 @@ function ProgrammHandler() {
         this.bk_websocket = new BKWebSocket(ws_path);
     }
 
-    function ProcessWebSocketReadyState() {
-        if(this.bk_websocket.socket.readState != this.bk_websocket.socket.OPEN || !this.bk_websocket || !this.bk_websocket.socket) {
-            this.SetConnectionType(CONN_TYPE_AJAX);
-        }else{
-            this.SetConnectionType(CONN_TYPE_WEBSOCKETS);
-        }
-    }
-    
     function RefreshData(force_refresh) {
         if(force_refresh) {
             this.last_data_state = [];
@@ -112,11 +104,10 @@ function CheckBookboxStates() {
     }
     if($(".changed.bookbox").length > 0) {
         if($("div#msg_user_client > p").length <= 0) {
-            $("div#msg_user_client").append(apply_changes_tpl);
+            AddMessageData($("div#msg_user_client"), apply_changes_tpl);
             $("div#msg_user_client").removeClass("display_none");
         }
     }else{
-        $("div#msg_user_client").addClass("display_none");
-        $("div#msg_user_client > p").remove();
+        $("div#msg_user_client > p." + CHAG_CONT).remove();
     }
 }

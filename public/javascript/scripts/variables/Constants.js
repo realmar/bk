@@ -14,3 +14,7 @@ var AJAX_SEND_TYPE_POST = 'post';
 
 var DISPLAY_NONE = 'display_none';
 var MSG_ERRORS = 'msg_errors'
+var MSG_USER = 'msg_user';
+var NO_CONN_ERROR = 'no_connection_error';
+var AH_ERROR = 'ah_error';
+var CHAG_CONT = 'chag_cont';

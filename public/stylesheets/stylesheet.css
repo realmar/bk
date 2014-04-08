@@ -15,11 +15,9 @@ main {
 
 div#msg_user_client {
     background-color: rgb(178, 208, 255);
-    margin-bottom: 1em;
-    margin-top: 1em;
 }
 
-div#msg_error {
+div#msg_errors {
     color: red;
     background-color: black;
 }
@@ -67,6 +65,7 @@ div.display_none,p.display_none {
 div.msg {
     font-weight: bold;
     padding: 0.1em;
+    margin-top: 1em;
 }
 
 div.unchanged {

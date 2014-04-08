@@ -61,7 +61,7 @@
                 <div id="refresh_button" class="display_inline vert_middle button_standard"><p>Refresh</p></div>
                 <div id="loading" class="display_inline vert_middle display_none"><img class="display_inline vert_middle loading_image" src="images/loading.gif"><p class="display_inline vert_middle loading_text">Loading ..</p></div>
                 <div id="msg_user_client" class="msg vert_middle display_none"></div>
-                <div id="msg_error" class="msg vert_middle display_none"></div>
+                <div id="msg_errors" class="msg vert_middle display_none"></div>
             </div>
         </main>
 

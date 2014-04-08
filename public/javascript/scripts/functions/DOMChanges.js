@@ -10,3 +10,16 @@ function RefreshConnectionType(connection_type) {
             break;
     }
 }
+
+function AddMessageData(dom_object, message) {
+    dom_object.append(message);
+}
+
+function CheckMSGDataObjects() {
+    if($("div#msg_errors > p").length <= 0 && !$("div#msg_errors").hasClass("display_none")) {
+        $("div#msg_errors").addClass("display_none");
+    }
+    if($("div#msg_user_client > p").length <= 0 && !$("div#msg_user_client").hasClass("display_none")) {
+        $("div#msg_user_client").addClass("display_none");
+    }
+}
