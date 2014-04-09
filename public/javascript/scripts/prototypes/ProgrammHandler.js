@@ -49,6 +49,7 @@ function ProgrammHandler() {
             this.intervals_collector.RegisterInterval(['RefreshData'], 2000, 'bk_ajax_data_refresh');
             this.intervals_collector.RegisterInterval(['ConnectToWebSocket'], 2800, 'bk_websocket_try_connect');
             this.SetConnectionType(CONN_TYPE_AJAX);
+            RemoveMessageData($("." + NO_CONN_ERROR));
         }
     }
 
@@ -64,6 +65,7 @@ function ProgrammHandler() {
 
     function RefreshData(force_refresh) {
         if(force_refresh) {
+           ClearAllMessages();  
             this.last_data_state = [];
             $("div.bookbox > input").val("");
         }
@@ -83,6 +85,7 @@ function ProgrammHandler() {
         if(bookbox_data == GET_DOM_DATA_DOUBLE_ENTRY) {
             if($("div#msg_errors > p." + DBL_DATA).length <= 0) {
                 AddMessageData($("div#msg_errors"), dom_double_data_entry_tpl);
+                $("div#msg_errors").removeClass("display_none");
             }
         }else{
             RemoveMessageData($("." + DBL_DATA));
@@ -99,7 +102,7 @@ function ProgrammHandler() {
 }
 
 function CheckBookboxStates() {
-    for(var i = 0; i < programm_handler.last_data_state.length; i++) {
+    for(var i = 0; i < $("div.bookbox").length; i++) {
         var current_bookbox = $("div#bookbox" + i);
         if(($("div#bookbox" + i + "> input").val() != programm_handler.last_data_state[i]) && !($("div#bookbox" + i + "> input").val() == "" && programm_handler.last_data_state[i] == null)) {
             if(current_bookbox.hasClass("unchanged")) {

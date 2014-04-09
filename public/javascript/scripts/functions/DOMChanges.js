@@ -16,7 +16,7 @@ function AddMessageData(dom_object, message) {
 }
 
 function RemoveMessageData(dom_object) {
-    if(dom_object.length < 0) {
+    if(dom_object.length > 0) {
         dom_object.remove();
     }
 }
@@ -34,6 +34,9 @@ function GetBookboxData() {
     var bookbox_data = [];
     for(var i = 0; i < $("div.bookbox").length; i++) {
         for(var i2 = 0; i2 < bookbox_data.length; i2++) {
+            if($("div#bookbox" + i + "> input") == "") {
+                break;
+            }
             if(bookbox_data[i2] == $("div#bookbox" + i + "> input").val()) {
                 return GET_DOM_DATA_DOUBLE_ENTRY;
             }
@@ -41,4 +44,9 @@ function GetBookboxData() {
         bookbox_data[i] = $("div#bookbox" + i + "> input").val();
     }
     return bookbox_data;
+}
+
+function ClearAllMessages() {
+    RemoveMessageData($("div#msg_user_client > p"));
+    RemoveMessageData($("div#msg_errors > p"));
 }
