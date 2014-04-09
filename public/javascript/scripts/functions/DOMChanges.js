@@ -30,15 +30,30 @@ function CheckMSGDataObjects() {
     }
 }
 
-function GetBookboxData() {
+function GetBookboxDataAndCheckDOMDoubleDataEntries() {
     var bookbox_data = [];
+    var dom_double_data_entry_vals = [];
+    var dom_double_data_entry = false;
+    $(".bookbox.input_error").removeClass("input_error");
     for(var i = 0; i < $("div.bookbox").length; i++) {
         for(var i2 = 0; i2 < bookbox_data.length; i2++) {
             if(bookbox_data[i2] == $("div#bookbox" + i + "> input").val() && $("div#bookbox" + i + "> input").val() != "") {
-                return GET_DOM_DATA_DOUBLE_ENTRY;
+                dom_double_data_entry = true;
+                dom_double_data_entry_vals.push($("div#bookbox" + i + "> input").val());
             }
         }
         bookbox_data[i] = $("div#bookbox" + i + "> input").val();
+    }
+    if(dom_double_data_entry) {
+        for(var i = 0; i < $("div.bookbox").length; i++) {
+            for(var i2 = 0; i2 < dom_double_data_entry_vals.length; i2++) {
+                if($("div#bookbox" + i + "> input").val() == dom_double_data_entry_vals[i2]) {
+                    $("div#bookbox" + i).addClass("input_error");
+                    break;
+                }
+            }
+        }
+        return GET_DOM_DATA_DOUBLE_ENTRY;
     }
     return bookbox_data;
 }

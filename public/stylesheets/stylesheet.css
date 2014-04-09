@@ -82,6 +82,10 @@ div.desc_legend {
     margin-right: 1em;
 }
 
+div.input_error {
+    background-color: rgb(255, 168, 168);
+}
+
 img.loading_image {
     width: 3em;
 }
