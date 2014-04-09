@@ -19,3 +19,6 @@ var NO_CONN_ERROR = 'no_connection_error';
 var AH_ERROR = 'ah_error';
 var CHAG_CONT = 'chag_cont';
 var NO_CONN_SAVE_ERR = 'no_conn_save_err';
+var DBL_DATA = 'dbl_data';
+
+var GET_DOM_DATA_DOUBLE_ENTRY = 'double_dom_data_entry';

@@ -79,13 +79,21 @@ function ProgrammHandler() {
     }
     
     function SaveData() {
-        switch (this.conn_type) {
-            case CONN_TYPE_WEBSOCKETS:
-                this.bk_websocket.SendMSGWS(ACTION_SAVEDATA, GetBookboxData());
-                break;
-            case CONN_TYPE_AJAX:
-                this.bk_ajax_data.AJAXGetData(ACTION_SAVEDATA, JSON.stringify(GetBookboxData()), AJAX_SEND_TYPE_POST);
-                break;
+        var bookbox_data = GetBookboxData();
+        if(bookbox_data == GET_DOM_DATA_DOUBLE_ENTRY) {
+            if($("div#msg_errors > p." + DBL_DATA).length <= 0) {
+                AddMessageData($("div#msg_errors"), dom_double_data_entry_tpl);
+            }
+        }else{
+            RemoveMessageData($("." + DBL_DATA));
+            switch (this.conn_type) {
+                case CONN_TYPE_WEBSOCKETS:
+                    this.bk_websocket.SendMSGWS(ACTION_SAVEDATA, bookbox_data);
+                    break;
+                case CONN_TYPE_AJAX:
+                    this.bk_ajax_data.AJAXGetData(ACTION_SAVEDATA, JSON.stringify(bookbox_data), AJAX_SEND_TYPE_POST);
+                    break;
+            }
         }
     }
 }

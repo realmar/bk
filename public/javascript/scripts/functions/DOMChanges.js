@@ -33,6 +33,11 @@ function CheckMSGDataObjects() {
 function GetBookboxData() {
     var bookbox_data = [];
     for(var i = 0; i < $("div.bookbox").length; i++) {
+        for(var i2 = 0; i2 < bookbox_data.length; i2++) {
+            if(bookbox_data[i2] == $("div#bookbox" + i + "> input").val()) {
+                return GET_DOM_DATA_DOUBLE_ENTRY;
+            }
+        }
         bookbox_data[i] = $("div#bookbox" + i + "> input").val();
     }
     return bookbox_data;
