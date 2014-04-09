@@ -65,7 +65,7 @@ function ProgrammHandler() {
 
     function RefreshData(force_refresh) {
         if(force_refresh) {
-           ClearAllMessages();  
+            ClearAllMessages();
             this.last_data_state = [];
             $("div.bookbox > input").val("");
         }

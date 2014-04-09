@@ -13,7 +13,7 @@ function ActionHandler(msg_data_arg) {
                     current_bookbox.val(this.msg_data["msg_data"][i]);
                 }
             }
-            RemoveMessageData("div#msg_user_client > p." + CHAG_CONT);
+            RemoveMessageData($("div#msg_user_client > p." + CHAG_CONT));
             programm_handler.last_data_state = this.msg_data["msg_data"];
         }else{
             for(var err_data in this.msg_data["all_errors"]) {
