@@ -95,7 +95,7 @@ BEGIN {
     ##  other variables
 
     use constant {
-        DOORCOUNT => 10
+        DOORCOUNT => 11
     };
 
 }
