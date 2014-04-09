@@ -33,5 +33,6 @@ function AJAXRequest(ajax_path_arg) {
             }
             $("div#msg_errors").removeClass("display_none");
         }
+        HideLoadingMessage();
     }
 }

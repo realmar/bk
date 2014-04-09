@@ -20,5 +20,6 @@ function ActionHandler(msg_data_arg) {
                 AddMessageData($("div#msg_errors"), "<p class=" + MSG_ERRORS + " " + AH_ERROR + "ERROR: err_type: " + err_data["err_type"] + " err_string: " + err_data["error_msg"] + "</p>");
             }
         }
+        HideLoadingMessage();
     }
 }

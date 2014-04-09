@@ -65,6 +65,7 @@ function ProgrammHandler() {
 
     function RefreshData(force_refresh) {
         if(force_refresh) {
+            DisplayLoadingMessage();
             ClearAllMessages();
             this.last_data_state = [];
             $("div.bookbox > input").val("");
@@ -81,12 +82,14 @@ function ProgrammHandler() {
     }
     
     function SaveData() {
+        DisplayLoadingMessage();
         var bookbox_data = GetBookboxData();
         if(bookbox_data == GET_DOM_DATA_DOUBLE_ENTRY) {
             if($("div#msg_errors > p." + DBL_DATA).length <= 0) {
                 AddMessageData($("div#msg_errors"), dom_double_data_entry_tpl);
                 $("div#msg_errors").removeClass("display_none");
             }
+            HideLoadingMessage();
         }else{
             RemoveMessageData($("." + DBL_DATA));
             switch (this.conn_type) {

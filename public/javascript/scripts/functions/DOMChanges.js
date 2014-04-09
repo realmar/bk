@@ -47,3 +47,15 @@ function ClearAllMessages() {
     RemoveMessageData($("div#msg_user_client > p"));
     RemoveMessageData($("div#msg_errors > p"));
 }
+
+function DisplayLoadingMessage() {
+    if($("div#loading").hasClass("display_none")) {
+        $("div#loading").removeClass("display_none");
+    }
+}
+
+function HideLoadingMessage() {
+    if(!$("div#loading").hasClass("display_none")) {
+        $("div#loading").addClass("display_none");
+    }
+}
