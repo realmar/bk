@@ -109,26 +109,32 @@ sub ProcessAction {
 sub RefreshData {
     my $self = shift;
     $self->GetAllEntries();
+    $self->{_data} = $self->GetAllEntries();
     return 1;
 }
 
 sub SaveData {
     my $self = shift;
-    my @db_data = $self->GetAllEntries();
-    for (my $i = 0; $i < scalar($self->{_data}); $i++) {
+    my @db_data = @{$self->GetAllEntries()};
+    for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
+        if(!defined($db_data[$i])) {
+            $db_data[$i] = '';
+        }
         switch ($self->{_data}->[$i]) {
             case ($db_data[$i]) {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDIDEN);
                 last;
             }
-            case ('' || undef) {
+            case ('') {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDDEL);
-                $self->{_db_conn}->UpdateEntryDatabase('users', {'username' => 'null'}, {'doornumber' => $i});
+                $self->{_db_conn}->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i});
+                $self->{_db_conn}->CommitChanges();
                 last;
             }
             else {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDNEW);
-                $self->{_db_conn}->UpdateEntryDatabase('user', {'username' => $self->{_data}[$i]}, {'doornumber' => $i});
+                $self->{_db_conn}->UpdateEntryDatabase('Users', {'username' => $self->{_data}[$i]}, {'doornumber' => $i});
+                $self->{_db_conn}->CommitChanges();
                 last;
             }
         }
@@ -141,7 +147,7 @@ sub GetAllEntries {
     my $self = shift;
     my %db_entries_hash;
     my @db_entries_array;
-    my $db_entries = $self->{_db_conn}->ReadEntryDatabase('users', {});
+    my $db_entries = $self->{_db_conn}->ReadEntryDatabase('Users', {});
     while (my $db_entries_row = $db_entries->fetchrow_hashref) {
         $db_entries_hash{$db_entries_row->{doornumber}} = $db_entries_row->{username};
     }
@@ -149,8 +155,7 @@ sub GetAllEntries {
         $db_entries_array[$entry_pos] = $db_entries_hash{$entry_pos};
     }
     $db_entries_array[Constants::DOORCOUNT] = undef if undef($db_entries_array[Constants::DOORCOUNT]);
-    $self->{_data} = \@db_entries_array;
-    return $self->{_data};
+    return \@db_entries_array;
 }
 
 sub ToJSON {

@@ -29,11 +29,11 @@ my $scanner = Scanner->new();
 while(2) {
     my $input_barc = $scanner->GetInput();
 
-    my $database_entries = $database_connection->ReadEntryDatabase('users', {'username' => $input_barc});
+    my $database_entries = $database_connection->ReadEntryDatabase('Users', {'username' => $input_barc});
 
     while(my $database_entries_row = $database_entries->fetchrow_hashref) {
         $doors->OpenDoor($database_entries_row->{doornumber});
-        $database_connection->UpdateEntryDatabase('users', {'username' => ''}, {'username' => $input_barc});
+        $database_connection->UpdateEntryDatabase('Users', {'username' => ''}, {'username' => $input_barc});
         $database_connection->CommitChanges();
 
         ##  Send E-Mail

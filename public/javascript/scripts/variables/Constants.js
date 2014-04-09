@@ -18,3 +18,4 @@ var MSG_USER = 'msg_user';
 var NO_CONN_ERROR = 'no_connection_error';
 var AH_ERROR = 'ah_error';
 var CHAG_CONT = 'chag_cont';
+var NO_CONN_SAVE_ERR = 'no_conn_save_err';

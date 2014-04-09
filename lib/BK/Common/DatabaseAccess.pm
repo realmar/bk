@@ -87,15 +87,23 @@ sub UpdateEntryDatabase {
 
     foreach my $set_values_key (keys(%set_values_hash)) {
         if(defined($first_set_entry)) {
-            $sql_query .= 'SET ' . $set_values_key . '=' . $set_values_hash{$set_values_key};
+            if($set_values_hash{$set_values_key} ne 'null') {
+                $sql_query .= ' SET ' . $set_values_key . '="' . $set_values_hash{$set_values_key} . '"';
+            }else{
+                $sql_query .= ' SET ' . $set_values_key . '=' . $set_values_hash{$set_values_key};
+            }
             $first_set_entry = undef;
         }else{
-            $sql_query .= ', ' . $set_values_key . '=' . $set_values_hash{$set_values_key};
+            if($set_values_hash{$set_values_key} ne 'null') {
+                $sql_query .= ', ' . $set_values_key . '="' . $set_values_hash{$set_values_key} . '"';
+            }else{
+                $sql_query .= ', ' . $set_values_key . '=' . $set_values_hash{$set_values_key};
+            }
         }
     }
 
     foreach my $name_values_key (keys(%name_values_hash)) {
-        $sql_query .= 'WHERE ' . $name_values_key . '=' . $name_values_hash{$name_values_key};
+        $sql_query .= ' WHERE ' . $name_values_key . '=' . $name_values_hash{$name_values_key};
     }
 
     my $database_query = $self->{_db}->prepare($sql_query);

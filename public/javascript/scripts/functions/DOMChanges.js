@@ -15,6 +15,12 @@ function AddMessageData(dom_object, message) {
     dom_object.append(message);
 }
 
+function RemoveMessageData(dom_object) {
+    if(dom_object.length < 0) {
+        dom_object.remove();
+    }
+}
+
 function CheckMSGDataObjects() {
     if($("div#msg_errors > p").length <= 0 && !$("div#msg_errors").hasClass("display_none")) {
         $("div#msg_errors").addClass("display_none");
@@ -22,4 +28,12 @@ function CheckMSGDataObjects() {
     if($("div#msg_user_client > p").length <= 0 && !$("div#msg_user_client").hasClass("display_none")) {
         $("div#msg_user_client").addClass("display_none");
     }
+}
+
+function GetBookboxData() {
+    var bookbox_data = [];
+    for(var i = 0; i < $("div.bookbox").length; i++) {
+        bookbox_data[i] = $("div#bookbox" + i + "> input").val();
+    }
+    return bookbox_data;
 }

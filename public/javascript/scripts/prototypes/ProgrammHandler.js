@@ -37,6 +37,7 @@ function ProgrammHandler() {
         this.bk_ajax_data = null;
         this.intervals_collector.RegisterInterval(['bk_websocket', 'KeepAliveWS'], 80, 'bk_websocket_keep_alive');
         this.intervals_collector.RegisterInterval(['RefreshData'], 2000, 'bk_websocket_refresh');
+        RemoveMessageData($("." + NO_CONN_ERROR));
     }
 
     function InitializeConnTypeAJAX() {
@@ -71,7 +72,7 @@ function ProgrammHandler() {
                 this.bk_websocket.SendMSGWS(ACTION_REFRESH, null);
                 break;
             case CONN_TYPE_AJAX:
-                this.bk_ajax_data.AJAXGetData(ACTION_REFRESH, AJAX_SEND_TYPE_GET);
+                this.bk_ajax_data.AJAXGetData(ACTION_REFRESH, null, AJAX_SEND_TYPE_GET);
                 break;
         }
         CheckBookboxStates();
@@ -80,8 +81,10 @@ function ProgrammHandler() {
     function SaveData() {
         switch (this.conn_type) {
             case CONN_TYPE_WEBSOCKETS:
+                this.bk_websocket.SendMSGWS(ACTION_SAVEDATA, GetBookboxData());
                 break;
             case CONN_TYPE_AJAX:
+                this.bk_ajax_data.AJAXGetData(ACTION_SAVEDATA, JSON.stringify(GetBookboxData()), AJAX_SEND_TYPE_POST);
                 break;
         }
     }
@@ -108,6 +111,6 @@ function CheckBookboxStates() {
             $("div#msg_user_client").removeClass("display_none");
         }
     }else{
-        $("div#msg_user_client > p." + CHAG_CONT).remove();
+        RemoveMessageData($("div#msg_user_client > p." + CHAG_CONT));
     }
 }

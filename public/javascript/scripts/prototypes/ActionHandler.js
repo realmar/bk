@@ -4,7 +4,7 @@ function ActionHandler(msg_data_arg) {
     this.ProcessAction = ProcessAction;
 
     function ProcessAction() {
-        $("." + AH_ERROR).remove();
+        RemoveMessageData($("." . AH_ERROR));
         if(this.msg_data["all_errors"].length <= 0) {
             programm_handler.CheckBookboxStates();
             for(var i = 0; i < this.msg_data["msg_data"].length; i++) {

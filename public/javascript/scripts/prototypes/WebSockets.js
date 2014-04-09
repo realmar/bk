@@ -91,6 +91,7 @@ function BKWebSocket(ws_path_arg) {
             'action'   : action,
             'msg_data' : msg_data
         }));
+        RemoveMessageData($("." + NO_CONN_SAVE_ERR));
     }
 
     function KeepAliveWS() {
