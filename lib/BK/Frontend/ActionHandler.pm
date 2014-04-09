@@ -166,6 +166,9 @@ sub ToJSON {
 
 sub FromJSON {
     my $self = shift;
+    if(ref($self->{_data}) eq 'ARRAY' || ref($self->{_data}) eq 'HASH') {
+        return $self->{_data};
+    }
     $self->{_data} = from_json($self->{_data});
     return $self->{_data};
 }
