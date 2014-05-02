@@ -111,5 +111,22 @@ The programm_handler register several intervals for AJAX and within that an inte
 ### WebSockets.js
 
 #### Variables
+  -  socket
 #### Functions
+  -  OpenWebSocket
+  -  OnOpenWS
+  -  OnMessageWS
+  -  OnCloseWS
+  -  OnErrorWS
+  -  CloseWebSocket
+  -  SendDataWS
+  -  SendMSGWS
+  -  KeepAliveWS
 #### syntax
+var websocket = new WebSockets('wss://websocket.datatransactions.com/ws');
+
+websocket.OpenWebSocket([ws_path_arg]);
+websocket.CloseWebSocket();
+websocket.SendDataWS([data]);
+websocket.SendMSGWS([action], [msg_data]);
+websocket.KeepAliveWS();
