@@ -125,8 +125,8 @@ The programm_handler register several intervals for AJAX and within that an inte
 #### syntax
 var websocket = new WebSockets('wss://websocket.datatransactions.com/ws');
 
-websocket.OpenWebSocket([ws_path_arg]);
-websocket.CloseWebSocket();
-websocket.SendDataWS([data]);
-websocket.SendMSGWS([action], [msg_data]);
-websocket.KeepAliveWS();
+websocket.OpenWebSocket([ws_path_arg]);     //  Opens the WebSocket
+websocket.CloseWebSocket();                 //  Close the WebSocket
+websocket.SendDataWS([data]);               //  Send data through the WebSocket but considers the unavailibility of the websockets, if it want to send data while the WebSocket is still connecting, it waits a defined time before sending the data, it also refuses to call send, if the connection is not made in the defined time
+websocket.SendMSGWS([action], [msg_data]);  //  generates a sendable data from the [action] and the [msg_data]
+websocket.KeepAliveWS();                    //  Keeps the WebSocket alive with sending data every defined time period

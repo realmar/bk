@@ -130,11 +130,11 @@ use DatabaseAccess;
 
 my $db_conn = DatabaseAccess->new('sqlite3', '/file');
 
-$db_conn->ConnectToDatabase([driver], [file]);
-$db_conn->DisconnectFromDatabase();
-$db_conn->CreateEntryDatabase([table], [column]);
-$db_conn->ReadEntryDatabase([table], [name_values]);
-$db_conn->UpdateEntryDatabase([table], [set_values], [name_values]);
-$db_conn->DeleteEntryDatabase([table], [name_values]);
-$db_conn->CommitChanges();
-$db_conn->RollbackChanges();
+$db_conn->ConnectToDatabase([driver], [file]);                        //  Connect to the database
+$db_conn->DisconnectFromDatabase();                                   //  Disconnect from the database
+$db_conn->CreateEntryDatabase([table], [column]);                     //  Insert an entry in the database, is never used in BK
+$db_conn->ReadEntryDatabase([table], [name_values]);                  //  Reads entries from the database
+$db_conn->UpdateEntryDatabase([table], [set_values], [name_values]);  //  Update entries in the database
+$db_conn->DeleteEntryDatabase([table], [name_values]);                //  Deletes entries from the database, is never used in BK
+$db_conn->CommitChanges();                                            //  Commit the changes to the database so that they apply
+$db_conn->RollbackChanges();                                          //  Rollback the changes from the database so that the previous stand is recovered
