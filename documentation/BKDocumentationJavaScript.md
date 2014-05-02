@@ -30,7 +30,7 @@ Anastassios Martakos
 #### syntax
 var ah = new ActionHandler('nodata');
 
-ah.ProcessAction();
+ah.ProcessAction();  //  Processes the data which comes from the server, mainly insert it into the GUI
 
 ### AJAXData.js
 
@@ -43,7 +43,7 @@ ah.ProcessAction();
 #### syntax
 var ajax_data = new AJAXData('https://ajax.data.com/');
 
-ajax_data.AJAXGetData([msg_data_arg], [send_type]);
+ajax_data.AJAXGetData([msg_data_arg], [send_type]);  //  Sends an AJAX Request and process the respond afterwards
 
   -  AJAXDone
        -  Called when the AJAX Request is successfully completed
@@ -60,8 +60,8 @@ ajax_data.AJAXGetData([msg_data_arg], [send_type]);
 #### syntax
 var intervals_collector = new Intervals();
 
-intervals_collector.RegisterInterval([function], [diff_time], [name]);
-intervals_collector.RemoveInterval([name]);
+intervals_collector.RegisterInterval([function], [diff_time], [name]);  //  Register an interval
+intervals_collector.RemoveInterval([name]);                             //  Remoce an interval
 
 ### ProgrammHandler.js
 
@@ -87,15 +87,15 @@ intervals_collector.RemoveInterval([name]);
 #### syntax
 var programm_handler = new ProgrammHandler();
 
-programm_handler.InitializeProgramm();
-programm_handler.InitializeConnTypeWebSockets();
-programm_handler.InitializeConnTypeAJAX();
-programm_handler.ConnectToWebSocket();
-programm_handler.SetConnectionType();
-programm_handler.RefreshData();
-programm_handler.SaveData();
-programm_handler.CheckBookboxStates();
-programm_handler.CheckMSGDataObjects();
+programm_handler.InitializeProgramm();            //  Initialized the programm_handler which starts off with trying to connect to an WebSocket and if this fails to connect with AJAX, then register the according intervals for each connection method and come other intervals for the input check and for the msg check
+programm_handler.InitializeConnTypeWebSockets();  //  Removes the AJAX intervals, register some new intervals for the WebSockets and changes the connection type
+programm_handler.InitializeConnTypeAJAX();        //  Removes the WebSockets intervals, initialize the AJAXData object, add some intervals for AJAXData and changes the connection type
+programm_handler.ConnectToWebSocket();            //  Sets the current WebSockets variable to null and initialize a new WebSockets object
+programm_handler.SetConnectionType();             //  Sets the connection type
+programm_handler.RefreshData();                   //  Refresh the data in the GUI, sends the request the server
+programm_handler.SaveData();                      //  Save the data in the GUI to the server, sends the data to the server
+programm_handler.CheckBookboxStates();            //  Checks if the content of the input fields has changed or collides and mark them respectively
+programm_handler.CheckMSGDataObjects();           //  Checks if there is a need to display messaging objects in the GUI and if not hides them
 
 programm_handler.intervals_collector.intervals  //  display all current active intervals
 programm_handler.bk_websocket.socket            //  native WebSocket
