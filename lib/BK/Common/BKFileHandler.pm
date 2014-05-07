@@ -36,9 +36,11 @@ sub CloseFileHandle {
 
 sub WriteToFile {
     my ($self, $msg) = @_;
+
     print {$self->{_filehandle}} ($msg);
     autoflush {$self->{_filehandle}} 1;
-    return 2;
+
+    return $self->{_filehandle};
 }
 
 1;

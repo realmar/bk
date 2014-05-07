@@ -34,10 +34,12 @@ sub DESTROY {
 
 sub SetActionHandler {
     my ($self, $action, $data) = @_;
+
     if(defined($action) && defined($data)) {
         $self->{_action} = $action;
         $self->{_data}   = $data;
     }
+
     return $self;
 }
 
@@ -78,6 +80,7 @@ sub GetProcAC {
 
 sub ProcessAction {
     my $self = shift;
+
     $self->{_db_conn} = DatabaseAccess->new('SQLite', 'database/BKDatabase.db');
     switch ($self->{_action}) {
         case Constants::AHREFRESH {
@@ -108,13 +111,16 @@ sub ProcessAction {
 
 sub RefreshData {
     my $self = shift;
+
     $self->GetAllEntries();
     $self->{_data} = $self->GetAllEntries();
+
     return 1;
 }
 
 sub SaveData {
     my $self = shift;
+
     my @db_data = @{$self->GetAllEntries()};
     for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
         if(!defined($db_data[$i])) {
@@ -140,11 +146,13 @@ sub SaveData {
         }
     }
     $self->RefreshData();
-    return 1;
+
+    return $self;
 }
 
 sub GetAllEntries {
     my $self = shift;
+
     my %db_entries_hash;
     my @db_entries_array;
     my $db_entries = $self->{_db_conn}->ReadEntryDatabase('Users', {});
@@ -155,6 +163,7 @@ sub GetAllEntries {
         $db_entries_array[$entry_pos] = $db_entries_hash{$entry_pos};
     }
     $db_entries_array[Constants::DOORCOUNT] = undef if undef($db_entries_array[Constants::DOORCOUNT]);
+
     return \@db_entries_array;
 }
 
@@ -175,13 +184,16 @@ sub FromJSON {
 
 sub PrepareWebSocketData {
     my $self = shift;
+
     $self->{_action} = $self->{_data}->{'action'};
     $self->{_data} = $self->{_data}->{'msg_data'};
-    return 1;
+
+    return $self;
 }
 
 sub CollectAllErrors {
     my $self = shift;
+
     my $all_errors = [];
     $all_errors[0] = {
         'error_type' => $self->SUPER::GetErrorType(),
@@ -191,16 +203,19 @@ sub CollectAllErrors {
         'error_type' => $self->{_db_conn}->SUPER::GetErrorType(),
         'error_msg' => $self->{_db_conn}->SUPER::GetErrorMSG()
     } if defined($self->{_db_conn}->SUPER::GetErrorType() && $self->{_db_Conn}->SUPER::GetErrorMSG());
+
     return $all_errors;
 }
 
 sub PrepareDataToSend {
     my $self = shift;
+
     $self->{_data} = {
         'msg_data' => $self->{_data},
         'all_errors' => $self->CollectAllErrors()
     };
     $self->ToJSON();
+
     return $self->{_data};
 }
 

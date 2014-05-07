@@ -20,6 +20,7 @@ sub new {
 
 sub GetInput {
     my $self = shift;
+
     $self->{_input} = <STDIN>;
     chomp($self->{_input});
 

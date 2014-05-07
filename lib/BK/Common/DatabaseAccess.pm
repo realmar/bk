@@ -39,7 +39,7 @@ sub DisconnectFromDatabase {
     my $self = shift;
     $self->{_db}->disconnect
         or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDISCONN, MessagesTextConstants::DBERRDISCONNMSG . $DBI::Errstr);
-    return 1;
+    $self->{_db};
 }
 
 ##  --
@@ -54,7 +54,7 @@ sub CreateEntryDatabase {
     $database_query->execute()
         or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCREATE, MessagesTextConstants::DBERRCREATEMSG . $DBI::Errstr);
 
-    return 1;
+    $self->{_db};
 }
 
 sub ReadEntryDatabase {
@@ -110,7 +110,7 @@ sub UpdateEntryDatabase {
     $database_query->execute()
         or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRUPDATE, MessagesTextConstants::DBERRUPDATEMSG . $DBI::Errstr);
 
-    return 1;
+    return $self->{_db};
 }
 
 ##  --
@@ -131,7 +131,7 @@ sub DeleteEntryDatabase {
     $database_query->execute()
         or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDELETE, MessagesTextConstants::DBERRDELETEMSG . $DBI::Errstr);
 
-    return 1;
+    return $self->{_db};
 }
 
 sub CommitChanges {

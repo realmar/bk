@@ -31,8 +31,10 @@ sub GetDoors {
 
 sub OpenDoor {
     my ($self, $door) = @_;
+
     print "Opening Door:\n\n";
     print "Number $door\n\n";
+
     return $self->{_doors};
 }
 

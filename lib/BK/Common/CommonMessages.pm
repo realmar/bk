@@ -43,7 +43,7 @@ sub GetErrorMSG {
 sub InitCoMSG {
     my $self = shift;
     $self->{_msg}->{_error_count} = 0;
-    return $self;
+    return $self->{_msg}->{_err_count};
 }
 
 sub RaiseErrCount {
@@ -67,6 +67,8 @@ sub ThrowMessage {
             last;
         }
     }
+
+    return $self->{_msg}:
 }
 
 sub CreateLogString {
@@ -76,18 +78,20 @@ sub CreateLogString {
 
 sub LogError {
     my ($self, $msg_prio, $msg_typ, $msg_string) = @_;
+
     if($self->{_owner_desc} eq Constants::DB) {
         $self->RollbackChanges();
     }
     $self->RaiseErrCount(1);
     $main::filehandle_log_error->WriteToFile(CommonMessages::CreateLogString($self->{_owner_desc}, $msg_prio, $msg_typ, $msg_string));
-    return 1;
+
+    return $self:
 }
 
 sub LogMessage {
     my ($self, $msg_prio, $msg_typ, $msg_string) = @_;
     $main::filehandle_log_message->WriteToFile(CommonMessages::CreateLogString($self->{_owner_desc}, $msg_prio, $msg_typ, $msg_string));
-    return 1;
+    return $self;
 }
 
 1;
