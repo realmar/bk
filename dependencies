@@ -44,3 +44,16 @@
 
   -  libmojolicious-perl
   -  libapache2-mod-proxy-html
+
+  -  http://forums.labjack.com/index.php?showtopic=4369&st=0&p=12576&#entry12576
+  -  libusb-1.0-0
+  -  libusb-1.0-0-dev
+  -  linux-headers
+  -  libxsloader-perl
+  -  linux-headers-3.2.0-4-686-pae
+
+  -  /usr/local/include/labjackusb.h
+  -  /usr/local/lib/liblabjackusb.so
+
+  -  /usr/local/include/ljacklm.h
+  -  /usr/local/lib/libljacklm.so
