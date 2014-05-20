@@ -35,6 +35,8 @@ sub OpenDoor {
     print "Opening Door:\n\n";
     print "Number $door\n\n";
 
+    &main::SetPins(Constants::HEXTWOBYTEONE, Constants::HEXNULL, Constants::DOORSOUTPUT->[$door], Constants::HEXNULL);
+
     return $self->{_doors};
 }
 

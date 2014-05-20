@@ -31,20 +31,28 @@ BEGIN {
     );
 
     ##  --
+    ##  hex numbers
+
+    use constant {
+        HEXNULL       => 0x0,
+        HEXTWOBYTEONE => 0xFFFF
+    };
+
+    ##  --
     ##  signal for the doors
 
     use constant DOORSOUTPUT => [
-        '0x1',  ##  D0
-        '0x2',  ##  D1
-        '0x4',  ##  D2
-        '0x8',  ##  D3
-        '0x10',  ##  D4
-        '0x20',  ##  D5
-        '0x40',  ##  D6
-        '0x80',  ##  D7
-        '0x100',  ##  D8
-        '0x200',  ##  D9
-        '0x400',  ##  D10
+        0x1,  ##  D0
+        0x2,  ##  D1
+        0x4,  ##  D2
+        0x8,  ##  D3
+        0x10,  ##  D4
+        0x20,  ##  D5
+        0x40,  ##  D6
+        0x80,  ##  D7
+        0x100,  ##  D8
+        0x200,  ##  D9
+        0x400,  ##  D10
     ];
 
     ##  --
