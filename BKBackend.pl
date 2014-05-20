@@ -1,11 +1,15 @@
 #!/usr/bin/env perl
 
 use 5.010;
-use strict;
-use warnings;
 
 use Cwd qw(abs_path);
 use File::Basename qw(dirname);
+
+use Inline C => Config => MYEXTLIB => '/usr/local/lib/libljacklm.so';
+use Inline C => dirname(abs_path($0)) . '/lib/BK/Backend/SourceC/DoorsInterface.c';
+
+use strict;
+use warnings;
 
 use lib dirname(abs_path($0)) . '/lib/';
 
@@ -33,7 +37,7 @@ while(2) {
 
     while(my $database_entries_row = $database_entries->fetchrow_hashref) {
         $doors->OpenDoor($database_entries_row->{doornumber});
-        $database_connection->UpdateEntryDatabase('Users', {'username' => ''}, {'username' => $input_barc});
+        $database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}});
         $database_connection->CommitChanges();
 
         ##  Send E-Mail

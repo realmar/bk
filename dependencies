@@ -51,6 +51,13 @@
   -  linux-headers
   -  libxsloader-perl
   -  linux-headers-3.2.0-4-686-pae
+  -  libstdc++6-4.7-dev
+  -  build-essential
+  -  libinline-perl
+  -  http://labjack.com/support/u12/users-guide/2
+  -  http://labjack.com/support/u12/users-guide/2.4
+  -  http://labjack.com/support/u12/users-guide/2.3
+  -  http://labjack.com/support/u12/users-guide/5.2
 
   -  /usr/local/include/labjackusb.h
   -  /usr/local/lib/liblabjackusb.so

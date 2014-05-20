@@ -68,7 +68,7 @@ sub ThrowMessage {
         }
     }
 
-    return $self->{_msg}:
+    return $self->{_msg};
 }
 
 sub CreateLogString {
@@ -85,7 +85,7 @@ sub LogError {
     $self->RaiseErrCount(1);
     $main::filehandle_log_error->WriteToFile(CommonMessages::CreateLogString($self->{_owner_desc}, $msg_prio, $msg_typ, $msg_string));
 
-    return $self:
+    return $self;
 }
 
 sub LogMessage {
