@@ -36,7 +36,7 @@ while(2) {
     my $database_entries = $database_connection->ReadEntryDatabase('Users', {'username' => $input_barc});
 
     while(my $database_entries_row = $database_entries->fetchrow_hashref) {
-        $doors->OpenDoor($database_entries_row->{doornumber});
+        $doors->OpenDoor($database_entries_row->{doornumber}, $input_barc);
         $database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}});
         $database_connection->CommitChanges();
 

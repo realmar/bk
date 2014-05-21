@@ -30,12 +30,23 @@ sub GetDoors {
 }
 
 sub OpenDoor {
-    my ($self, $door) = @_;
+    my ($self, $door, $username) = @_;
 
-    print "Opening Door:\n\n";
+    print "Sending Signal to Door:\n\n";
     print "Number $door\n\n";
 
+    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DOOROPENED, MessagesTextConstants::DOORSNUMBER . $door . MessagesTextConstants::DOORSUSERNAME . $username);
+
     &main::SetPins(Constants::HEXTWOBYTEONE, Constants::HEXNULL, Constants::DOORSOUTPUT->[$door], Constants::HEXNULL);
+
+    sleep(Constants::DOORSSENDSIGNALTIME);
+
+    &main::SetPins(Constants::HEXTWOBYTEONE, Constants::HEXNULL, Constants::HEXNULL, Constants::HEXNULL);
+
+    print "Stop Sending Signal to Door:\n\n";
+    print "Number $door\n\n";
+
+    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DOORCLOSED, MessagesTextConstants::DOORSNUMBER . $door . MessagesTextConstants::DOORSUSERNAME . $username);
 
     return $self->{_doors};
 }

@@ -7,7 +7,12 @@ BEGIN {
     use Exporter 'import';
 
     our @EXPORT = qw(
+        HEXNULL
+        HEXTWOBYTEONE
         DOORSOUTPUT
+        DOORSSENDSIGNALTIME
+        DOOROPENED
+        DOORCLOSED
         DBERRCONN
         DBERRDISCONN
         DBERRCREATE
@@ -54,6 +59,18 @@ BEGIN {
         0x200,  ##  D9
         0x400,  ##  D10
     ];
+
+    use constant {
+        DOORSSENDSIGNALTIME => 2
+    };
+
+    ##  --
+    ##  doors types
+
+    use constant {
+        DOOROPENED => 'dooropened',
+        DOORCLOSED => 'doorclosed'
+    };
 
     ##  --
     ##  db error exeptions

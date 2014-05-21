@@ -7,6 +7,8 @@ BEGIN {
     use Exporter 'import';
 
     our @EXPORT = qw(
+        DOORSNUMBER
+        DOORSUSERNAME
         DBERRCONNMSG
         DBERRDISCONNMSG
         DBERRCREATEMSG
@@ -19,6 +21,14 @@ BEGIN {
         AHSDDEL
         AHSDNEW
     );
+
+    ##  --
+    ##  door messages
+
+    use constant {
+        DOORSNUMBER   => 'Door Number: ',
+        DOORSUSERNAME => ' For Username: '
+    };
 
     ##  --
     ##  db error excetions
