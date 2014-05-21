@@ -11,6 +11,8 @@ BEGIN {
         HEXTWOBYTEONE
         DOORSOUTPUT
         DOORSSENDSIGNALTIME
+        DOORSEXEPTIONOPENEND
+        DOORSEXEPTIONCLOSED
         DOOROPENED
         DOORCLOSED
         DBERRCONN
@@ -62,6 +64,14 @@ BEGIN {
 
     use constant {
         DOORSSENDSIGNALTIME => 2
+    };
+
+    ##  --
+    ##  doors exceptions
+
+    use constant {
+        DOORSEXEPTIONOPENEND => 'doorsexeptionopenend',
+        DOORSEXEPTIONCLOSED => 'doorsexeptionclosed'
     };
 
     ##  --

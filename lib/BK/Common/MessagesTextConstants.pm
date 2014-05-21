@@ -7,6 +7,7 @@ BEGIN {
     use Exporter 'import';
 
     our @EXPORT = qw(
+        DOORSERRORCODE
         DOORSNUMBER
         DOORSUSERNAME
         DBERRCONNMSG
@@ -21,6 +22,13 @@ BEGIN {
         AHSDDEL
         AHSDNEW
     );
+
+    ##  --
+    ##  doors exeptions
+
+    use constant {
+        DOORSERRORCODE => 'Error Code '
+    };
 
     ##  --
     ##  door messages
