@@ -23,6 +23,15 @@ BEGIN {
         DBERRDELETE
         DBERRCOMMIT
         DBERRROLLBACK
+        DBERRHANDLEERROR
+        DBCONN
+        DBDISCONN
+        DBCREATE
+        DBREAD
+        DBUPDATE
+        DBDELETE
+        DBCOMMIT
+        DBROLLBACK
         SCLOGGOTINPUT
         ERROR
         LOG
@@ -33,6 +42,7 @@ BEGIN {
         AHREFRESH
         AHSAVEDATA
         AHKEEPALIVE
+        AHNOTCHANGED
         AHUNKNOWNACTION
         DOORCOUNT
     );
@@ -86,14 +96,29 @@ BEGIN {
     ##  db error exeptions
 
     use constant {
-        DBERRCONN     => 'errconn',
-        DBERRDISCONN  => 'errdisconn',
-        DBERRCREATE   => 'errcreate',
-        DBERRREAD     => 'errread',
-        DBERRUPDATE   => 'errupdate',
-        DBERRDELETE   => 'errdel',
-        DBERRCOMMIT   => 'errcommit',
-        DBERRROLLBACK => 'errrollback'
+        DBERRCONN        => 'dberrconn',
+        DBERRDISCONN     => 'dberrdisconn',
+        DBERRCREATE      => 'dberrcreate',
+        DBERRREAD        => 'dberrread',
+        DBERRUPDATE      => 'dberrupdate',
+        DBERRDELETE      => 'dberrdel',
+        DBERRCOMMIT      => 'dberrcommit',
+        DBERRROLLBACK    => 'dberrrollback',
+        DBERRHANDLEERROR => 'dberrhandleerror'
+    };
+
+    ##  --
+    ##  db messages
+
+    use constant {
+        DBCONN => 'dbconn',
+        DBDISCONN => 'dbdisconn',
+        DBCREATE => 'dbcreate',
+        DBREAD => 'dbread',
+        DBUPDATE => 'dbupdate',
+        DBDELETE => 'dbdel',
+        DBCOMMIT => 'dbcommit',
+        DBROLLBACK => 'dbrollback'
     };
 
     ##  --
@@ -136,6 +161,13 @@ BEGIN {
         AHREFRESH   => 'ahrefresh',
         AHSAVEDATA  => 'ahsavedata',
         AHKEEPALIVE => 'ahkeepalive'
+    };
+
+    ##  --
+    ##  action handler change types
+
+    use constant {
+        AHNOTCHANGED => 'notchanged'
     };
 
     ##  --

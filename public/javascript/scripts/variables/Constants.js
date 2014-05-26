@@ -5,6 +5,8 @@ var ACTION_REFRESH  = 'ahrefresh';
 var ACTION_SAVEDATA = 'ahsavedata';
 var ACTION_KEEP_ALIVE = 'ahkeepalive';
 
+var AH_NOT_CHANGED = 'ahnotchanged';
+
 var WS_SEND_NO_WAIT = 0;
 var WS_SEND_WAIT    = 1;
 var WS_SEND_ABORD   = 2;

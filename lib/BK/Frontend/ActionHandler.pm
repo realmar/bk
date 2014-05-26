@@ -123,30 +123,27 @@ sub RefreshData {
 sub SaveData {
     my $self = shift;
 
-    my @db_data = @{$self->GetAllEntries()};
     for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
-        if(!defined($db_data[$i])) {
-            $db_data[$i] = '';
-        }
         switch ($self->{_data}->[$i]) {
-            case ($db_data[$i]) {
+            case (Constants::AHNOTCHANGED) {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDIDEN);
                 last;
             }
             case ('') {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDDEL);
                 $self->{_db_conn}->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i});
-                $self->{_db_conn}->CommitChanges();
                 last;
             }
             else {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDNEW);
                 $self->{_db_conn}->UpdateEntryDatabase('Users', {'username' => $self->{_data}[$i]}, {'doornumber' => $i});
-                $self->{_db_conn}->CommitChanges();
                 last;
             }
         }
     }
+
+    $self->{_db_conn}->CommitChanges();
+
     $self->RefreshData();
 
     return $self;

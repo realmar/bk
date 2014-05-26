@@ -26,12 +26,13 @@ use DBI;
 
 our $filehandle_log_message = BKFileHandler->new('>>', 'log/message_log');
 our $filehandle_log_error = BKFileHandler->new('>>', 'log/error_log');
-my $database_connection = DatabaseAccess->new('SQLite', 'database/BKDatabase.db');
 my $doors = Doors->new(Constants::DOORSOUTPUT);
 my $scanner = Scanner->new();
 
 while(2) {
     my $input_barc = $scanner->GetInput();
+
+    my $database_connection = DatabaseAccess->new('SQLite', 'database/BKDatabase.db');
 
     my $database_entries = $database_connection->ReadEntryDatabase('Users', {'username' => $input_barc});
 
@@ -45,6 +46,8 @@ while(2) {
         ##  Send E-Mail
         ##  To Correspondant Person
     }
+
+    $database_connection->DisconnectFromDatabase();
 }
 
 $filehandle_log_message->CloseFileHandle();

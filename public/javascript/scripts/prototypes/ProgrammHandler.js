@@ -83,14 +83,15 @@ function ProgrammHandler() {
     
     function SaveData() {
         DisplayLoadingMessage();
-        var bookbox_data = GetBookboxDataAndCheckDOMDoubleDataEntries();
-        if(bookbox_data == GET_DOM_DATA_DOUBLE_ENTRY) {
+        var bookbox_data_check = GetBookboxDataAndCheckDOMDoubleDataEntries();
+        if(bookbox_data_check == GET_DOM_DATA_DOUBLE_ENTRY) {
             if($("div#msg_errors > p." + DBL_DATA).length <= 0) {
                 AddMessageData($("div#msg_errors"), dom_double_data_entry_tpl);
                 $("div#msg_errors").removeClass("display_none");
             }
             HideLoadingMessage();
         }else{
+            var bookbox_data = GetBookboxData();
             RemoveMessageData($("." + DBL_DATA));
             switch (this.conn_type) {
                 case CONN_TYPE_WEBSOCKETS:

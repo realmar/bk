@@ -18,6 +18,11 @@ BEGIN {
         DBERRDELETEMSG
         DBERRCOMMITMSG
         DBERRROLLBACKMSG
+        DBERRHANDLEERRORMSG
+        DBCONNMSG
+        DBDISCONNMSG
+        DBCOMMITMSG
+        DBROLLBACKMSG
         AHSDIDEN
         AHSDDEL
         AHSDNEW
@@ -42,14 +47,25 @@ BEGIN {
     ##  db error excetions
 
     use constant {
-        DBERRCONNMSG     => 'Failed to Connect to Database',
-        DBERRDISCONNMSG  => 'Failed to Disconnect from Database',
-        DBERRCREATEMSG   => 'Failed to Create Entry in Database',
-        DBERRREADMSG     => 'Failed to Read from Database',
-        DBERRUPDATEMSG   => 'Failed to Update Entry in Database',
-        DBERRDELETEMSG   => 'Failed to Detele Entry in Database',
-        DBERRCOMMITMSG   => 'Failed to Commit changes',
-        DBERRROLLBACKMSG => 'Failed to Rollback changes'
+        DBERRCONNMSG        => 'Failed to Connect to Database',
+        DBERRDISCONNMSG     => 'Failed to Disconnect from Database',
+        DBERRCREATEMSG      => 'Failed to Create Entry in Database',
+        DBERRREADMSG        => 'Failed to Read from Database',
+        DBERRUPDATEMSG      => 'Failed to Update Entry in Database',
+        DBERRDELETEMSG      => 'Failed to Detele Entry in Database',
+        DBERRCOMMITMSG      => 'Failed to Commit changes',
+        DBERRROLLBACKMSG    => 'Failed to Rollback changes',
+        DBERRHANDLEERRORMSG => 'Failed to Perform database actions: '
+    };
+
+    ##  --
+    ##  db messages
+
+    use constant {
+        DBCONNMSG => 'Successfully Connected to Database',
+        DBDISCONNMSG => 'Successfully Disconnected from Database',
+        DBCOMMITMSG => 'Successfully Commited Changes',
+        DBROLLBACKMSG => 'Successfully Rollback Changes'
     };
 
     ##  --

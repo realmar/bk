@@ -12,7 +12,6 @@ sub new {
     my $self = {
         _owner_desc => Constants::DB,
         _db => undef,
-        _is_ext_locked => undef,
         _msg => undef
     };
     bless $self, $class;
@@ -28,22 +27,13 @@ sub DESTROY {
     $self->{handle}->close() if $self->{handle};
 }
 
-sub SetIsExtLocked {
-    my ($self, $value) = @_;
-    $self->{_is_ext_locked} = $value;
-    return $self->{_is_ext_locked};
-}
-
-sub GetIsExtLocked {
-    $self = shift;
-    return $self->{_is_ext_locked};
-}
-
 sub ConnectToDatabase {
     my ($self, $driver, $file) = @_;
     #  return undef if (!defined($driver) || $driver == '');
-    $self->{_db} = DBI->connect('dbi:' . $driver . ':dbname=' . $file, '', '', {RaiseError => 1, AutoCommit => 0})
+    $self->{_db} = DBI->connect('dbi:' . $driver . ':dbname=' . $file, '', '', {PrintError => 1, RaiseError => 1, AutoCommit => 0})
         or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCONN, MessagesTextConstants::DBERRCONNMSG . $DBI::Errstr);
+    $self->{_db}->{HandleError} = sub{ $self->DBError(shift); };
+    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBCONN, MessagesTextConstants::DBCONNMSG);
     return $self->{_db};
 }
 
@@ -51,6 +41,7 @@ sub DisconnectFromDatabase {
     my $self = shift;
     $self->{_db}->disconnect
         or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDISCONN, MessagesTextConstants::DBERRDISCONNMSG . $DBI::Errstr);
+    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBDISCONN, MessagesTextConstants::DBDISCONNMSG);
     $self->{_db};
 }
 
@@ -63,10 +54,15 @@ sub CreateEntryDatabase {
     my $sql_query = 'INSERT INTO ' . $table . '(' . $column . ') VALUES(NULL)';
 
     my $database_query = $self->{_db}->prepare($sql_query);
-    $database_query->execute()
-        or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCREATE, MessagesTextConstants::DBERRCREATEMSG . $DBI::Errstr);
+    my $successfull_db_action = $database_query->execute();
+    while(!$successfull_db_action) {
+        $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCREATE, MessagesTextConstants::DBERRCREATEMSG . $DBI::Errstr);
+        $successfull_db_action = $database_query->execute();
+    }
 
-    $self->{_db};
+    $self->SUPER::ThrowMessage(Constanst::LOG, Constanst::DBCREATE, $sql_query);
+
+    return $self->{_db};
 }
 
 sub ReadEntryDatabase {
@@ -81,8 +77,13 @@ sub ReadEntryDatabase {
     }
 
     my $database_query = $self->{_db}->prepare($sql_query);
-    $database_query->execute()
-        or $self->SUPER::ThrowMessage(Constanst::ERROR, Constants::DBERRREAD, MessagesTextConstants::DBERRREADMSG . $DBI::Errstr);
+    my $successfull_db_action = $database_query->execute();
+    while(!$successfull_db_action) {
+        $self->SUPER::ThrowMessage(Constanst::ERROR, Constants::DBERRREAD, MessagesTextConstants::DBERRREADMSG . $DBI::Errstr);
+        $successfull_db_action = $database_query->execute();
+    }
+
+    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBREAD, $sql_query);
 
     return $database_query;
 }
@@ -119,8 +120,13 @@ sub UpdateEntryDatabase {
     }
 
     my $database_query = $self->{_db}->prepare($sql_query);
-    $database_query->execute()
-        or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRUPDATE, MessagesTextConstants::DBERRUPDATEMSG . $DBI::Errstr);
+    my $successfull_db_action = $database_query->execute();
+    while(!$successfull_db_action) {
+        $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRUPDATE, MessagesTextConstants::DBERRUPDATEMSG . $DBI::Errstr);
+        $successfull_db_action = $database_query->execute();
+    }
+
+    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBUPDATE, $sql_query);
 
     return $self->{_db};
 }
@@ -140,8 +146,13 @@ sub DeleteEntryDatabase {
     }
 
     my $database_query = $self->{_db}->prepare($sql_query);
-    $database_query->execute()
-        or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDELETE, MessagesTextConstants::DBERRDELETEMSG . $DBI::Errstr);
+    my $successfull_db_action = $database_query->execute();
+    while(!$successfull_db_action) {
+        $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDELETE, MessagesTextConstants::DBERRDELETEMSG . $DBI::Errstr);
+        $successfull_db_action = $database_query->execute();
+    }
+
+    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBDELETE, $sql_query);
 
     return $self->{_db};
 }
@@ -150,6 +161,7 @@ sub CommitChanges {
     my $self = shift;
     $self->{_db}->commit()
         or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCOMMIT, MessagesTextConstants::DBERRCOMMITMSG . $DBI::Errstr);
+    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBCOMMIT, MessagesTextConstants::DBCOMMITMSG);
     return $self->{_db};
 }
 
@@ -157,27 +169,14 @@ sub RollbackChanges {
     my $self = shift;
     $self->{_db}->rollback()
         or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRROLLBACK, MessagesTextConstants::DBERRROLLBACKMSG . $DBI::Errstr);
+    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBROLLBACK, MessagesTextConstants::DBROLLBACKMSG);
     return $self->{_db};
 }
 
-sub LockTables {
-    my $self = shift;
-    if($self->{_db}->do(Constants::DBLOCK)) {
-        $self->{_is_ext_locked} = undef;
-    }else{
-        $self->{_is_ext_locked} = 2;
-    }
-    return $self->{_is_ext_locked};
-}
-
-sub UnlockTables {
-    my $self = shift;
-    if($self->{_db}->do(Constants::DBUNLOCK)) {
-        $self->{_is_ext_locked} = undef;
-    }else{
-        $self->{_is_ext_locked} = 2;
-    }
-    return $self->{_is_ext_locked};
+sub DBError {
+    my ($self, $db_error) = @_;
+    $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRHANDLEERROR, MessagesTextConstants::DBERRHANDLEERRORMSG . $db_error);
+    return $self->{_db};
 }
 
 1;

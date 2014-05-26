@@ -58,6 +58,18 @@ function GetBookboxDataAndCheckDOMDoubleDataEntries() {
     return bookbox_data;
 }
 
+function GetBookboxData() {
+    var bookbox_data = [];
+    for(var i = 0; i < $("div.bookbox").length; i++) {
+        if($("div#bookbox" + i).hasClass("changed")) {
+            bookbox_data[i] = $("div#bookbox" + i + "> input").val();
+        }else{
+            bookbox_data[i] = AH_NOT_CHANGED;
+        }
+    }
+    return bookbox_data;
+}
+
 function ClearAllMessages() {
     RemoveMessageData($("div#msg_user_client > p"));
     RemoveMessageData($("div#msg_errors > p"));
