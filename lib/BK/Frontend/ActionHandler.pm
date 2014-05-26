@@ -106,6 +106,8 @@ sub ProcessAction {
         }
     }
 
+    $self->{_db_conn}->DisconnectFromDatabase();
+
     return $self;
 }
 

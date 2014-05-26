@@ -12,6 +12,7 @@ sub new {
     my $self = {
         _owner_desc => Constants::DB,
         _db => undef,
+        _is_ext_locked => undef,
         _msg => undef
     };
     bless $self, $class;
@@ -25,6 +26,17 @@ sub DESTROY {
 
     $self->DisconnectFromDatabase();
     $self->{handle}->close() if $self->{handle};
+}
+
+sub SetIsExtLocked {
+    my ($self, $value) = @_;
+    $self->{_is_ext_locked} = $value;
+    return $self->{_is_ext_locked};
+}
+
+sub GetIsExtLocked {
+    $self = shift;
+    return $self->{_is_ext_locked};
 }
 
 sub ConnectToDatabase {
@@ -146,6 +158,26 @@ sub RollbackChanges {
     $self->{_db}->rollback()
         or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRROLLBACK, MessagesTextConstants::DBERRROLLBACKMSG . $DBI::Errstr);
     return $self->{_db};
+}
+
+sub LockTables {
+    my $self = shift;
+    if($self->{_db}->do(Constants::DBLOCK)) {
+        $self->{_is_ext_locked} = undef;
+    }else{
+        $self->{_is_ext_locked} = 2;
+    }
+    return $self->{_is_ext_locked};
+}
+
+sub UnlockTables {
+    my $self = shift;
+    if($self->{_db}->do(Constants::DBUNLOCK)) {
+        $self->{_is_ext_locked} = undef;
+    }else{
+        $self->{_is_ext_locked} = 2;
+    }
+    return $self->{_is_ext_locked};
 }
 
 1;
