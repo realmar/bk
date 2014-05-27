@@ -167,7 +167,7 @@ BEGIN {
     ##  action handler change types
 
     use constant {
-        AHNOTCHANGED => 'notchanged'
+        AHNOTCHANGED => 'ahnotchanged'
     };
 
     ##  --
