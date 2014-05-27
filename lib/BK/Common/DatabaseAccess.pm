@@ -31,8 +31,8 @@ sub ConnectToDatabase {
     my ($self, $driver, $file) = @_;
     #  return undef if (!defined($driver) || $driver == '');
     $self->{_db} = DBI->connect('dbi:' . $driver . ':dbname=' . $file, '', '', {PrintError => 1, RaiseError => 1, AutoCommit => 0})
-        or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCONN, MessagesTextConstants::DBERRCONNMSG . $DBI::Errstr);
-    $self->{_db}->{HandleError} = sub{ $self->DBError(shift); };
+        or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCONN, MessagesTextConstants::DBERRCONNMSG . $self->{_db}->errstr);
+    $self->{_db}->{HandleError} = sub{ return; };
     $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBCONN, MessagesTextConstants::DBCONNMSG);
     return $self->{_db};
 }
@@ -40,7 +40,7 @@ sub ConnectToDatabase {
 sub DisconnectFromDatabase {
     my $self = shift;
     $self->{_db}->disconnect
-        or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDISCONN, MessagesTextConstants::DBERRDISCONNMSG . $DBI::Errstr);
+        or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDISCONN, MessagesTextConstants::DBERRDISCONNMSG . $self->{_db}->errstr);
     $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBDISCONN, MessagesTextConstants::DBDISCONNMSG);
     $self->{_db};
 }
@@ -56,7 +56,7 @@ sub CreateEntryDatabase {
     my $database_query = $self->{_db}->prepare($sql_query);
     my $successfull_db_action = $database_query->execute();
     while(!$successfull_db_action) {
-        $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCREATE, MessagesTextConstants::DBERRCREATEMSG . $DBI::Errstr);
+        $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCREATE, MessagesTextConstants::DBERRCREATEMSG . $self->{_db}->errstr);
         $successfull_db_action = $database_query->execute();
     }
 
@@ -79,7 +79,7 @@ sub ReadEntryDatabase {
     my $database_query = $self->{_db}->prepare($sql_query);
     my $successfull_db_action = $database_query->execute();
     while(!$successfull_db_action) {
-        $self->SUPER::ThrowMessage(Constanst::ERROR, Constants::DBERRREAD, MessagesTextConstants::DBERRREADMSG . $DBI::Errstr);
+        $self->SUPER::ThrowMessage(Constanst::ERROR, Constants::DBERRREAD, MessagesTextConstants::DBERRREADMSG . $self->{_db}->errstr);
         $successfull_db_action = $database_query->execute();
     }
 
@@ -122,7 +122,7 @@ sub UpdateEntryDatabase {
     my $database_query = $self->{_db}->prepare($sql_query);
     my $successfull_db_action = $database_query->execute();
     while(!$successfull_db_action) {
-        $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRUPDATE, MessagesTextConstants::DBERRUPDATEMSG . $DBI::Errstr);
+        $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRUPDATE, MessagesTextConstants::DBERRUPDATEMSG . $self->{_db}->errstr);
         $successfull_db_action = $database_query->execute();
     }
 
@@ -148,7 +148,7 @@ sub DeleteEntryDatabase {
     my $database_query = $self->{_db}->prepare($sql_query);
     my $successfull_db_action = $database_query->execute();
     while(!$successfull_db_action) {
-        $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDELETE, MessagesTextConstants::DBERRDELETEMSG . $DBI::Errstr);
+        $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDELETE, MessagesTextConstants::DBERRDELETEMSG . $self->{_db}->errstr);
         $successfull_db_action = $database_query->execute();
     }
 
@@ -160,7 +160,7 @@ sub DeleteEntryDatabase {
 sub CommitChanges {
     my $self = shift;
     $self->{_db}->commit()
-        or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCOMMIT, MessagesTextConstants::DBERRCOMMITMSG . $DBI::Errstr);
+        or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCOMMIT, MessagesTextConstants::DBERRCOMMITMSG . $self->{_db}->errstr);
     $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBCOMMIT, MessagesTextConstants::DBCOMMITMSG);
     return $self->{_db};
 }
@@ -168,14 +168,8 @@ sub CommitChanges {
 sub RollbackChanges {
     my $self = shift;
     $self->{_db}->rollback()
-        or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRROLLBACK, MessagesTextConstants::DBERRROLLBACKMSG . $DBI::Errstr);
+        or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRROLLBACK, MessagesTextConstants::DBERRROLLBACKMSG . $self->{_db}->errstr);
     $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBROLLBACK, MessagesTextConstants::DBROLLBACKMSG);
-    return $self->{_db};
-}
-
-sub DBError {
-    my ($self, $db_error) = @_;
-    $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRHANDLEERROR, MessagesTextConstants::DBERRHANDLEERRORMSG . $db_error);
     return $self->{_db};
 }
 
