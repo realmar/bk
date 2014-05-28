@@ -4,52 +4,62 @@ package CommonMessages;
 
 use Switch;
 
+use BK::Common::Constants;
 use BK::Common::DatabaseAccess;
 
 sub newcomsg {
     my $self = shift;
     my $err = {
-        _error_type => undef,
-        _error_msg => undef,
-        _err_count => undef
+        _collector_id => shift,
+        "_" . Constants::CMERROR . "_type" => undef,
+        "_" . Constants::CMERROR . "_msg" => undef,
+        "_" . Constants::CMINFO . "_type" => undef,
+        "_" . Constants::CMINFO . "_msg" => undef,
+        "_" . Constants::CMERROR . "_count" => undef,
+        "_" . Constants::CMINFO . "_count" => undef
     };
     bless $err;
     $self->InitCoMSG();
     return $err;
 }
 
-sub SetErrorType {
-    my ($self, $type) = @_;
-    $self->{_msg}->{_error_type} = $type if defined($type);
-    return $self->{_msg}->{_error_type};
+sub SetCommonType {
+    my ($self, $data_type, $type) = @_;
+    $main::common_messages_collector->GetObject($self->GetCMID())->{"_" . $data_type . "_type"} = $type if defined($type);
+    return $main::common_messages_collector->GetObject($self->GetCMID())->{"_" . $data_type . "_type"};
 }
 
-sub SetErrorMSG {
-    my ($self, $msg) = @_;
-    $self->{_msg}->{_error_msg} = $msg if defined($msg);
-    return $self->{_msg}->{_error_msg};
+sub SetCommonMSG {
+    my ($self, $data_type, $msg) = @_;
+    $main::common_messages_collector->GetObject($self->GetCMID())->{"_" . $data_type . "_msg"} = $msg if defined($msg);
+    return $main::common_messages_collector->GetObject($self->GetCMID())->{"_" . $data_type . "_msg"};
 }
 
-sub GetErrorType {
-    my $self = shift;
-    return $self->{_msg}->{_error_type};
+sub GetCommonType {
+    my ($self, $data_type) = @_;
+    return $main::common_messages_collector->GetObject($self->GetCMID())->{"_" . $data_type . "_type"};
 }
 
-sub GetErrorMSG {
-    my $self = shift;
-    return $self->{_msg}->{_error_msg};
+sub GetCommonMSG {
+    my ($self, $data_tyupe) = @_;
+    return $main::common_messages_collector->GetObject($self->GetCMID())->{"_" . $data_type . "_msg"};
 }
 
 sub InitCoMSG {
     my $self = shift;
-    $self->{_msg}->{_error_count} = 0;
-    return $self->{_msg}->{_err_count};
+    $main::common_messages_collector->GetObject($self->GetCMID())->{_error_type} = '';
+    $main::common_messages_collector->GetObject($self->GetCMID())->{_error_msg} = '';
+    $main::common_messages_collector->GetObject($self->GetCMID())->{_msg_type} = '';
+    $main::common_messages_collector->GetObject($self->GetCMID())->{_msg_msg} = '';
+    $main::common_messages_collector->GetObject($self->GetCMID())->{_error_count} = 0;
+    $main::common_messages_collector->GetObject($self->GetCMID())->{_info_count} = 0;
+    return;
 }
 
-sub RaiseErrCount {
-    my ($self, $raise_count) = @_;
-    $self->{_msg}->{_err_count} += $raise_count;
-    return $self->{_msg}->{_err_count};
+sub RaiseCommonCount {
+    my ($self, $data_type, $raise_count) = @_;
+    $main::common_messages_collector->GetObject($self->GetCMID())->{"_" . $data_type . "_count"} += $raise_count;
+    return;
 }
 
 sub ThrowMessage {

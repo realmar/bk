@@ -16,6 +16,7 @@ use lib dirname(abs_path($0)) . '/lib/';
 use BK::Common::Constants;
 use BK::Common::MessagesTextConstants;
 use BK::Common::BKFileHandler;
+use BK::Common::CommonMessagesCollector;
 use BK::Common::CommonMessages;
 use BK::Common::DatabaseAccess;
 use BK::Backend::Doors;
@@ -24,6 +25,7 @@ use BK::Backend::Scanner;
 use FileHandle;
 use DBI;
 
+our $common_messages_collector = CommonMessagesCollector->new();
 our $filehandle_log_message = BKFileHandler->new('>>', 'log/message_log');
 our $filehandle_log_error = BKFileHandler->new('>>', 'log/error_log');
 our $database_connection = DatabaseAccess->new('SQLite', 'database/BKDatabase.db');

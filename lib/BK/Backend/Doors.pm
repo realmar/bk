@@ -4,17 +4,18 @@ package Doors;
 
 use parent -norequire, 'CommonMessages';
 
+use BK::Common::CommonMessagesCollector;
 use BK::Common::Constants;
 
 sub new {
     $class = shift;
     $self = {
         _owner_desc => Constants::DOORS,
-        _doors => shift,
-        _msg => undef
+        _doors      => shift,
+        _cm_id      => undef,
     };
     bless $self, $class;
-    $self->SUPER::newcomsg();
+    $main::common_messages_collector->AddObject($self->{_cm_id} = $main::common_messages_collector->GetNextID(), $self->SUPER::newcomsg());
     return $self;
 }
 
@@ -22,6 +23,11 @@ sub SetDoors {
     my ($self, $doors) = @_;
     $self->{_doors} = $doors if defined($doors);
     return $self->{_doors};
+}
+
+sub GetCMID {
+    my $self = shift;
+    return $self->{_cm_id};
 }
 
 sub GetDoors {

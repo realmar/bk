@@ -5,6 +5,7 @@ package ActionHandler;
 use parent -norequire, 'CommonMessages';
 
 use BK::Common::Constants;
+use BK::Common::CommonMessagesCollector;
 use BK::Common::DatabaseAccess;
 
 use Switch;
@@ -17,10 +18,10 @@ sub new {
         _action     => shift,
         _data       => shift,
         _proc_ac    => undef,
-        _msg        => undef
+        _cm_id      => undef,
     };
     bless $self, $class;
-    $self->SUPER::newcomsg();
+    $main::common_messages_collector->AddObject($self->{_cm_id} = $main::common_messages_collector->GetNextID(), $self->SUPER::newcomsg());
     return $self;
 }
 
@@ -39,6 +40,11 @@ sub SetActionHandler {
     }
 
     return $self;
+}
+
+sub GetCMID {
+    my $self = shift;
+    return $self->{_cm_id};
 }
 
 sub GetActionHandler {
@@ -187,28 +193,13 @@ sub PrepareWebSocketData {
     return $self;
 }
 
-sub CollectAllErrors {
-    my $self = shift;
-
-    my $all_errors = [];
-    $all_errors[0] = {
-        'error_type' => $self->SUPER::GetErrorType(),
-        'error_msg' => $self->SUPER::GetErrorMSG()
-    } if defined($self->SUPER::GetErrorType() && $self->SUPER::GetErrorMSG());
-    $all_errors[1] = {
-        'error_type' => $main::database_connection->SUPER::GetErrorType(),
-        'error_msg' => $main::database_connection->SUPER::GetErrorMSG()
-    } if defined($main::database_connection->SUPER::GetErrorType() && $main::database_connection->SUPER::GetErrorMSG());
-
-    return $all_errors;
-}
-
 sub PrepareDataToSend {
     my $self = shift;
 
     $self->{_data} = {
         'msg_data' => $self->{_data},
-        'all_errors' => $self->CollectAllErrors()
+        'all_errors' => $main::common_messages_collector->GetAllErrors(),
+        'all_infos' => $main::common_messages_collector->GetAllInfos()
     };
     $self->ToJSON();
 

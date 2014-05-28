@@ -4,6 +4,7 @@ package BKFileHandler;
 
 use parent -norequire, 'CommonMessages';
 
+use BK::Common::CommonMessagesCollector;
 use BK::Common::Constants;
 
 sub new {
@@ -11,12 +12,17 @@ sub new {
     my $self = {
         _owner_desc => Constants::BKFILEHANDLER,
         _filehandle => undef,
-        _msg => undef
+        _cm_id      => undef,
     };
     bless $self, $class;
-    $self->SUPER::newcomsg();
+    $main::common_messages_collector->AddObject($self->{_cm_id} = $main::common_messages_collector->GetNextID(), $self->SUPER::newcomsg());
     $self->OpenFileHandle(shift, shift);
     return $self;
+}
+
+sub GetCMID {
+    my $self = shift;
+    return $self->{_cm_id};
 }
 
 sub OpenFileHandle {

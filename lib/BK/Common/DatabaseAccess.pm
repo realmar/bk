@@ -6,16 +6,17 @@ use parent -norequire, 'CommonMessages';
 
 use BK::Common::Constants;
 use BK::Common::MessagesTextConstants;
+use BK::Common::CommonMessagesCollector;
 
 sub new {
     my $class = shift;
     my $self = {
         _owner_desc => Constants::DB,
-        _db => undef,
-        _msg => undef
+        _db         => undef,
+        _cm_id      => undef,
     };
     bless $self, $class;
-    $self->SUPER::newcomsg();
+    $main::common_messages_collector->AddObject($self->{_cm_id} = $main::common_messages_collector->GetNextID(), $self->SUPER::newcomsg());
     $self->ConnectToDatabase(shift, shift);
     return $self;
 }
@@ -25,6 +26,11 @@ sub DESTROY {
 
     $self->DisconnectFromDatabase();
     $self->{handle}->close() if $self->{handle};
+}
+
+sub GetCMID {
+    my $self = shift;
+    return $self->{_cm_id};
 }
 
 sub ConnectToDatabase {
@@ -54,15 +60,16 @@ sub CreateEntryDatabase {
     my $sql_query = 'INSERT INTO ' . $table . '(' . $column . ') VALUES(NULL)';
 
     my $database_query = $self->{_db}->prepare($sql_query);
-    my $successfull_db_action = $database_query->execute();
-    while(!$successfull_db_action) {
-        $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCREATE, MessagesTextConstants::DBERRCREATEMSG . $self->{_db}->errstr);
-        $successfull_db_action = $database_query->execute();
+    if(!$database_query->execute()) {
+        for(0..Constants::DBRETRIES) {
+            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCREATE, MessagesTextConstants::DBERRCREATEMSG . $self->{_db}->errstr);
+            sleep(Constanst::DBRETRIESTIME);
+            if($database_query->execute()) {
+                $self->SUPER::ThrowMessage(Constanst::LOG, Constanst::DBCREATE, $sql_query);
+                return $self->{_db};
+            }
+        }
     }
-
-    $self->SUPER::ThrowMessage(Constanst::LOG, Constanst::DBCREATE, $sql_query);
-
-    return $self->{_db};
 }
 
 sub ReadEntryDatabase {
@@ -77,15 +84,16 @@ sub ReadEntryDatabase {
     }
 
     my $database_query = $self->{_db}->prepare($sql_query);
-    my $successfull_db_action = $database_query->execute();
-    while(!$successfull_db_action) {
+    if(!$database_query->execute()) {
+        db_retries : for(0..Constants::DBRETRIES) {
         $self->SUPER::ThrowMessage(Constanst::ERROR, Constants::DBERRREAD, MessagesTextConstants::DBERRREADMSG . $self->{_db}->errstr);
-        $successfull_db_action = $database_query->execute();
+            sleep(Constanst::DBRETRIESTIME);
+            if($database_query->execute()) {
+                $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBREAD, $sql_query);
+                return $database_query;
+            }
+        }
     }
-
-    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBREAD, $sql_query);
-
-    return $database_query;
 }
 
 sub UpdateEntryDatabase {
@@ -120,15 +128,16 @@ sub UpdateEntryDatabase {
     }
 
     my $database_query = $self->{_db}->prepare($sql_query);
-    my $successfull_db_action = $database_query->execute();
-    while(!$successfull_db_action) {
-        $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRUPDATE, MessagesTextConstants::DBERRUPDATEMSG . $self->{_db}->errstr);
-        $successfull_db_action = $database_query->execute();
+    if(!$database_query->execute()) {
+        db_retries : for(0..Constants::DBRETRIES) {
+            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRUPDATE, MessagesTextConstants::DBERRUPDATEMSG . $self->{_db}->errstr);
+            sleep(Constanst::DBRETRIESTIME);
+            if($database_query->execute()) {
+                $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBUPDATE, $sql_query);
+                return $self->{_db};
+            }
+        }
     }
-
-    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBUPDATE, $sql_query);
-
-    return $self->{_db};
 }
 
 ##  --
@@ -146,15 +155,16 @@ sub DeleteEntryDatabase {
     }
 
     my $database_query = $self->{_db}->prepare($sql_query);
-    my $successfull_db_action = $database_query->execute();
-    while(!$successfull_db_action) {
-        $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDELETE, MessagesTextConstants::DBERRDELETEMSG . $self->{_db}->errstr);
-        $successfull_db_action = $database_query->execute();
+    if(!$database_query->execute()) {
+        db_retries : for(0..Constants::DBRETRIES) {
+            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDELETE, MessagesTextConstants::DBERRDELETEMSG . $self->{_db}->errstr);
+            sleep(Constanst::DBRETRIESTIME);
+            if($database_query->execute()) {
+                $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBDELETE, $sql_query);
+                return $self->{_db};
+            }
+        }
     }
-
-    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBDELETE, $sql_query);
-
-    return $self->{_db};
 }
 
 sub BeginWork {

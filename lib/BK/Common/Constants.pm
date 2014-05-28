@@ -10,11 +10,13 @@ BEGIN {
         HEXNULL
         HEXTWOBYTEONE
         DOORSOUTPUT
+        DOORCOUNT
         DOORSSENDSIGNALTIME
         DOORSEXEPTIONOPENEND
         DOORSEXEPTIONCLOSED
         DOOROPENED
         DOORCLOSED
+        DBRETRIES
         DBERRCONN
         DBERRDISCONN
         DBERRCREATE
@@ -40,12 +42,14 @@ BEGIN {
         DOORS
         SCANNER
         ACTIONHANDLER
+        COMMONMESSAGESCOLLECTOR
         AHREFRESH
         AHSAVEDATA
         AHKEEPALIVE
         AHNOTCHANGED
         AHUNKNOWNACTION
-        DOORCOUNT
+        CMERROR
+        CMINFO
     );
 
     ##  --
@@ -73,7 +77,11 @@ BEGIN {
         0x400,  ##  D10
     ];
 
+    ##  --
+    ##  doors settings
+
     use constant {
+        DOORCOUNT           => 11,
         DOORSSENDSIGNALTIME => 2
     };
 
@@ -82,7 +90,7 @@ BEGIN {
 
     use constant {
         DOORSEXEPTIONOPENEND => 'doorsexeptionopenend',
-        DOORSEXEPTIONCLOSED => 'doorsexeptionclosed'
+        DOORSEXEPTIONCLOSED  => 'doorsexeptionclosed'
     };
 
     ##  --
@@ -91,6 +99,14 @@ BEGIN {
     use constant {
         DOOROPENED => 'dooropened',
         DOORCLOSED => 'doorclosed'
+    };
+
+    ##  --
+    ##  db settings
+
+    use constant {
+        DBRETRIES     => 100,
+        DBRETRIESTIME => 0.1
     };
 
     ##  --
@@ -112,15 +128,15 @@ BEGIN {
     ##  db messages
 
     use constant {
-        DBCONN => 'dbconn',
-        DBDISCONN => 'dbdisconn',
-        DBCREATE => 'dbcreate',
-        DBREAD => 'dbread',
-        DBUPDATE => 'dbupdate',
-        DBDELETE => 'dbdel',
+        DBCONN      => 'dbconn',
+        DBDISCONN   => 'dbdisconn',
+        DBCREATE    => 'dbcreate',
+        DBREAD      => 'dbread',
+        DBUPDATE    => 'dbupdate',
+        DBDELETE    => 'dbdel',
         DBBEGINWORK => 'dbbeginwork',
-        DBCOMMIT => 'dbcommit',
-        DBROLLBACK => 'dbrollback'
+        DBCOMMIT    => 'dbcommit',
+        DBROLLBACK  => 'dbrollback'
     };
 
     ##  --
@@ -149,11 +165,12 @@ BEGIN {
     ##  owner typ
 
     use constant {
-        BKFILEHANDLER => 'bkfilehandler',
-        DB            => 'db',
-        DOORS         => 'doors',
-        SCANNER       => 'scanner',
-        ACTIONHANDLER => 'actionhandler'
+        BKFILEHANDLER           => 'bkfilehandler',
+        DB                      => 'db',
+        DOORS                   => 'doors',
+        SCANNER                 => 'scanner',
+        ACTIONHANDLER           => 'actionhandler',
+        COMMONMESSAGESCOLLECTOR => 'commonmessagescollector'
     };
 
     ##  --
@@ -173,12 +190,12 @@ BEGIN {
     };
 
     ##  --
-    ##  other variables
+    ##  common messages data types
 
     use constant {
-        DOORCOUNT => 11
+        CMERROR => 'error',
+        CMINFO => 'info'
     };
-
 }
 
 1;

@@ -9,6 +9,7 @@ use lib '/opt/BK/lib/';
 use BK::Common::Constants;
 use BK::Common::MessagesTextConstants;
 use BK::Common::BKFileHandler;
+use BK::Common::CommonMessagesCollector;
 use BK::Common::CommonMessages;
 use BK::Common::DatabaseAccess;
 use BK::Frontend::ActionHandler;
@@ -19,6 +20,7 @@ use FileHandle;
 use DBI;
 use JSON;
 
+our $common_messages_collector = CommonMessagesCollector->new();
 our $filehandle_log_message = BKFileHandler->new('>>', 'log/message_log');
 our $filehandle_log_error = BKFileHandler->new('>>', 'log/error_log');
 our $database_connection = DatabaseAccess->new('SQLite', 'database/BKDatabase.db');
