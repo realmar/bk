@@ -3,14 +3,17 @@
 <html>
     <head>
         <base href="">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta http-equiv="cache-control" content="no-cache">
-        <meta http-equiv="pragma" content="no-cache">
-        <meta http-equiv="content-language" content="en,de">
-        <meta name="application-name" content="BK">
-        <meta name="author" content="Anastassios Martakos">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="stylesheets/stylesheet.css" rel="stylesheet">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="content-language" content="en,de" />
+        <meta name="application-name" content="BK" />
+        <meta name="author" content="Anastassios Martakos" />
+        <meta name="company" content="ETH Zuerich" />
+        <meta name="keywords" content="Buecherkastern Bibliothek BK Verwalten" />
+        <meta name="description" content="This is the Frontend of the Buecherkasten Bibliothek BK of the D-Phys ETH Zuerich Management Tool" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="stylesheets/stylesheet.css" rel="stylesheet" />
         <script src="javascript/source/jquery.min.js"></script>
         <script src="javascript/scripts/variables/Constants.js"></script>
         <script src="javascript/scripts/variables/VariablesDefinition.js"></script>
