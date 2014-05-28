@@ -20,6 +20,7 @@ use DBI;
 
 our $filehandle_log_message = BKFileHandler->new('>>', 'log/message_log');
 our $filehandle_log_error = BKFileHandler->new('>>', 'log/error_log');
+our $database_connection = DatabaseAccess->new('SQLite', , 'database/BKDatabase.db');
 
 any ['get'] => '/' => sub {
     template 'index' => {};

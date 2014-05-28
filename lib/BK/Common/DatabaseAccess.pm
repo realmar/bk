@@ -30,7 +30,7 @@ sub DESTROY {
 sub ConnectToDatabase {
     my ($self, $driver, $file) = @_;
     #  return undef if (!defined($driver) || $driver == '');
-    $self->{_db} = DBI->connect('dbi:' . $driver . ':dbname=' . $file, '', '', {PrintError => 1, RaiseError => 1, AutoCommit => 0})
+    $self->{_db} = DBI->connect('dbi:' . $driver . ':dbname=' . $file, '', '', {PrintError => 1, RaiseError => 1, AutoCommit => 1})
         or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCONN, MessagesTextConstants::DBERRCONNMSG . $self->{_db}->errstr);
     $self->{_db}->{HandleError} = sub{ return; };
     $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBCONN, MessagesTextConstants::DBCONNMSG);
@@ -154,6 +154,14 @@ sub DeleteEntryDatabase {
 
     $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBDELETE, $sql_query);
 
+    return $self->{_db};
+}
+
+sub BeginWork {
+    my $self = shift;
+    $self->{_db}->begin_work()
+        or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRBEGINWORK, Constants::DBERRBEGINWORKMSG . $self->{_db}->errstr);
+    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBBEGINWORK, Constants::DBBEGINWORKMSG);
     return $self->{_db};
 }
 

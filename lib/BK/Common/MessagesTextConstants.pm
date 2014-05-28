@@ -16,11 +16,12 @@ BEGIN {
         DBERRREADMSG
         DBERRUPDATEMSG
         DBERRDELETEMSG
+        DBERRBEGINWORKMSG
         DBERRCOMMITMSG
         DBERRROLLBACKMSG
-        DBERRHANDLEERRORMSG
         DBCONNMSG
         DBDISCONNMSG
+        DBBEGINWORKMSG
         DBCOMMITMSG
         DBROLLBACKMSG
         AHSDIDEN
@@ -53,9 +54,9 @@ BEGIN {
         DBERRREADMSG        => 'Failed to Read from Database',
         DBERRUPDATEMSG      => 'Failed to Update Entry in Database',
         DBERRDELETEMSG      => 'Failed to Detele Entry in Database',
-        DBERRCOMMITMSG      => 'Failed to Commit changes',
-        DBERRROLLBACKMSG    => 'Failed to Rollback changes',
-        DBERRHANDLEERRORMSG => 'Failed to Perform database actions: '
+        DBERRBEGINWORKMSG   => 'Failed to Begin Work in Database, start transaction',
+        DBERRCOMMITMSG      => 'Failed to Commit changes, stop transaction',
+        DBERRROLLBACKMSG    => 'Failed to Rollback changes, rollback transaction',
     };
 
     ##  --
@@ -64,8 +65,9 @@ BEGIN {
     use constant {
         DBCONNMSG => 'Successfully Connected to Database',
         DBDISCONNMSG => 'Successfully Disconnected from Database',
-        DBCOMMITMSG => 'Successfully Commited Changes',
-        DBROLLBACKMSG => 'Successfully Rollback Changes'
+        DBBEGINWORKMSG => 'Successfully Begin Work, start transaction',
+        DBCOMMITMSG => 'Successfully Commited Changes, stop transaction',
+        DBROLLBACKMSG => 'Successfully Rollback Changes, rollback transaction'
     };
 
     ##  --

@@ -21,15 +21,16 @@ BEGIN {
         DBERRREAD
         DBERRUPDATE
         DBERRDELETE
+        DBERRBEGINWORK
         DBERRCOMMIT
         DBERRROLLBACK
-        DBERRHANDLEERROR
         DBCONN
         DBDISCONN
         DBCREATE
         DBREAD
         DBUPDATE
         DBDELETE
+        DBBEGINWORK
         DBCOMMIT
         DBROLLBACK
         SCLOGGOTINPUT
@@ -102,9 +103,9 @@ BEGIN {
         DBERRREAD        => 'dberrread',
         DBERRUPDATE      => 'dberrupdate',
         DBERRDELETE      => 'dberrdel',
+        DBERRBEGINWORK   => 'dberrbeginwork',
         DBERRCOMMIT      => 'dberrcommit',
         DBERRROLLBACK    => 'dberrrollback',
-        DBERRHANDLEERROR => 'dberrhandleerror'
     };
 
     ##  --
@@ -117,6 +118,7 @@ BEGIN {
         DBREAD => 'dbread',
         DBUPDATE => 'dbupdate',
         DBDELETE => 'dbdel',
+        DBBEGINWORK => 'dbbeginwork',
         DBCOMMIT => 'dbcommit',
         DBROLLBACK => 'dbrollback'
     };

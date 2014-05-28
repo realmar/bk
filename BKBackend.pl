@@ -26,19 +26,19 @@ use DBI;
 
 our $filehandle_log_message = BKFileHandler->new('>>', 'log/message_log');
 our $filehandle_log_error = BKFileHandler->new('>>', 'log/error_log');
+our $database_connection = DatabaseAccess->new('SQLite', 'database/BKDatabase.db');
 my $doors = Doors->new(Constants::DOORSOUTPUT);
 my $scanner = Scanner->new();
 
 while(2) {
     my $input_barc = $scanner->GetInput();
 
-    my $database_connection = DatabaseAccess->new('SQLite', 'database/BKDatabase.db');
-
     my $database_entries = $database_connection->ReadEntryDatabase('Users', {'username' => $input_barc});
 
     while(my $database_entries_row = $database_entries->fetchrow_hashref) {
         my $doors_open = $doors->OpenDoor($database_entries_row->{doornumber}, $input_barc);
         if(defined($doors_open)) {
+            $database_connection->BeginWork();
             $database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}});
             $database_connection->CommitChanges();
         }
@@ -47,8 +47,9 @@ while(2) {
         ##  To Correspondant Person
     }
 
-    $database_connection->DisconnectFromDatabase();
 }
+
+$database_connection->DisconnectFromDatabase();
 
 $filehandle_log_message->CloseFileHandle();
 $filehandle_log_error->CloseFileHandle();

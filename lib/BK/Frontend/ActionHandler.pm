@@ -16,7 +16,6 @@ sub new {
         _owner_desc => Constants::ACTIONHANDLER,
         _action     => shift,
         _data       => shift,
-        _db_conn    => undef,
         _proc_ac    => undef,
         _msg        => undef
     };
@@ -28,7 +27,6 @@ sub new {
 sub DESTROY {
     my $self = shift;
 
-    $self->{_db_conn}->DisconnectFromDatabase() if defined $self->{_db_conn};
     $self->{handle}->close() if $self->{handle};
 }
 
@@ -81,7 +79,6 @@ sub GetProcAC {
 sub ProcessAction {
     my $self = shift;
 
-    $self->{_db_conn} = DatabaseAccess->new('SQLite', 'database/BKDatabase.db');
     switch ($self->{_action}) {
         case Constants::AHREFRESH {
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHREFRESH, Constants::AHREFRESH);
@@ -106,8 +103,6 @@ sub ProcessAction {
         }
     }
 
-    $self->{_db_conn}->DisconnectFromDatabase();
-
     return $self;
 }
 
@@ -123,6 +118,8 @@ sub RefreshData {
 sub SaveData {
     my $self = shift;
 
+    $main::database_connection->BeginWork();
+
     for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
         switch ($self->{_data}->[$i]) {
             case (Constants::AHNOTCHANGED) {
@@ -131,18 +128,18 @@ sub SaveData {
             }
             case ('') {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDDEL);
-                $self->{_db_conn}->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i});
+                $main::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i});
                 last;
             }
             else {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDNEW);
-                $self->{_db_conn}->UpdateEntryDatabase('Users', {'username' => $self->{_data}[$i]}, {'doornumber' => $i});
+                $main::database_connection->UpdateEntryDatabase('Users', {'username' => $self->{_data}[$i]}, {'doornumber' => $i});
                 last;
             }
         }
     }
 
-    $self->{_db_conn}->CommitChanges();
+    $main::database_connection->CommitChanges();
 
     $self->RefreshData();
 
@@ -154,7 +151,7 @@ sub GetAllEntries {
 
     my %db_entries_hash;
     my @db_entries_array;
-    my $db_entries = $self->{_db_conn}->ReadEntryDatabase('Users', {});
+    my $db_entries = $main::database_connection->ReadEntryDatabase('Users', {});
     while (my $db_entries_row = $db_entries->fetchrow_hashref) {
         $db_entries_hash{$db_entries_row->{doornumber}} = $db_entries_row->{username};
     }
@@ -199,9 +196,9 @@ sub CollectAllErrors {
         'error_msg' => $self->SUPER::GetErrorMSG()
     } if defined($self->SUPER::GetErrorType() && $self->SUPER::GetErrorMSG());
     $all_errors[1] = {
-        'error_type' => $self->{_db_conn}->SUPER::GetErrorType(),
-        'error_msg' => $self->{_db_conn}->SUPER::GetErrorMSG()
-    } if defined($self->{_db_conn}->SUPER::GetErrorType() && $self->{_db_Conn}->SUPER::GetErrorMSG());
+        'error_type' => $main::database_connection->SUPER::GetErrorType(),
+        'error_msg' => $main::database_connection->SUPER::GetErrorMSG()
+    } if defined($main::database_connection->SUPER::GetErrorType() && $main::database_connection->SUPER::GetErrorMSG());
 
     return $all_errors;
 }
