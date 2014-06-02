@@ -10,16 +10,15 @@ use BK::Common::DatabaseAccess;
 sub newcomsg {
     my $self = shift;
     my $err = {
-        _collector_id => shift,
-        "_" . Constants::CMERROR . "_type" => undef,
-        "_" . Constants::CMERROR . "_msg" => undef,
-        "_" . Constants::CMINFO . "_type" => undef,
-        "_" . Constants::CMINFO . "_msg" => undef,
-        "_" . Constants::CMERROR . "_count" => undef,
-        "_" . Constants::CMINFO . "_count" => undef
+        _owner_obj                          => $self,
+        "_" . Constants::CMERROR . "_type"  => '',
+        "_" . Constants::CMERROR . "_msg"   => '',
+        "_" . Constants::CMINFO . "_type"   => '',
+        "_" . Constants::CMINFO . "_msg"    => '',
+        "_" . Constants::CMERROR . "_count" => 0,
+        "_" . Constants::CMINFO . "_count"  => 0
     };
     bless $err;
-    $self->InitCoMSG();
     return $err;
 }
 
@@ -41,7 +40,7 @@ sub GetCommonType {
 }
 
 sub GetCommonMSG {
-    my ($self, $data_tyupe) = @_;
+    my ($self, $data_type) = @_;
     return $main::common_messages_collector->GetObject($self->GetCMID())->{"_" . $data_type . "_msg"};
 }
 

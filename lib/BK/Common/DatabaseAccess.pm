@@ -16,7 +16,7 @@ sub new {
         _cm_id      => undef,
     };
     bless $self, $class;
-    $main::common_messages_collector->AddObject($self->{_cm_id} = $main::common_messages_collector->GetNextID(), $self->SUPER::newcomsg());
+    $self->{_cm_id} = $main::common_messages_collector->AddObject($self->SUPER::newcomsg());
     $self->ConnectToDatabase(shift, shift);
     return $self;
 }
@@ -93,7 +93,11 @@ sub ReadEntryDatabase {
                 return $database_query;
             }
         }
+    }else{
+        return $database_query;
     }
+
+    return;
 }
 
 sub UpdateEntryDatabase {
