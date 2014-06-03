@@ -11,23 +11,19 @@ sub newcomsg {
     my $self = shift;
     my $err = {
         _owner_obj => $self,
-        '_' . Constants::CMERROR => {},
-        '_' . Constants::CMINFO  => {}
     };
     bless $err, ref($self);
+    $self->{'_' . Constants::CMERROR} = {};
+    $self->{'_' . Constants::CMINFO} = {};
     return $err;
 }
 
 sub SetCommonCM {
     my ($self, $data_type, $msg_type, $msg_string) = @_;
     if(!defined($self->{'_' . $data_type}->{$msg_type})) {
-        $self->{'_' . $data_type}->{$msg_type} = {
-            Constants::THROWTIME => [],
-            Constants::MSGSTRING => []
-        };
+        $self->{'_' . $data_type}->{$msg_type} = [];
     }
-    push($self->{'_' . $data_type}->{$msg_type}->{Constants::THROWTIME}, time());
-    push($self->{'_' . $data_type}->{$msg_type}->{Constants::MSGSTRING}, $msg_string);
+    push($self->{'_' . $data_type}->{$msg_type}, {Constants::THROWTIME => time(), Constants::MSGSTRING => $msg_string});
     return;
 }
 
@@ -53,12 +49,12 @@ sub ThrowMessage {
 
     switch ($msg_prio) {
         case Constants::ERROR {
-            $self->SetCommon(Constants::CMERROR, $msg_type, $msg_string);
+            $self->SetCommonCM(Constants::CMERROR, $msg_type, $msg_string);
             $self->LogError($msg_prio, $msg_type, $msg_string);
             last;
         }
         case Constants::LOG {
-            $self->SetCommon(Constants::CMINFO, $msg_type, $msg_string);
+            $self->SetCommonCM(Constants::CMINFO, $msg_type, $msg_string);
             $self->LogMessage($msg_prio, $msg_type, $msg_string);
             last;
         }

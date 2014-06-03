@@ -12,7 +12,7 @@ sub new {
         _owner_desc => Constants::COMMONMESSAGESCOLLECTOR,
         _common_messages => [],
         _logging_facilities => {
-            Constants::CMERROR => (
+            Constants::CMERROR => [
                 Constants::DBERRCONN,
                 Constants::DBERRDISCONN,
                 Constants::DBERRCREATE,
@@ -20,9 +20,9 @@ sub new {
                 Constants::DBERRUPDATE,
                 Constants::DBERRDELETE,
                 Constants::DBERRCOMMIT
-            ),
-            Constants::CMINFO => (
-            )
+            ],
+            Constants::CMINFO => [
+            ]
         },
         _id_count => 0
     };
@@ -68,7 +68,7 @@ sub GetAllInfos {
 
 sub GetCommon {
     my ($self, $id, $data_type) = @_;
-    my %all_common = {};
+    my %all_common = ();
     foreach(my $key = keys($self->{_common_messages}->[$id]->{_owner_obj}->SUPER::GetCommonDataTypeCM($data_type))) {
         foreach(my $logging_facility = $self->{_logging_facilities}->{$data_type}) {
             if($key eq $logging_facility) {
