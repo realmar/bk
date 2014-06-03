@@ -32,7 +32,7 @@ our $database_connection = DatabaseAccess->new('SQLite', 'database/BKDatabase.db
 my $doors = Doors->new(Constants::DOORSOUTPUT);
 my $scanner = Scanner->new();
 
-while(2) {
+while(1) {
     my $input_barc = $scanner->GetInput();
 
     my $database_entries = $database_connection->ReadEntryDatabase('Users', {'username' => $input_barc});

@@ -17,7 +17,6 @@ sub new {
         _owner_desc => Constants::ACTIONHANDLER,
         _action     => shift,
         _data       => shift,
-        _proc_ac    => undef,
         _cm_id      => undef,
     };
     bless $self, $class;
@@ -102,17 +101,15 @@ sub ProcessAction {
         }
         case Constants::AHKEEPALIVE {
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHKEEPALIVE, $self->{_action});
-            $self->{_proc_ac} = 2;
-            last;
+            return 1;
         }
         else {
             $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHUNKNOWNACTION, $self->{_action});
-            $self->{_proc_ac} = 2;
-            last;
+            return 1;
         }
     }
 
-    return $self;
+    return;
 }
 
 sub RefreshData {
