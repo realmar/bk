@@ -43,8 +43,11 @@ BEGIN {
         SCANNER
         ACTIONHANDLER
         COMMONMESSAGESCOLLECTOR
+        THROWTIME
+        MSGSTRING
         AHREFRESH
         AHSAVEDATA
+        AHSAVEDATAWRITE
         AHKEEPALIVE
         AHNOTCHANGED
         AHUNKNOWNACTION
@@ -174,12 +177,21 @@ BEGIN {
     };
 
     ##  --
+    ##  common messages hash elements
+
+    use constant {
+        THROWTIME => 'throw_time',
+        MSGSTRING => 'msg_string'
+    };
+
+    ##  --
     ##  action handler types
 
     use constant {
-        AHREFRESH   => 'ahrefresh',
-        AHSAVEDATA  => 'ahsavedata',
-        AHKEEPALIVE => 'ahkeepalive'
+        AHREFRESH       => 'ahrefresh',
+        AHSAVEDATA      => 'ahsavedata',
+        AHSAVEDATAWRITE => 'ahsavedatawrite',
+        AHKEEPALIVE     => 'ahkeepalive'
     };
 
     ##  --

@@ -11,6 +11,19 @@ sub new {
     my $self = {
         _owner_desc => Constants::COMMONMESSAGESCOLLECTOR,
         _common_messages => [],
+        _logging_facilities => {
+            Constants::CMERROR => (
+                Constants::DBERRCONN,
+                Constants::DBERRDISCONN,
+                Constants::DBERRCREATE,
+                Constants::DBERRREAD,
+                Constants::DBERRUPDATE,
+                Constants::DBERRDELETE,
+                Constants::DBERRCOMMIT
+            ),
+            Constants::CMINFO => (
+            )
+        },
         _id_count => 0
     };
     bless $self, $class;
@@ -55,11 +68,23 @@ sub GetAllInfos {
 
 sub GetCommon {
     my ($self, $id, $data_type) = @_;
-    my %all_common = (
-        "$data_type" . "_type" => $self->{_common_messages}->[$id]->{_owner_obj}->SUPER::GetCommonType($data_type),
-        "$data_type" . "_msg" => $self->{_common_messages}->[$id]->{_owner_obj}->SUPER::GetCommonMSG($data_type)
-    );
+    my %all_common = {};
+    foreach(my $key = keys($self->{_common_messages}->[$id]->{_owner_obj}->SUPER::GetCommonDataTypeCM($data_type))) {
+        foreach(my $logging_facility = $self->{_logging_facilities}->{$data_type}) {
+            if($key eq $logging_facility) {
+                $all_common{$key} = $self->{_common_messages}->[$id]->{_owner_obj}->SUPER::GetCommonCM($data_type, $key);
+            }
+        }
+    }
     return %all_common;
+}
+
+sub ResetAllStates {
+    my $self = shift;
+    for (my $i = 0; $i < scalar(@{ $self->{_common_messages} }); $i++) {
+        $self->{_common_messages}->[$i]->{_owner_obj}->SUPER::ResetStates();
+    }
+    return;
 }
 
 1;

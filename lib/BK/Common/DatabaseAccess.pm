@@ -26,6 +26,10 @@ sub DESTROY {
 
     $self->DisconnectFromDatabase();
     $self->{handle}->close() if $self->{handle};
+
+    $main::common_messages_collector->RemoveMessageData($self->getCMID());
+
+    return;
 }
 
 sub GetCMID {

@@ -20,6 +20,12 @@ sub new {
     return $self;
 }
 
+sub DESTORY {
+    my $self = shift;
+    $main::common_messages_collector->RemoveObject($self->GetCMID());
+    return;
+}
+
 sub GetCMID {
     my $self = shift;
     return $self->{_cm_id};

@@ -29,6 +29,9 @@ sub DESTROY {
     my $self = shift;
 
     $self->{handle}->close() if $self->{handle};
+    $main::common_messages_collector->RemoveObject($self->GetCMID());
+
+    return;
 }
 
 sub SetActionHandler {
@@ -129,16 +132,16 @@ sub SaveData {
     for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
         switch ($self->{_data}->[$i]) {
             case (Constants::AHNOTCHANGED) {
-                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDIDEN);
+                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDIDEN);
                 last;
             }
             case ('') {
-                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDDEL);
+                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDDEL);
                 $main::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i});
                 last;
             }
             else {
-                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, MessagesTextConstants::AHSDNEW);
+                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDNEW);
                 $main::database_connection->UpdateEntryDatabase('Users', {'username' => $self->{_data}[$i]}, {'doornumber' => $i});
                 last;
             }
@@ -202,6 +205,8 @@ sub PrepareDataToSend {
         'all_infos' => $main::common_messages_collector->GetAllInfos()
     };
     $self->ToJSON();
+
+    $main::common_messages_collector->ResetAllStates();
 
     return $self->{_data};
 }

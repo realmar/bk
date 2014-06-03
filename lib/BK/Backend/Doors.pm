@@ -19,6 +19,12 @@ sub new {
     return $self;
 }
 
+sub DESTROY {
+    my $self = shift;
+    $main::common_messages_collector->RemoveObject($self->GetCMID());
+    return;
+}
+
 sub SetDoors {
     my ($self, $doors) = @_;
     $self->{_doors} = $doors if defined($doors);
