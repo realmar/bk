@@ -198,8 +198,8 @@ sub PrepareDataToSend {
 
     $self->{_data} = {
         'msg_data' => $self->{_data},
-        'all_errors' => $main::common_messages_collector->GetAllErrors(),
-        'all_infos' => $main::common_messages_collector->GetAllInfos()
+        'all_errors' => [ $main::common_messages_collector->GetAllErrors() ],
+        'all_infos' => [ $main::common_messages_collector->GetAllInfos() ]
     };
     $self->ToJSON();
 

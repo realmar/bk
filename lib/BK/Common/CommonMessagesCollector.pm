@@ -50,7 +50,7 @@ sub GetObject {
 
 sub GetAllErrors {
     my $self = shift;
-    my @all_errors = [];
+    my @all_errors = ();
     for(my $i = 0; $i < scalar(@{ $self->{_common_messages} }); $i++) {
         push(@all_errors, $self->GetCommon($i, Constants::CMERROR));
     }
@@ -59,7 +59,7 @@ sub GetAllErrors {
 
 sub GetAllInfos {
     my $self = shift;
-    my @all_infos = [];
+    my @all_infos = ();
     for(my $i = 0; $i < scalar(@{ $self->{_common_messages} }); $i++) {
         push(@all_infos, $self->GetCommon($i, Constants::CMINFO));
     }
@@ -69,8 +69,8 @@ sub GetAllInfos {
 sub GetCommon {
     my ($self, $id, $data_type) = @_;
     my %all_common = ();
-    foreach(my $key = keys($self->{_common_messages}->[$id]->{_owner_obj}->SUPER::GetCommonDataTypeCM($data_type))) {
-        foreach(my $logging_facility = $self->{_logging_facilities}->{$data_type}) {
+    foreach my $key (keys(%{ $self->{_common_messages}->[$id]->{_owner_obj}->SUPER::GetCommonDataTypeCM($data_type) })) {
+        foreach my $logging_facility (@{ $self->{_logging_facilities}->{$data_type} }) {
             if($key eq $logging_facility) {
                 $all_common{$key} = $self->{_common_messages}->[$id]->{_owner_obj}->SUPER::GetCommonCM($data_type, $key);
             }
