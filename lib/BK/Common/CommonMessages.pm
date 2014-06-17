@@ -24,7 +24,7 @@ sub SetCommonCM {
         $self->{'_' . $data_type}->{$msg_type} = [];
     }
     push($self->{'_' . $data_type}->{$msg_type}, {Constants::THROWTIME => time(), Constants::MSGSTRING => $msg_string});
-    return;
+    return 0;
 }
 
 sub GetCommonCM {
@@ -41,7 +41,7 @@ sub ResetStates {
     my $self = shift;
     $self->{'_' . Constants::CMERROR} = {};
     $self->{'_' . Constants::CMINFO} = {};
-    return;
+    return 0;
 }
 
 sub ThrowMessage {
@@ -60,7 +60,7 @@ sub ThrowMessage {
         }
     }
 
-    return;
+    return 0;
 }
 
 sub CreateLogString {

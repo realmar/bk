@@ -50,9 +50,13 @@ BEGIN {
         AHSAVEDATAWRITE
         AHKEEPALIVE
         AHNOTCHANGED
+        AHERRSAVEDATA
+        AHERRREFRESHDATA
+        AHSUCCSAVEDATA
         AHUNKNOWNACTION
         CMERROR
         CMINFO
+        INTERNALERROR
     );
 
     ##  --
@@ -202,11 +206,33 @@ BEGIN {
     };
 
     ##  --
+    ##  action handler errors
+
+    use constant {
+        AHERRSAVEDATA => 'aherrsavedata',
+        AHERRREFRESHDATA => 'aherrrefreshdata'
+    };
+
+    ##  --
+    ##  action handler messages
+
+    use constant {
+        AHSUCCSAVEDATA => 'ahsuccrefreshdata'
+    };
+
+    ##  --
     ##  common messages data types
 
     use constant {
         CMERROR => 'error',
         CMINFO => 'info'
+    };
+
+    ## --
+    ##  other stuff
+
+    use constant {
+        INTERNALERROR => 'internalerror'
     };
 }
 

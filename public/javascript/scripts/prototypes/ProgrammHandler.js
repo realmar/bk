@@ -113,12 +113,21 @@ function CheckBookboxStates() {
             if(current_bookbox.hasClass("unchanged")) {
                 current_bookbox.removeClass("unchanged");
             }
+            if(current_bookbox.hasClass("empty_bookbox")) {
+                current_bookbox.removeClass("empty_bookbox");
+            }
             current_bookbox.addClass("changed");
         }else{
             if(current_bookbox.hasClass("changed")) {
                 current_bookbox.removeClass("changed");
             }
-            current_bookbox.addClass("unchanged");
+            if($("div#bookbox" + i + "> input").val() != "") {
+                current_bookbox.removeClass("empty_bookbox");
+                current_bookbox.addClass("unchanged");
+            }else{
+                current_bookbox.removeClass("unchanged");
+                current_bookbox.addClass("empty_bookbox");
+            }
         }
     }
     if($(".changed.bookbox").length > 0) {

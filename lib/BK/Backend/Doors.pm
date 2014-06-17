@@ -22,7 +22,7 @@ sub new {
 sub DESTROY {
     my $self = shift;
     $main::common_messages_collector->RemoveObject($self->GetCMID());
-    return;
+    return 0;
 }
 
 sub SetDoors {

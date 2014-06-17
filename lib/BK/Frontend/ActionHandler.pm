@@ -30,7 +30,7 @@ sub DESTROY {
     $self->{handle}->close() if $self->{handle};
     $main::common_messages_collector->RemoveObject($self->GetCMID());
 
-    return;
+    return 0;
 }
 
 sub SetActionHandler {
@@ -90,35 +90,46 @@ sub ProcessAction {
     switch ($self->{_action}) {
         case Constants::AHREFRESH {
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHREFRESH, Constants::AHREFRESH);
-            $self->RefreshData();
+            if($self->RefreshData()) {
+                $self->SUPER::ThrowMessage(Constants::ERROR);
+            }
             last;
         }
         case Constants::AHSAVEDATA {
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, $self->{_data});
             $self->FromJSON();
-            $self->SaveData();
+            my $sav_data_response = $self->SaveData();
+            if($sav_data_response eq Constants::INTERNALERROR) {
+                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRSAVEDATA, MessagesTextConstants::AHERRSAVEDATAMSG);
+            }elsif($sav_data_response eq Constants::AHREFRESH) {
+                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRREFRESHDATA, MessagesTextConstants::AHERRREFRESHDATAMSG);
+            }else{
+                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSUCCSAVEDATA, MessagesTextConstants::AHSAVEDATAMSG);
+            }
             last;
         }
         case Constants::AHKEEPALIVE {
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHKEEPALIVE, $self->{_action});
-            return 1;
+            last;
         }
         else {
             $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHUNKNOWNACTION, $self->{_action});
-            return 1;
+            last;
         }
     }
 
-    return;
+    return 0;
 }
 
 sub RefreshData {
     my $self = shift;
 
-    $self->GetAllEntries();
     $self->{_data} = $self->GetAllEntries();
+    if($self->{_data} eq Constants::INTERNALERROR) {
+        return Constants::AHREFRESH;
+    }
 
-    return 1;
+    return 0;
 }
 
 sub SaveData {
@@ -134,12 +145,16 @@ sub SaveData {
             }
             case ('') {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDDEL);
-                $main::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i});
+                if($main::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
+                    return Constants::INTERNALERROR;
+                }
                 last;
             }
             else {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDNEW);
-                $main::database_connection->UpdateEntryDatabase('Users', {'username' => $self->{_data}[$i]}, {'doornumber' => $i});
+                if($main::database_connection->UpdateEntryDatabase('Users', {'username' => $self->{_data}[$i]}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
+                    return Constants::INTERNALERROR;
+                }
                 last;
             }
         }
@@ -147,9 +162,7 @@ sub SaveData {
 
     $main::database_connection->CommitChanges();
 
-    $self->RefreshData();
-
-    return $self;
+    return $self->RefreshData();
 }
 
 sub GetAllEntries {
@@ -158,6 +171,9 @@ sub GetAllEntries {
     my %db_entries_hash;
     my @db_entries_array;
     my $db_entries = $main::database_connection->ReadEntryDatabase('Users', {});
+    if($db_entries eq Constants::INTERNALERROR) {
+        return Constants::INTERNALERROR;
+    }
     while (my $db_entries_row = $db_entries->fetchrow_hashref) {
         $db_entries_hash{$db_entries_row->{doornumber}} = $db_entries_row->{username};
     }
@@ -198,8 +214,8 @@ sub PrepareDataToSend {
 
     $self->{_data} = {
         'msg_data' => $self->{_data},
-        'all_errors' => [ $main::common_messages_collector->GetAllErrors() ],
-        'all_infos' => [ $main::common_messages_collector->GetAllInfos() ]
+        'all_errors' => { $main::common_messages_collector->GetAllErrors() },
+        'all_infos' => { $main::common_messages_collector->GetAllInfos() }
     };
     $self->ToJSON();
 

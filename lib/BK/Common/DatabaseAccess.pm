@@ -29,7 +29,7 @@ sub DESTROY {
 
     $main::common_messages_collector->RemoveMessageData($self->getCMID());
 
-    return;
+    return 0;
 }
 
 sub GetCMID {
@@ -42,7 +42,7 @@ sub ConnectToDatabase {
     #  return undef if (!defined($driver) || $driver == '');
     $self->{_db} = DBI->connect('dbi:' . $driver . ':dbname=' . $file, '', '', {PrintError => 1, RaiseError => 1, AutoCommit => 1})
         or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCONN, MessagesTextConstants::DBERRCONNMSG . $self->{_db}->errstr);
-    $self->{_db}->{HandleError} = sub{ return; };
+    $self->{_db}->{HandleError} = sub{ return 0; };
     $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBCONN, MessagesTextConstants::DBCONNMSG);
     return $self->{_db};
 }
@@ -70,10 +70,13 @@ sub CreateEntryDatabase {
             sleep(Constanst::DBRETRIESTIME);
             if($database_query->execute()) {
                 $self->SUPER::ThrowMessage(Constanst::LOG, Constanst::DBCREATE, $sql_query);
-                return $self->{_db};
+                return 0;
             }
         }
+    }else{
+        return 0;
     }
+    return Constants::INTERNALERROR;
 }
 
 sub ReadEntryDatabase {
@@ -101,7 +104,7 @@ sub ReadEntryDatabase {
         return $database_query;
     }
 
-    return;
+    return Constants::INTERNALERROR;
 }
 
 sub UpdateEntryDatabase {
@@ -142,10 +145,14 @@ sub UpdateEntryDatabase {
             sleep(Constanst::DBRETRIESTIME);
             if($database_query->execute()) {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBUPDATE, $sql_query);
-                return $self->{_db};
+                return 0;
             }
         }
+    }else{
+        return 0;
     }
+
+    return Constants::INTERNALERROR;
 }
 
 ##  --
@@ -169,17 +176,20 @@ sub DeleteEntryDatabase {
             sleep(Constanst::DBRETRIESTIME);
             if($database_query->execute()) {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBDELETE, $sql_query);
-                return $self->{_db};
+                return 0;
             }
         }
+    }else{
+        return 0;
     }
+    return Constants::INTERNALERROR;
 }
 
 sub BeginWork {
     my $self = shift;
     $self->{_db}->begin_work()
         or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRBEGINWORK, Constants::DBERRBEGINWORKMSG . $self->{_db}->errstr);
-    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBBEGINWORK, Constants::DBBEGINWORKMSG);
+    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBBEGINWORK, MessagesTextConstants::DBBEGINWORKMSG);
     return $self->{_db};
 }
 

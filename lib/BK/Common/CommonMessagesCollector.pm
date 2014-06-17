@@ -40,7 +40,7 @@ sub AddObject {
 sub RemoveObject {
     my ($self, $id) = @_;
     delete($self->{_common_messages}[$id]);
-    return;
+    return 0;
 }
 
 sub GetObject {
@@ -84,7 +84,7 @@ sub ResetAllStates {
     for (my $i = 0; $i < scalar(@{ $self->{_common_messages} }); $i++) {
         $self->{_common_messages}->[$i]->{_owner_obj}->SUPER::ResetStates();
     }
-    return;
+    return 0;
 }
 
 1;

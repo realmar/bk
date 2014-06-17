@@ -30,10 +30,9 @@ any ['get'] => '/' => sub {
 
 any ['get', 'post'] => '/:action' => sub {
     my $recv_action = ActionHandler->new(param('action'), param('msg_data'));
-    if(!defined($recv_action->ProcessAction())) {
-        my $data_to_send = $recv_action->PrepareDataToSend();
-        return $data_to_send;
-    }
+    $recv_action->ProcessAction();
+    my $data_to_send = $recv_action->PrepareDataToSend();
+    return $data_to_send;
 };
 
 Dancer->dance;

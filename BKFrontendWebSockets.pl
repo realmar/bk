@@ -35,9 +35,8 @@ websocket '/ws' => sub {
         my $recv_action = ActionHandler->new(undef, $msg_data);
         $recv_action->FromJSON();
         $recv_action->PrepareWebSocketData();
-        if(!defined($recv_action->ProcessAction())) {
-            $self->send($recv_action->PrepareDataToSend()) if !defined($recv_action->GetProcAC());
-        }
+        $recv_action->ProcessAction();
+        $self->send($recv_action->PrepareDataToSend()) if !defined($recv_action->GetProcAC());
     });
 };
 

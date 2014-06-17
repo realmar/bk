@@ -68,6 +68,10 @@ div.msg {
     margin-top: 1em;
 }
 
+div.empty_bookbox {
+    background-color: rgb(203, 208, 223);
+}
+
 div.unchanged {
     background-color: rgb(196, 212, 255);   
 }
