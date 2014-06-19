@@ -27,6 +27,13 @@ div#desc_legend_container {
     margin-left: 8em;
 }
 
+div#container {
+    min-width: 1154px;
+    max-width: 2048px;
+    width: 60%;
+    margin: auto;
+}
+
 div.display_inline,p.display_inline,img.display_inline,h1.display_inline {
     display: inline-block;
 }
