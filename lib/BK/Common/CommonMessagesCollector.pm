@@ -19,9 +19,22 @@ sub new {
                 Constants::DBERRREAD,
                 Constants::DBERRUPDATE,
                 Constants::DBERRDELETE,
-                Constants::DBERRCOMMIT
+                Constants::DBERRBEGINWORK,
+                Constants::DBERRCOMMIT,
+                Constants::AHERRREFRESHDATA,
+                Constants::AHERRSAVEDATA
             ],
             Constants::CMINFO => [
+                Constants::DBCONN,
+                Constants::DBDISCONN,
+                Constants::DBCREATE,
+                Constants::DBREAD,
+                Constants::DBUPDATE,
+                Constants::DBDELETE,
+                Constants::DBBEGINWORK,
+                Constants::DBCOMMIT,
+                Constants::AHSAVEDATAWRITE,
+                Constants::AHSUCCSAVEDATA
             ]
         },
         _id_count => 0

@@ -74,8 +74,12 @@ sub CreateEntryDatabase {
             }
         }
     }else{
+        $self->SUPER::ThrowMessage(Constanst::LOG, Constanst::DBCREATE, $sql_query);
         return 0;
     }
+
+    $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCREATE, MessagesTextConstants::DBERRCREATEMSG . $self->{_db}->errstr);
+
     return Constants::INTERNALERROR;
 }
 
@@ -93,7 +97,7 @@ sub ReadEntryDatabase {
     my $database_query = $self->{_db}->prepare($sql_query);
     if(!$database_query->execute()) {
         db_retries : for(0..Constants::DBRETRIES) {
-        $self->SUPER::ThrowMessage(Constanst::ERROR, Constants::DBERRREAD, MessagesTextConstants::DBERRREADMSG . $self->{_db}->errstr);
+            $self->SUPER::ThrowMessage(Constanst::ERROR, Constants::DBERRREAD, MessagesTextConstants::DBERRREADMSG . $self->{_db}->errstr);
             sleep(Constanst::DBRETRIESTIME);
             if($database_query->execute()) {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBREAD, $sql_query);
@@ -101,8 +105,11 @@ sub ReadEntryDatabase {
             }
         }
     }else{
+        $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBREAD, $sql_query);
         return $database_query;
     }
+
+    $self->SUPER::ThrowMessage(Constanst::ERROR, Constants::DBERRREAD, MessagesTextConstants::DBERRREADMSG . $self->{_db}->errstr);
 
     return Constants::INTERNALERROR;
 }
@@ -149,8 +156,11 @@ sub UpdateEntryDatabase {
             }
         }
     }else{
+        $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBUPDATE, $sql_query);
         return 0;
     }
+
+    $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRUPDATE, MessagesTextConstants::DBERRUPDATEMSG . $self->{_db}->errstr);
 
     return Constants::INTERNALERROR;
 }
@@ -180,8 +190,12 @@ sub DeleteEntryDatabase {
             }
         }
     }else{
+        $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBDELETE, $sql_query);
         return 0;
     }
+
+    $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDELETE, MessagesTextConstants::DBERRDELETEMSG . $self->{_db}->errstr);
+
     return Constants::INTERNALERROR;
 }
 

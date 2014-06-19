@@ -24,9 +24,13 @@ function RemoveMessageData(dom_object) {
 function CheckMSGDataObjects() {
     if($("div#msg_errors > p").length <= 0 && !$("div#msg_errors").hasClass("display_none")) {
         $("div#msg_errors").addClass("display_none");
+    }else if($("div#msg_errors > p").length > 0 && $("div#msg_errors").hasClass("display_none")) {
+        $("div#msg_errors").removeClass("display_none");
     }
     if($("div#msg_user_client > p").length <= 0 && !$("div#msg_user_client").hasClass("display_none")) {
         $("div#msg_user_client").addClass("display_none");
+    }else if($("div#msg_user_client > p").lenght > 0 && $("div#msg_user_client").hasClass("display_none")) {
+        $("div#msg_user_client").removeClass("display_none");
     }
 }
 
