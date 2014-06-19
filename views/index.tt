@@ -13,7 +13,10 @@
         <meta name="keywords" content="Buecherkastern Bibliothek BK Verwalten" />
         <meta name="description" content="This is the Frontend of the Buecherkasten Bibliothek BK of the D-Phys ETH Zuerich Management Tool" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>BK - Buecherkasten Library - Department of Physics</title>
         <link href="stylesheets/stylesheet.css" rel="stylesheet" />
+        <link rel="ICON" href="images/bklogo.png" />
+        <link rel="SHORTCUT ICON" href="images/bklogo.png" />
         <script src="javascript/source/jquery.min.js"></script>
         <script src="javascript/scripts/variables/Constants.js"></script>
         <script src="javascript/scripts/variables/VariablesDefinition.js"></script>
