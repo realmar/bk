@@ -17,6 +17,7 @@ sub new {
         _owner_desc => Constants::ACTIONHANDLER,
         _action     => shift,
         _data       => shift,
+        _proc_ac    => 0,
         _cm_id      => undef,
     };
     bless $self, $class;
@@ -69,7 +70,7 @@ sub SetAHData {
     return $self->{_data};
 }
 
-sub GetSHAction {
+sub GetAHAction {
     my $self = shift;
     return $self->{_action};
 }
@@ -79,6 +80,12 @@ sub GetAHData {
     return $self->{_data};
 }
 
+sub SetProcAC {
+    my ($self, $proc_ac) = @_;
+    $self->{_proc_ac} = $proc_ac if defined($proc_ac);
+    return $self->{_proc_ac};
+}
+
 sub GetProcAC {
     my $self = shift;
     return $self->{_proc_ac};
@@ -86,6 +93,8 @@ sub GetProcAC {
 
 sub ProcessAction {
     my $self = shift;
+
+    $self->SetProcAC(0);
 
     switch ($self->{_action}) {
         case Constants::AHREFRESH {
@@ -115,10 +124,12 @@ sub ProcessAction {
         }
         case Constants::AHKEEPALIVE {
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHKEEPALIVE, $self->{_action});
+            $self->SetProcAC(1);
             last;
         }
         else {
             $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHUNKNOWNACTION, $self->{_action});
+            $self->SetProcAC(1);
             last;
         }
     }
