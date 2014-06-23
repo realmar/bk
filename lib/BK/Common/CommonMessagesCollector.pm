@@ -25,15 +25,15 @@ sub new {
                 Constants::AHERRSAVEDATA
             ],
             Constants::CMINFO => [
-                Constants::DBCONN,
-                Constants::DBDISCONN,
-                Constants::DBCREATE,
-                Constants::DBREAD,
-                Constants::DBUPDATE,
-                Constants::DBDELETE,
-                Constants::DBBEGINWORK,
-                Constants::DBCOMMIT,
-                Constants::AHSAVEDATAWRITE,
+                ##  Constants::DBCONN,
+                ##  Constants::DBDISCONN,
+                ##  Constants::DBCREATE,
+                ##  Constants::DBREAD,
+                ##  Constants::DBUPDATE,
+                ##  Constants::DBDELETE,
+                ##  Constants::DBBEGINWORK,
+                ##  Constants::DBCOMMIT,
+                ##  Constants::AHSAVEDATAWRITE,
                 Constants::AHSUCCSAVEDATA
             ]
         },

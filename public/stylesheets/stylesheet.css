@@ -13,15 +13,6 @@ main {
     margin-left: auto;
 }
 
-div#msg_user_client {
-    background-color: rgb(178, 208, 255);
-}
-
-div#msg_errors {
-    color: red;
-    background-color: black;
-}
-
 div#desc_legend_container {
     vertical-align: top;
     margin-left: 8em;
@@ -70,7 +61,6 @@ div.display_none,p.display_none {
 }
 
 div.msg {
-    font-weight: bold;
     padding: 0.1em;
     margin-top: 1em;
 }
@@ -113,6 +103,42 @@ p.connection_type {
     font-size: 0.6em;
 }
 
+p.msg_user {
+    margin: 0;
+    line-height: 2em;
+}
+
+p.ah_message {
+    background-color: rgb(178, 208, 255);
+}
+
+p.ah_succ_save_data {
+    background-color: green;
+}
+
+p.msg_errors {
+    margin: 0;
+    line-height: 2em;
+}
+
+p.ah_error {
+    color: red;
+    background-color: black;
+}
+
 span.mark_orange {
     color: rgb(255, 238, 212);
+}
+
+span.msg_common {
+    font-weight: bold;
+}
+
+span.remove_msg {
+    margin: 0;
+    margin-right: 1em;
+    padding: 0 0.4em 0 0.4em;
+    float: right;
+    font-weight: bold;
+    cursor: pointer;
 }

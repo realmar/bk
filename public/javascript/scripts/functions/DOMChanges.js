@@ -11,8 +11,14 @@ function RefreshConnectionType(connection_type) {
     }
 }
 
-function AddMessageData(dom_object, message) {
-    dom_object.append(message);
+function AddMessageData(dom_object, message, mode) {
+    var message_obj = $(message);
+    if(mode == APPEND) {
+        dom_object.append(message_obj);
+    }else if(mode == PREPEND) {
+        dom_object.prepend(message_obj);
+    }
+    return message_obj;
 }
 
 function RemoveMessageData(dom_object) {
@@ -29,8 +35,18 @@ function CheckMSGDataObjects() {
     }
     if($("div#msg_user_client > p").length <= 0 && !$("div#msg_user_client").hasClass("display_none")) {
         $("div#msg_user_client").addClass("display_none");
-    }else if($("div#msg_user_client > p").lenght > 0 && $("div#msg_user_client").hasClass("display_none")) {
+    }else if($("div#msg_user_client > p").length > 0 && $("div#msg_user_client").hasClass("display_none")) {
         $("div#msg_user_client").removeClass("display_none");
+    }
+    if($("div#msg_errors_const > p").length <= 0 && !$("div#msg_errors_const").hasClass("display_none")) {
+        $("div#msg_errors_const").addClass("display_none");
+    }else if($("div#msg_errors_const > p").length > 0 && $("div#msg_errors_const").hasClass("display_none")) {
+        $("div#msg_errors_const").removeClass("display_none");
+    }
+    if($("div#msg_user_client_const > p").length <= 0 && !$("div#msg_user_client_const").hasClass("display_none")) {
+        $("div#msg_user_client_const").addClass("display_none");
+    }else if($("div#msg_user_client_const > p").length > 0 && $("div#msg_user_client_const").hasClass("display_none")) {
+        $("div#msg_user_client_const").removeClass("display_none");
     }
 }
 
@@ -89,4 +105,21 @@ function HideLoadingMessage() {
     if(!$("div#loading").hasClass("display_none")) {
         $("div#loading").addClass("display_none");
     }
+}
+
+function MakeMsgDOMString(classes, thow_time , msg_type, msg_string, mode) {
+    var classes_string = "";
+    var dom_msg_string = "";
+    for(var i = 0; i < classes.length; i++) {
+        classes_string += classes[i];
+        if(i < classes.length - 1) {
+            classes_string += ' ';
+        }
+    }
+    if(mode == USER_FRINDELY_MSG) {
+        dom_msg_string = '<p class="' + classes_string + '"><span class="msg_common">[' + thow_time + ']</span> ' + msg_string + '<span class="display_inline remove_msg">X</span></p>';
+    }else if(mode == NOT_USER_FRIENDLY_MSG) {
+        dom_msg_string = '<p class="' + classes_string + '"><span class="msg_common">[' + thow_time + ']</span> msg_type:' + msg_type + ' msg_string: ' + msg_string + '<span class="display_inline remove_msg">X</span></p>';
+    }
+    return dom_msg_string;
 }

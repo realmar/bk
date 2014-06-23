@@ -82,6 +82,7 @@ BEGIN {
         AHSDDEL  => 'Data is getting Deleted',                  ##  action handler save data is removed by user data is getting deleted in database
         AHSDNEW  => 'New Data is getting Inserted in Database',  ##  action handler save data is added a new value by user data is getting inserted in to database
         AHSAVEDATAMSG => 'Successfully saved your Data to the Database',
+        AHSAVEDATANOCHANGESMSG => 'The Database is Up To Date nothing has to be saved'
     };
 
     ##  --

@@ -85,14 +85,13 @@ function ProgrammHandler() {
         DisplayLoadingMessage();
         var bookbox_data_check = GetBookboxDataAndCheckDOMDoubleDataEntries();
         if(bookbox_data_check == GET_DOM_DATA_DOUBLE_ENTRY) {
-            if($("div#msg_errors > p." + DBL_DATA).length <= 0) {
-                AddMessageData($("div#msg_errors"), dom_double_data_entry_tpl);
-                $("div#msg_errors").removeClass("display_none");
+            if($("div#msg_errors_const > p." + DBL_DATA).length <= 0) {
+                AddMessageData($("div#msg_errors_const"), dom_double_data_entry_tpl, APPEND);
             }
             HideLoadingMessage();
         }else{
             var bookbox_data = GetBookboxData();
-            RemoveMessageData($("." + DBL_DATA));
+            RemoveMessageData($("div#msg_errors_const > p." + DBL_DATA));
             switch (this.conn_type) {
                 case CONN_TYPE_WEBSOCKETS:
                     this.bk_websocket.SendMSGWS(ACTION_SAVEDATA, bookbox_data);
@@ -131,12 +130,11 @@ function CheckBookboxStates() {
         }
     }
     if($(".changed.bookbox").length > 0) {
-        if($("div#msg_user_client > p").length <= 0) {
-            AddMessageData($("div#msg_user_client"), apply_changes_tpl);
-            $("div#msg_user_client").removeClass("display_none");
+        if($("div#msg_user_client_const > p").length <= 0) {
+            AddMessageData($("div#msg_user_client_const"), apply_changes_tpl, PREPEND);
         }
     }else{
-        RemoveMessageData($("div#msg_user_client > p." + CHAG_CONT));
+        RemoveMessageData($("div#msg_user_client_const > p." + CHAG_CONT));
     }
     GetBookboxDataAndCheckDOMDoubleDataEntries();
 }

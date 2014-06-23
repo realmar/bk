@@ -50,6 +50,7 @@ BEGIN {
         AHSAVEDATAWRITE
         AHKEEPALIVE
         AHNOTCHANGED
+        AHDATABASECHANGED
         AHERRSAVEDATA
         AHERRREFRESHDATA
         AHSUCCSAVEDATA
@@ -202,7 +203,8 @@ BEGIN {
     ##  action handler change types
 
     use constant {
-        AHNOTCHANGED => 'ahnotchanged'
+        AHNOTCHANGED => 'ahnotchanged',
+        AHDATABASECHANGED => 'ahdbchanged'
     };
 
     ##  --
@@ -217,7 +219,7 @@ BEGIN {
     ##  action handler messages
 
     use constant {
-        AHSUCCSAVEDATA => 'ahsuccrefreshdata'
+        AHSUCCSAVEDATA => 'ahsuccsavedata'
     };
 
     ##  --

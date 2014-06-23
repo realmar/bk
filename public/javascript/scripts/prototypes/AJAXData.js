@@ -26,12 +26,11 @@ function AJAXRequest(ajax_path_arg) {
     }
     
     function AJAXFail(e, send_type) {
-        if($("." + NO_CONN_ERROR).length <= 0) {
-            AddMessageData($("div#msg_errors"), no_connection_err_tpl);
+        if($("div#msg_errors_const > p." + NO_CONN_ERROR).length <= 0) {
+            AddMessageData($("div#msg_errors_const"), no_connection_err_tpl, PREPEND);
             if(send_type == ACTION_SAVEDATA) {
-                AddMessageData($("div#msg_errors"), no_conn_save_err_tpl);
+                AddMessageData($("div#msg_errors_const"), no_connection_err_tpl, APPEND);
             }
-            $("div#msg_errors").removeClass("display_none");
         }
         HideLoadingMessage();
     }

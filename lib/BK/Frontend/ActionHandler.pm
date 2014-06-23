@@ -105,7 +105,11 @@ sub ProcessAction {
             }elsif($sav_data_response eq Constants::AHREFRESH) {
                 $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRREFRESHDATA, MessagesTextConstants::AHERRREFRESHDATAMSG);
             }else{
-                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSUCCSAVEDATA, MessagesTextConstants::AHSAVEDATAMSG);
+                if(!$sav_data_response) {
+                    $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSUCCSAVEDATA, MessagesTextConstants::AHSAVEDATANOCHANGESMSG);
+                }else{
+                    $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSUCCSAVEDATA, MessagesTextConstants::AHSAVEDATAMSG);
+                }
             }
             last;
         }
@@ -136,6 +140,8 @@ sub RefreshData {
 sub SaveData {
     my $self = shift;
 
+    my $database_changed = 0;
+
     $main::database_connection->BeginWork();
 
     for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
@@ -149,6 +155,7 @@ sub SaveData {
                 if($main::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
                     return Constants::INTERNALERROR;
                 }
+                $database_changed = 1;
                 last;
             }
             else {
@@ -156,6 +163,7 @@ sub SaveData {
                 if($main::database_connection->UpdateEntryDatabase('Users', {'username' => $self->{_data}[$i]}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
                     return Constants::INTERNALERROR;
                 }
+                $database_changed = 1;
                 last;
             }
         }
@@ -163,7 +171,12 @@ sub SaveData {
 
     $main::database_connection->CommitChanges();
 
-    return $self->RefreshData();
+    my $ah_refresh_data = $self->RefreshData();
+    if(!$ah_refresh_data) {
+        return $database_changed;
+    }else{
+        return $ah_refresh_data;
+    }
 }
 
 sub GetAllEntries {
