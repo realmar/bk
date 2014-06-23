@@ -28,7 +28,7 @@ our $database_connection = DatabaseAccess->new('SQLite', 'database/BKDatabase.db
 websocket '/ws' => sub {
     my $self = shift;
 
-    Mojo::IOLoop->stream($self->tx->connection)->timeout(800);
+    Mojo::IOLoop->stream($self->tx->connection)->timeout(2000);
 
     $self->on(message => sub {
         my ($self, $msg_data) = @_;
