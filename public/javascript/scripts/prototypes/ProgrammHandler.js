@@ -35,7 +35,7 @@ function ProgrammHandler() {
         this.intervals_collector.RemoveInterval('bk_websocket_try_connect');
         this.intervals_collector.RemoveInterval('bk_ajax_data_refresh');
         this.bk_ajax_data = null;
-        this.intervals_collector.RegisterInterval(['bk_websocket', 'KeepAliveWS'], 80, 'bk_websocket_keep_alive');
+        this.intervals_collector.RegisterInterval(['bk_websocket', 'KeepAliveWS'], 1800, 'bk_websocket_keep_alive');
         this.intervals_collector.RegisterInterval(['RefreshData'], 2000, 'bk_websocket_refresh');
         RemoveMessageData($("." + NO_CONN_ERROR));
     }
