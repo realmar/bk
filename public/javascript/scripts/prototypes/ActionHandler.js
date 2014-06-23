@@ -34,7 +34,7 @@ function ActionHandler(msg_data_arg) {
         }
         for(var err_cat in this.msg_data["all_errors"]) {
             for(var i = 0; i < this.msg_data["all_errors"][err_cat].length; i++)  {
-                var date_time_throw_time = new Date(this.msg_data["all_errors"][err_cat][i][throw_time] * 1000);
+                var date_time_throw_time = new Date(this.msg_data["all_errors"][err_cat][i][THROW_TIME] * 1000);
                 var new_message_obj = AddMessageData($("div#msg_errors"), MakeMsgDOMString([MSG_ERRORS, AH_ERROR], String(date_time_throw_time.toLocaleDateString() + ' ' + date_time_throw_time.toLocaleTimeString()), err_cat, this.msg_data["all_errors"][err_cat][i][MSG_STRING], NOT_USER_FRIENDLY_MSG), PREPEND);
                 InitializeRemoveMSGButton(new_message_obj.find(".remove_msg"));
             }
