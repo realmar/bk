@@ -29,7 +29,6 @@ sub DESTROY {
     my $self = shift;
 
     $self->{handle}->close() if $self->{handle};
-    $main::common_messages_collector->RemoveObject($self->GetCMID());
 
     return 0;
 }
@@ -239,8 +238,8 @@ sub PrepareDataToSend {
 
     $self->{_data} = {
         'msg_data' => $self->{_data},
-        'all_errors' => { $main::common_messages_collector->GetAllErrors() },
-        'all_infos' => { $main::common_messages_collector->GetAllInfos() }
+        'all_errors' => { $main::common_messages_collector->GetAllCommons(Constants::CMERROR) },
+        'all_infos' => { $main::common_messages_collector->GetAllCommons(Constants::CMINFO) }
     };
     $self->ToJSON();
 
