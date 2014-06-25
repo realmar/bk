@@ -17,11 +17,9 @@ sub new {
         _owner_desc => Constants::ACTIONHANDLER,
         _action     => shift,
         _data       => shift,
-        _proc_ac    => 0,
-        _cm_id      => undef,
+        _proc_ac    => 0
     };
     bless $self, $class;
-    $self->{_cm_id} = $main::common_messages_collector->AddObject($self->SUPER::newcomsg());
     return $self;
 }
 
@@ -238,8 +236,8 @@ sub PrepareDataToSend {
 
     $self->{_data} = {
         'msg_data' => $self->{_data},
-        'all_errors' => { $main::common_messages_collector->GetAllCommons(Constants::CMERROR) },
-        'all_infos' => { $main::common_messages_collector->GetAllCommons(Constants::CMINFO) }
+        'all_errors' => $main::common_messages_collector->GetAllCommons(Constants::CMERROR),
+        'all_infos' => $main::common_messages_collector->GetAllCommons(Constants::CMINFO)
     };
     $self->ToJSON();
 

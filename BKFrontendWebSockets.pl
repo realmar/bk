@@ -37,7 +37,6 @@ websocket '/ws' => sub {
         $recv_action->PrepareWebSocketData();
         $recv_action->ProcessAction();
         $self->send($recv_action->PrepareDataToSend()) if !$recv_action->GetProcAC();
-        $common_messages_collector->RemoveObject($recv_action->GetCMID());
         $recv_action->DESTROY();
     });
 };

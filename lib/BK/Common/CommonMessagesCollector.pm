@@ -12,86 +12,69 @@ sub new {
         _owner_desc => Constants::COMMONMESSAGESCOLLECTOR,
         _common_messages => {},
         _logging_facilities => {
-            Constants::CMERROR => [
-                Constants::DBERRCONN,
-                Constants::DBERRDISCONN,
-                Constants::DBERRCREATE,
-                Constants::DBERRREAD,
-                Constants::DBERRUPDATE,
-                Constants::DBERRDELETE,
-                Constants::DBERRBEGINWORK,
-                Constants::DBERRCOMMIT,
-                Constants::AHERRREFRESHDATA,
-                Constants::AHERRSAVEDATA
-            ],
-            Constants::CMINFO => [
-                ##  Constants::DBCONN,
-                ##  Constants::DBDISCONN,
-                ##  Constants::DBCREATE,
-                ##  Constants::DBREAD,
-                ##  Constants::DBUPDATE,
-                ##  Constants::DBDELETE,
-                ##  Constants::DBBEGINWORK,
-                ##  Constants::DBCOMMIT,
-                ##  Constants::AHSAVEDATAWRITE,
-                Constants::AHSUCCSAVEDATA
-            ]
-        },
-        _id_count => 0
+            Constants::CMERROR => {
+                Constants::DBERRCONN        => 1,
+                Constants::DBERRDISCONN     => 1,
+                Constants::DBERRCREATE      => 1,
+                Constants::DBERRREAD        => 1,
+                Constants::DBERRUPDATE      => 1,
+                Constants::DBERRDELETE      => 1,
+                Constants::DBERRBEGINWORK   => 1,
+                Constants::DBERRCOMMIT      => 1,
+                Constants::AHERRREFRESHDATA => 1,
+                Constants::AHERRSAVEDATA    => 1
+
+            },
+            Constants::CMINFO => {
+                ##  Constants::DBCONN          => 1,
+                ##  Constants::DBDISCONN       => 1,
+                ##  Constants::DBCREATE        => 1,
+                ##  Constants::DBREAD          => 1,
+                ##  Constants::DBUPDATE        => 1,
+                ##  Constants::DBDELETE        => 1,
+                ##  Constants::DBBEGINWORK     => 1,
+                ##  Constants::DBCOMMIT        => 1,
+                ##  Constants::AHSAVEDATAWRITE => 1,
+                Constants::AHSUCCSAVEDATA      => 1
+
+            }
+        }
     };
     bless $self, $class;
     return $self;
 }
 
-sub AddObject {
-    my ($self, $obj) = @_;
-    $self->{_common_messages}->{$self->{_id_count}} = $obj;
-    $self->{_id_count}++;
-    return $self->{_id_count} - 1;
-}
-
-sub RemoveObject {
-    my ($self, $id) = @_;
-    delete($self->{_common_messages}->{$id});
+sub SetCommon {
+    my ($self, $data_type, $msg_type, $msg_obj) = @_;
+    $self->{_common_messages}->{$msg_type}->{$data_type} = [] if !defined($self->{_common_messages}->{$msg_type}->{$data_type});
+    push($self->{_common_messages}->{$msg_type}->{$data_type}, $msg_obj);
     return 0;
-}
-
-sub GetObject {
-    my ($self, $id) = @_;
-    return $self->{_common_messages}->{$id};
 }
 
 sub GetAllCommons {
     my ($self, $data_type) = @_;
-    my @all_commons = ();
-    for(my $i = 0; $i < $self->{_id_count}; $i++) {
-        if(defined($self->{_common_messages}->{$i}) && $self->{_common_messages}->{$i}) {
-            push(@all_commons, $self->GetCommon($i, $data_type));
+    my $all_commons = {};
+    my @msg_types = keys(%{ $self->{_common_messages} });
+    foreach my $msg_type (@msg_types) {
+        if(defined($self->{_logging_facilities}->{$data_type}->{$msg_type})) {
+            $all_commons->{$msg_type} = $self->GetCommon($data_type, $msg_type);
         }
     }
-    return @all_commons;
+    return $all_commons;
 }
 
 sub GetCommon {
-    my ($self, $id, $data_type) = @_;
-    my %all_common = ();
-    foreach my $key (keys(%{ $self->{_common_messages}->{$id}->{_owner_obj}->SUPER::GetCommonDataTypeCM($data_type) })) {
-        foreach my $logging_facility (@{ $self->{_logging_facilities}->{$data_type} }) {
-            if($key eq $logging_facility) {
-                $all_common{$key} = $self->{_common_messages}->{$id}->{_owner_obj}->SUPER::GetCommonCM($data_type, $key);
-            }
-        }
+    my ($self, $data_type, $msg_type) = @_;
+    my $all_common = [];
+    foreach my $msg_obj (@{ $self->{_common_messages}->{$msg_type}->{$data_type} }) {
+        push(@{ $all_common }, $msg_obj->SUPER::GetMessageHash());
     }
-    return %all_common;
+    return $all_common;
 }
 
 sub ResetAllStates {
     my $self = shift;
-    for (my $i = 0; $i < $self->{_id_count}; $i++) {
-        if(defined($self->{_common_messages}->{$i}) && $self->{_common_messages}->{$i}) {
-            $self->{_common_messages}->{$i}->{_owner_obj}->SUPER::ResetStates();
-        }
-    }
+    $self->{_common_messages} = {};
     return 0;
 }
 

@@ -7,41 +7,23 @@ use Switch;
 use BK::Common::Constants;
 use BK::Common::DatabaseAccess;
 
-sub newcomsg {
-    my $self = shift;
-    my $err = {
-        _owner_obj => $self,
+sub new {
+    my $class = shift;
+    my $self = {
+        '_' . Constants::THROWTIME => shift,
+        '_' . Constants::MSGSTRING => shift
     };
-    bless $err, ref($self);
-    $self->{'_' . Constants::CMERROR} = {};
-    $self->{'_' . Constants::CMINFO} = {};
-    return $err;
+    bless $self, $class;
+    return $self;
 }
 
-sub SetCommonCM {
-    my ($self, $data_type, $msg_type, $msg_string) = @_;
-    if(!defined($self->{'_' . $data_type}->{$msg_type})) {
-        $self->{'_' . $data_type}->{$msg_type} = [];
-    }
-    push($self->{'_' . $data_type}->{$msg_type}, {Constants::THROWTIME => time(), Constants::MSGSTRING => $msg_string});
-    return 0;
-}
-
-sub GetCommonCM {
-    my ($self, $data_type, $msg_type) = @_;
-    return $self->{'_' . $data_type}->{$msg_type};
-}
-
-sub GetCommonDataTypeCM {
-    my ($self, $data_type) = @_;
-    return $self->{'_' . $data_type};
-}
-
-sub ResetStates {
+sub GetMessageHash {
     my $self = shift;
-    $self->{'_' . Constants::CMERROR} = {};
-    $self->{'_' . Constants::CMINFO} = {};
-    return 0;
+    my $msg_hash = {
+        Constants::THROWTIME => $self->{'_' . Constants::THROWTIME},
+        Constants::MSGSTRING => $self->{'_' . Constants::MSGSTRING}
+    };
+    return $msg_hash;
 }
 
 sub ThrowMessage {
@@ -49,12 +31,12 @@ sub ThrowMessage {
 
     switch ($msg_prio) {
         case Constants::ERROR {
-            $self->SetCommonCM(Constants::CMERROR, $msg_type, $msg_string);
+            $main::common_messages_collector->SetCommon(Constants::CMERROR, $msg_type, CommonMessages->new(time, $msg_string));
             $self->LogError($msg_prio, $msg_type, $msg_string);
             last;
         }
         case Constants::LOG {
-            $self->SetCommonCM(Constants::CMINFO, $msg_type, $msg_string);
+            $main::common_messages_collector->SetCommon(Constants::CMINFO, $msg_type, CommonMessages->new(time, $msg_string));
             $self->LogMessage($msg_prio, $msg_type, $msg_string);
             last;
         }

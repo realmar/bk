@@ -11,23 +11,10 @@ sub new {
     my $class = shift;
     my $self = {
         _owner_desc => Constants::SCANNER,
-        _input      => undef,
-        _cm_id      => undef,
+        _input      => undef
     };
     bless $self, $class;
-    $self->{_cm_id} = $main::common_messages_collector->AddObject($self->SUPER::newcomsg());
     return $self;
-}
-
-sub DESTORY {
-    my $self = shift;
-    $main::common_messages_collector->RemoveObject($self->GetCMID());
-    return 0;
-}
-
-sub GetCMID {
-    my $self = shift;
-    return $self->{_cm_id};
 }
 
 sub GetInput {

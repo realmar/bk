@@ -11,29 +11,16 @@ sub new {
     $class = shift;
     $self = {
         _owner_desc => Constants::DOORS,
-        _doors      => shift,
-        _cm_id      => undef,
+        _doors      => shift
     };
     bless $self, $class;
-    $self->{_cm_id} = $main::common_messages_collector->AddObject($self->SUPER::newcomsg());
     return $self;
-}
-
-sub DESTROY {
-    my $self = shift;
-    $main::common_messages_collector->RemoveObject($self->GetCMID());
-    return 0;
 }
 
 sub SetDoors {
     my ($self, $doors) = @_;
     $self->{_doors} = $doors if defined($doors);
     return $self->{_doors};
-}
-
-sub GetCMID {
-    my $self = shift;
-    return $self->{_cm_id};
 }
 
 sub GetDoors {

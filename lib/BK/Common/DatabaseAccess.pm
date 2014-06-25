@@ -12,11 +12,9 @@ sub new {
     my $class = shift;
     my $self = {
         _owner_desc => Constants::DB,
-        _db         => undef,
-        _cm_id      => undef,
+        _db         => undef
     };
     bless $self, $class;
-    $self->{_cm_id} = $main::common_messages_collector->AddObject($self->SUPER::newcomsg());
     $self->ConnectToDatabase(shift, shift);
     return $self;
 }
@@ -27,14 +25,7 @@ sub DESTROY {
     $self->DisconnectFromDatabase();
     $self->{handle}->close() if $self->{handle};
 
-    $main::common_messages_collector->RemoveMessageData($self->getCMID());
-
     return 0;
-}
-
-sub GetCMID {
-    my $self = shift;
-    return $self->{_cm_id};
 }
 
 sub ConnectToDatabase {
