@@ -1,5 +1,12 @@
 #!/usr/bin/env perl
 
+#########################################################
+##  Project Name:     BuecherkastenBibliothek BK
+##  Author:           Anastassios Martakos
+##  Language:         English / Perl
+##  Created For / At: ETH Zuerich Department Physics
+#########################################################
+
 package ActionHandler;
 
 use parent -norequire, 'CommonMessages';
@@ -40,11 +47,6 @@ sub SetActionHandler {
     }
 
     return $self;
-}
-
-sub GetCMID {
-    my $self = shift;
-    return $self->{_cm_id};
 }
 
 sub GetActionHandler {
@@ -247,3 +249,54 @@ sub PrepareDataToSend {
 }
 
 1;
+
+__END__
+
+=head1 BK::Frontend::ActionHandler
+
+ActionHandler.pm
+
+=head2 Description
+
+Processes the Requests from the Client
+
+=head2 Constuctor
+
+_owner_desc - STRING owner for logging
+_action - STRING action to process
+_data - STRING/ARRAY data which gets processed
+_proc_ac - INT if there was an recognized or relevant Action
+
+=head2 Setter
+
+SetActionHandler( [action - STRING], [data - STRING/ARRAY] ) - Sets ActionHandler
+SetAHAction( [action - STRING] ) - Sets action in ActionHandler
+SetAHData( [data - STRING/ARRAY] ) - Sets data in ActionHandler
+SetProcAC( [proc_ac - INT] ) - Sets proc_ac in ActionHandler
+
+=head2 Getter
+
+GetActionHandler() - Gets ActionHandler
+GetAHAction() - Gets action in ActionHandler
+GetAHData() - Gets data in ActionHandler
+GetProcAC() - Gets proc_ac in ActionHandler
+
+=head2 Methods
+
+ProcessAction() - Processes Action takes inforamtions from itself from aciton and data
+RefreshData() - Gets Database Entries and writes them do data
+SaveData() - Writes data to Database
+GetAllEntries() - Gets Database Entires and Returns them
+ToJSON() - Convert data to JSON
+FromJSON() - Converts data from JSON
+PrepareWebSocketData() - Prepares data which comes from a WebSocket connection
+PrepareDataToSend() - Prepares data to send, normal and websockets
+
+=head2 Synposis
+
+my $recv_action = ActionHandler->new( [action - STRING eg. ahrefresh], [data - STRING/ARRAY eg. NULL] );
+$recv_action->FromJSON();
+$recv_action->PrepareWebSocketData();
+$recv_action->ProcessAction();
+my $data_to_end = $recv_action->PrepareDataToSend();
+$recv_action->DESTROY();

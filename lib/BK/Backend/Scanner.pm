@@ -1,5 +1,12 @@
 #!/usr/bin/env perl
 
+#########################################################
+##  Project Name:     BuecherkastenBibliothek BK
+##  Author:           Anastassios Martakos
+##  Language:         English / Perl
+##  Created For / At: ETH Zuerich Department Physics
+#########################################################
+
 package Scanner;
 
 use parent -norequire, 'CommonMessages';
@@ -29,3 +36,35 @@ sub GetInput {
 }
 
 1;
+
+__END__
+
+=head1 BK::Backend::Scanner
+
+Scanner.pm
+
+=head2 Description
+
+Scanner Object gets input from the STDIN and returns it, it is only an object for logging the STDIN
+
+=head2 Consturctor
+
+_owner_desc - STRING owner for logging
+_input - STRING the last Input is saved there
+
+=head2 Getter
+
+None
+
+=head2 Setter
+
+None
+
+=head2 Methods
+
+GetInput() - Gets Input from the STDIN and returns it
+
+=head2 Synopsis
+
+my $scanner = Scanner->new();
+my $input = $scanner->GetInput();

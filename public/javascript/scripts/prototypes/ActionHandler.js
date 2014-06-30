@@ -1,3 +1,11 @@
+
+/////////////////////////////////////////////////////////
+//  Project Name:     BuecherkastenBibliothek BK
+//  Author:           Anastassios Martakos
+//  Language:         English / JavaScript
+//  Created For / At: ETH Zuerich Department Physics
+/////////////////////////////////////////////////////////
+
 function ActionHandler(msg_data_arg) {
     this.msg_data = msg_data_arg;
 

@@ -1,5 +1,12 @@
 #!/usr/bin/env perl
 
+#########################################################
+##  Project Name:     BuecherkastenBibliothek BK
+##  Author:           Anastassios Martakos
+##  Language:         English / Perl
+##  Created For / At: ETH Zuerich Department Physics
+#########################################################
+
 package CommonMessages;
 
 use Switch;
@@ -68,3 +75,46 @@ sub LogMessage {
 }
 
 1;
+
+__END__
+
+=head1 BK::Common::CommonMessages
+
+CommonMessages.pm
+
+=head2 Description
+
+Log Object, represents one Log Message
+Is used as Parent Object of almost every other Object
+Depends on the CommonMessagesCollector Object where it stores itself
+Dont want to create such an Object without CommonMessagesCollector
+
+=head2 Consturctor
+
+_throwtime - STRING time when the message was thrown, is a Unix Timestamp
+_msgstring - STRING message string
+
+=head2 Setter
+
+None
+
+=head2 Getter
+
+GetMessageHash() - Returns a Hash representation of the Log Object
+
+=head2 Methods
+
+ThrowMessage( [msg_prio - STRING], [msg_type - STRING], [msg_string - STRING] ) - Saves Message to itself, and itself to the CommonMessagesCollector Object, writes Message to Log File
+LogError( [msg_prio - STRING], [msg_typ - STRING], [msg_string - STRING] ) - Saves Message to Error Log File
+LogMessage( [msg_prio - STIRNG], [msg_typ - STRING], [msg_string - STRING] ) - Saves Message to Message Log File
+
+=head2 Functions
+
+CreateLogString( [owner_typ - STRING], [msg_prio - STRING], [msg_typ - STRING], [msg_string - STRING] ) - Returns a Log String suitable for Logging in Log Files
+
+=head2 Synopsis
+
+my $log_message = CommonMessages->new( [throwtime - STRING eg. `time`], [msgstring - STRING eg. testtest] );
+
+my $object = Object->new();
+$object->SUPER::ThrowMessage( [msg_prio - STRING eg. log], [msg_type - STRING eg. actionhandler], [msg_string - STRING eg. testtest] );

@@ -1,3 +1,11 @@
+
+/////////////////////////////////////////////////////////
+//  Project Name:     BuecherkastenBibliothek BK
+//  Author:           Anastassios Martakos
+//  Language:         English / JavaScript
+//  Created For / At: ETH Zuerich Department Physics
+/////////////////////////////////////////////////////////
+
 function ProgrammHandler() {
     this.intervals_collector = new IntervalsCollector();
     this.conn_type;

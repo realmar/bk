@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include "ljacklm.h"
 
+/////////////////////////////////////////////////////////
+//  Project Name:     BuecherkastenBibliothek BK
+//  Author:           Anastassios Martakos
+//  Language:         English / C
+//  Created For / At: ETH Zuerich Department Physics
+/////////////////////////////////////////////////////////
+
 int SetPins(long tris_d_arg, long tris_io_arg, long state_d_arg, long state_io_arg) {
     long errorcode;
     

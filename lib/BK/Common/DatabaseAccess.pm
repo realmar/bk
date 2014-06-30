@@ -1,5 +1,12 @@
 #!/usr/bin/env perl
 
+#########################################################
+##  Project Name:     BuecherkastenBibliothek BK
+##  Author:           Anastassios Martakos
+##  Language:         English / Perl
+##  Created For / At: ETH Zuerich Department Physics
+#########################################################
+
 package DatabaseAccess;
 
 use parent -norequire, 'CommonMessages';
@@ -215,3 +222,50 @@ sub RollbackChanges {
 }
 
 1;
+
+__END__
+
+=head1 BK::Common::DatabaseAccess
+
+DatabaseAccess.pm
+
+=head2 Description
+
+Handles all Database Accesses
+Works with DBI and DBD
+
+=head2 Constructor
+
+_owner_desc - STRING owner for logging
+_db - DBI Database Handler
+
+=head2 Setter
+
+ConnectToDatabase( [driver - STRING], [file - STRING] ) - Connect to a SQLite Database
+DisconnectFromDatabase() - Disconnect from a SQLite Database
+
+=head2 Getter
+
+None
+
+=head2 Methods
+
+CreateEntryDatabase( [table - STRING], [column - STRING] ) - Creates a new NULL Entry in the Database
+ReadEntryDatabase( [table - STRING], [name_values - HASH] ) - Returns the result of the Database Query, name_values is WHERE key=value in SQL Query
+UpdateEntryDatabase( [table - STRING], [set_values - HASH], [name_values - HASH] ) - Update Database with the given arguments, set_values is SET key=value, name_values is WHERE key=value in SQL Query
+DeleteEntryDatabase( [table - STRING], [name_values - HASH] ) - Deletes an Entry in the Database, name_values is WHERE key=value
+BeginWork() - Starts a Transaction in the Database
+CommitChanges() - Stops / Commits a Transaction in the Database
+RollbackChanges() - Undo changes in the current Transaction
+
+=head2 Synposis
+
+my $database_connection = DatabaseAccess->new( [driver - STRING eg. SQLite], [file - STRING eg. database.db] );
+$database_connection->CreateEntryDatabase( [table - STRING eg. Users], [column - STRING eg. username] );
+$database_connection->ReadEntryDatabase( [table - STRING eg. Users], [name_values - HASH eg. { username => 'testtest' }] );
+$database_connection->UpdateEntryDatabase( [table - STRING eg. Users], [set_values - HASH eg. { username => 'testtest' }], [name_values - HASH eg. { doornumber => 4 }] );
+$database_connection->DeleteEntryDatabase( [table - STRING eg. Users], [name_values - HASH eg. { username => 'testtest' }] );
+$database_connection->BeginWork();
+$database_connection->CommitChanges();
+$database_connection->RollbackChanges();
+$database_connection->DisconnectFromDatabase();

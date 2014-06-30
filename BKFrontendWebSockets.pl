@@ -1,5 +1,12 @@
 #!/usr/bin/env perl
 
+#########################################################
+##  Project Name:     BuecherkastenBibliothek BK
+##  Author:           Anastassios Martakos
+##  Language:         English / Perl
+##  Created For / At: ETH Zuerich Department Physics
+#########################################################
+
 use 5.010;
 use strict;
 use warnings;
@@ -42,3 +49,36 @@ websocket '/ws' => sub {
 };
 
 app->start;
+
+__END__
+
+=head1 NAME
+
+BKFrontendWebSockets - CGI Script for BK Webfrontend over WS / WSS connections
+
+=head1 SYNOPSIS
+
+BKFrontentWebSockets.pl
+
+=head1 DESCRIPTION
+
+Sends Webfrontend to Client, saves Input over Webfrontend to Database, reads Database to display content to Webfrontend, works with WS and WSS protocols this are Protocols for the HTML 5 and upwards Websockets
+Uses Perl Mojolicious
+
+=head1 OPTIONS / FLAGS
+
+None
+
+=head1 USAGE
+
+perl BKFrontendWebSockets.pl daemon -l http://*:3003/
+
+=head1 FILES
+
+./lib/Common/*
+./lib/Frontend/*
+./databases/*
+
+=head1 SEE ALSO
+
+Theres nothing else to reffer to

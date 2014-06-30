@@ -1,5 +1,12 @@
 #!/usr/bin/env perl
 
+#########################################################
+##  Project Name:     BuecherkastenBibliothek BK
+##  Author:           Anastassios Martakos
+##  Language:         English / Perl
+##  Created For / At: ETH Zuerich Department Physics
+#########################################################
+
 use 5.010;
 
 use Cwd qw(abs_path);
@@ -55,3 +62,35 @@ $database_connection->DisconnectFromDatabase();
 
 $filehandle_log_message->CloseFileHandle();
 $filehandle_log_error->CloseFileHandle();
+
+__END__
+
+=head1 NAME
+
+BKBackend - Reads STDIN and does Comparing operations for the BuecherkastenBibliothek
+
+=head1 SYNOPSIS
+
+BKBackend.pl
+
+=head1 DESCRIPTION
+
+Reads STDIN line per line and compares input with database username fields, if one field matches, sets this filed to NULL and opens the correspondant door saved in relation to the username in the database
+
+=head1 OPTIONS / FLAGS
+
+None
+
+=head1 USAGE
+
+perl BKBackend.pl
+
+=head1 FILES
+
+./lib/Common/*
+./lib/Backend/*
+./databases/*
+
+=head1 SEE ALSO
+
+Theres nothing else to reffer to

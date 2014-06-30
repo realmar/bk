@@ -1,5 +1,12 @@
 #!/usr/bin/env perl
 
+#########################################################
+##  Project Name:     BuecherkastenBibliothek BK
+##  Author:           Anastassios Martakos
+##  Language:         English / Perl
+##  Created For / At: ETH Zuerich Department Physics
+#########################################################
+
 package Doors;
 
 use parent -norequire, 'CommonMessages';
@@ -60,3 +67,37 @@ sub OpenDoor {
 }
 
 1;
+
+__END__
+
+=head1 BK::Backend::Doors
+
+Doors.pm
+
+=head2 Description
+
+Modul for controling the Pins on the LabJack basically open the Doors on the BuecherkastenBibliothek
+
+=head2 Constuctor
+
+_owner_desc - STRING owner for logging
+_doors - ARRAY with all doors
+
+=head2 Setter
+
+SetDoors( [doors - ARRAY] ) - Set Doors
+
+=head2 Getter
+
+GetDoors() - Get Doors return Doors ARRAY
+
+=head2 Methods
+
+OpenDoor( [door - INT], [username - STRING] ) - Sends signal to a specific pin on the LabJack defined as [door - INT], [username - STRING] is required only for logging purposes
+
+=head2 Synopsis
+
+my $doors = Doors->new( [doors - ARRAY] );
+$doors->SetDoors( [doors - ARRAY] );
+my $doors_array = $doors->GetDoors();
+$doors->OpenDoors( [door - INT], [username - STRING] );
