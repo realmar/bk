@@ -6,10 +6,19 @@
 //  Created For / At: ETH Zuerich Department Physics
 /////////////////////////////////////////////////////////
 
-function ActionHandler(msg_data_arg) {
-    this.msg_data = msg_data_arg;
+//  Description
+//
+//  Processes Data from the Server
+//
+//  Synopsis
+//
+//  var recv_action = new ActionHandler(JSON.parse(msg_data));
+//  recv_action.ProcessAction();
 
-    this.ProcessAction = ProcessAction;
+function ActionHandler(msg_data_arg) {
+    this.msg_data = msg_data_arg;  //  Data to process
+
+    this.ProcessAction = ProcessAction;  //  Method which processes the data
 
     function ProcessAction() {
         RemoveMessageData($("div#all_errors > p." + AH_ERROR));

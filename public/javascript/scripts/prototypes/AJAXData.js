@@ -6,12 +6,21 @@
 //  Created For / At: ETH Zuerich Department Physics
 /////////////////////////////////////////////////////////
 
+//  Description
+//  
+//  Makes an AJAX Request and gives the answer to the ActionHandler
+//
+//  Synopsis
+//
+//  var ajax_request = new AJAXRequest(ajax_path);
+//  var ajax_request_answer = ajax_request.AJAXGetData("ahrefresh", "null", "GET");
+
 function AJAXRequest(ajax_path_arg) {
     this.ajax_path = ajax_path_arg;
 
     this.AJAXGetData = AJAXGetData;
-    this.AJAXDone = AJAXDone;
-    this.AJAXFail = AJAXFail;
+    this.AJAXDone    = AJAXDone;
+    this.AJAXFail    = AJAXFail;
 
     function AJAXGetData(action, msg_data_arg, send_type) {
         $.ajax({

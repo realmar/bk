@@ -6,25 +6,34 @@
 //  Created For / At: ETH Zuerich Department Physics
 /////////////////////////////////////////////////////////
 
+//  Description
+//
+//  Main Object it handles everything what has something to do with JavaScript
+//
+//  Synopsis
+//
+//  var programm_handler = new ProgrammHandler();
+//  programm_handler.InitializeProgramm();
+
 function ProgrammHandler() {
     this.intervals_collector = new IntervalsCollector();
     this.conn_type;
-    this.conn_attempt = WS_SEND_NO_WAIT;
+    this.conn_attempt        = WS_SEND_NO_WAIT;
     this.bk_websocket;
     this.bk_ajax_data;
 
-    this.InitializeProgramm = InitializeProgramm;
+    this.InitializeProgramm           = InitializeProgramm;
     this.InitializeConnTypeWebSockets = InitializeConnTypeWebSockets;
-    this.InitializeConnTypeAJAX = InitializeConnTypeAJAX;
-    this.ConnectToWebSocket = ConnectToWebSocket;
-    this.SetConnectionType = SetConnectionType;
-    this.RefreshData = RefreshData;
-    this.SaveData = SaveData;
-    this.CheckBookboxStates = CheckBookboxStates;
-    this.CheckMSGDataObjects = CheckMSGDataObjects;
+    this.InitializeConnTypeAJAX       = InitializeConnTypeAJAX;
+    this.ConnectToWebSocket           = ConnectToWebSocket;
+    this.SetConnectionType            = SetConnectionType;
+    this.RefreshData                  = RefreshData;
+    this.SaveData                     = SaveData;
+    this.CheckBookboxStates           = CheckBookboxStates;
+    this.CheckMSGDataObjects          = CheckMSGDataObjects;
 
     this.ws_tries = 10;
-    this.ws_wait = 20;
+    this.ws_wait  = 20;
 
     this.last_data_state = [];
 

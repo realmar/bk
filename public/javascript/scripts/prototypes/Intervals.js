@@ -6,11 +6,21 @@
 //  Created For / At: ETH Zuerich Department Physics
 /////////////////////////////////////////////////////////
 
+//  Description
+//
+//  Manages all Intervalls, gives easy Methods to add and remove intervals by given Name
+//
+//  Synopsis
+//
+//  var intervals_collector = new IntervalsCollector();
+//  intervals_collector.RegisterInterval(["RefreshData"], 400, "interval_name");
+//  intervals_collector.RemoveInterval("interval_name");
+
 function IntervalsCollector() {
     this.intervals = {};
 
     this.RegisterInterval = RegisterInterval;
-    this.RemoveInterval = RemoveInterval;
+    this.RemoveInterval   = RemoveInterval;
 
     function RegisterInterval(func, diff_time, name) {
         this.intervals[name] = setInterval(function () {

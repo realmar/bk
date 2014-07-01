@@ -6,6 +6,10 @@
 //  Created For / At: ETH Zuerich Department Physics
 /////////////////////////////////////////////////////////
 
+//  Description
+//
+//  Handles everything that needs to be initialized eg. DOM Element which are Buttons
+
 function InitializeButtons() {
     $("div#save_button").click(function () {
         programm_handler.SaveData();

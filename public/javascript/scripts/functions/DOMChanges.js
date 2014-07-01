@@ -6,6 +6,10 @@
 //  Created For / At: ETH Zuerich Department Physics
 /////////////////////////////////////////////////////////
 
+//  Description
+//  
+// Changes the DOM Content
+
 function RefreshConnectionType(connection_type) {
     switch(connection_type) {
         case CONN_TYPE_AJAX:

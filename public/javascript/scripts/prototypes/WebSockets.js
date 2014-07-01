@@ -6,18 +6,27 @@
 //  Created For / At: ETH Zuerich Department Physics
 /////////////////////////////////////////////////////////
 
+//  Description
+//
+//  Makes WebSocket connections with the Server and sends and receives requests and answers which it gives to the ActionHandler
+//
+//  Synopsis
+//
+//  var web_socket = new BKWebSocket(ws_path);
+//  web_socket.SendMSGWS('ahrefresh', 'null');
+
 function BKWebSocket(ws_path_arg) {
     this.socket;
 
-    this.OpenWebSocket = OpenWebSocket;
-    this.OnOpenWS = OnOpenWS;
-    this.OnMessageWS = OnMessageWS;
-    this.OnCloseWS = OnCloseWS;
-    this.OnErrorWS = OnErrorWS;
+    this.OpenWebSocket  = OpenWebSocket;
+    this.OnOpenWS       = OnOpenWS;
+    this.OnMessageWS    = OnMessageWS;
+    this.OnCloseWS      = OnCloseWS;
+    this.OnErrorWS      = OnErrorWS;
     this.CloseWebSocket = CloseWebSocket;
-    this.SendDataWS = SendDataWS;
-    this.SendMSGWS = SendMSGWS;
-    this.KeepAliveWS = KeepAliveWS;
+    this.SendDataWS     = SendDataWS;
+    this.SendMSGWS      = SendMSGWS;
+    this.KeepAliveWS    = KeepAliveWS;
 
     if(ws_path_arg) {
         this.OpenWebSocket(ws_path_arg);
