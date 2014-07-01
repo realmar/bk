@@ -81,7 +81,6 @@ function BKWebSocket(ws_path_arg) {
         }
         if(this.socket.readyState != this.socket.OPEN) {
             programm_handler.conn_attempt = WS_SEND_WAIT;
-            setTimeout(WaitForWebSocket(), programm_handler.ws_wait);
             function WaitForWebSocket() {
                 if(!this.socket) {
                     programm_handler.conn_attempt = WS_SEND_ABORD;
@@ -96,6 +95,7 @@ function BKWebSocket(ws_path_arg) {
                     }
                 }
             }
+            setTimeout(WaitForWebSocket(), programm_handler.ws_wait);
         }
         if(programm_handler.conn_attempt != WS_SEND_ABORD) {
             programm_handler.conn_attempt = WS_SEND_NO_WAIT;
