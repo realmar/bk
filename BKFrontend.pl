@@ -23,6 +23,7 @@ use BK::Frontend::ActionHandler;
 
 use Dancer;
 use Template;
+use Fcntl qw(:flock SEEK_END);
 use FileHandle;
 use DBI;
 

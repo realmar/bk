@@ -29,6 +29,7 @@ use BK::Common::DatabaseAccess;
 use BK::Backend::Doors;
 use BK::Backend::Scanner;
 
+use Fcntl qw(:flock SEEK_END);
 use FileHandle;
 use DBI;
 

@@ -23,6 +23,7 @@ use BK::Frontend::ActionHandler;
 
 use Mojolicious::Lite;
 use Mojo::IOLoop;
+use Fcntl qw(:flock SEEK_END);
 use FileHandle;
 use DBI;
 use JSON;

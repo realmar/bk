@@ -14,6 +14,8 @@ use parent -norequire, 'CommonMessages';
 use BK::Common::CommonMessagesCollector;
 use BK::Common::Constants;
 
+use Fcntl qw(:flock SEEK_END);
+
 sub new {
     my $class = shift;
     my $self = {
@@ -43,10 +45,24 @@ sub CloseFileHandle {
 sub WriteToFile {
     my ($self, $msg) = @_;
 
+    $self->LockFileHandle();
     print {$self->{_filehandle}} ($msg);
     autoflush {$self->{_filehandle}} 1;
+    $self->UnlockFileHandle();
 
     return $self->{_filehandle};
+}
+
+sub LockFileHandle {
+    my $self = shift;
+    flock($self->{_filehandle}, LOCK_EX);
+    return $!
+}
+
+sub UnlockFileHandle {
+    my $self = shift;
+    flock($self->{_filehandle}, LOCK_UN);
+    return $!;
 }
 
 1;
@@ -78,6 +94,8 @@ None
 =head2 Methods
 
 WriteToFile( [msg - STRING] ) - writes the [msg - STRING] to the open File
+LockFileHandle() - Locks the FileHandle
+UnlockFileHandle() - Unlocks the FileHandle
 
 =head2 Synopsis
 
