@@ -86,7 +86,7 @@ function ProgrammHandler() {
             DisplayLoadingMessage();
             ClearAllMessages();
             this.last_data_state = [];
-            $("div.bookbox > input").val("");
+            $("div.bookbox > input.bookbox_input").val("");
         }
         switch (this.conn_type) {
             case CONN_TYPE_WEBSOCKETS:
@@ -126,7 +126,7 @@ function CheckBookboxStates() {
     var bookbox_data = [];
     for(var i = 0; i < $("div.bookbox").length; i++) {
         var current_bookbox = $("div#bookbox" + i);
-        if(($("div#bookbox" + i + "> input").val() != programm_handler.last_data_state[i]) && !($("div#bookbox" + i + "> input").val() == "" && programm_handler.last_data_state[i] == null)) {
+        if(($("div#bookbox" + i + "> input.bookbox_input").val() != programm_handler.last_data_state[i]) && !($("div#bookbox" + i + "> input.bookbox_input").val() == "" && programm_handler.last_data_state[i] == null)) {
             if(current_bookbox.hasClass("unchanged")) {
                 current_bookbox.removeClass("unchanged");
             }
@@ -138,7 +138,7 @@ function CheckBookboxStates() {
             if(current_bookbox.hasClass("changed")) {
                 current_bookbox.removeClass("changed");
             }
-            if($("div#bookbox" + i + "> input").val() != "") {
+            if($("div#bookbox" + i + "> input.bookbox_input").val() != "") {
                 current_bookbox.removeClass("empty_bookbox");
                 current_bookbox.addClass("unchanged");
             }else{

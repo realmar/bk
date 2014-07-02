@@ -18,10 +18,13 @@ function InitializeButtons() {  //  Initializes all Buttons
         programm_handler.RefreshData('force_refresh');
     });
     $("div#delete_all_button").click(function () {
-        $("div.bookbox > input").val("");
+        $("div.bookbox > input.bookbox_input").val("");
     });
-    $("div.bookbox > p > span.delete_bookbox").click(function () {
-        $(this).parent().next("input").val("");
+    $("div.bookbox > p > span.edit_bookbox > span.delete_bookbox").click(function () {
+        $(this).parent().parent().next("input.bookbox_input").val("");
+    });
+    $("div.bookbox > p > span.edit_bookbox > span.undo_bookbox").click(function () {
+        $(this).parent().parent().next("input.bookbox_input").val(programm_handler.last_data_state[$(this).parent().parent().siblings("input.bookbox_id").val()])
     });
 }
 

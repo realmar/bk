@@ -151,8 +151,15 @@ span.remove_msg {
     cursor: pointer;
 }
 
-span.delete_bookbox {
+span.edit_bookbox {
     float: right;
     font-weight: bold;
     cursor: pointer;
+}
+
+span.edit_bookbox_common {
+    margin-right: 2px;
+    margin-left: 2px;
+    padding: 2px;
+    background-color: rgb(194, 194, 194);
 }
