@@ -150,3 +150,9 @@ span.remove_msg {
     font-weight: bold;
     cursor: pointer;
 }
+
+span.delete_bookbox {
+    float: right;
+    font-weight: bold;
+    cursor: pointer;
+}

@@ -48,23 +48,23 @@ Created For / At: ETH Zuerich Department Physics
             <main>
                 <div class="display_inline">
                     <div>
-                        <div id="bookbox0" class="display_inline bookbox"><p class="bookbox_text">BookBox 1</p><input type="text"></div>
-                        <div id="bookbox1" class="display_inline bookbox"><p class="bookbox_text">BookBox 2</p><input type="text"></div>
-                        <div id="bookbox2" class="display_inline bookbox"><p class="bookbox_text">BookBox 3</p><input type="text"></div>
-                        <div id="bookbox3" class="display_inline bookbox"><p class="bookbox_text">BookBox 4</p><input type="text"></div>
+                        <div id="bookbox0" class="display_inline bookbox"><p class="bookbox_text">BookBox 1<span class="delete_bookbox">X</span></p><input type="text"></div>
+                        <div id="bookbox1" class="display_inline bookbox"><p class="bookbox_text">BookBox 2<span class="delete_bookbox">X</span></p><input type="text"></div>
+                        <div id="bookbox2" class="display_inline bookbox"><p class="bookbox_text">BookBox 3<span class="delete_bookbox">X</span></p><input type="text"></div>
+                        <div id="bookbox3" class="display_inline bookbox"><p class="bookbox_text">BookBox 4<span class="delete_bookbox">X</span></p><input type="text"></div>
                     </div>
 
                     <div>
-                        <div id="bookbox4" class="display_inline bookbox"><p class="bookbox_text">BookBox 5</p><input type="text"></div>
-                        <div id="bookbox5" class="display_inline bookbox"><p class="bookbox_text">BookBox 6</p><input type="text"></div>
-                        <div id="bookbox6" class="display_inline bookbox"><p class="bookbox_text">BookBox 7</p><input type="text"></div>
-                        <div id="bookbox7" class="display_inline bookbox"><p class="bookbox_text">BookBox 8</p><input type="text"></div>
+                        <div id="bookbox4" class="display_inline bookbox"><p class="bookbox_text">BookBox 5<span class="delete_bookbox">X</span></p><input type="text"></div>
+                        <div id="bookbox5" class="display_inline bookbox"><p class="bookbox_text">BookBox 6<span class="delete_bookbox">X</span></p><input type="text"></div>
+                        <div id="bookbox6" class="display_inline bookbox"><p class="bookbox_text">BookBox 7<span class="delete_bookbox">X</span></p><input type="text"></div>
+                        <div id="bookbox7" class="display_inline bookbox"><p class="bookbox_text">BookBox 8<span class="delete_bookbox">X</span></p><input type="text"></div>
                     </div>
 
                     <div>
-                        <div id="bookbox8" class="display_inline bookbox"><p class="bookbox_text">BookBox 9</p><input type="text"></div>
-                        <div id="bookbox9" class="display_inline bookbox"><p class="bookbox_text">BookBox 10</p><input type="text"></div>
-                        <div id="bookbox10" class="display_inline bookbox"><p class="bookbox_text">BookBox 11</p><input type="text"></div>
+                        <div id="bookbox8" class="display_inline bookbox"><p class="bookbox_text">BookBox 9<span class="delete_bookbox">X</span></p><input type="text"></div>
+                        <div id="bookbox9" class="display_inline bookbox"><p class="bookbox_text">BookBox 10<span class="delete_bookbox">X</span></p><input type="text"></div>
+                        <div id="bookbox10" class="display_inline bookbox"><p class="bookbox_text">BookBox 11<span class="delete_bookbox">X</span></p><input type="text"></div>
                     </div>
                 </div>
                 <div id="desc_legend_container" class="display_inline">

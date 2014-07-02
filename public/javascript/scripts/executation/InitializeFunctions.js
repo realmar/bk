@@ -20,6 +20,9 @@ function InitializeButtons() {
     $("div#delete_all_button").click(function () {
         $("div.bookbox > input").val("");
     });
+    $("div.bookbox > p > span.delete_bookbox").click(function () {
+        $(this).parent().next("input").val("");
+    });
 }
 
 function InitializeRemoveMSGButton(msg_button) {
