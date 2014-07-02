@@ -9,6 +9,7 @@
 //  Description
 //
 //  Main Object it handles everything what has something to do with JavaScript
+//  It allways want to Connect over WebSockets to the Server but if this is not possible it falls back to AJAX
 //
 //  Synopsis
 //
@@ -16,26 +17,26 @@
 //  programm_handler.InitializeProgramm();
 
 function ProgrammHandler() {
-    this.intervals_collector = new IntervalsCollector();
-    this.conn_type;
-    this.conn_attempt        = WS_SEND_NO_WAIT;
-    this.bk_websocket;
-    this.bk_ajax_data;
+    this.intervals_collector = new IntervalsCollector();  //  Initialized a new IntercalsCollector
+    this.conn_type;                                       //  Stores the Connection Type if AJAX or Websockets are used
+    this.conn_attempt = WS_SEND_NO_WAIT;                  //  Sets if it has to be waited for teh Websocket to be ready
+    this.bk_websocket;                                    //  Stores the Websocket Object
+    this.bk_ajax_data;                                    //  Stores the AJAX Object
 
-    this.InitializeProgramm           = InitializeProgramm;
-    this.InitializeConnTypeWebSockets = InitializeConnTypeWebSockets;
-    this.InitializeConnTypeAJAX       = InitializeConnTypeAJAX;
-    this.ConnectToWebSocket           = ConnectToWebSocket;
-    this.SetConnectionType            = SetConnectionType;
-    this.RefreshData                  = RefreshData;
-    this.SaveData                     = SaveData;
-    this.CheckBookboxStates           = CheckBookboxStates;
-    this.CheckMSGDataObjects          = CheckMSGDataObjects;
+    this.InitializeProgramm           = InitializeProgramm;           //  Initialized the Programm
+    this.InitializeConnTypeWebSockets = InitializeConnTypeWebSockets; //  Initialized the WebSocket Content
+    this.InitializeConnTypeAJAX       = InitializeConnTypeAJAX;       //  Initialized the AJAX Content
+    this.ConnectToWebSocket           = ConnectToWebSocket;           //  Connects to the WebSocket
+    this.SetConnectionType            = SetConnectionType;            //  Sets the Connection Type
+    this.RefreshData                  = RefreshData;                  //  Refreshes the Bookbox and Messages Data, does not save the data
+    this.SaveData                     = SaveData;                     //  Saves the Data from the Bookboxes to the Server
+    this.CheckBookboxStates           = CheckBookboxStates;           //  Checks the Bookbox States
+    this.CheckMSGDataObjects          = CheckMSGDataObjects;          //  Checks the MSGDataObjects States
 
-    this.ws_tries = 10;
-    this.ws_wait  = 20;
+    this.ws_tries = 10;  //  Tries count for the WebSocket
+    this.ws_wait  = 20;  //  Time to wait between the tries
 
-    this.last_data_state = [];
+    this.last_data_state = [];  //  Stores the last state of the Bookboxes
 
     function InitializeProgramm() {
         this.ConnectToWebSocket();

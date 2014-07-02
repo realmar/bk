@@ -10,7 +10,7 @@
 //  
 // Changes the DOM Content
 
-function RefreshConnectionType(connection_type) {
+function RefreshConnectionType(connection_type) {  //  Changes the Connection Type Label
     switch(connection_type) {
         case CONN_TYPE_AJAX:
             $("p#connection_type_ajax").removeClass(DISPLAY_NONE);
@@ -23,7 +23,7 @@ function RefreshConnectionType(connection_type) {
     }
 }
 
-function AddMessageData(dom_object, message, mode) {
+function AddMessageData(dom_object, message, mode) {  //  Adds a Message
     var message_obj = $(message);
     if(mode == APPEND) {
         dom_object.append(message_obj);
@@ -33,13 +33,13 @@ function AddMessageData(dom_object, message, mode) {
     return message_obj;
 }
 
-function RemoveMessageData(dom_object) {
+function RemoveMessageData(dom_object) {  //  Removes a Message
     if(dom_object.length > 0) {
         dom_object.remove();
     }
 }
 
-function CheckMSGDataObjects() {
+function CheckMSGDataObjects() {  //  Checks if the Message Areas should be visible or not by checking if they have any Messages in it
     if($("div#msg_errors > p").length <= 0 && !$("div#msg_errors").hasClass("display_none")) {
         $("div#msg_errors").addClass("display_none");
     }else if($("div#msg_errors > p").length > 0 && $("div#msg_errors").hasClass("display_none")) {
@@ -62,7 +62,7 @@ function CheckMSGDataObjects() {
     }
 }
 
-function GetBookboxDataAndCheckDOMDoubleDataEntries() {
+function GetBookboxDataAndCheckDOMDoubleDataEntries() {  //  Checks if there are double Entries in the Bookboxes and gets the Content of all Bookboxes, returns that it has double Entries or if this is not the case an ARRAY with all Bookboxes Data
     var bookbox_data = [];
     var dom_double_data_entry_vals = [];
     var dom_double_data_entry = false;
@@ -90,7 +90,7 @@ function GetBookboxDataAndCheckDOMDoubleDataEntries() {
     return bookbox_data;
 }
 
-function GetBookboxData() {
+function GetBookboxData() {  //  Returns an ARRAY with all Bookboxes Data
     var bookbox_data = [];
     for(var i = 0; i < $("div.bookbox").length; i++) {
         if($("div#bookbox" + i).hasClass("changed")) {
@@ -102,24 +102,24 @@ function GetBookboxData() {
     return bookbox_data;
 }
 
-function ClearAllMessages() {
+function ClearAllMessages() {  //  Removes all Messages
     RemoveMessageData($("div#msg_user_client > p"));
     RemoveMessageData($("div#msg_errors > p"));
 }
 
-function DisplayLoadingMessage() {
+function DisplayLoadingMessage() {  //  Displays the Loading gif
     if($("div#loading").hasClass("display_none")) {
         $("div#loading").removeClass("display_none");
     }
 }
 
-function HideLoadingMessage() {
+function HideLoadingMessage() {  //  Hides the Loading gif
     if(!$("div#loading").hasClass("display_none")) {
         $("div#loading").addClass("display_none");
     }
 }
 
-function MakeMsgDOMString(classes, thow_time , msg_type, msg_string, mode) {
+function MakeMsgDOMString(classes, thow_time , msg_type, msg_string, mode) {  //  Makes and returns a message STRING, it can return a user friendly STRING or a not user friendly STRING, this depends on the message type or also known as logging facility
     var classes_string = "";
     var dom_msg_string = "";
     for(var i = 0; i < classes.length; i++) {

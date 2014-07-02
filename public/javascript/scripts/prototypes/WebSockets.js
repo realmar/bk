@@ -16,17 +16,17 @@
 //  web_socket.SendMSGWS('ahrefresh', 'null');
 
 function BKWebSocket(ws_path_arg) {
-    this.socket;
+    this.socket;  //  Stores the WebSocket
 
-    this.OpenWebSocket  = OpenWebSocket;
-    this.OnOpenWS       = OnOpenWS;
-    this.OnMessageWS    = OnMessageWS;
-    this.OnCloseWS      = OnCloseWS;
-    this.OnErrorWS      = OnErrorWS;
-    this.CloseWebSocket = CloseWebSocket;
-    this.SendDataWS     = SendDataWS;
-    this.SendMSGWS      = SendMSGWS;
-    this.KeepAliveWS    = KeepAliveWS;
+    this.OpenWebSocket  = OpenWebSocket;   //  Connect to WebSocket
+    this.OnOpenWS       = OnOpenWS;        //  Called when the WebSocket if initialized and ready to use
+    this.OnMessageWS    = OnMessageWS;     //  Called if a Messages comes in the WebSocket
+    this.OnCloseWS      = OnCloseWS;       //  Called if the WebSocket is closed
+    this.OnErrorWS      = OnErrorWS;       //  Called if the WebSocket throws an Error
+    this.CloseWebSocket = CloseWebSocket;  //  Close the WebSocket
+    this.SendDataWS     = SendDataWS;      //  Send Data with the WebSocket, waits until the WebSocket is ready then sends the Data
+    this.SendMSGWS      = SendMSGWS;       //  Prepare Data to Send with the WebSocket then sends Data over SendDataWS to the Server
+    this.KeepAliveWS    = KeepAliveWS;     //  Sends KeepAlive to the Server, is to no loose the Connection to the Server
 
     if(ws_path_arg) {
         this.OpenWebSocket(ws_path_arg);

@@ -20,7 +20,7 @@ function ActionHandler(msg_data_arg) {
 
     this.ProcessAction = ProcessAction;  //  Method which processes the data
 
-    function ProcessAction() {
+    function ProcessAction() {  //  Processes the Data received from the Server, updates the Content in the Bookboxes and Adds Messages
         RemoveMessageData($("div#all_errors > p." + AH_ERROR));
         if(Object.keys(this.msg_data["all_errors"]).length <= 0) {
             programm_handler.CheckBookboxStates();

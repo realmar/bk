@@ -17,12 +17,12 @@
 //  intervals_collector.RemoveInterval("interval_name");
 
 function IntervalsCollector() {
-    this.intervals = {};
+    this.intervals = {};  //  All Intervals
 
-    this.RegisterInterval = RegisterInterval;
-    this.RemoveInterval   = RemoveInterval;
+    this.RegisterInterval = RegisterInterval;  //  Method to Register an Interval
+    this.RemoveInterval = RemoveInterval;      //  Method to Remove an Interval
 
-    function RegisterInterval(func, diff_time, name) {
+    function RegisterInterval(func, diff_time, name) {  //  Register an Interval, the func must be an ARRAY with the Functions or Methods as STRING of the desired Functions or Methods, the functions in the Interval has the programm_handler Namespace
         this.intervals[name] = setInterval(function () {
             if(func.length <= 1) {
                 eval(this[func[0]]());
@@ -32,7 +32,7 @@ function IntervalsCollector() {
         }.bind(programm_handler), diff_time);
     }
 
-    function RemoveInterval(name) {
+    function RemoveInterval(name) {  //  Removes an Interval by its Name
         if(this.intervals[name]) {
             window.clearInterval(this.intervals[name]);
             delete(this.intervals[name]);

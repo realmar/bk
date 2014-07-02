@@ -10,7 +10,7 @@
 //
 //  Handles everything that needs to be initialized eg. DOM Element which are Buttons
 
-function InitializeButtons() {
+function InitializeButtons() {  //  Initializes all Buttons
     $("div#save_button").click(function () {
         programm_handler.SaveData();
     });
@@ -25,12 +25,12 @@ function InitializeButtons() {
     });
 }
 
-function InitializeRemoveMSGButton(msg_button) {
+function InitializeRemoveMSGButton(msg_button) {  //  Initialized a specific Message Button
     $(msg_button).click(function () {
         RemoveMessageData(msg_button.parent());
     });
 }
 
-function InitializeBookboxStates() {
+function InitializeBookboxStates() {  // Initialized the Bookboxes
     $("div.bookbox").addClass("unchanged");
 }
