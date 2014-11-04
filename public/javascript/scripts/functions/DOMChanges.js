@@ -69,17 +69,17 @@ function GetBookboxDataAndCheckDOMDoubleDataEntries() {  //  Checks if there are
     $(".bookbox.input_error").removeClass("input_error");
     for(var i = 0; i < $("div.bookbox").length; i++) {
         for(var i2 = 0; i2 < bookbox_data.length; i2++) {
-            if(bookbox_data[i2] == $("div#bookbox" + i + "> input").val() && $("div#bookbox" + i + "> input").val() != "") {
+            if(bookbox_data[i2] == $("div#bookbox" + i + "> input.bookbox_input").val() && $("div#bookbox" + i + "> input.bookbox_input").val() != "") {
                 dom_double_data_entry = true;
-                dom_double_data_entry_vals.push($("div#bookbox" + i + "> input").val());
+                dom_double_data_entry_vals.push($("div#bookbox" + i + "> input.bookbox_input").val());
             }
         }
-        bookbox_data[i] = $("div#bookbox" + i + "> input").val();
+        bookbox_data[i] = $("div#bookbox" + i + "> input.bookbox_input").val();
     }
     if(dom_double_data_entry) {
         for(var i = 0; i < $("div.bookbox").length; i++) {
             for(var i2 = 0; i2 < dom_double_data_entry_vals.length; i2++) {
-                if($("div#bookbox" + i + "> input").val() == dom_double_data_entry_vals[i2]) {
+                if($("div#bookbox" + i + "> input.bookbox_input").val() == dom_double_data_entry_vals[i2]) {
                     $("div#bookbox" + i).addClass("input_error");
                     break;
                 }
@@ -94,7 +94,7 @@ function GetBookboxData() {  //  Returns an ARRAY with all Bookboxes Data
     var bookbox_data = [];
     for(var i = 0; i < $("div.bookbox").length; i++) {
         if($("div#bookbox" + i).hasClass("changed")) {
-            bookbox_data[i] = $("div#bookbox" + i + "> input").val();
+            bookbox_data[i] = $("div#bookbox" + i + "> input.bookbox_input").val();
         }else{
             bookbox_data[i] = AH_NOT_CHANGED;
         }
