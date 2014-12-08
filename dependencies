@@ -42,9 +42,11 @@
 
   --  Version 4  --
 
+  -  libdancer-perl
   -  libmojolicious-perl
   -  libapache2-mod-proxy-html
 
+  -  http://labjack.com/sites/default/files/2013/10/ljacklm.zip
   -  http://forums.labjack.com/index.php?showtopic=4369&st=0&p=12576&#entry12576
   -  libusb-1.0-0
   -  libusb-1.0-0-dev
