@@ -15,6 +15,7 @@ use BK::Common::CommonMessagesCollector;
 use BK::Common::Constants;
 
 use Fcntl qw(:flock SEEK_END);
+use FileHandle;
 
 sub new {
     my $class = shift;

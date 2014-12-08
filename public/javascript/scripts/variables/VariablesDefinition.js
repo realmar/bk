@@ -9,8 +9,8 @@
 //  --
 //  programm variables
 
-var ws_path   = "ws://banshee.ethz.ch:3003/ws";
-var ajax_path = "http://banshee.ethz.ch:3000";
+var ws_path   = "ws://<HOSTNAME>:3003/ws";
+var ajax_path = "http://<HOSTNAME>:3000";
 var programm_handler;
 
 //  --

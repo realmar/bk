@@ -15,6 +15,8 @@ use BK::Common::Constants;
 use BK::Common::MessagesTextConstants;
 use BK::Common::CommonMessagesCollector;
 
+use DBI;
+
 sub new {
     my $class = shift;
     my $self = {
