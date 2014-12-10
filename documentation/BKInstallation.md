@@ -28,4 +28,4 @@
 
 ## 4. Configure BK
   1.  Change the **"use lib"** Path in **BKFrontent.pl** and **BKFrontendWebSockets.pl** to the lib directory of the BK folder eg. /opt/BK/**lib**
-  2.  Change the Hostname in the **"ws_path"** and the **"ajax_path"** variables in **"public/javascript/scripts/variables/VariablesDefinition.js"** to the Hostname of the BK Server
+  2.  Change the Hostname of the **"ws_path"** and the **"ajax_path"** variables in **"public/javascript/scripts/variables/VariablesDefinition.js"** to the Hostname of the BK Server
