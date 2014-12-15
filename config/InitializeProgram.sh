@@ -41,12 +41,12 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
 
     cd $PA/drivers/ljacklm/libljacklm
 
-    echo 'Copiling Drivers'
+    echo 'Compiling Drivers'
 
     make clean
     make install
 
-    echo 'Copying Drivers to correspondant directories'
+    echo 'Copying Drivers to corresponding directories'
 
     cp $PA/drivers/ljacklm/libljacklm/{libljacklm.so.1.20.2,ljacklm.h} /usr/local/lib/
     mv /usr/local/lib/libljacklm.so.1.20.2 /usr/local/lib/libljacklm.so
@@ -77,7 +77,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo '---------------------------------------------------------'
 else
     echo ''
-    echo 'Installation aborded'
+    echo 'Installation aborted'
 fi
 
 echo ''
