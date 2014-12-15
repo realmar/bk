@@ -8,7 +8,6 @@ echo 'Author: Anastassios Martakos / ISG D-PHYS / ETH Zuerich Hoenggerberg'
 echo '-------------------------------------------------------------------------'
 echo ''
 read -p 'Do you want to install BK - Buecherkasten? [Y/n]: ' INST1
-INST=${INST1,,}
 if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo ''
     read -p 'Enter BK Path (the Folder with all files) [/opt/BK]: ' PA
@@ -20,7 +19,6 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     sed -i "s|/opt/BK|$PA|g" $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl}
 
     read -p 'Do you want to install the required packages? [Y/n]: ' INST2
-    INST=${INST2,,}
     if [[ $INST2 =~ ^(yes|y) ]] || [[ -z $INST2 ]]; then
         echo 'Installing the required packages'
         aptitude install perl git libdancer-perl libmojolicious-perl libinline-perl libjson-perl libtemplate-perl libdbi-perl libdbd-sqlite3-perl libusb-1.0-0 linux-headers-486 libc6-dev libusb-1.0-0-dev sqlite3 make unzip gcc
