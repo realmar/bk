@@ -17,15 +17,15 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     fi
     echo 'Applying to: ' $PA
 
-    sed -i "s|/opt/BK/|$PA|g" $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl}
+    sed -i "s|/opt/BK|$PA|g" $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl}
 
     read -p 'Do you want to install the required packages? [Y/n]: ' INST2
     INST=${INST2,,}
-    if [[ $INST2 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
+    if [[ $INST2 =~ ^(yes|y) ]] || [[ -z $INST2 ]]; then
         echo 'Installing the required packages'
         aptitude install perl git libdancer-perl libmojolicious-perl libinline-perl libjson-perl libtemplate-perl libdbi-perl libdbd-sqlite3-perl libusb-1.0-0 linux-headers-486 libc6-dev libusb-1.0-0-dev sqlite3 make unzip gcc
     else
-        echo 'Not installing the required packatges'
+        echo 'Not installing the required packages'
     fi
 
     echo 'Downloading drivers'
@@ -34,11 +34,12 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     wget -P $PA/drivers http://labjack.com/sites/default/files/2013/10/ljacklm.zip
     wget -P $PA/drivers https://github.com/labjack/exodriver/archive/master.zip
 
-    unzip $PA/drivers/ljacklm.zip && unzip $PA/drivers/master/zip
+    cd $PA/drivers
+    unzip $PA/drivers/ljacklm.zip && unzip $PA/drivers/master.zip
 
     cd $PA/drivers/exodriver-master
     sed -i '15i CFLAGS=-I/usr/src/linux-headers-3.2.0-4-common' $PA/drivers/exodriver-master/liblabjackusb/Makefile
-    bash $PA/drivers/exodriver-master/install
+    bash $PA/drivers/exodriver-master/install.sh
 
     cd $PA/drivers/ljacklm/libljacklm
 
@@ -72,8 +73,10 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo ''
     echo ''
 
+    echo '---------------------------------------------------------'
     echo 'Installation Complete'
     echo 'Thank you for choosing our software solutions'
+    echo '---------------------------------------------------------'
 else
     echo ''
     echo 'Installation aborded'
