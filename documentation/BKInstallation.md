@@ -17,12 +17,20 @@ NOTE: install the appropriate version of the linux-headers for your operating sy
   1.  mkdir /opt/drivers && cd /opt/drivers
   2.  Download Drivers
         1.  wget http://labjack.com/sites/default/files/2013/10/ljacklm.zip
-  3.  unzip ljacklm.zip
-  4.  cd ljacklm/libljacklm
-  5.  make clean
-  6.  make install
-  7.  cp {libljacklm.so.1.20.2,ljacklm.h} /usr/local/lib/
-  8.  mv /usr/local/lib/libljacklm.so.1.20.2 /usr/local/lib/libljacklm.so
+        2.  wget https://github.com/labjack/exodriver/archive/master.zip
+  3.  unzip ljacklm.zip && unzip master.zip
+  4.  Edit exodriver-master/liblabjackusb/Makefile
+      -  Add
+         -  CFLAGS=-I/usr/src/linux-headers-3.2.0-4-common
+            After
+            ADD_LDCONFIG_PATH = ./add_ldconfig_path.sh
+  5.  cd exodriver-master
+  6.  ./install
+  7.  cd ljacklm/libljacklm
+  8.  make clean
+  9.  make install
+  10. cp {libljacklm.so.1.20.2,ljacklm.h} /usr/local/lib/
+  11. mv /usr/local/lib/libljacklm.so.1.20.2 /usr/local/lib/libljacklm.so
 
 NOTE: you may have to adapt the version number in the filename of the libljacklm.so file, the one here is just an example
 

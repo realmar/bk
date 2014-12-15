@@ -7,26 +7,40 @@ echo ''
 echo 'Author: Anastassios Martakos / ISG D-PHYS / ETH Zuerich Hoenggerberg'
 echo '-------------------------------------------------------------------------'
 echo ''
-read -p 'Do you want to install BK - Buecherkasten? [Y/n]: ' INST
-INST=${INST,,}
-if [[ $INST =~ ^(yes|y) ]] || [[ -z $INST ]]; then
+read -p 'Do you want to install BK - Buecherkasten? [Y/n]: ' INST1
+INST=${INST1,,}
+if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo ''
     read -p 'Enter BK Path (the Folder with all files) [/opt/BK]: ' PA
     if [[ -z $PA ]]; then
         PA=/opt/BK
     fi
     echo 'Applying to: ' $PA
-    echo 'Installing required packages'
 
-    aptitude install perl git libdancer-perl libmojolicious-perl libinline-perl libjson-perl libtemplate-perl libdbi-perl libdbd-sqlite3-perl libusb-1.0-0 linux-headers-486 libc6-dev libusb-1.0-0-dev sqlite3 make unzip gcc
+    sed -i "s|/opt/BK/|$PA|g" $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl}
+
+    read -p 'Do you want to install the required packages? [Y/n]: ' INST2
+    INST=${INST2,,}
+    if [[ $INST2 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
+        echo 'Installing the required packages'
+        aptitude install perl git libdancer-perl libmojolicious-perl libinline-perl libjson-perl libtemplate-perl libdbi-perl libdbd-sqlite3-perl libusb-1.0-0 linux-headers-486 libc6-dev libusb-1.0-0-dev sqlite3 make unzip gcc
+    else
+        echo 'Not installing the required packatges'
+    fi
 
     echo 'Downloading drivers'
 
-    mkdir "$PA/drivers" && cd "$PA/drivers"
-    wget http://labjack.com/sites/default/files/2013/10/ljacklm.zip
+    mkdir $PA/drivers
+    wget -P $PA/drivers http://labjack.com/sites/default/files/2013/10/ljacklm.zip
+    wget -P $PA/drivers https://github.com/labjack/exodriver/archive/master.zip
 
-    unzip ljacklm.zip
-    cd "$PA/drivers/ljacklm/libljacklm"
+    unzip $PA/drivers/ljacklm.zip && unzip $PA/drivers/master/zip
+
+    cd $PA/drivers/exodriver-master
+    sed -i '15i CFLAGS=-I/usr/src/linux-headers-3.2.0-4-common' $PA/drivers/exodriver-master/liblabjackusb/Makefile
+    bash $PA/drivers/exodriver-master/install
+
+    cd $PA/drivers/ljacklm/libljacklm
 
     echo 'Copiling Drivers'
 
