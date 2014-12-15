@@ -11,6 +11,9 @@
 ## 2. Apt Packages
   1.  aptitude install perl git libdancer-perl libmojolicious-perl libinline-perl libjson-perl libtemplate-perl libdbi-perl libdbd-sqlite3-perl libusb-1.0-0 linux-headers-486 libc6-dev libusb-1.0-0-dev sqlite3 make unzip gcc
 
+### for use with apache2
+  1.  aptitute install libapache2-mod-perl2 libplack-perl
+
 NOTE: install the appropriate version of the linux-headers for your operating system
 
 ## 3. Install LabJack Drivers
@@ -35,8 +38,12 @@ NOTE: install the appropriate version of the linux-headers for your operating sy
 NOTE: you may have to adapt the version number in the filename of the libljacklm.so file, the one here is just an example
 
 ## 4. Configure BK
+### Standalone
   1.  Change the **"use lib"** Path in **BKFrontent.pl** and **BKFrontendWebSockets.pl** to the lib directory of the BK folder eg. /opt/BK/**lib**
   2.  Change the Hostname of the **"ws_path"** and the **"ajax_path"** variables in **"public/javascript/scripts/variables/VariablesDefinition.js"** to the Hostname of the BK Server
+
+### Apache2
+  1.  use the **bk** and **bk-ssl** configuration files
 
 ## 5. Set up Database
   1.  mkdir database && cd database

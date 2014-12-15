@@ -55,10 +55,10 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
 
     mkdir $PA/{database,log}
 
-    echo 'Setting up the database'
+    ##  echo 'Setting up the database'
 
-    cd $PA/database
-    bash CreateDatabase.sh
+    ##  cd $PA/config
+    ##  bash CreateDatabase.sh
 
     echo ''
     echo ''

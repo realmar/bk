@@ -11,7 +11,9 @@ use 5.010;
 use strict;
 use warnings;
 
-use lib '/opt/BK/lib/';
+my $bk_path = '/opt/BK/';
+
+use lib $bk_path . 'lib/';
 
 use BK::Common::Constants;
 use BK::Common::MessagesTextConstants;
@@ -28,9 +30,9 @@ use FileHandle;
 use DBI;
 
 our $common_messages_collector = CommonMessagesCollector->new();
-our $filehandle_log_message = BKFileHandler->new('>>', 'log/message_log');
-our $filehandle_log_error = BKFileHandler->new('>>', 'log/error_log');
-our $database_connection = DatabaseAccess->new('SQLite', , 'database/BKDatabase.db');
+our $filehandle_log_message = BKFileHandler->new('>>', $bk_path . 'log/message_log');
+our $filehandle_log_error = BKFileHandler->new('>>', $bk_path . 'log/error_log');
+our $database_connection = DatabaseAccess->new('SQLite', , $bk_path . 'database/BKDatabase.db');
 
 any ['get'] => '/' => sub {
     template 'index' => {};
