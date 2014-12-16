@@ -71,6 +71,17 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo ''
     echo ''
 
+    read -p 'Enter the Port on which the BK - BuechKasten Server should run: ' AJAX_PORT
+    read -p 'Enter the Port on which the WebSocket BK - BuecherKasten Server should run: ' WS_PORT
+    echo 'Applying BK Port: ' $AJAX_PORT
+    echo 'Applying WS BK Port: ' $WS_PORT
+
+    sed -i "s/<AJAX_PORT>/$AJAX_PORT/g" $PA/public/javascript/scripts/variables/VariablesDefinition.js
+    sed -i "s/<WS_PORT>/$WS_PORT/g" $PA/public/javascript/scripts/variables/VariablesDefinition.js
+
+    echo ''
+    echo ''
+
     echo '---------------------------------------------------------'
     echo 'Installation Complete'
     echo 'Thank you for choosing our software solutions'

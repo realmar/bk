@@ -9,8 +9,8 @@
 //  --
 //  programm variables
 
-var ws_path   = "ws://<HOSTNAME>:3003/ws";
-var ajax_path = "http://<HOSTNAME>:3000";
+var ws_path   = "ws://<HOSTNAME>:<WS_PORT>/ws";
+var ajax_path = "http://<HOSTNAME>:<AJAX_PORT>";
 var programm_handler;
 
 //  --
