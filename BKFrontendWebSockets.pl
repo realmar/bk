@@ -24,10 +24,6 @@ use BK::Frontend::ActionHandler;
 
 use Mojolicious::Lite;
 use Mojo::IOLoop;
-use Fcntl qw(:flock SEEK_END);
-use FileHandle;
-use DBI;
-use JSON;
 
 CommonVariables::init_variables('/opt/BK/', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite');
 

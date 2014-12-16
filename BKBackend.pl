@@ -30,10 +30,6 @@ use BK::Common::CommonVariables;
 use BK::Backend::Doors;
 use BK::Backend::Scanner;
 
-use Fcntl qw(:flock SEEK_END);
-use FileHandle;
-use DBI;
-
 CommonVariables::init_variables('/opt/BK/', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite');
 
 my $doors = Doors->new(Constants::DOORSOUTPUT);

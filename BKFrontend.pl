@@ -24,9 +24,6 @@ use BK::Frontend::ActionHandler;
 
 use Dancer;
 use Template;
-use Fcntl qw(:flock SEEK_END);
-use FileHandle;
-use DBI;
 
 CommonVariables::init_variables('/opt/BK/', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite');
 

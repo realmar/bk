@@ -9,6 +9,10 @@
 
 package CommonVariables;
 
+use BK::Common::CommonMessagesCollector;
+use BK::Common::BKFileHandler;
+use BK::Common::DatabaseAccess;
+
 use Exporter 'import';
 our @EXPORT = qw(
     $common_messages_collector
