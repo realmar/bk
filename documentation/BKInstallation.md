@@ -12,7 +12,7 @@
   1.  aptitude install perl git libdancer-perl libmojolicious-perl libinline-perl libjson-perl libtemplate-perl libdbi-perl libdbd-sqlite3-perl libusb-1.0-0 linux-headers-486 libc6-dev libusb-1.0-0-dev sqlite3 make unzip gcc
 
 ### for use with Apache2 and integrated in Apache2
-  1.  aptitute install libapache2-mod-perl2 libplack-perl
+  1.  aptitute install apache2 libapache2-mod-perl2 libplack-perl
 
 NOTE: install the appropriate version of the linux-headers for your operating system
 
@@ -38,7 +38,6 @@ NOTE: install the appropriate version of the linux-headers for your operating sy
 NOTE: you may have to adapt the version number in the filename of the libljacklm.so file, the one here is just an example
 
 ## 4. Configure BK
-### Standalone
   1.  Change the **"use lib"** Path in **BKFrontent.pl** and **BKFrontendWebSockets.pl** to the lib directory of the BK folder eg. /opt/BK/**lib**
   2.  Change the Hostname and the Port of the **"ws_path"** and the **"ajax_path"** variables in **"public/javascript/scripts/variables/VariablesDefinition.js"** to the Hostname of the BK Server
       -  recommeded Ports:
@@ -58,14 +57,19 @@ NOTE: the ws_path describes the Host and the Port on which the WebSocket Server 
 ### Apache2
 #### Integrated in Apache2
   1.  use the **bk** and **bk-ssl** configuration files
-  1.  a2enmod perl
-  2.  a2enmod headers
+  2.  a2enmod perl
+
+##### Configuration
+  1.  Change the Serveradmin in the **bk** and **bk-ssl** configuration files
+  2.  Change the BK_Path in the **bk** and **bk-ssl** files
 
 #### Use a Proxy in Apache2
   1.  use the **bk_proxy** and **bk-ssl_proxy** configuration files
-  2.  a2enmod headers
-  3.  a2enmod proxy
-  4.  a2enmod proxy_http
+  2.  a2enmod proxy
+  3.  a2enmod proxy_http
+
+##### Configuration
+  1.  Change the Serveradmin and the BK_AJAX_Port in the **bk_proxy** and **bk-ssl_proxy** configuration files
 
 #### Setting Permissions only for use with Apache2
   1.  chmod a+rwx {log,database}

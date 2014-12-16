@@ -1,0 +1,12 @@
+NameVirtualHost *:80
+
+<VirtualHost *:80>
+    ServerAdmin <SERVERADMIN>
+
+    <Proxy *>
+        Order allow,deny
+        Allow from all
+    </Proxy>
+    ProxyPass / http://localhost:<BK_AJAX_PORT>/
+    ProxyPassReverse / http://localhost:<BK_AJAX_PORT>/
+</VirtualHost>
