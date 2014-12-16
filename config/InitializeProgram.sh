@@ -39,40 +39,45 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
         echo 'Not installing the required packages'
     fi
 
-    echo 'Downloading drivers'
+    read -p 'Do you want to download and install the drivers of the LabJack U12 device? [Y/n]: ' INSTLJ
+    if [[ $INSTLJ =~ (yes|y) ]] || [[ -z $INSTLJ ]]; then
+        echo 'Downloading drivers'
 
-    mkdir $PA/drivers
-    wget -P $PA/drivers http://labjack.com/sites/default/files/2013/10/ljacklm.zip
-    wget -P $PA/drivers https://github.com/labjack/exodriver/archive/master.zip
+        mkdir $PA/drivers
+        wget -P $PA/drivers http://labjack.com/sites/default/files/2013/10/ljacklm.zip
+        wget -P $PA/drivers https://github.com/labjack/exodriver/archive/master.zip
 
-    cd $PA/drivers
-    unzip $PA/drivers/ljacklm.zip && unzip $PA/drivers/master.zip
+        cd $PA/drivers
+        unzip $PA/drivers/ljacklm.zip && unzip $PA/drivers/master.zip
 
-    cd $PA/drivers/exodriver-master
-    sed -i '15i CFLAGS=-I/usr/src/linux-headers-3.2.0-4-common' $PA/drivers/exodriver-master/liblabjackusb/Makefile
-    bash $PA/drivers/exodriver-master/install.sh
+        cd $PA/drivers/exodriver-master
+        sed -i '15i CFLAGS=-I/usr/src/linux-headers-3.2.0-4-common' $PA/drivers/exodriver-master/liblabjackusb/Makefile
+        bash $PA/drivers/exodriver-master/install.sh
 
-    cd $PA/drivers/ljacklm/libljacklm
+        cd $PA/drivers/ljacklm/libljacklm
 
-    echo 'Compiling Drivers'
+        echo 'Compiling Drivers'
 
-    make clean
-    make install
+        make clean
+        make install
 
-    echo 'Copying Drivers to corresponding directories'
+        echo 'Copying Drivers to corresponding directories'
 
-    cp $PA/drivers/ljacklm/libljacklm/{libljacklm.so.1.20.2,ljacklm.h} /usr/local/lib/
-    mv /usr/local/lib/libljacklm.so.1.20.2 /usr/local/lib/libljacklm.so
+        cp $PA/drivers/ljacklm/libljacklm/{libljacklm.so.1.20.2,ljacklm.h} /usr/local/lib/
+        mv /usr/local/lib/libljacklm.so.1.20.2 /usr/local/lib/libljacklm.so
+    else
+        echo 'Not downloading and installing the LabJack drivers'
+    fi
 
     echo 'Setting up other required folders'
 
     mkdir $PA/{database,log}
     touch $PA/log/{message,error}_log
 
-    ##  echo 'Setting up the database'
+    echo 'Setting up the database'
 
-    ##  cd $PA/config
-    ##  bash CreateDatabase.sh
+    cd $PA/config
+    bash CreateDatabase.sh
 
     echo ''
     echo ''
