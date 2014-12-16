@@ -1,7 +1,7 @@
 <VirtualHost *:80>
     ServerAdmin <SERVERADMIN>
 
-    DocumentRoot /opt/BuecherkastenBibliothek
+    DocumentRoot <BK_PATH>
 
     <Location />
         SetHandler perl-script
