@@ -102,23 +102,23 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             service apache2 stop
             echo 'Initializing Apache Configuration Files'
             cd /etc/apache2
-            a2dissite default{-ssl,}
+            a2dissite default{-ssl}
             sed -i "s/<BK_PATH>/$PA/g" $PA/Apache2_Config/*
             read -p 'Enter the contact creditals of the Serveradmin MUST BE AN E-MAIL ADDRESS: ' SERVERADMIN
             echo 'Applying: ' $SERVERADMIN
             sed -i "s/<SERVERADMIN>/$SERVERADMIN/g" $PA/Apache2_Config/*
-            if [[ ! $USECGI =~ (C|c) ]]; then
+            if [[ ! $USECGI =~ (C|c) ]] && [[ ! -z $USECGI ]]; then
                 read -p 'Enter the Port on which BK should run locally DIFFERENT FROM THE BK PORT ENTERED ABOVE: ' BK_AJAX_PORT
                 echo 'Applying ' $BK_AJAX_PORT
                 sed -i "s/<BK_AJAX_PORT>/$BK_AJAX_PORT/g" $PA/Apache2_Config/*
             fi
             cp $PA/Apache2_Config/* /etc/apache2/sites-available/.
             if [[ $USECGI =~ (C|c) ]] || [[ -z $USECGI ]]; then
-                a2ensite bk{-ssl,}
+                a2ensite bk{-ssl}
                 a2enmod perl
             else
-                a2ensite bk{-ssl,}_proxy
-                a2enmod proxy{_http,}
+                a2ensite bk{-ssl}_proxy
+                a2enmod proxy{_http}
             fi
             echo 'Correcting Permissions'
             chmod a+rwx $PA/{log,database}
