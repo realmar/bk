@@ -7,7 +7,7 @@
 ##  Created For / At: ETH Zuerich Department Physics
 #########################################################
 
-package CommonVaraibles;
+package CommonVariables;
 
 use Exporter 'import';
 our @EXPORT = qw(

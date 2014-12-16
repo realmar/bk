@@ -38,12 +38,12 @@ sub ThrowMessage {
 
     switch ($msg_prio) {
         case Constants::ERROR {
-            $main::common_messages_collector->SetCommon(Constants::CMERROR, $msg_type, CommonMessages->new(time, $msg_string));
+            $CommonVariables::common_messages_collector->SetCommon(Constants::CMERROR, $msg_type, CommonMessages->new(time, $msg_string));
             $self->LogError($msg_prio, $msg_type, $msg_string);
             last;
         }
         case Constants::LOG {
-            $main::common_messages_collector->SetCommon(Constants::CMINFO, $msg_type, CommonMessages->new(time, $msg_string));
+            $CommonVariables::common_messages_collector->SetCommon(Constants::CMINFO, $msg_type, CommonMessages->new(time, $msg_string));
             $self->LogMessage($msg_prio, $msg_type, $msg_string);
             last;
         }
@@ -63,14 +63,14 @@ sub LogError {
     if($self->{_owner_desc} eq Constants::DB) {
         $self->RollbackChanges();
     }
-    $main::filehandle_log_error->WriteToFile(CommonMessages::CreateLogString($self->{_owner_desc}, $msg_prio, $msg_typ, $msg_string));
+    $CommonVariables::filehandle_log_error->WriteToFile(CommonMessages::CreateLogString($self->{_owner_desc}, $msg_prio, $msg_typ, $msg_string));
 
     return $self;
 }
 
 sub LogMessage {
     my ($self, $msg_prio, $msg_typ, $msg_string) = @_;
-    $main::filehandle_log_message->WriteToFile(CommonMessages::CreateLogString($self->{_owner_desc}, $msg_prio, $msg_typ, $msg_string));
+    $CommonVariables::filehandle_log_message->WriteToFile(CommonMessages::CreateLogString($self->{_owner_desc}, $msg_prio, $msg_typ, $msg_string));
     return $self;
 }
 

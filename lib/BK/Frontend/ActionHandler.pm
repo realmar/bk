@@ -152,7 +152,7 @@ sub SaveData {
 
     my $database_changed = 0;
 
-    $main::database_connection->BeginWork();
+    $CommonVariables::database_connection->BeginWork();
 
     for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
         switch ($self->{_data}->[$i]) {
@@ -162,7 +162,7 @@ sub SaveData {
             }
             case ('') {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDDEL);
-                if($main::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
+                if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
                     return Constants::INTERNALERROR;
                 }
                 $database_changed = 1;
@@ -170,7 +170,7 @@ sub SaveData {
             }
             else {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDNEW);
-                if($main::database_connection->UpdateEntryDatabase('Users', {'username' => $self->{_data}[$i]}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
+                if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => $self->{_data}[$i]}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
                     return Constants::INTERNALERROR;
                 }
                 $database_changed = 1;
@@ -179,7 +179,7 @@ sub SaveData {
         }
     }
 
-    $main::database_connection->CommitChanges();
+    $CommonVariables::database_connection->CommitChanges();
 
     my $ah_refresh_data = $self->RefreshData();
     if(!$ah_refresh_data) {
@@ -194,7 +194,7 @@ sub GetAllEntries {
 
     my %db_entries_hash;
     my @db_entries_array;
-    my $db_entries = $main::database_connection->ReadEntryDatabase('Users', {});
+    my $db_entries = $CommonVariables::database_connection->ReadEntryDatabase('Users', {});
     if($db_entries eq Constants::INTERNALERROR) {
         return Constants::INTERNALERROR;
     }
@@ -238,12 +238,12 @@ sub PrepareDataToSend {
 
     $self->{_data} = {
         'msg_data' => $self->{_data},
-        'all_errors' => $main::common_messages_collector->GetAllCommons(Constants::CMERROR),
-        'all_infos' => $main::common_messages_collector->GetAllCommons(Constants::CMINFO)
+        'all_errors' => $CommonVariables::common_messages_collector->GetAllCommons(Constants::CMERROR),
+        'all_infos' => $CommonVariables::common_messages_collector->GetAllCommons(Constants::CMINFO)
     };
     $self->ToJSON();
 
-    $main::common_messages_collector->ResetAllStates();
+    $CommonVariables::common_messages_collector->ResetAllStates();
 
     return $self->{_data};
 }
