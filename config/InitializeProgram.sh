@@ -21,7 +21,9 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo ''
 
     read -p 'Do you want to configure BK within the Apache2 WebServer? [Y/n]: ' USEAPACHE
-    read -p 'Do you want to use CGI or a Proxy? [C/p]: ' USECGI
+    if [[ $USEAPACHE =~ ^(yes|y) ]] || [[ -z $USEAPACHE ]]; then
+        read -p 'Do you want to use CGI or a Proxy? [C/p]: ' USECGI
+    fi
 
     read -p 'Do you want to install the required packages? [Y/n]: ' INST2
     if [[ $INST2 =~ ^(yes|y) ]] || [[ -z $INST2 ]]; then
@@ -83,7 +85,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo ''
     echo ''
 
-    read -p 'Enter the Port on which the BK - BuechKasten Server should run: ' AJAX_PORT
+    read -p 'Enter the Port on which the BK - BuecherKasten Server should run: ' AJAX_PORT
     read -p 'Enter the Port on which the WebSocket BK - BuecherKasten Server should run: ' WS_PORT
     echo 'Applying BK Port: ' $AJAX_PORT
     echo 'Applying WS BK Port: ' $WS_PORT
@@ -96,7 +98,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
 
     if [[ $USEAPACHE =~ ^(yes|y) ]] || [[ -z $USEAPACHE ]]; then
         read -p 'WARNING: webserver Apache2 will be stopped continue? [Y/n]' APACHECONT
-        if [[ $APACHECONT =~ ^(yes|y) ]] || [[ -z $USEAPACHE ]]; then
+        if [[ $APACHECONT =~ ^(yes|y) ]] || [[ -z $APACHECONT ]]; then
             service apache2 stop
             echo 'Initializing Apache Configuration Files'
             cd /etc/apache2
