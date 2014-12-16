@@ -26,6 +26,7 @@ use BK::Common::BKFileHandler;
 use BK::Common::CommonMessagesCollector;
 use BK::Common::CommonMessages;
 use BK::Common::DatabaseAccess;
+use BK::Common::CommonVariables;
 use BK::Backend::Doors;
 use BK::Backend::Scanner;
 
@@ -33,10 +34,8 @@ use Fcntl qw(:flock SEEK_END);
 use FileHandle;
 use DBI;
 
-our $common_messages_collector = CommonMessagesCollector->new();
-our $filehandle_log_message = BKFileHandler->new('>>', 'log/message_log');
-our $filehandle_log_error = BKFileHandler->new('>>', 'log/error_log');
-our $database_connection = DatabaseAccess->new('SQLite', 'database/BKDatabase.db');
+CommonVariables::init_variables('/opt/BK/', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite');
+
 my $doors = Doors->new(Constants::DOORSOUTPUT);
 my $scanner = Scanner->new();
 
