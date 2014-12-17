@@ -108,7 +108,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             echo 'Initializing Apache Configuration Files'
             cd /etc/apache2
             a2dissite default{-ssl,}
-            sed -i "s/<BK_PATH>/$PA/g" $PA/Apache2_Config/*
+            sed -i "s|<BK_PATH>|$PA|g" $PA/Apache2_Config/*
             read -p 'Enter the contact creditals of the Serveradmin MUST BE AN E-MAIL ADDRESS: ' SERVERADMIN
             echo 'Applying: ' $SERVERADMIN
             sed -i "s/<SERVERADMIN>/$SERVERADMIN/g" $PA/Apache2_Config/*
