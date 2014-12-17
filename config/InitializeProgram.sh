@@ -183,6 +183,11 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
                 fi
                 a2enmod rewrite
                 a2enmod ssl
+                sed -i 's/<WS_PROTOCOL>/wss/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
+                sed -i 's/<AJAX_PROTOCOL>/https/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
+            else
+                sed -i 's/<WS_PROTOCOL>/ws/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
+                sed -i 's/<AJAX_PROTOCOL>/http/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
             fi
             cp $PA/Apache2_Config/* /etc/apache2/sites-available/.
             if [[ $USECGI =~ (C|c) ]] || [[ -z $USECGI ]]; then
@@ -207,6 +212,8 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             chmod a+rwx $PA/{log,database}/*
             service apache2 start
         else
+            sed -i 's/<WS_PROTOCOL>/ws/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
+            sed -i 's/<AJAX_PROTOCOL>/http/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
             echo 'Continue without Apache2 Configuration, you have to do this manually if you want to use these features'
         fi
     fi

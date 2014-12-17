@@ -78,10 +78,13 @@ NOTE: the ws_path describes the Host and the Port on which the WebSocket Server 
   1.  a2enmod rewrite
   2.  a2enmod ssl
 
-##### Create seld-signed certificate if wanted
+##### Create self-signed certificate if wanted
   1.  mkdir -p /etc/ssl/localcerts/apache2
   2.  openssl req -new -x509 -days 365 -nodes -out /etc/ssl/localcerts/apache2/bk_certificate.pem -keyout /etc/ssl/localcerts/apache2/bk_certificate.key
   3.  chmod 600 /etc/ssl/localcerts/apache2/bk*
+
+##### Changing protocols in javascript
+  1.  Change the WS_Protocol and the AJAX_Protocol in the VariablesDefinitions.js script
 
 #### Setting Permissions only for use with Apache2
   1.  chmod a+rwx {log,database}
