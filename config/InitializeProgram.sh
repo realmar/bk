@@ -27,6 +27,12 @@ echo ''
 read -p 'Do you want to install BK - Buecherkasten? [Y/n]: ' INST1
 if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo ''
+    read -p 'Enter BK Path (the Folder with all files) [/opt/BK]: ' PA
+    if [[ -z $PA ]]; then
+        PA=/opt/BK
+    fi
+    echo 'Applying to: ' $PA
+
     if [[ ! -d $PA/backups ]]; then
         echo 'Generating restore point (Making Backups)'
         mkdir $PA/backups
@@ -43,11 +49,6 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
         cp $PA/backups/{bk,bk-ssl,bk_proxy,bk-ssl_proxy} $PA/Apache2_Config/.
     fi
     echo ''
-    read -p 'Enter BK Path (the Folder with all files) [/opt/BK]: ' PA
-    if [[ -z $PA ]]; then
-        PA=/opt/BK
-    fi
-    echo 'Applying to: ' $PA
 
     sed -i "s|/opt/BK|$PA|g" $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl}
 
