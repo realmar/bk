@@ -37,15 +37,15 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
         echo 'Generating restore point (Making Backups)'
         mkdir $PA/backups
         cp $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl} $PA/backups/.
-        cp $PA/javascript/scripts/variables/VariablesDefinition.js $PA/backups/.
+        cp $PA/public/javascript/scripts/variables/VariablesDefinition.js $PA/backups/.
         cp $PA/Apache2_Config/{bk,bk-ssl,bk_proxy,bk-ssl_proxy} $PA/backups/.
     else
         echo 'Going back to restore point (Restore Backups)'
         rm -rf $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl}
-        rm -rf $PA/javascript/scripts/variables/VariablesDefinition.js
+        rm -rf $PA/public/javascript/scripts/variables/VariablesDefinition.js
         rm -rf $PA/Apache2_Config/{bk,bk-ssl,bk_proxy,bk-ssl_proxy}
         cp $PA/backups/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl} $PA/.
-        cp $PA/backups/VariablesDefinition.js $PA/javascript/scripts/variables/.
+        cp $PA/backups/VariablesDefinition.js $PA/public/javascript/scripts/variables/.
         cp $PA/backups/{bk,bk-ssl,bk_proxy,bk-ssl_proxy} $PA/Apache2_Config/.
     fi
     echo ''
