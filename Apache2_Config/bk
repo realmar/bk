@@ -1,4 +1,7 @@
+NameVirtualHost *:80
+
 <VirtualHost *:80>
+
     ServerAdmin <SERVERADMIN>
 
     DocumentRoot <BK_PATH>

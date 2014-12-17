@@ -1,0 +1,48 @@
+<IfModule mod_ssl.c>
+        NameVirtualHost *:443
+
+        <VirtualHost *:443>
+                ServerAdmin <SERVERADMIN>
+
+                DocumentRoot <BK_PATH>
+    
+                <Location />
+                        SetHandler perl-script
+                        PerlHandler Plack::Handler::Apache2
+                        PerlSetVar psgi_app <BK_PATH>/BKFrontend.pl
+                        SetEnv DANCER_ENVIRONMENT "production"
+                        SetEnv PERL_LWP_SSL_VERIFY_HOSTNAME 0
+                </Location>
+
+                <Directory <BK_PATH>/>
+                        Options Indexes FollowSymLinks MultiViews
+                        AllowOverride None
+                        Order allow,deny
+                        allow from all
+                </Directory>
+
+                ErrorLog ${APACHE_LOG_DIR}/error.log
+
+                # Possible values include: debug, info, notice, warn, error, crit,
+                # alert, emerg.
+                LogLevel warn
+
+                CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+                SSLEngine on
+                SSLCertificateFile    /etc/ssl/localcerts/apache2/bk_certificate.pem
+                SSLCertificateKeyFile /etc/ssl/localcerts/apache2/bk_certificate.key
+
+                <FilesMatch "\.(cgi|shtml|phtml|php)$">
+                        SSLOptions +StdEnvVars
+                </FilesMatch>
+                <Directory /usr/lib/cgi-bin>
+                        SSLOptions +StdEnvVars
+                </Directory>
+
+                BrowserMatch "MSIE [2-6]" \
+                nokeepalive ssl-unclean-shutdown \
+                downgrade-1.0 force-response-1.0
+                BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+        </VirtualHost>
+</IfModule>

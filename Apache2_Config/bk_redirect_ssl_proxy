@@ -1,0 +1,20 @@
+NameVirtualHost *:80
+        
+<VirtualHost *:80>
+    ServerAdmin <SERVERADMIN>
+
+    DocumentRoot <BK_PATH>
+
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}$1 [R,L]
+
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+
+    # Possible values include: debug, info, notice, warn, error, crit,
+    # alert, emerg.
+    LogLevel warn
+
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>          

@@ -38,15 +38,15 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
         mkdir $PA/backups
         cp $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl} $PA/backups/.
         cp $PA/public/javascript/scripts/variables/VariablesDefinition.js $PA/backups/.
-        cp $PA/Apache2_Config/{bk,bk-ssl,bk_proxy,bk-ssl_proxy} $PA/backups/.
+        cp $PA/Apache2_Config/{bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy} $PA/backups/.
     else
         echo 'Going back to restore point (Restore Backups)'
         rm -rf $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl}
         rm -rf $PA/public/javascript/scripts/variables/VariablesDefinition.js
-        rm -rf $PA/Apache2_Config/{bk,bk-ssl,bk_proxy,bk-ssl_proxy}
+        rm -rf $PA/Apache2_Config/{bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy}
         cp $PA/backups/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl} $PA/.
         cp $PA/backups/VariablesDefinition.js $PA/public/javascript/scripts/variables/.
-        cp $PA/backups/{bk,bk-ssl,bk_proxy,bk-ssl_proxy} $PA/Apache2_Config/.
+        cp $PA/backups/{bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy} $PA/Apache2_Config/.
     fi
     echo ''
 
@@ -57,6 +57,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     read -p 'Do you want to configure BK within the Apache2 WebServer? [Y/n]: ' USEAPACHE
     if [[ $USEAPACHE =~ ^(yes|y) ]] || [[ -z $USEAPACHE ]]; then
         read -p 'Do you want to use CGI or a Proxy? [C/p]: ' USECGI
+        read -p 'DO you want to set up SSL? [Y/n]: ' USESSL
     fi
 
     read -p 'Do you want to install the required packages? [Y/n]: ' INST2
@@ -154,7 +155,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             echo 'Initializing Apache Configuration Files'
             cd /etc/apache2
             a2dissite default{-ssl,}
-            a2dissite {bk,bk-ssl,bk_proxy,bk-ssl_proxy}
+            a2dissite {bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy}
             rm -rf /etc/apache2/sites-available/bk*
             sed -i "s|<BK_PATH>|$PA|g" $PA/Apache2_Config/*
             read -p 'Enter the contact creditals of the Serveradmin MUST BE AN E-MAIL ADDRESS: ' SERVERADMIN
@@ -165,12 +166,40 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
                 echo 'Applying ' $BK_AJAX_PORT
                 sed -i "s/<BK_AJAX_PORT>/$BK_AJAX_PORT/g" $PA/Apache2_Config/*
             fi
+            if [[ $USESSL =~ ^(yes|y) ]] || [[ -z $USESSL ]]; then
+                read -p 'Do you want to create a Self Signed SSL Certificate? [Y/n]: ' MAKESSC
+                if [[ $MAKESSC =~ ^(yes|y) ]] || [[ -z $MAKESSC ]]; then
+                    echo 'Creating SSL Self-Signed Certificates'
+                    rm -rf /etc/ssl/localcerts/apache2/bk*
+                    openssl req -new -x509 -days 365 -nodes -out /etc/ssl/localcerts/apache2/bk_certificate.pem -keyout /etc/ssl/localcerts/apache2/bk_certificate.key
+                    chmod 600 /etc/ssl/localcerts/apache2/bk*
+                else
+                    echo ''
+                    echo ''
+                    echo 'Please place your certificates here: /etc/ssl/localcerts/apache2/'
+                    echo 'and name them: bk_certificate.{pem,key} or edit the Apache2 configuration files'
+                    echo ''
+                    echo ''
+                fi
+                a2enmod rewrite
+                a2enmod ssl
+            fi
             cp $PA/Apache2_Config/* /etc/apache2/sites-available/.
             if [[ $USECGI =~ (C|c) ]] || [[ -z $USECGI ]]; then
-                a2ensite bk{-ssl,}
+                if [[ $USESSL =~ ^(yes|y) ]] || if [[ -z $USESSL ]]; then
+                    a2ensite bk_redirect_ssl
+                    a2ensite bk-ssl
+                else
+                    a2ensite bk
+                fi
                 a2enmod perl
             else
-                a2ensite bk{-ssl,}_proxy
+                if [[ $USESSL =~ ^(yes|y) ]] || if [[ -z $USESSL ]]; then
+                    a2ensite bk_redirect_ssl_proxy
+                    a2ensite bk-ssl_proxy
+                else
+                    a2ensite bk_proxy
+                fi
                 a2enmod proxy{_http,}
             fi
             echo 'Correcting Permissions'

@@ -4,7 +4,7 @@
   1.  Debian
   2.  Install Debian Server as described in our RT Wiki
 
-**NOTE: You can also run the InitializeProgram.sh script as root to complete the installation**
+**NOTE: You can also run the InitializeProgram.sh script as root to complete the installation, the InitializeProgram.sh script can also be use to reconfigure BK**
 
 **NOTE: All operations have to be done as root or with root access**
 
@@ -13,6 +13,9 @@
 
 ### for use with Apache2 and integrated in Apache2
   1.  aptitute install apache2 libapache2-mod-perl2 libplack-perl
+
+#### for use of a self-signed certificate
+  1.  aptitude install openssl
 
 NOTE: install the appropriate version of the linux-headers for your operating system
 
@@ -56,20 +59,29 @@ NOTE: the ws_path describes the Host and the Port on which the WebSocket Server 
 
 ### Apache2
 #### Integrated in Apache2
-  1.  use the **bk** and **bk-ssl** configuration files
+  1.  use the **bk** (no SSL), **bk_redirect_ssl** and **bk-ssl** (SSL) configuration files
   2.  a2enmod perl
 
 ##### Configuration
-  1.  Change the Serveradmin in the **bk** and **bk-ssl** configuration files
-  2.  Change the BK_Path in the **bk** and **bk-ssl** files
+  1.  Change the Serveradmin and the BK_Path in the Apache2 configuration files
 
 #### Use a Proxy in Apache2
-  1.  use the **bk_proxy** and **bk-ssl_proxy** configuration files
+  1.  use the **bk_proxy** (no SSL), **bk_redirect_ssl_proxy** and **bk-ssl_proxy** (SSL) configuration files
   2.  a2enmod proxy
   3.  a2enmod proxy_http
 
 ##### Configuration
-  1.  Change the Serveradmin and the BK_AJAX_Port in the **bk_proxy** and **bk-ssl_proxy** configuration files
+  1.  Change the Serveradmin and the BK_AJAX_Port in the Apache2 configuration files
+
+#### Use SSL
+##### Enable mods
+  1.  a2enmod rewrite
+  2.  a2enmod ssl
+
+##### Create seld-signed certificate if wanted
+  1.  mkdir -p /etc/ssl/localcerts/apache2
+  2.  openssl req -new -x509 -days 365 -nodes -out /etc/ssl/localcerts/apache2/bk_certificate.pem -keyout /etc/ssl/localcerts/apache2/bk_certificate.key
+  3.  chmod 600 /etc/ssl/localcerts/apache2/bk*
 
 #### Setting Permissions only for use with Apache2
   1.  chmod a+rwx {log,database}
