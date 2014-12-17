@@ -186,7 +186,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             fi
             cp $PA/Apache2_Config/* /etc/apache2/sites-available/.
             if [[ $USECGI =~ (C|c) ]] || [[ -z $USECGI ]]; then
-                if [[ $USESSL =~ ^(yes|y) ]] || if [[ -z $USESSL ]]; then
+                if [[ $USESSL =~ ^(yes|y) ]] || [[ -z $USESSL ]]; then
                     a2ensite bk_redirect_ssl
                     a2ensite bk-ssl
                 else
@@ -194,7 +194,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
                 fi
                 a2enmod perl
             else
-                if [[ $USESSL =~ ^(yes|y) ]] || if [[ -z $USESSL ]]; then
+                if [[ $USESSL =~ ^(yes|y) ]] || [[ -z $USESSL ]]; then
                     a2ensite bk_redirect_ssl_proxy
                     a2ensite bk-ssl_proxy
                 else
