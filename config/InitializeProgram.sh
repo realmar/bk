@@ -1,5 +1,22 @@
 #!/bin/bash
 
+#########################################################
+##  Project Name:     BuecherkastenBibliothek BK
+##  Author:           Anastassios Martakos
+##  Language:         English / Bash
+##  Created For / At: ETH Zuerich Department Physics
+#########################################################
+
+##  Backup Files
+##    BKBackend.pl
+##    BKFrontend.pl
+##    BKFrontendWebSockets.pl
+##    public/javascript/scripts/variables/VariablesDefinition.js
+##    Apache2_Config/bk
+##    Apache2_Config/bk-ssl
+##    Apache2_Config/bk_proxy
+##    Apache2_Config/bk-ssl_proxy
+
 echo '-------------------------------------------------------------------------'
 echo 'Welcome to BK - BuecherKasten'
 echo 'Thank you for choosing our software solution'
@@ -9,6 +26,22 @@ echo '-------------------------------------------------------------------------'
 echo ''
 read -p 'Do you want to install BK - Buecherkasten? [Y/n]: ' INST1
 if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
+    echo ''
+    if [[ ! -d $PA/backups ]]; then
+        echo 'Generating restore point (Making Backups)'
+        mkdir $PA/backups
+        cp $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl} $PA/backups/.
+        cp $PA/javascript/scripts/variables/VariablesDefinition.js $PA/backups/.
+        cp $PA/Apache2_Config/{bk,bk-ssl,bk_proxy,bk-ssl_proxy} $PA/backups/.
+    else
+        echo 'Going back to restore point (Restore Backups)'
+        rm -rf $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl}
+        rm -rf $PA/javascript/scripts/variables/VariablesDefinition.js
+        rm -rf $PA/Apache2_Config/{bk,bk-ssl,bk_proxy,bk-ssl_proxy}
+        cp $PA/backups/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl} $PA/.
+        cp $PA/backups/VariablesDefinition.js $PA/javascript/scripts/variables/.
+        cp $PA/backups/{bk,bk-ssl,bk_proxy,bk-ssl_proxy} $PA/Apache2_Config/.
+    fi
     echo ''
     read -p 'Enter BK Path (the Folder with all files) [/opt/BK]: ' PA
     if [[ -z $PA ]]; then
@@ -43,6 +76,10 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     if [[ $INSTLJ =~ (yes|y) ]] || [[ -z $INSTLJ ]]; then
         echo 'Downloading drivers'
 
+        if [[ -d $PA/drivers ]]; then
+            rm -rf $PA/drivers
+        fi
+
         mkdir $PA/drivers
         wget -P $PA/drivers http://labjack.com/sites/default/files/2013/10/ljacklm.zip
         wget -P $PA/drivers https://github.com/labjack/exodriver/archive/master.zip
@@ -63,13 +100,21 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
 
         echo 'Copying Drivers to corresponding directories'
 
-        cp $PA/drivers/ljacklm/libljacklm/{libljacklm.so.1.20.2,ljacklm.h} /usr/local/lib/
+        cp $PA/drivers/ljacklm/libljacklm/{libljacklm.so.1.20.2,ljacklm.h} /usr/local/lib/.
         mv /usr/local/lib/libljacklm.so.1.20.2 /usr/local/lib/libljacklm.so
     else
         echo 'Not downloading and installing the LabJack drivers'
     fi
 
     echo 'Setting up other required folders'
+
+    if [[ -d $PA/database ]]; then
+        rm -rf $PA/database
+    fi
+
+    if [[ -d $PA/log ]]; then
+        rm -rf $PA/log
+    fi
 
     mkdir $PA/{database,log}
     touch $PA/log/{message,error}_log
@@ -108,6 +153,8 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             echo 'Initializing Apache Configuration Files'
             cd /etc/apache2
             a2dissite default{-ssl,}
+            a2dissite {bk,bk-ssl,bk_proxy,bk-ssl_proxy}
+            rm -rf /etc/apache2/sites-available/bk*
             sed -i "s|<BK_PATH>|$PA|g" $PA/Apache2_Config/*
             read -p 'Enter the contact creditals of the Serveradmin MUST BE AN E-MAIL ADDRESS: ' SERVERADMIN
             echo 'Applying: ' $SERVERADMIN
