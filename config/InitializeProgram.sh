@@ -16,6 +16,8 @@
 ##    Apache2_Config/bk-ssl
 ##    Apache2_Config/bk_proxy
 ##    Apache2_Config/bk-ssl_proxy
+##    Apache2_Config/bk_redirect_ssl
+##    Apache2_Config/bk_redirect_ssl_proxy
 
 echo '-------------------------------------------------------------------------'
 echo 'Welcome to BK - BuecherKasten'
@@ -118,10 +120,11 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
         rm -rf $PA/log
     fi
 
-    mkdir $PA/{database,log}
+    mkdir $PA/{database,log,logs}
     touch $PA/log/{message,error}_log
 
     echo 'Setting up the database'
+    echo 'AFTER DATABASE IS SET UP EXIT THE SQLITE3 CONSOLE WITH .exit TO CONTINUE THE SETUP'
 
     cd $PA/config
     bash CreateDatabase.sh
@@ -208,8 +211,8 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
                 a2enmod proxy{_http,}
             fi
             echo 'Correcting Permissions'
-            chmod a+rwx $PA/{log,database}
-            chmod a+rwx $PA/{log,database}/*
+            chmod a+rwx $PA/{log,logs,database}
+            chmod a+rwx $PA/{log,logs,database}/*
             service apache2 start
         else
             sed -i 's/<WS_PROTOCOL>/ws/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js

@@ -42,19 +42,23 @@ NOTE: you may have to adapt the version number in the filename of the libljacklm
 
 ## 4. Configure BK
   1.  Change the **"use lib"** Path in **BKFrontent.pl** and **BKFrontendWebSockets.pl** to the lib directory of the BK folder eg. /opt/BK/**lib**
-  2.  Change the Hostname and the Port of the **"ws_path"** and the **"ajax_path"** variables in **"public/javascript/scripts/variables/VariablesDefinition.js"** to the Hostname of the BK Server
-      -  recommeded Ports:
-         -  ws_path: 3003
-         -  ajax_path: 3000
+  2.  Change the Hostname, Protocol and the Port of the **"ws_path"** and the **"ajax_path"** variables in **"public/javascript/scripts/variables/VariablesDefinition.js"** to the Hostname of the BK Server
+      -  recommeded Protocols and Ports for non SSL:
+         -  ws_path: ws ; 3003
+         -  ajax_path: http ; 3000
+      -  recommeded Protocols and Ports for SSL:
+         -  ws_path: wss ; 4443
+         -  ajax_path: https ; 443
 
 NOTE: the ws_path describes the Host and the Port on which the WebSocket Server is, the ajax_path describes the Host and the Port on which the BK Server is, you also have to run those two servers on these Ports then
+NOTE: SSL is only recommeded when using BK in combination with a webserver
 
 ## 5. Set up Database
   1.  mkdir database && cd database
   2.  ./CreateDatabase.sh
 
 ## 6. Set up Log Directory
-  1.  mkdir log && cd log
+  1.  mkdir log{s,} && cd log
   2.  touch {message,error}\_log
 
 ### Apache2
