@@ -12,12 +12,12 @@
 ##    BKFrontend.pl
 ##    BKFrontendWebSockets.pl
 ##    public/javascript/scripts/variables/VariablesDefinition.js
-##    Apache2_Config/bk
-##    Apache2_Config/bk-ssl
-##    Apache2_Config/bk_proxy
-##    Apache2_Config/bk-ssl_proxy
-##    Apache2_Config/bk_redirect_ssl
-##    Apache2_Config/bk_redirect_ssl_proxy
+##    Apache2_Config/bk.conf
+##    Apache2_Config/bk-ssl.conf
+##    Apache2_Config/bk_proxy.conf
+##    Apache2_Config/bk-ssl_proxy.conf
+##    Apache2_Config/bk_redirect_ssl.conf
+##    Apache2_Config/bk_redirect_ssl_proxy.conf
 
 echo '-------------------------------------------------------------------------'
 echo 'Welcome to BK - BuecherKasten'
@@ -40,15 +40,15 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
         mkdir $PA/backups
         cp $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl} $PA/backups/.
         cp $PA/public/javascript/scripts/variables/VariablesDefinition.js $PA/backups/.
-        cp $PA/Apache2_Config/{bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy} $PA/backups/.
+        cp $PA/Apache2_Config/{bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy}.conf $PA/backups/.
     else
         echo 'Going back to restore point (Restore Backups)'
         rm -rf $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl}
         rm -rf $PA/public/javascript/scripts/variables/VariablesDefinition.js
-        rm -rf $PA/Apache2_Config/{bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy}
+        rm -rf $PA/Apache2_Config/{bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy}.conf
         cp $PA/backups/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl} $PA/.
         cp $PA/backups/VariablesDefinition.js $PA/public/javascript/scripts/variables/.
-        cp $PA/backups/{bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy} $PA/Apache2_Config/.
+        cp $PA/backups/{bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy}.conf $PA/Apache2_Config/.
     fi
     echo ''
 
@@ -157,8 +157,8 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             service apache2 stop
             echo 'Initializing Apache Configuration Files'
             cd /etc/apache2
-            a2dissite default{-ssl,}
-            a2dissite {bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy}
+            a2dissite {000-default.conf,default-ssl.conf}
+            a2dissite {bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy}.conf
             rm -rf /etc/apache2/sites-available/bk*
             sed -i "s|<BK_PATH>|$PA|g" $PA/Apache2_Config/*
             read -p 'Enter the contact creditals of the Serveradmin MUST BE AN E-MAIL ADDRESS: ' SERVERADMIN
@@ -195,18 +195,18 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             cp $PA/Apache2_Config/* /etc/apache2/sites-available/.
             if [[ $USECGI =~ (C|c) ]] || [[ -z $USECGI ]]; then
                 if [[ $USESSL =~ ^(yes|y) ]] || [[ -z $USESSL ]]; then
-                    a2ensite bk_redirect_ssl
-                    a2ensite bk-ssl
+                    a2ensite bk_redirect_ssl.conf
+                    a2ensite bk-ssl.conf
                 else
-                    a2ensite bk
+                    a2ensite bk.conf
                 fi
                 a2enmod perl
             else
                 if [[ $USESSL =~ ^(yes|y) ]] || [[ -z $USESSL ]]; then
-                    a2ensite bk_redirect_ssl_proxy
-                    a2ensite bk-ssl_proxy
+                    a2ensite bk_redirect_ssl_proxy.conf
+                    a2ensite bk-ssl_proxy.conf
                 else
-                    a2ensite bk_proxy
+                    a2ensite bk_proxy.conf
                 fi
                 a2enmod proxy{_http,}
             fi
