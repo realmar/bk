@@ -40,20 +40,15 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
         mkdir $PA/backups
         cp $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl} $PA/backups/.
         cp $PA/public/javascript/scripts/variables/VariablesDefinition.js $PA/backups/.
-        cp $PA/Apache2_Config/{bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy}.conf $PA/backups/.
-        cp /etc/apache2/{apache2,ports}.conf $PA/backups/.
-        echo 'Backed up /etc/apache2/apache2.conf and /etc/apache2/ports.conf for further configuration use the configuration files in the backup directory for these two files not these in the /etc/apache2 directory'
+        cp $PA/Apache2_Config/{bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy,apache2,ports}.conf $PA/backups/.
     else
         echo 'Going back to restore point (Restore Backups)'
         rm -rf $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl}
         rm -rf $PA/public/javascript/scripts/variables/VariablesDefinition.js
-        rm -rf $PA/Apache2_Config/{bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy}.conf
-        rm -rf /etc/apache2/{apache2,ports}
+        rm -rf $PA/Apache2_Config/{bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy,apache2,ports}.conf
         cp $PA/backups/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl} $PA/.
         cp $PA/backups/VariablesDefinition.js $PA/public/javascript/scripts/variables/.
-        cp $PA/backups/{bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy}.conf $PA/Apache2_Config/.
-        cp $PA/backups/{apache2,ports}.conf /etc/apache2/.
-        echo 'Configuration files apache2.conf and ports.conf from backups to apache2 applied, note that use have to use these two files in the bkacups directory for further configuration of apache2 not these two files in the /etc/apache2 directory'
+        cp $PA/backups/{bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy,apache2,ports}.conf $PA/Apache2_Config/.
     fi
     echo ''
 
@@ -163,14 +158,14 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             echo 'Initializing Apache Configuration Files'
             cd /etc/apache2
             sed -i "s|<BK_PATH>|$PA|g" $PA/Apache2_Config/*
-            cat $PA/Apache2_Config/apache2_additional_config.conf >> /etc/apache2/apache2.conf
-            if [[ $WS_PORT -ne 80 ]] || [[ $WS_PORT -ne 443 ]]; then
-                sed -i "s|<WS_PORT>|$WS_PORT|g" $PA/Apache2_Config/ports_additional_config.conf
+            if [[ $WS_PORT -ne 80 ]] && [[ $WS_PORT -ne 443 ]]; then
+                echo "Listen $WS_PORT" >> $PA/Apache2_Config/ports.conf
             fi
-            if [[ $AJAX_PORT -ne 80 ]] || [[ $AJAX_PORT -ne 443 ]]; then
-                echo "Listen $AJAX_PORT" >> $PA/Apache2_Config/ports_additional_config.conf
+            if [[ $AJAX_PORT -ne 80 ]] && [[ $AJAX_PORT -ne 443 ]]; then
+                echo "Listen $AJAX_PORT" >> $PA/Apache2_Config/ports.conf
             fi
-            cat $PA/Apache2_Config/ports_additional_config.conf >> /etc/apache2/ports.conf
+            rm -rf /etc/apache2/{apache2,ports}.conf
+            cp $PA/Apache2_Config/{apache2,ports}.conf /etc/apache2/.
             a2dissite {000-default.conf,default-ssl.conf}
             a2dissite {bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy}.conf
             rm -rf /etc/apache2/sites-available/bk*
