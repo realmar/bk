@@ -152,12 +152,12 @@ span.remove_msg {
 }
 
 span.remove_msg:hover {
-    background-color: rgb(138, 138, 138);
+    background-color: rgb(22, 74, 0);
     cursor: pointer;
 }
 
 span.remove_msg:active {
-    background-color: rgb(68, 68, 68);
+    background-color: rgb(4, 58, 0);
     cursor: pointer;
 }
 
