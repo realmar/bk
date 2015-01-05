@@ -200,9 +200,8 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
                 sed -i 's/<WS_PROTOCOL>/ws/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
                 sed -i 's/<AJAX_PROTOCOL>/http/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
             fi
-            cd $PA/Apache2_Config
-            cp !(apache2.conf|ports.conf) /etc/apache2/sites-available/.
-            cd /etc/apache2
+            cp $PA/Apache2_Config /etc/apache2/sites-available/.
+            rm -rf /etc/apache2/sites-available/{apache2,ports}.conf
             if [[ $USECGI =~ (C|c) ]] || [[ -z $USECGI ]]; then
                 if [[ $USESSL =~ ^(yes|y) ]] || [[ -z $USESSL ]]; then
                     a2ensite bk_redirect_ssl.conf
