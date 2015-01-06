@@ -45,7 +45,7 @@ NOTE: you may have to adapt the version number in the filename of the libljacklm
   2.  Change the Hostname, Protocol and the Port of the **"ws_path"** and the **"ajax_path"** variables in **"public/javascript/scripts/variables/VariablesDefinition.js"** to the Hostname of the BK Server
       -  recommeded Protocols and Ports for non SSL:
          -  ws_path: ws ; 3003
-         -  ajax_path: http ; 3000
+         -  ajax_path: http ; 80
       -  recommeded Protocols and Ports for SSL:
          -  ws_path: wss ; 4443
          -  ajax_path: https ; 443

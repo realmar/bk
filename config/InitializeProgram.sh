@@ -140,14 +140,24 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo ''
     echo ''
 
-    read -p 'Enter the Port on which the WebSocket BK - BuecherKasten Server should run: ' WS_PORT
-    echo 'Applying WS BK Port: ' $WS_PORT
-
     if [[ $USESSL =~ ^(yes|y) ]] || [[ -z $USESSL ]]; then
+        WS_PORT=4443
         AJAX_PORT=443
     else
+        WS_PORT=3003
         AJAX_PORT=80
     fi
+
+    echo "Your BK AJAX Server should be run on port $AJAX_PORT"
+    echo "Your BK WebSocket Server should be run on port $WS_PORT"
+    echo "These values will be automatically set in the JavaScript"
+    echo "You can manually change this by editing the public/javascript/scripts/variables/VariablesDefinition.js file and the corresponding Apache2 configuration files"
+
+    echo ''
+    echo ''
+
+    echo 'Applying ' $AJAX_PORT
+    echo 'Applying ' $WS_PORT
 
     sed -i "s/<AJAX_PORT>/$AJAX_PORT/g" $PA/public/javascript/scripts/variables/VariablesDefinition.js
     sed -i "s/<WS_PORT>/$WS_PORT/g" $PA/public/javascript/scripts/variables/VariablesDefinition.js
@@ -178,7 +188,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             sed -i "s/<SERVERADMIN>/$SERVERADMIN/g" $PA/Apache2_Config/*
             if [[ ! $USECGI =~ (C|c) ]] && [[ ! -z $USECGI ]]; then
                 read -p 'Enter the Port on which BK should run locally: ' BK_AJAX_PORT
-                read -p 'Enter the Port on which WebSocket BK should run locally DIFFERENT FROM THE WEBSOCKET BK PORT ENTERED ABOVE: ' BK_WS_PORT
+                read -p 'Enter the Port on which WebSocket BK should run locally: ' BK_WS_PORT
                 echo 'Applying ' $BK_AJAX_PORT
                 echo 'Applying ' $BK_WS_PORT
                 sed -i "s/<BK_AJAX_PORT>/$BK_AJAX_PORT/g" $PA/Apache2_Config/*
