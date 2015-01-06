@@ -11,7 +11,11 @@ but it can be expanded when nesseccary
 
 ## To Deploy
   1.  perl BKBackend.pl &
-  2.  perl BKFrontend.pl &
-  3.  perl BKFrontendWebSockets.pl daemon -l http://0.0.0.0:3003 &
+  2.  perl BKFrontend.pl --environment production &
+  3.  perl BKFrontendWebSockets.pl daemon -m production -l http://0.0.0.0:3003 &
 
 or a correspondand web server configuration
+
+## Log Files
+  -  All three Apps log in the same log files **log/message_log** and **log/error_log**
+  -  BKFrontentWebSockets.pl logs also in the **log/development.log** or **log/production.log** depending on the running mode

@@ -92,8 +92,8 @@ NOTE: SSL is only recommeded when using BK in combination with a webserver
   1.  Change the WS_Protocol and the AJAX_Protocol in the VariablesDefinitions.js script
 
 #### Configuring Apache2 itself
-  1.  Add the Content of apache2_additional_config.conf to /etc/apache2/apache2.conf
-  2.  Add the Content of ports_additional_config.conf to /etc/apache2/ports.conf if needed, only needed if the WS_PORT is not 80 or 443, adapt the WS_PORT, also add a Listen directive for every non standard port in /etc/apache2/ports.conf
+  1.  Use the given apache2.conf and ports.conf configuration files for Apache2
+  2.  Add the ports on which Apache2 should listen to the ports.conf file, described above at the BK Configuration, port 80 and 3003 for non SSL and port 443 and 4443 for SSL
 
 #### Setting Permissions only for use with Apache2
   1.  chmod a+rwx {log,database}

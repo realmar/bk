@@ -25,7 +25,7 @@ use BK::Frontend::ActionHandler;
 use Mojolicious::Lite;
 use Mojo::IOLoop;
 
-CommonVariables::init_variables('/opt/BK/', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite');
+CommonVariables::init_variables('/opt/BK/', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite', app->mode);
 
 websocket '/ws' => sub {
     my $self = shift;

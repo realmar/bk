@@ -13,6 +13,7 @@ use Switch;
 
 use BK::Common::Constants;
 use BK::Common::DatabaseAccess;
+use BK::Common::CommonVariables;
 
 sub new {
     my $class = shift;
@@ -70,7 +71,9 @@ sub LogError {
 
 sub LogMessage {
     my ($self, $msg_prio, $msg_typ, $msg_string) = @_;
-    $CommonVariables::filehandle_log_message->WriteToFile(CommonMessages::CreateLogString($self->{_owner_desc}, $msg_prio, $msg_typ, $msg_string));
+    if($CommonVariables::app_environment eq Constants::APPENVDEVELOPMENT) {
+        $CommonVariables::filehandle_log_message->WriteToFile(CommonMessages::CreateLogString($self->{_owner_desc}, $msg_prio, $msg_typ, $msg_string));
+    }
     return $self;
 }
 

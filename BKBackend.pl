@@ -30,7 +30,7 @@ use BK::Common::CommonVariables;
 use BK::Backend::Doors;
 use BK::Backend::Scanner;
 
-CommonVariables::init_variables('/opt/BK/', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite');
+CommonVariables::init_variables('/opt/BK/', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite', Constants::APPENVPRODUCTION);
 
 my $doors = Doors->new(Constants::DOORSOUTPUT);
 my $scanner = Scanner->new();

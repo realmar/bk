@@ -19,6 +19,7 @@ our @EXPORT = qw(
     $filehandle_log_message
     $filehandle_log_error
     $database_connection
+    $app_environment
     init_variables
 );
 
@@ -26,10 +27,13 @@ our $common_messages_collector;
 our $filehandle_log_message;
 our $filehandle_log_error;
 our $database_connection;
+our $app_environment;
 
 sub init_variables {
-    my ($bk_path, $message_log_path, $error_log_path, $database_path, $database_handler) = @_;
+    my ($bk_path, $message_log_path, $error_log_path, $database_path, $database_handler, $app_env) = @_;
     
+    $app_environment = $app_env;
+
     $common_messages_collector = CommonMessagesCollector->new();
     $filehandle_log_message = BKFileHandler->new('>>', $bk_path . $message_log_path);
     $filehandle_log_error = BKFileHandler->new('>>', $bk_path . $error_log_path);

@@ -66,6 +66,8 @@ BEGIN {
         CMERROR                  ##  CommonMessages Logging Typ Error
         CMINFO                   ##  CommonMessages Logging Typ Info
         INTERNALERROR            ##  Return Value if an Action is not successfull Internal Error
+        APPENVPRODUCTION          ##  APP Environment Production
+        APPENVDEVELOPMENT         ##  APP Environment Development
         );
 
     ##  --
@@ -238,7 +240,15 @@ BEGIN {
         CMINFO => 'info'
     };
 
-    ## --
+    ##  --
+    ##  app
+
+    use constant {
+        APPENVPRODUCTION => 'production',
+        APPENVDEVELOPMENT => 'development'
+    };
+
+    ##  --
     ##  other stuff
 
     use constant {
