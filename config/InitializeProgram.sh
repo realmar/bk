@@ -148,8 +148,8 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
         AJAX_PORT=80
     fi
 
-    echo "Your BK AJAX Server should be run on port $AJAX_PORT"
-    echo "Your BK WebSocket Server should be run on port $WS_PORT"
+    echo "Your BK AJAX Server should be run on port (if using proxy the port of which Apache2 listens) $AJAX_PORT"
+    echo "Your BK WebSocket Server should be run on port (if using proxy the of which Apache2 listens) $WS_PORT"
     echo "These values will be automatically set in the JavaScript"
     echo "You can manually change this by editing the public/javascript/scripts/variables/VariablesDefinition.js file and the corresponding Apache2 configuration files"
 
@@ -227,6 +227,8 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
                     a2ensite bk.conf
                 fi
                 a2enmod perl
+                sed -i "s|<HOSTNAME>|$HOSTNAME|g" $PA/environments/*
+                sed -i "s|<BK_AJAX_PORT>|$AJAX_PORT|g" $PA/environments/*
             else
                 if [[ $USESSL =~ ^(yes|y) ]] || [[ -z $USESSL ]]; then
                     a2ensite bk_redirect_ssl_proxy.conf
@@ -235,6 +237,8 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
                     a2ensite bk_proxy.conf
                 fi
                 a2enmod proxy{_http,_wstunnel,}
+                sed -i 's|<HOSTNAME>|localhost|g' $PA/environments/*
+                sed -i "s|<BK_AJAX_PORT>|$BK_AJAX_PORT|g" $PA/environments/*
             fi
             echo 'Correcting Permissions'
             chmod a+rwx $PA/{log,logs,database}
@@ -245,6 +249,9 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             sed -i 's/<AJAX_PROTOCOL>/http/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
             echo 'Continue without Apache2 Configuration, you have to do this manually if you want to use these features'
         fi
+    else
+        sed -i "s|<HOSTNAME>|$HOSTNAME|g" $PA/environments/*
+        sed -i "s|<BK_AJAX_PORT>|$AJAX_PORT|g" $PA/environments/*
     fi
 
     echo ''

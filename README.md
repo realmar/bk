@@ -16,6 +16,8 @@ but it can be expanded when nesseccary
 
 or a correspondand web server configuration
 
+ADDITIONALLY adapt the enviroment config files locatet in the environments folder
+
 ## Log Files
   -  All three Apps log in the same log files **log/message_log** and **log/error_log**
   -  BKFrontentWebSockets.pl logs also in the **log/development.log** or **log/production.log** depending on the running mode
