@@ -234,7 +234,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
                 else
                     a2ensite bk_proxy.conf
                 fi
-                a2enmod proxy{_http,}
+                a2enmod proxy{_http,_wstunnel,}
             fi
             echo 'Correcting Permissions'
             chmod a+rwx $PA/{log,logs,database}

@@ -73,6 +73,7 @@ NOTE: SSL is only recommeded when using BK in combination with a webserver
   1.  use the **bk_proxy** (no SSL), **bk_redirect_ssl_proxy** and **bk-ssl_proxy** (SSL) configuration files
   2.  a2enmod proxy
   3.  a2enmod proxy_http
+  4.  a2enmod proxy_wstunnel
 
 ##### Configuration
   1.  Change the Serveradmin and the BK_AJAX_Port in the Apache2 configuration files
