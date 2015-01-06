@@ -12,6 +12,6 @@ but it can be expanded when nesseccary
 ## To Deploy
   1.  perl BKBackend.pl &
   2.  perl BKFrontend.pl &
-  3.  perl BKFrontendWebSockets.pl daemon -l http://*:3003/ws &
+  3.  perl BKFrontendWebSockets.pl daemon -l http://0.0.0.0:3003 &
 
 or a correspondand web server configuration
