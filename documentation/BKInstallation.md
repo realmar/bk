@@ -82,6 +82,8 @@ NOTE: SSL is only recommeded when using BK in combination with a webserver
 ##### Enable mods
   1.  a2enmod rewrite
   2.  a2enmod ssl
+  3.  a2enmod ldap
+  4.  a2enmod authnz_ldap
 
 ##### Create self-signed certificate if wanted
   1.  mkdir -p /etc/ssl/localcerts/apache2

@@ -240,6 +240,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
                 sed -i 's|<HOSTNAME>|localhost|g' $PA/environments/*
                 sed -i "s|<BK_AJAX_PORT>|$BK_AJAX_PORT|g" $PA/environments/*
             fi
+            a2enmod {ldap,authnz_ldap}
             echo 'Correcting Permissions'
             chmod a+rwx $PA/{log,logs,database}
             chmod a+rwx $PA/{log,logs,database}/*
