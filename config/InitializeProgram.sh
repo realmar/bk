@@ -124,6 +124,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     mkdir $PA/{database,log,logs}
     touch $PA/log/{message,error}_log
     touch $PA/log/{production,development}.log
+    touch $PA/logs/{production,development}.log
 
     echo 'Setting up the database'
     echo 'AFTER DATABASE IS SET UP EXIT THE SQLITE3 CONSOLE WITH .exit TO CONTINUE THE SETUP'

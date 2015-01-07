@@ -63,6 +63,7 @@ NOTE: It is anyway recommeded when using a webserver to take the combined config
   1.  mkdir log{s,} && cd log
   2.  touch {message,error}\_log
   3.  touch {production,development}.log
+  4.  cd ../logs && touch {production,development}.log
 
 ### Apache2
 #### Integrated in Apache2
@@ -101,5 +102,5 @@ NOTE: It is anyway recommeded when using a webserver to take the combined config
   2.  Add the ports on which Apache2 should listen to the ports.conf file, described above at the BK Configuration, port 80 and 3003 for non SSL and port 443 and 4443 for SSL
 
 #### Setting Permissions only for use with Apache2
-  1.  chmod a+rwx {log,database}
-  2.  chmod a+rwx {log,database}/*
+  1.  chmod a+rwx {log,logs,database}
+  2.  chmod a+rwx {log,logs,database}/*
