@@ -181,6 +181,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             echo 'Initializing Apache Configuration Files'
             cd /etc/apache2
             sed -i "s|<BK_PATH>|$PA|g" $PA/Apache2_Config/*
+            sed -i "s|<BK_PATH>|$PA|g" $PA/Apache2_Config/sites-common/*
             if [[ $WS_PORT -ne 80 ]] && [[ $WS_PORT -ne 443 ]]; then
                 echo "Listen $WS_PORT" >> $PA/Apache2_Config/ports.conf
             fi
@@ -195,13 +196,16 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             read -p 'Enter the contact creditals of the Serveradmin MUST BE AN E-MAIL ADDRESS: ' SERVERADMIN
             echo 'Applying: ' $SERVERADMIN
             sed -i "s/<SERVERADMIN>/$SERVERADMIN/g" $PA/Apache2_Config/*
+            sed -i "s/<SERVERADMIN>/$SERVERADMIN/g" $PA/Apache2_Config/sites-common/*
             if [[ $USEBEST =~ (B|b) ]] || [[ $USEBEST =~ (P|p) ]] || [[ -z $USEBEST ]]; then
                 read -p 'Enter the Port on which BK should run locally: ' BK_AJAX_PORT
                 read -p 'Enter the Port on which WebSocket BK should run locally: ' BK_WS_PORT
                 echo 'Applying ' $BK_AJAX_PORT
                 echo 'Applying ' $BK_WS_PORT
                 sed -i "s/<BK_AJAX_PORT>/$BK_AJAX_PORT/g" $PA/Apache2_Config/*
+                sed -i "s/<BK_AJAX_PORT>/$BK_AJAX_PORT/g" $PA/Apache2_Config/sites-common/*
                 sed -i "s/<BK_WS_PORT>/$BK_WS_PORT/g" $PA/Apache2_Config/*
+                sed -i "s/<BK_WS_PORT>/$BK_WS_PORT/g" $PA/Apache2_Config/sites-common/*
             fi
             if [[ $USESSL =~ ^(yes|y) ]] || [[ -z $USESSL ]]; then
                 read -p 'Do you want to create a Self Signed SSL Certificate? [Y/n]: ' MAKESSC
