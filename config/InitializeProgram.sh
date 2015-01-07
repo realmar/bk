@@ -143,11 +143,15 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     if [[ $USESSL =~ ^(yes|y) ]] || [[ -z $USESSL ]]; then
         if [[ $USEBEST =~ ^(C|c) ]]; then
             WS_PORT=4443
+        else
+            WS_PORT=443
         fi
         AJAX_PORT=443
     else
         if [[ $USEBEST =~ ^(C|c) ]]; then
             WS_PORT=3003
+        else
+            WS_PORT=80
         fi
         AJAX_PORT=80
     fi
