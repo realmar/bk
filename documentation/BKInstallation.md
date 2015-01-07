@@ -62,6 +62,7 @@ NOTE: It is anyway recommeded when using a webserver to take the combined config
 ## 6. Set up Log Directory
   1.  mkdir log{s,} && cd log
   2.  touch {message,error}\_log
+  3.  touch {production,development}.log
 
 ### Apache2
 #### Integrated in Apache2

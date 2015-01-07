@@ -120,8 +120,10 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
         rm -rf $PA/log
     fi
 
+    echo 'Generating Log Files and Directories'
     mkdir $PA/{database,log,logs}
     touch $PA/log/{message,error}_log
+    touch $PA/log/{production,development}.log
 
     echo 'Setting up the database'
     echo 'AFTER DATABASE IS SET UP EXIT THE SQLITE3 CONSOLE WITH .exit TO CONTINUE THE SETUP'
