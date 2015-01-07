@@ -58,7 +58,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
 
     read -p 'Do you want to configure BK within the Apache2 WebServer? [Y/n]: ' USEAPACHE
     if [[ $USEAPACHE =~ ^(yes|y) ]] || [[ -z $USEAPACHE ]]; then
-        read -p 'Do you want to use CGI or a Proxy? [C/p]: ' USECGI
+        read -p 'Do you want to use CGI + Proxy in combination [B], CGI alone [C] or a Proxy [P]? [B/c/p]: ' USEBEST
         read -p 'DO you want to set up SSL? [Y/n]: ' USESSL
     fi
 
@@ -69,7 +69,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
         if [[ $USEAPACHE =~ ^(yes|y) ]] || [[ -z $USEAPACHE ]]; then
             aptitude install apache2
         fi
-        if [[ $USECGI =~ (C|c) ]] || [[ -z $USECGI ]]; then
+        if [[ $USEBEST =~ (C|c) ]] || [[ $USEBEST =~ (B/b) ]] || [[ -z $USEBEST ]]; then
             aptitude install libapache2-mod-perl2 libplack-perl
         fi
     else
@@ -141,12 +141,17 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo ''
 
     if [[ $USESSL =~ ^(yes|y) ]] || [[ -z $USESSL ]]; then
-        WS_PORT=4443
+        if [[ $USEBEST =~ ^(C|c) ]]; then
+            WS_PORT=4443
+        fi
         AJAX_PORT=443
     else
-        WS_PORT=3003
+        if [[ $USEBEST =~ ^(C|c) ]]; then
+            WS_PORT=3003
+        fi
         AJAX_PORT=80
     fi
+
 
     echo "Your BK AJAX Server should be run on port (if using proxy the port of which Apache2 listens) $AJAX_PORT"
     echo "Your BK WebSocket Server should be run on port (if using proxy the of which Apache2 listens) $WS_PORT"
@@ -186,7 +191,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             read -p 'Enter the contact creditals of the Serveradmin MUST BE AN E-MAIL ADDRESS: ' SERVERADMIN
             echo 'Applying: ' $SERVERADMIN
             sed -i "s/<SERVERADMIN>/$SERVERADMIN/g" $PA/Apache2_Config/*
-            if [[ ! $USECGI =~ (C|c) ]] && [[ ! -z $USECGI ]]; then
+            if [[ $USEBEST =~ (B|b) ]] || [[ $USEBEST =~ (P|p) ]] || [[ -z $USEBEST ]]; then
                 read -p 'Enter the Port on which BK should run locally: ' BK_AJAX_PORT
                 read -p 'Enter the Port on which WebSocket BK should run locally: ' BK_WS_PORT
                 echo 'Applying ' $BK_AJAX_PORT
@@ -217,9 +222,21 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
                 sed -i 's/<WS_PROTOCOL>/ws/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
                 sed -i 's/<AJAX_PROTOCOL>/http/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
             fi
-            cp $PA/Apache2_Config/* /etc/apache2/sites-available/.
+            cp -a $PA/Apache2_Config/* /etc/apache2/sites-available/.
             rm -rf /etc/apache2/sites-available/{apache2,ports}.conf
-            if [[ $USECGI =~ (C|c) ]] || [[ -z $USECGI ]]; then
+            mv /etc/apache2/sites-available/sites-common /etc/apache2/.
+            if [[ $USEBEST =~ (B|b) ]] || [[ -z $USEBEST ]]; then
+                if [[ $USESSL =~ ^(yes|y) ]] || [[ -z $USESSL ]]; then
+                    a2ensite bk_redirect_ssl.conf
+                    a2ensite bk-ssl_bk-cgi_ws-proxy.conf
+                else
+                    a2ensite bk_bk-cgi_ws-proxy.conf
+                fi
+                a2enmod perl
+                a2enmod proxy{_http,_wstunnel,}
+                sed -i 's|<HOSTNAME>|localhost|g' $PA/environments/*
+                sed -i "s|<BK_AJAX_PORT>|$BK_AJAX_PORT|g" $PA/environments/*
+            elif [[ $USEBEST =~ (C|c) ]]; then
                 if [[ $USESSL =~ ^(yes|y) ]] || [[ -z $USESSL ]]; then
                     a2ensite bk_redirect_ssl.conf
                     a2ensite bk-ssl.conf
@@ -229,7 +246,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
                 a2enmod perl
                 sed -i "s|<HOSTNAME>|$HOSTNAME|g" $PA/environments/*
                 sed -i "s|<BK_AJAX_PORT>|$AJAX_PORT|g" $PA/environments/*
-            else
+            elif [[ $USEBEST =~ (P|p) ]]; then
                 if [[ $USESSL =~ ^(yes|y) ]] || [[ -z $USESSL ]]; then
                     a2ensite bk_redirect_ssl_proxy.conf
                     a2ensite bk-ssl_proxy.conf

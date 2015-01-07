@@ -52,6 +52,8 @@ NOTE: you may have to adapt the version number in the filename of the libljacklm
 
 NOTE: the ws_path describes the Host and the Port on which the WebSocket Server is, the ajax_path describes the Host and the Port on which the BK Server is, you also have to run those two servers on these Ports then
 NOTE: SSL is only recommeded when using BK in combination with a webserver
+NOTE: Those Ports are only for use with CGI only recommeded and CGI doesn't work in combination with Mojolicious and WebSockets
+NOTE: It is anyway recommeded when using a webserver to take the combined configuration of both CGI for Dancer and Proxy for Mojolicous and the WebSockets then use always the standard ports for the desired protocols (NON SSL: WS & BK => 80 || SSL: WS & BK => 443)
 
 ## 5. Set up Database
   1.  mkdir database && cd database
