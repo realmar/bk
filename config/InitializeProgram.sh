@@ -56,7 +56,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo ''
 
     sed -i "s|/opt/BK|$PA|g" $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl}
-    sed -i "s|/opt/BK|$PA|g" $PA/services/*
+    sed -i "s|<BK_PATH>|$PA|g" $PA/services/*
 
     echo ''
 
@@ -143,7 +143,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo 'Applying: ' $HOSTNAME
 
     sed -i "s/<HOSTNAME>/$HOSTNAME/g" $PA/public/javascript/scripts/variables/VariablesDefinition.js
-    if [[ $USEBEST =! (C|c) ]]; then
+    if [[ $USEBEST =~ (C|c) ]]; then
         sed -i "s/<HOSTNAME>/$HOSTNAME/g" $PA/services/*
     fi
 

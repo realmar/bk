@@ -12,7 +12,7 @@ but it can be expanded when nesseccary
 ## To Deploy
   1.  perl BKBackend.pl &
   2.  perl BKFrontend.pl --environment production &
-  3.  perl BKFrontendWebSockets.pl daemon -m production -l http://0.0.0.0:3003 &
+  3.  perl BKFrontendWebSockets.pl daemon -m production -l ws://0.0.0.0:3003 &
 
 or a correspondand web server configuration
 

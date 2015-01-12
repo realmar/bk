@@ -1,0 +1,10 @@
+[Unit]
+Description=BKBackend.pl -- Backend for BK
+
+[Service]
+PIDFile=/var/run/BKBackend.pid
+ExecStartPre=/bin/rm -rf /var/run/BKBackend.pid
+ExecStart=<BK_PATH>/BKBackend.pl
+
+[Install]
+WantedBy=multi-user.target
