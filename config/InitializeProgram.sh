@@ -65,7 +65,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     read -p 'Do you want to install the required packages? [Y/n]: ' INST2
     if [[ $INST2 =~ ^(yes|y) ]] || [[ -z $INST2 ]]; then
         echo 'Installing the required packages'
-        aptitude install perl git libdancer-perl libmojolicious-perl libinline-perl libjson-perl libtemplate-perl libdbi-perl libdbd-sqlite3-perl libusb-1.0-0 linux-headers-486 libc6-dev libusb-1.0-0-dev sqlite3 make unzip gcc
+        aptitude install perl git libdancer-perl libmojolicious-perl libinline-perl libinline-c-perl libjson-perl libtemplate-perl libdbi-perl libdbd-sqlite3-perl libusb-1.0-0 linux-headers-586 libc6-dev libusb-1.0-0-dev sqlite3 make unzip gcc
         if [[ $USEAPACHE =~ ^(yes|y) ]] || [[ -z $USEAPACHE ]]; then
             aptitude install apache2
         fi
@@ -92,7 +92,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
         unzip $PA/drivers/ljacklm.zip && unzip $PA/drivers/master.zip
 
         cd $PA/drivers/exodriver-master
-        sed -i '15i CFLAGS=-I/usr/src/linux-headers-3.2.0-4-common' $PA/drivers/exodriver-master/liblabjackusb/Makefile
+        sed -i '15i CFLAGS=-I/usr/src/linux-headers-3.16.0-4-common' $PA/drivers/exodriver-master/liblabjackusb/Makefile
         bash $PA/drivers/exodriver-master/install.sh
 
         cd $PA/drivers/ljacklm/libljacklm

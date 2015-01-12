@@ -38,14 +38,14 @@ my $scanner = Scanner->new();
 while(1) {
     my $input_barc = $scanner->GetInput();
 
-    my $database_entries = $database_connection->ReadEntryDatabase('Users', {'username' => $input_barc});
+    my $database_entries = $CommonVariables::database_connection->ReadEntryDatabase('Users', {'username' => $input_barc});
 
     while(my $database_entries_row = $database_entries->fetchrow_hashref) {
         my $doors_open = $doors->OpenDoor($database_entries_row->{doornumber}, $input_barc);
         if(defined($doors_open)) {
-            $database_connection->BeginWork();
-            $database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}});
-            $database_connection->CommitChanges();
+            $CommonVariables::database_connection->BeginWork();
+            $CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}});
+            $CommonVariables::database_connection->CommitChanges();
         }
 
         ##  Send E-Mail
@@ -54,10 +54,10 @@ while(1) {
 
 }
 
-$database_connection->DisconnectFromDatabase();
+$CommonVariables::database_connection->DisconnectFromDatabase();
 
-$filehandle_log_message->CloseFileHandle();
-$filehandle_log_error->CloseFileHandle();
+$CommonVariables::filehandle_log_message->CloseFileHandle();
+$CommonVariables::filehandle_log_error->CloseFileHandle();
 
 __END__
 

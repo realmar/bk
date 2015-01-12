@@ -9,7 +9,7 @@
 **NOTE: All operations have to be done as root or with root access**
 
 ## 2. Apt Packages
-  1.  aptitude install perl git libdancer-perl libmojolicious-perl libinline-perl libjson-perl libtemplate-perl libdbi-perl libdbd-sqlite3-perl libusb-1.0-0 linux-headers-486 libc6-dev libusb-1.0-0-dev sqlite3 make unzip gcc
+  1.  aptitude install perl git libdancer-perl libmojolicious-perl libinline-perl libinline-c-perl libjson-perl libtemplate-perl libdbi-perl libdbd-sqlite3-perl libusb-1.0-0 linux-headers-586 libc6-dev libusb-1.0-0-dev sqlite3 make unzip gcc
 
 ### for use with Apache2 and integrated in Apache2
   1.  aptitute install apache2 libapache2-mod-perl2 libplack-perl
@@ -27,7 +27,7 @@ NOTE: install the appropriate version of the linux-headers for your operating sy
   3.  unzip ljacklm.zip && unzip master.zip
   4.  Edit exodriver-master/liblabjackusb/Makefile
       -  Add
-         -  CFLAGS=-I/usr/src/linux-headers-3.2.0-4-common
+         -  CFLAGS=-I/usr/src/linux-headers-3.16.0-4-common
             After
             ADD_LDCONFIG_PATH = ./add_ldconfig_path.sh
   5.  cd exodriver-master
@@ -100,6 +100,10 @@ NOTE: It is anyway recommeded when using a webserver to take the combined config
 #### Configuring Apache2 itself
   1.  Use the given apache2.conf and ports.conf configuration files for Apache2
   2.  Add the ports on which Apache2 should listen to the ports.conf file, described above at the BK Configuration, port 80 and 3003 for non SSL and port 443 and 4443 for SSL
+
+#### Configuring LDAP Auth
+  1.  Add LDAP_USER username in bk_ldap_users_groups.conf
+  2.  Add LDAP_GROUP group in bk_ldap_users_groups.conf
 
 #### Setting Permissions only for use with Apache2
   1.  chmod a+rwx {log,logs,database}
