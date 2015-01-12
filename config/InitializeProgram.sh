@@ -194,7 +194,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             rm -rf /etc/apache2/{apache2,ports}.conf
             cp $PA/Apache2_Config/{apache2,ports}.conf /etc/apache2/.
             a2dissite {000-default.conf,default-ssl.conf}
-            a2dissite {bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy}.conf
+            a2dissite {bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy,bk_bk-cgi_ws-proxy,bk-ssl_bk-cgi_ws-proxy}.conf
             rm -rf /etc/apache2/sites-available/bk*
             read -p 'Enter the contact creditals of the Serveradmin MUST BE AN E-MAIL ADDRESS: ' SERVERADMIN
             echo 'Applying: ' $SERVERADMIN
