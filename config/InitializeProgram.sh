@@ -196,6 +196,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             a2dissite {000-default.conf,default-ssl.conf}
             a2dissite {bk,bk-ssl,bk_proxy,bk-ssl_proxy,bk_redirect_ssl,bk_redirect_ssl_proxy,bk_bk-cgi_ws-proxy,bk-ssl_bk-cgi_ws-proxy}.conf
             rm -rf /etc/apache2/sites-available/bk*
+            rm -rf /etc/apache2/sites-common/bk*
             read -p 'Enter the contact creditals of the Serveradmin MUST BE AN E-MAIL ADDRESS: ' SERVERADMIN
             echo 'Applying: ' $SERVERADMIN
             sed -i "s/<SERVERADMIN>/$SERVERADMIN/g" $PA/Apache2_Config/*
@@ -234,15 +235,15 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
                 sed -i 's/<AJAX_PROTOCOL>/http/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
             fi
             echo 'Configuring LDAP Users and Groups'
-            read -p 'Enter the a User to grant Access to BK N := no more users [<USERNAME>/n]' $LDAPUSER
-            while [[ ! $LDAUSER =~ (N|n)]] || [[ ! -z $LDAPUSER ]]; then
+            read -p 'Enter the a User to grant Access to BK N := no more users [<USERNAME>/n]' LDAPUSER
+            while [[ ! $LDAPUSER =~ (N|n) ]] && [[ ! -z $LDAPUSER ]]; do
                 echo "Require ldap-user $LDAPUSER" >> $PA/Apache2_Config/sites-common/bk_ldap_users_groups.conf
-                read -p 'Enter the a User to grant Access to BK N := no more users [<USERNAME>/n]' $LDAPUSER
+                read -p 'Enter the a User to grant Access to BK N := no more users [<USERNAME>/n]' LDAPUSER
             done
-            red -p 'Enter the group to grant Access to BK N := no more groups [<GROUPNAME>/n]' $LDAPGROUP
-            while [[ ! $LDAPGROUP =~ (N|n) ]] || [[ ! -z $LDAPGROUP ]]; then
+            read -p 'Enter the group to grant Access to BK N := no more groups [<GROUPNAME>/n]' LDAPGROUP
+            while [[ ! $LDAPGROUP =~ (N|n) ]] && [[ ! -z $LDAPGROUP ]]; do
                 echo "Require ldap-group cn=$LDAPGROUP,ou1=Group,ou=Physik Departement,o=ethz,c=ch" >> $PA/Apache2_Config/sites-common/bk_ldap_users_groups.conf
-                read -p 'Enter the group to grant Access to BK N := no more groups [<GROUPNAME>/n]' $LDAPGROUP
+                read -p 'Enter the group to grant Access to BK N := no more groups [<GROUPNAME>/n]' LDAPGROUP
             done
             cp -a $PA/Apache2_Config/* /etc/apache2/sites-available/.
             rm -rf /etc/apache2/sites-available/{apache2,ports}.conf
