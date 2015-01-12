@@ -1,0 +1,10 @@
+[Unit]
+Description=BKFrontendWebSockets.pl -- WebSocket Server Frontend for the BK
+
+[Service]
+PIDFile=/var/run/BKFrontendWebSockets.pid
+ExecStartPre=/bin/rm -rf /var/run/BKFrontendWebSockets.pid
+ExecStart=<BK_PATH>/BKFrontendWebSockets.pl daemon -m production -l http://<HOSTNAME>:<BK_WS_PORT>
+
+[Install]
+WantedBy=multi-user.target

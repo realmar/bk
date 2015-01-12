@@ -40,19 +40,23 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
         mkdir $PA/backups
         cp $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl} $PA/backups/.
         cp $PA/public/javascript/scripts/variables/VariablesDefinition.js $PA/backups/.
-        cp -a $PA/Apache2_Config/* $PA/backups/.
+        cp -a $PA/Apache2_Config $PA/backups/.
+        cp -a $PA/services $PA/backups/.
     else
         echo 'Going back to restore point (Restore Backups)'
         rm -rf $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl}
         rm -rf $PA/public/javascript/scripts/variables/VariablesDefinition.js
-        rm -rf $PA/Apache2_Config/*
+        rm -rf $PA/Apache2_Config
+        rm -rf $PA/services
         cp $PA/backups/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl} $PA/.
         cp $PA/backups/VariablesDefinition.js $PA/public/javascript/scripts/variables/.
-        cp -a $PA/backups/* $PA/Apache2_Config/.
+        cp -a $PA/backups/Apache2_Config $PA/.
+        cp -a $PA/backups/services $PA/.
     fi
     echo ''
 
     sed -i "s|/opt/BK|$PA|g" $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl}
+    sed -i "s|/opt/BK|$PA|g" $PA/services*
 
     echo ''
 
@@ -139,6 +143,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo 'Applying: ' $HOSTNAME
 
     sed -i "s/<HOSTNAME>/$HOSTNAME/g" $PA/public/javascript/scripts/variables/VariablesDefinition.js
+    sed -i "s/<HOSTNAME>/$HOSTNAME/g" $PA/services/*
 
     echo ''
     echo ''
@@ -173,6 +178,9 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
 
     sed -i "s/<AJAX_PORT>/$AJAX_PORT/g" $PA/public/javascript/scripts/variables/VariablesDefinition.js
     sed -i "s/<WS_PORT>/$WS_PORT/g" $PA/public/javascript/scripts/variables/VariablesDefinition.js
+    if [[ $USEAPACHE =~ (N|n) ]] || [[ $USEBEST =~ (C|c) ]]; then
+        sed -i "s/<BK_WS_PORT>/$WS_PORT/g" $PA/services/*
+    fi
 
     echo ''
     echo ''
@@ -212,6 +220,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
                 echo 'Applying ' $BK_WS_PORT
                 sed -i "s/<BK_WS_PORT>/$BK_WS_PORT/g" $PA/Apache2_Config/*
                 sed -i "s/<BK_WS_PORT>/$BK_WS_PORT/g" $PA/Apache2_Config/sites-common/*
+                sed -i "s/<BK_WS_PORT>/$BK_WS_PORT/g" $PA/services/*
             fi
             if [[ $USESSL =~ ^(yes|y) ]] || [[ -z $USESSL ]]; then
                 read -p 'Do you want to create a Self Signed SSL Certificate? [Y/n]: ' MAKESSC
@@ -283,9 +292,6 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
                 sed -i "s|<BK_AJAX_PORT>|$BK_AJAX_PORT|g" $PA/environments/*
             fi
             a2enmod {ldap,authnz_ldap}
-            echo 'Correcting Permissions'
-            chmod a+rwx $PA/{log,logs,database}
-            chmod a+rwx $PA/{log,logs,database}/*
             service apache2 start
         else
             sed -i 's/<WS_PROTOCOL>/ws/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
@@ -299,6 +305,13 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
 
     echo ''
     echo ''
+
+    echo 'Copying Services'
+    rm -rf /etc/systemd/system/bk*
+    cp $PA/services/* /etc/systemd/system/.
+    echo 'Correcting Permissions'
+    chmod a+rwx $PA/{log,logs,database}
+    chmod a+rwx $PA/{log,logs,database}/*
 
     echo '---------------------------------------------------------'
     echo 'Installation Complete'

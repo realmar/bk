@@ -1,0 +1,10 @@
+[Unit]
+Description=BKFrontend.pl -- AJAX Frontend for the BK
+
+[Service]
+PIDFile=/var/run/BKFrontend.pid
+ExecStartPre=/bin/rm -rf /var/run/BKFrontend.pid
+ExecStart=<BK_PATH>/BKFrontend.pl --environment production
+
+[Install]
+WantedBy=multi-user.target

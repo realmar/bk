@@ -65,46 +65,53 @@ NOTE: It is anyway recommeded when using a webserver to take the combined config
   3.  touch {production,development}.log
   4.  cd ../logs && touch {production,development}.log
 
-### Apache2
-#### Integrated in Apache2
+## Apache2
+### Integrated in Apache2
   1.  use the **bk** (no SSL), **bk_redirect_ssl** and **bk-ssl** (SSL) configuration files
   2.  a2enmod perl
 
-##### Configuration
+#### Configuration
   1.  Change the Serveradmin and the BK_Path in the Apache2 configuration files
 
-#### Use a Proxy in Apache2
+### Use a Proxy in Apache2
   1.  use the **bk_proxy** (no SSL), **bk_redirect_ssl_proxy** and **bk-ssl_proxy** (SSL) configuration files
   2.  a2enmod proxy
   3.  a2enmod proxy_http
   4.  a2enmod proxy_wstunnel
 
-##### Configuration
+#### Configuration
   1.  Change the Serveradmin and the BK_AJAX_Port in the Apache2 configuration files
 
-#### Use SSL
-##### Enable mods
+### Use SSL
+#### Enable mods
   1.  a2enmod rewrite
   2.  a2enmod ssl
   3.  a2enmod ldap
   4.  a2enmod authnz_ldap
 
-##### Create self-signed certificate if wanted
+#### Create self-signed certificate if wanted
   1.  mkdir -p /etc/ssl/localcerts/apache2
   2.  openssl req -new -x509 -days 365 -nodes -out /etc/ssl/localcerts/apache2/bk_certificate.pem -keyout /etc/ssl/localcerts/apache2/bk_certificate.key
   3.  chmod 600 /etc/ssl/localcerts/apache2/bk*
 
-##### Changing protocols in javascript
+#### Changing protocols in javascript
   1.  Change the WS_Protocol and the AJAX_Protocol in the VariablesDefinitions.js script
 
-#### Configuring Apache2 itself
+### Configuring Apache2 itself
   1.  Use the given apache2.conf and ports.conf configuration files for Apache2
   2.  Add the ports on which Apache2 should listen to the ports.conf file, described above at the BK Configuration, port 80 and 3003 for non SSL and port 443 and 4443 for SSL
 
-#### Configuring LDAP Auth
+### Configuring LDAP Auth
   1.  Add LDAP_USER username in bk_ldap_users_groups.conf
   2.  Add LDAP_GROUP group in bk_ldap_users_groups.conf
 
-#### Setting Permissions only for use with Apache2
+### Setting Permissions only for use with Apache2
   1.  chmod a+rwx {log,logs,database}
   2.  chmod a+rwx {log,logs,database}/*
+
+## Services
+  1.  Change the BK_PATH in the files in services/ matching the path of BK
+  2.  Change the BK_WS_PORT in the WebSocket services in services/ to the port you want BK WS should run
+  4.  Change the HOSTNAME in the WebSocket services matching the hostname on which BK WS should run
+  3.  Make other changes in the systemd service files
+  4.  Copy the files in services/ to /etc/systemd/system
