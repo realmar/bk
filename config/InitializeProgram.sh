@@ -202,12 +202,14 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             sed -i "s/<SERVERADMIN>/$SERVERADMIN/g" $PA/Apache2_Config/*
             sed -i "s/<SERVERADMIN>/$SERVERADMIN/g" $PA/Apache2_Config/sites-common/*
             if [[ $USEBEST =~ (B|b) ]] || [[ $USEBEST =~ (P|p) ]] || [[ -z $USEBEST ]]; then
-                read -p 'Enter the Port on which BK should run locally: ' BK_AJAX_PORT
+                if [[ $USEBEST =~ (P|p) ]]; then
+                    read -p 'Enter the Port on which BK should run locally: ' BK_AJAX_PORT
+                    echo 'Applying ' $BK_AJAX_PORT
+                    sed -i "s/<BK_AJAX_PORT>/$BK_AJAX_PORT/g" $PA/Apache2_Config/*
+                    sed -i "s/<BK_AJAX_PORT>/$BK_AJAX_PORT/g" $PA/Apache2_Config/sites-common/*
+                fi
                 read -p 'Enter the Port on which WebSocket BK should run locally: ' BK_WS_PORT
-                echo 'Applying ' $BK_AJAX_PORT
                 echo 'Applying ' $BK_WS_PORT
-                sed -i "s/<BK_AJAX_PORT>/$BK_AJAX_PORT/g" $PA/Apache2_Config/*
-                sed -i "s/<BK_AJAX_PORT>/$BK_AJAX_PORT/g" $PA/Apache2_Config/sites-common/*
                 sed -i "s/<BK_WS_PORT>/$BK_WS_PORT/g" $PA/Apache2_Config/*
                 sed -i "s/<BK_WS_PORT>/$BK_WS_PORT/g" $PA/Apache2_Config/sites-common/*
             fi
