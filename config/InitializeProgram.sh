@@ -233,6 +233,17 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
                 sed -i 's/<WS_PROTOCOL>/ws/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
                 sed -i 's/<AJAX_PROTOCOL>/http/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
             fi
+            echo 'Configuring LDAP Users and Groups'
+            read -p 'Enter the a User to grant Access to BK N := no more users [<USERNAME>/n]' $LDAPUSER
+            while [[ ! $LDAUSER =~ (N|n)]] || [[ ! -z $LDAPUSER ]]; then
+                echo "Require ldap-user $LDAPUSER" >> $PA/Apache2_Config/sites-common/bk_ldap_users_groups.conf
+                read -p 'Enter the a User to grant Access to BK N := no more users [<USERNAME>/n]' $LDAPUSER
+            done
+            red -p 'Enter the group to grant Access to BK N := no more groups [<GROUPNAME>/n]' $LDAPGROUP
+            while [[ ! $LDAPGROUP =~ (N|n) ]] || [[ ! -z $LDAPGROUP ]]; then
+                echo "Require ldap-group cn=$LDAPGROUP,ou1=Group,ou=Physik Departement,o=ethz,c=ch" >> $PA/Apache2_Config/sites-common/bk_ldap_users_groups.conf
+                read -p 'Enter the group to grant Access to BK N := no more groups [<GROUPNAME>/n]' $LDAPGROUP
+            done
             cp -a $PA/Apache2_Config/* /etc/apache2/sites-available/.
             rm -rf /etc/apache2/sites-available/{apache2,ports}.conf
             mv /etc/apache2/sites-available/sites-common /etc/apache2/.
