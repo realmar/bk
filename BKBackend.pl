@@ -38,20 +38,21 @@ my $scanner = Scanner->new();
 while(1) {
     my $input_barc = $scanner->GetInput();
 
-    my $database_entries = $CommonVariables::database_connection->ReadEntryDatabase('Users', {'username' => $input_barc});
+    if($input_barc ne '') {
+        my $database_entries = $CommonVariables::database_connection->ReadEntryDatabase('Users', {'username' => $input_barc});
 
-    while(my $database_entries_row = $database_entries->fetchrow_hashref) {
-        my $doors_open = $doors->OpenDoor($database_entries_row->{doornumber}, $input_barc);
-        if(defined($doors_open)) {
-            $CommonVariables::database_connection->BeginWork();
-            $CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}});
-            $CommonVariables::database_connection->CommitChanges();
+        while(my $database_entries_row = $database_entries->fetchrow_hashref) {
+            my $doors_open = $doors->OpenDoor($database_entries_row->{doornumber}, $input_barc);
+            if(defined($doors_open)) {
+                $CommonVariables::database_connection->BeginWork();
+                $CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}});
+                $CommonVariables::database_connection->CommitChanges();
+            }
+
+            ##  Send E-Mail
+            ##  To Correspondant Person
         }
-
-        ##  Send E-Mail
-        ##  To Correspondant Person
     }
-
 }
 
 $CommonVariables::database_connection->DisconnectFromDatabase();

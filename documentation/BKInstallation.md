@@ -114,4 +114,16 @@ NOTE: It is anyway recommeded when using a webserver to take the combined config
   2.  Change the BK_WS_PORT in the WebSocket services in services/ to the port you want BK WS should run
   4.  Change the HOSTNAME in the WebSocket services matching the hostname on which BK WS should run
   3.  Make other changes in the systemd service files
-  4.  Copy the files in services/ to /etc/systemd/system
+  4.  Copy the files in services/ to /lib/systemd/system
+
+### Disable all gettys
+  1.  cd /etc/systemd/system/getty.target.wants
+  2.  ls | xargs systemctl stop
+  3.  ls | xargs systemctl disable
+### Enable BK Services
+  1.  systemctl enable bkbackend
+  2.  systemctl enable bkfrontendwebsockets
+  3.  systemctl enable bkfrontend (only when not using a webserver, or a using webserver with AJAX Proxy configuration)
+  4.  systemctl start bkbackend
+  5.  systemctl start bkfrontendwebsockets
+  6.  systemctl start bkfrontend (only when not using a webserver, or a using webserver with AJAX Proxy configuration)

@@ -187,6 +187,15 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo ''
     echo ''
 
+    echo 'Copying Services'
+    systemctl stop bk{backend,frontend,frontendwebsockets}.service
+    systemctl disable bk{backend,frontend,frontendwebsockets}.service
+    rm -rf /lib/systemd/system/bk*
+    cp $PA/services/* /lib/systemd/system/.
+
+    echo ''
+    echo ''
+
     if [[ $USEAPACHE =~ ^(yes|y) ]] || [[ -z $USEAPACHE ]]; then
         read -p 'WARNING: webserver Apache2 will be stopped continue? [Y/n]' APACHECONT
         if [[ $APACHECONT =~ ^(yes|y) ]] || [[ -z $APACHECONT ]]; then
@@ -224,6 +233,10 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
                 sed -i "s/<BK_WS_PORT>/$BK_WS_PORT/g" $PA/Apache2_Config/sites-common/*
                 sed -i "s/<BK_WS_PORT>/$BK_WS_PORT/g" $PA/services/*
                 sed -i "s/<HOSTNAME>/localhost/g" $PA/services/*
+                echo 'Enabling BK Web Services'
+                systemctl enable bkfrontendwebsockets.service
+                echo 'Starting BK Web Services'
+                systemctl start bkfrontendwebsockets.service
             fi
             if [[ $USESSL =~ ^(yes|y) ]] || [[ -z $USESSL ]]; then
                 read -p 'Do you want to create a Self Signed SSL Certificate? [Y/n]: ' MAKESSC
@@ -309,9 +322,23 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo ''
     echo ''
 
-    echo 'Copying Services'
-    rm -rf /etc/systemd/system/bk*
-    cp $PA/services/* /etc/systemd/system/.
+    read -p 'Do you want to configure the BK Backend Service (WARNING: this will disable all GETTYs and will run BKBackend on TTY1) [Y/n]' $CONFBKB
+    if [[ $CONFBKB =~ ^(Y|y) ]] || [[ -z $CONFBKB ]]; then
+        if [[ -d /etc/systemd/system/getty.target.wants ]]; then
+            cd /etc/systemd/system/getty.target.wants
+            ls | xargs systemctl stop
+            ls | xargs systemctl disable
+        fi
+        systemctl enable bkbackend.service
+        systemctl start bkbackend.service
+    else
+        echo 'You have to configure BK Backend manually'
+        echo 'Take a look at the BK Installation guide'
+    fi
+
+    echo ''
+    echo ''
+
     echo 'Correcting Permissions'
     chmod a+rwx $PA/{log,logs,database}
     chmod a+rwx $PA/{log,logs,database}/*

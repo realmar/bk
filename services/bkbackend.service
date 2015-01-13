@@ -1,10 +1,15 @@
 [Unit]
 Description=BKBackend.pl -- Backend for BK
+After=dev-tty1.device systemd-user-sessions.service
 
 [Service]
+Type=simple
 PIDFile=/var/run/BKBackend.pid
 ExecStartPre=/bin/rm -rf /var/run/BKBackend.pid
 ExecStart=<BK_PATH>/BKBackend.pl
+StandardInput=tty
+StandardOutput=tty
+TTYPath=/dev/tty1
 
 [Install]
 WantedBy=multi-user.target
