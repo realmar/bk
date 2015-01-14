@@ -12,7 +12,7 @@ package CommonMessages;
 use Switch;
 
 use BK::Common::Constants;
-use BK::Common::DatabaseAccess;
+use BK::Handler::DatabaseAccess;
 use BK::Common::CommonVariables;
 
 sub new {

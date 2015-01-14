@@ -19,7 +19,7 @@ use BK::Common::BKFileHandler;
 use BK::Common::CommonMessagesCollector;
 use BK::Common::CommonMessages;
 use BK::Common::CommonVariables;
-use BK::Backend::Scanner;
+use BK::Scanner::Scanner;
 
 CommonVariables::init_variables('/opt/BK/', 'log/message_log', 'log/error_log', undef, undef, Constants::APPENVPRODUCTION);
 

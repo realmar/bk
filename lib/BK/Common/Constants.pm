@@ -69,6 +69,7 @@ BEGIN {
         AHDATABASECHANGED        ##  Logging facility for Message (take note) at ActionHandler if the Database has changed
         AHERRSAVEDATA            ##  Logging facility for Error at ActionHandler Save Data to Database, Database error
         AHERRREFRESHDATA         ##  Logging facility for Error at ActionHandler Refresh Data to Client, failed to access Database, Database error
+        AHERROPENDOORS           ##  Logging facility for Error at ActionHandler Opening a Door
         AHSUCCSAVEDATA           ##  Logging facility for Message (success) at ActionHandler Save Data Logging facility for JavaScript Messages
         AHSUCCOPENDOORS          ##  Logging facility for Message (success) at ActionHandler Oppening Doors Lagging facility for JavaScript Messages
         AHUNKNOWNACTION          ##  Logging facility for Error at ActionHandler Unknown Action from Client

@@ -59,13 +59,6 @@ BEGIN {
     };
 
     ##  --
-    ##  check doors
-
-    use constant {
-        NOTOPENDOOR => 'Door is getting marked to be Closed'
-    };
-
-    ##  --
     ##  db error excetions
 
     use constant {
@@ -110,7 +103,7 @@ BEGIN {
         AHUNKNOWNACTIONMSG  => 'unknown request',
         AHERRSAVEDATAMSG    => 'Failed to save your Data to the Database, please try again later. If the Problem preexists, contact your Informatic Service Group.',
         AHERRREFRESHDATAMSG => 'Failed to Refresh the Data, please try again later. If the Problem preexists, contact your Informatic Service Group',
-        AHERROPENDOORSMSG   => 'Failed to Mark Door(s) to be opened, If the Problem preexists, contact your Informatic Service Group'
+        AHERROPENDOORSMSG   => 'Failed to open the Door(s), If the Problem preexists, contact your Informatic Service Group'
     };
 
 }

@@ -13,7 +13,7 @@ use parent -norequire, 'CommonMessages';
 
 use BK::Common::Constants;
 use BK::Common::CommonMessagesCollector;
-use BK::Common::DatabaseAccess;
+use BK::Handler::DatabaseAccess;
 
 use Switch;
 use JSON;
@@ -127,6 +127,8 @@ sub ProcessAction {
             my $sav_data_response = $self->RequestOpenDoors();
             if($sav_data_response eq Constants::INTERNALERROR) {
                 $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRSAVEDATA, MessagesTextConstants::AHERRSAVEDATAMSG);
+            }elsif($sav_data_response eq Constants::AHERROPENDOORS) {
+                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERROPENDOORS, MessagesTextConstants::AHERROPENDOORSMSG);
             }elsif($sav_data_response eq Constants::AHREFRESH) {
                 $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRREFRESHDATA, MessagesTextConstants::AHERRREFRESHDATAMSG);
             }else{
@@ -220,12 +222,13 @@ sub RequestOpenDoors {
                             $database_changed = Constants::INTERNALERROR;
                         }
                         $CommonVariables::database_connection->CommitChanges();
-                        if($is_existent) $CommonVariables::doors->OpenDoor($i, $self->{_data}[$i]->{user});
                     }
                 }
 
             }else{
-                $CommonVariables::doors->OpenDoor($i, $self->{_data}[$i]->{user})
+                if(undef($CommonVariables::doors->OpenDoor($i, $self->{_data}[$i]->{user}))) {
+                    $database_changed = Constants::AHERROPENDOORS;
+                }
             }
         }
     }

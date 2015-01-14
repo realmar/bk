@@ -14,13 +14,13 @@ use warnings;
 use lib '<BK_PATH>/lib/';
 
 use BK::Common::Constants;
-use BK::Common::MessagesTextConstants;
 use BK::Common::BKFileHandler;
 use BK::Common::CommonMessagesCollector;
 use BK::Common::CommonMessages;
-use BK::Common::DatabaseAccess;
 use BK::Common::CommonVariables;
-use BK::Frontend::ActionHandler;
+use BK::Handler::DatabaseAccess;
+use BK::Handler::ActionHandler;
+use BK::Handler:MessagesTextConstants;
 
 use Mojolicious::Lite;
 use Mojo::IOLoop;

@@ -13,7 +13,7 @@ use parent -norequire, 'CommonMessages';
 
 use BK::Common::CommonMessagesCollector;
 use BK::Common::Constants;
-use BK::Common::DatabaseAccess;
+use BK::Handler::DatabaseAccess;
 
 sub new {
     $class = shift;

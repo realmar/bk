@@ -12,7 +12,7 @@ package DatabaseAccess;
 use parent -norequire, 'CommonMessages';
 
 use BK::Common::Constants;
-use BK::Common::MessagesTextConstants;
+use BK::Handler::MessagesTextConstants;
 use BK::Common::CommonMessagesCollector;
 
 use DBI;

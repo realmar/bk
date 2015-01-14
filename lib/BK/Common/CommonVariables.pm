@@ -14,7 +14,7 @@ use Inline C => '<BK_PATH>/lib/BK/Backend/SourceC/DoorsInterface.c';
 
 use BK::Common::CommonMessagesCollector;
 use BK::Common::BKFileHandler;
-use BK::Common::DatabaseAccess;
+use BK::Handler::DatabaseAccess;
 
 use Exporter 'import';
 our @EXPORT = qw(
