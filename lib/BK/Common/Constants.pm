@@ -21,8 +21,12 @@ BEGIN {
         DOORSSENDSIGNALTIME      ##  Time in Seconds how long a Pin will ouput a Signal
         DOORSEXEPTIONOPENEND     ##  Logging facility for Error at door open (update Pin)
         DOORSEXEPTIONCLOSED      ##  Logging facility for Error at door close(update Pin)
+        DOORSEXEPTIONCHECKDOORS  ##  Logging facility for Error at Check Doors, Database Error
         DOOROPENED               ##  Logging facility for Message (success) at door open (update Pin)
         DOORCLOSED               ##  Logging facility for Message (success) at door close (update Pin)
+        AHDOOPENDOOR             ##  Database Entry for Opening a Door
+        AHNOTOPENDOOR            ##  Database Entry for not Opening a Door
+        DOOROPENBYFRONTEND       ##  Username for Oppening a Door when invoked by Frontend
         DBRETRIES                ##  Time a sql execute is executed bevor an cannot access db error is thrown (look at ./lib/BK/Common/DatabaseAccess.db)
         DBRETRIESTIME            ##  Time to wait until a retrie if a sql execuation is not successfull
         DBERRCONN                ##  Logging facility for Error at Database Connect
@@ -60,8 +64,6 @@ BEGIN {
         AHOPENDOORS               ##  ActionHandler (AH) facility for Opening a Doors
         AHNOTCHANGED             ##  Logging facility for Message (take note) at ActionHandler if the Database has not changed
         AHDATABASECHANGED        ##  Logging facility for Message (take note) at ActionHandler if the Database has changed
-        AHDOOPENDOOR             ##  Database Entry for Opening a Door
-        AHNOTOPENDOOR            ##  Database Entry for not Opening a Door
         AHERRSAVEDATA            ##  Logging facility for Error at ActionHandler Save Data to Database, Database error
         AHERRREFRESHDATA         ##  Logging facility for Error at ActionHandler Refresh Data to Client, failed to access Database, Database error
         AHSUCCSAVEDATA           ##  Logging facility for Message (success) at ActionHandler Save Data Logging facility for JavaScript Messages
@@ -111,8 +113,9 @@ BEGIN {
     ##  doors exceptions
 
     use constant {
-        DOORSEXEPTIONOPENEND => 'doorsexeptionopenend',
-        DOORSEXEPTIONCLOSED  => 'doorsexeptionclosed'
+        DOORSEXEPTIONOPENEND    => 'doorsexeptionopenend',
+        DOORSEXEPTIONCLOSED     => 'doorsexeptionclosed',
+        DOORSEXEPTIONCHECKDOORS => 'doorsexeptioncheckdoors'
     };
 
     ##  --
@@ -121,6 +124,22 @@ BEGIN {
     use constant {
         DOOROPENED => 'dooropened',
         DOORCLOSED => 'doorclosed'
+        DOOPENDOORNUM      => 1,
+        NOTOPENDOORNUM     => 0
+    };
+
+    ##  --
+    ##  doors users
+
+    use constant {
+        DOOROPENBYFRONTEND => 'frontend'
+    };
+
+    ##  --
+    ##  check doors
+
+    use constant {
+        OPENDOOR => 'opendoor'
     };
 
     ##  --
@@ -220,8 +239,6 @@ BEGIN {
     use constant {
         AHNOTCHANGED      => 'ahnotchanged',
         AHDATABASECHANGED => 'ahdbchanged',
-        AHDOOPENDOOR      => 1,
-        AHNOTOPENDOOR     => 0
     };
 
     ##  --

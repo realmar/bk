@@ -211,13 +211,13 @@ sub MarkToOpenDoors {
 
     for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
         switch ($self->{_data}->[$i]) {
-            case (Constants::AHNOTOPENDOOR) {
-                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHOPENDOORS, MessagesTextConstants::AHOPEN);
+            case (Constants::NOTOPENDOORNUM) {
+                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHOPENDOORS, MessagesTextConstants::AHNOTOPENDOORMSG);
                 last;
             }
-            case (Constants::AHDOOPENDOOR) {
-                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHOPENDOORS, MessagesTextConstants::AHSDDEL);
-                if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
+            case (Constants::DOOPENDOORNUM) {
+                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHOPENDOORS, MessagesTextConstants::AHDOOPENDOORMSG);
+                if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'opendoor' => Constants::AHDOOPENDOOR}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
                     return Constants::INTERNALERROR;
                 }
                 $database_changed = 1;
@@ -337,6 +337,7 @@ GetProcAC() - Gets proc_ac in ActionHandler
 ProcessAction() - Processes Action takes inforamtions from itself from aciton and data
 RefreshData() - Gets Database Entries and writes them do data
 SaveData() - Writes data to Database
+MarkToOpenDoors() - Marks Doors to be opened in the Database
 GetAllEntries() - Gets Database Entires and Returns them
 ToJSON() - Convert data to JSON
 FromJSON() - Converts data from JSON

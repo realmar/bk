@@ -66,6 +66,25 @@ sub OpenDoor {
     return $doors_opened_err > 0 || $doors_closed_err > 0 ? undef : 2;
 }
 
+sub CheckDoors {
+    my $self = shift;
+
+    my $db_entries = $CommonVariables::database_connection->ReadEntryDatabase('Users', {});
+    if($db_entries eq Constants::INTERNALERROR) {
+        $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DOORSEXEPTIONCHECKDOORS, MessagesTextConstants::DOORSERRCHECKDOORS);
+    }
+    while (my $db_entries_row = $db_entries->fetchrow_hashref) {
+        $db_entries_hash{$db_entries_row->{doornumber}} = $db_entries_row->{username};
+        if(${ $db_entries_row->{opendoor} } == 1) {
+            $self->OpenDoor(${ $db_entries_row->{doornumber} }, Constants::DOOROPENBYFRONTEND);
+            $self->SUPER::ThrowMessage(Constants::LOG, Constants::OPENDOOR, MessagesTextConstants::NOTOPENDOOR);
+            if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'opendoor' => Constants::NOTOPENDOORNUM}, {'doornumber' => ${ $db_entries_row->{doornumber}} }) eq Constants::INTERNALERROR) {
+                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DOORSEXEPTIONCHECKDOORS, MessagesTextConstants::DOORSERRCHECKDOORS);
+            }
+        }
+    }
+}
+
 1;
 
 __END__
@@ -94,6 +113,7 @@ GetDoors() - Get Doors return Doors ARRAY
 =head2 Methods
 
 OpenDoor( [door - INT], [username - STRING] ) - Sends signal to a specific pin on the LabJack defined as [door - INT], [username - STRING] is required only for logging purposes
+CheckDoors() - Checks if a or some Doors are marked to be openend in the Database, opens those Doors and mark Doors as closed in the Database
 
 =head2 Synopsis
 

@@ -15,6 +15,7 @@ BEGIN {
 
     our @EXPORT = qw(
         DOORSERRORCODE
+        DOORSERRCHECKDOORS
         DOORSNUMBER
         DOORSUSERNAME
         DBERRCONNMSG
@@ -47,7 +48,8 @@ BEGIN {
     ##  doors exeptions
 
     use constant {
-        DOORSERRORCODE => 'Error Code '
+        DOORSERRORCODE => 'Error Code ',
+        DOORSERRCHECKDOORS => 'Error checking Doors propably because couldnt read or write the Database, Database Error'
     };
 
     ##  --
@@ -56,6 +58,13 @@ BEGIN {
     use constant {
         DOORSNUMBER   => 'Door Number: ',
         DOORSUSERNAME => ' For Username: '
+    };
+
+    ##  --
+    ##  check doors
+
+    use constant {
+        NOTOPENDOOR => 'Door is getting marked to be Closed'
     };
 
     ##  --
@@ -94,7 +103,7 @@ BEGIN {
         AHSAVEDATAMSG => 'Successfully saved your Data to the Database',
         AHSAVEDATANOCHANGESMSG => 'The Database is Up To Date nothing has to be saved',
         AHDOOPENDOORMSG => 'The Door is getting marked to be Oppened',
-        AHNOTOPENDOORMSG => 'The Door remains closed'
+        AHNOTOPENDOORMSG => 'The Door is getting marked to be closed'
         AHOPENDOORSMSG => 'The Door(s) has been succesfully marked to be Oppened, please check the BookBox'
     };
 
@@ -105,7 +114,7 @@ BEGIN {
         AHUNKNOWNACTIONMSG  => 'unknown request',
         AHERRSAVEDATAMSG    => 'Failed to save your Data to the Database, please try again later. If the Problem preexists, contact your Informatic Service Group.',
         AHERRREFRESHDATAMSG => 'Failed to Refresh the Data, please try again later. If the Problem preexists, contact your Informatic Service Group',
-        AHERROPENDOORSMSG      => 'Failed to Mark Door(s) to be opened, If the Problem preexists, contact your Informatic Service Group'
+        AHERROPENDOORSMSG   => 'Failed to Mark Door(s) to be opened, If the Problem preexists, contact your Informatic Service Group'
     };
 
 }
