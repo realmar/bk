@@ -47,6 +47,9 @@ function ActionHandler(msg_data_arg) {
                     if($("div#msg_user_client > p." + AH_SUCC_SAVE_DATA)) {
                         RemoveMessageData($("div#msg_user_client > p." + AH_SUCC_SAVE_DATA));
                     }
+                    if($("div#msg_errors > p." + AH_ERROR)) {
+                        RemoveMessageData($("div#msg_errors > p." + AH_ERROR));
+                    }
                     var new_message_obj = AddMessageData($("div#msg_user_client"), MakeMsgDOMString([MSG_USER, AH_SUCC_SAVE_DATA], String(date_time_throw_time.toLocaleDateString() + " " + date_time_throw_time.toLocaleTimeString()), null, this.msg_data["all_infos"][msg_cat][i][MSG_STRING], USER_FRINDELY_MSG), PREPEND);
                     InitializeRemoveMSGButton(new_message_obj.find(".remove_msg"));
                 }else{
