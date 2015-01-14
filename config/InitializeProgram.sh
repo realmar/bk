@@ -56,7 +56,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo ''
 
     sed -i "s|<BK_PATH>|$PA|g" $PA/{BKBackend.pl,BKFrontend.pl,BKFrontendWebSockets.pl}
-    sed -i "s|<BK_PATH>|$PA|g" $PA/BK/Common/CommonVariables.pm
+    sed -i "s|<BK_PATH>|$PA|g" $PA/lib/BK/Common/CommonVariables.pm
     sed -i "s|<BK_PATH>|$PA|g" $PA/services/*
 
     echo ''
