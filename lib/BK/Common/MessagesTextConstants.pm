@@ -103,7 +103,7 @@ BEGIN {
         AHSAVEDATAMSG => 'Successfully saved your Data to the Database',
         AHSAVEDATANOCHANGESMSG => 'The Database is Up To Date nothing has to be saved',
         AHDOOPENDOORMSG => 'The Door is getting marked to be Oppened',
-        AHNOTOPENDOORMSG => 'The Door is getting marked to be closed'
+        AHNOTOPENDOORMSG => 'The Door is getting marked to be closed',
         AHOPENDOORSMSG => 'The Door(s) has been succesfully marked to be Oppened, please check the BookBox'
     };
 

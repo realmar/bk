@@ -130,7 +130,7 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     touch $PA/log/{production,development}.log
     touch $PA/logs/{production,development}.log
 
-    echo 'Sppting BK Services'
+    echo 'Stopping BK Services, this may take some time'
     systemctl stop bk{backend,frontend,frontendwebsockets}.service
 
     echo 'Setting up the database'
@@ -169,6 +169,14 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
         AJAX_PORT=80
     fi
 
+    if [[ $USEAPACHE =~ (N|n) ]]; then
+        WS_PORT=3003;
+        AJAX_PORT=80;
+        sed -i 's/<WS_PROTOCOL>/ws/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
+        sed -i 's/<AJAX_PROTOCOL>/http/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
+        sed -i "s|<HOSTNAME>|$HOSTNAME|g" $PA/environments/*
+        sed -i "s|<BK_AJAX_PORT>|$AJAX_PORT|g" $PA/environments/*
+    fi
 
     echo "Your BK AJAX Server should be run on port (if using proxy the port of which Apache2 listens) $AJAX_PORT"
     echo "Your BK WebSocket Server should be run on port (if using proxy the of which Apache2 listens) $WS_PORT"
@@ -304,9 +312,6 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
             sed -i 's/<AJAX_PROTOCOL>/http/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
             echo 'Continue without Apache2 Configuration, you have to do this manually if you want to use these features'
         fi
-    else
-        sed -i "s|<HOSTNAME>|$HOSTNAME|g" $PA/environments/*
-        sed -i "s|<BK_AJAX_PORT>|$AJAX_PORT|g" $PA/environments/*
     fi
 
     echo ''

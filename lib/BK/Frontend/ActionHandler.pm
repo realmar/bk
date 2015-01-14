@@ -203,7 +203,7 @@ sub SaveData {
 }
 
 sub MarkToOpenDoors {
-    my $self = shift
+    my $self = shift;
 
     my $database_changed = 0;
 

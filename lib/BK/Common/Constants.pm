@@ -123,7 +123,7 @@ BEGIN {
 
     use constant {
         DOOROPENED => 'dooropened',
-        DOORCLOSED => 'doorclosed'
+        DOORCLOSED => 'doorclosed',
         DOOPENDOORNUM      => 1,
         NOTOPENDOORNUM     => 0
     };
