@@ -217,7 +217,7 @@ sub MarkToOpenDoors {
             }
             case (Constants::DOOPENDOORNUM) {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHOPENDOORS, MessagesTextConstants::AHDOOPENDOORMSG);
-                if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'opendoor' => Constants::AHDOOPENDOOR}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
+                if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'opendoor' => Constants::DOOPENDOORNUM}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
                     return Constants::INTERNALERROR;
                 }
                 $database_changed = 1;

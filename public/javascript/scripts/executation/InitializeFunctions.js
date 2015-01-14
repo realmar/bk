@@ -27,7 +27,7 @@ function InitializeButtons() {  //  Initializes all Buttons
         $(this).parent().parent().next("input.bookbox_input").val(programm_handler.last_data_state[$(this).parent().parent().siblings("input.bookbox_id").val()])
     });
     $("div.bookbox > p > span.edit_bookbox > span.open_bookbox").click(function () {
-        programm_handler.OpenDoors([ parseInt($(this).parent().parent().next("input.bookbox_id").attr("value")) ]);
+        programm_handler.OpenDoors([ parseInt($(this).parent().parent().siblings("input.bookbox_id").attr("value")) ]);
     });
 }
 
