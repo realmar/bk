@@ -41,7 +41,7 @@ NOTE: install the appropriate version of the linux-headers for your operating sy
 NOTE: you may have to adapt the version number in the filename of the libljacklm.so file, the one here is just an example
 
 ## 4. Configure BK
-  1.  Change the **"use lib"** Path in **BKFrontent.pl** and **BKFrontendWebSockets.pl** to the lib directory of the BK folder eg. /opt/BK/**lib**
+  1.  Change the **BK_PATH** Path in **BKBackend.pl**, **BKFrontent.pl**, **BKFrontendWebSockets.pl** and **lib/BK/Common/CommonVariables.pm** to the lib directory of the BK folder eg. /opt/BK/**lib**
   2.  Change the Hostname, Protocol and the Port of the **"ws_path"** and the **"ajax_path"** variables in **"public/javascript/scripts/variables/VariablesDefinition.js"** to the Hostname of the BK Server
       -  recommeded Protocols and Ports for non SSL:
          -  ws_path: ws ; 3003
