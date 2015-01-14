@@ -30,10 +30,17 @@ use BK::Common::CommonVariables;
 use BK::Backend::Doors;
 use BK::Backend::Scanner;
 
+use threads;
+use threads::shared;
+
 CommonVariables::init_variables('/opt/BK/', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite', Constants::APPENVPRODUCTION);
 
 my $doors = Doors->new(Constants::DOORSOUTPUT);
 my $scanner = Scanner->new();
+
+share($doors);
+
+my $check_doors_thread = threads->create(\&CheckDoorsThread);
 
 while(1) {
     my $input_barc = $scanner->GetInput();
@@ -59,6 +66,14 @@ $CommonVariables::database_connection->DisconnectFromDatabase();
 
 $CommonVariables::filehandle_log_message->CloseFileHandle();
 $CommonVariables::filehandle_log_error->CloseFileHandle();
+
+$check_doors_thread->kill('SIGKILL')->join();
+
+sub CheckDoorsThread {
+    while(1) {
+        $doors->CheckDoors();
+    }
+}
 
 __END__
 
