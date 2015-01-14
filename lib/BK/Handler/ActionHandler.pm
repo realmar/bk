@@ -226,7 +226,7 @@ sub RequestOpenDoors {
                 }
 
             }else{
-                if(undef($CommonVariables::doors->OpenDoor($i, $self->{_data}[$i]->{user}))) {
+                if(!defined($CommonVariables::doors->OpenDoor($i, $self->{_data}[$i]->{user}))) {
                     $database_changed = Constants::AHERROPENDOORS;
                 }
             }

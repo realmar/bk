@@ -21,7 +21,7 @@ use BK::Common::CommonMessages;
 use BK::Common::CommonVariables;
 use BK::Scanner::Scanner;
 
-CommonVariables::init_variables('/opt/BK/', 'log/message_log', 'log/error_log', undef, undef, Constants::APPENVPRODUCTION);
+CommonVariables::init_variables('<BK_PATH>/', 'log/message_log', 'log/error_log', undef, undef, Constants::APPENVPRODUCTION);
 
 my $scanner = Scanner->new();
 

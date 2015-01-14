@@ -126,10 +126,9 @@ function ProgrammHandler() {
         DisplayLoadingMessage();
         var opendoors = new Array();
         for(var i = 0; i < DOORS_COUNT; i++) {
-            opendoors[i] = {
-                OPEN_DOOR : NOT_OPEN_DOOR,
-                'user'    : DOORS_USER
-            };
+            opendoors[i] = {};
+            opendoors[i][OPEN_DOOR] = NOT_OPEN_DOOR;
+            opendoors[i]["user"] = DOORS_USER;
         }
         for(var i = 0; i < doors.length; i++) {
             opendoors[doors[i]][OPEN_DOOR] = DO_OPEN_DOOR;

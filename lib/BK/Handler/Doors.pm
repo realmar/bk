@@ -39,11 +39,7 @@ sub GetDoors {
 sub OpenDoor {
     my ($self, $door, $username) = @_;
 
-    print "Sending Signal to Door:\n\n";
-    print "Number $door\n\n";
-
-
-    my $doors_opened_err = &main::SetPins(Constants::HEXTWOBYTEONE, Constants::HEXNULL, Constants::DOORSOUTPUT->[$door], Constants::HEXNULL);
+    my $doors_opened_err = &CommonVariables::SetPins(Constants::HEXTWOBYTEONE, Constants::HEXNULL, Constants::DOORSOUTPUT->[$door], Constants::HEXNULL);
 
     if($doors_opened_err > 0) {
         $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DOORSEXEPTIONOPENEND, MessagesTextConstants::DOORSERRORCODE . $doors_opened_err);
@@ -52,17 +48,13 @@ sub OpenDoor {
         sleep(Constants::DOORSSENDSIGNALTIME);
     }
 
-    my $doors_closed_err = &main::SetPins(Constants::HEXTWOBYTEONE, Constants::HEXNULL, Constants::HEXNULL, Constants::HEXNULL);
+    my $doors_closed_err = &CommonVariables::SetPins(Constants::HEXTWOBYTEONE, Constants::HEXNULL, Constants::HEXNULL, Constants::HEXNULL);
 
     if($doors_closed_err > 0) {
         $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DOORSEXEPTIONCLOSED, MessagesTextConstants::DOORSERRORCODE . $doors_closed_err);
     }else{
         $self->SUPER::ThrowMessage(Constants::LOG, Constants::DOORCLOSED, MessagesTextConstants::DOORSNUMBER . $door . MessagesTextConstants::DOORSUSERNAME . $username);
     }
-
-    print "Stop Sending Signal to Door:\n\n";
-    print "Number $door\n\n";
-
 
     return $doors_opened_err > 0 || $doors_closed_err > 0 ? undef : 2;
 }

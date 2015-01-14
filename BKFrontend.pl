@@ -20,12 +20,12 @@ use BK::Common::CommonMessages;
 use BK::Common::CommonVariables;
 use BK::Handler::DatabaseAccess;
 use BK::Handler::ActionHandler;
-use BK::Handler:MessagesTextConstants;
+use BK::Handler::MessagesTextConstants;
 
 use Dancer;
 use Template;
 
-CommonVariables::init_variables('<BK_PATH>', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite', Constants::DOORSOUTPUT, config->{environment});
+CommonVariables::init_variables('<BK_PATH>/', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite', Constants::DOORSOUTPUT, config->{environment});
 
 any ['get'] => '/' => sub {
     template 'index' => {};

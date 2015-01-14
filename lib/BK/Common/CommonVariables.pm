@@ -10,11 +10,12 @@
 package CommonVariables;
 
 use Inline C => Config => MYEXTLIB => '/usr/local/lib/libljacklm.so';
-use Inline C => '<BK_PATH>/lib/BK/Backend/SourceC/DoorsInterface.c';
+use Inline C => '<BK_PATH>/lib/BK/Handler/SourceC/DoorsInterface.c';
 
 use BK::Common::CommonMessagesCollector;
 use BK::Common::BKFileHandler;
 use BK::Handler::DatabaseAccess;
+use BK::Handler::Doors;
 
 use Exporter 'import';
 our @EXPORT = qw(
@@ -40,10 +41,10 @@ sub init_variables {
     $app_environment = $app_env;
 
     $common_messages_collector = CommonMessagesCollector->new();
-    if defined($message_log_path) $filehandle_log_message = BKFileHandler->new('>>', $bk_path . $message_log_path);
-    if defined($error_log_path) $filehandle_log_error = BKFileHandler->new('>>', $bk_path . $error_log_path);
-    if defined($database_handler) && defined($database_path) $database_connection = DatabaseAccess->new($database_handler, $bk_path . $database_path);
-    if defined($doors_arg) $doors = Doors->new($doors_arg);
+    if (defined($message_log_path)) { $filehandle_log_message = BKFileHandler->new('>>', $bk_path . $message_log_path); }
+    if (defined($error_log_path)) { $filehandle_log_error = BKFileHandler->new('>>', $bk_path . $error_log_path); }
+    if (defined($database_handler) && defined($database_path)) { $database_connection = DatabaseAccess->new($database_handler, $bk_path . $database_path); }
+    if (defined($doors_arg)) { $doors = Doors->new($doors_arg); }
 }
 
 return 1;

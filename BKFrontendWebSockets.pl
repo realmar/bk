@@ -20,12 +20,12 @@ use BK::Common::CommonMessages;
 use BK::Common::CommonVariables;
 use BK::Handler::DatabaseAccess;
 use BK::Handler::ActionHandler;
-use BK::Handler:MessagesTextConstants;
+use BK::Handler::MessagesTextConstants;
 
 use Mojolicious::Lite;
 use Mojo::IOLoop;
 
-CommonVariables::init_variables('<BK_PATH>', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite', Constants::DOORSOUTPUT, app->mode);
+CommonVariables::init_variables('<BK_PATH>/', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite', Constants::DOORSOUTPUT, app->mode);
 
 websocket '/ws' => sub {
     my $self = shift;
