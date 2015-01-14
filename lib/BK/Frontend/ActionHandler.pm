@@ -121,6 +121,19 @@ sub ProcessAction {
             }
             last;
         }
+        case Constants::AHOPENDOORS {
+            $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHOPENDOORS, $self->{_data});
+            $self->FromJSON();
+            my $sav_data_response = $self->MarkToOpenDoors();
+            if($sav_data_response eq Constants::INTERNALERROR) {
+                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERROPENDOORS, MessagesTextConstants::AHERROPENDOORS);
+            }elsif($sav_data_response eq Constants::AHREFRESH) {
+                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERROPENDOORS, MessagesTextConstants::AHERRREFRESHDATAMSG);
+            }else{
+                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSUCCOPENDOORS, MessagesTextConstants::AHOPENDOORSMSG);
+            }
+            last;
+        }
         case Constants::AHKEEPALIVE {
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHKEEPALIVE, $self->{_action});
             $self->SetProcAC(1);
@@ -174,6 +187,44 @@ sub SaveData {
                     return Constants::INTERNALERROR;
                 }
                 $database_changed = 1;
+                last;
+            }
+        }
+    }
+
+    $CommonVariables::database_connection->CommitChanges();
+
+    my $ah_refresh_data = $self->RefreshData();
+    if(!$ah_refresh_data) {
+        return $database_changed;
+    }else{
+        return $ah_refresh_data;
+    }
+}
+
+sub MarkToOpenDoors {
+    my $self = shift
+
+    my $database_changed = 0;
+
+    $CommonVariables::database_connection->BeginWork();
+
+    for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
+        switch ($self->{_data}->[$i]) {
+            case (Constants::AHNOTOPENDOOR) {
+                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHOPENDOORS, MessagesTextConstants::AHOPEN);
+                last;
+            }
+            case (Constants::AHDOOPENDOOR) {
+                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHOPENDOORS, MessagesTextConstants::AHSDDEL);
+                if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
+                    return Constants::INTERNALERROR;
+                }
+                $database_changed = 1;
+                last;
+            }
+            else {
+                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHOPENDOORS, MessagesTextConstants::AHUNKNOWNACTION);
                 last;
             }
         }

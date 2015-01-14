@@ -35,9 +35,12 @@ BEGIN {
         AHSDDEL
         AHSDNEW
         AHSAVEDATAMSG
+        AHDOOPENDOORMSG
+        AHNOTOPENDOORMSG
         AHUNKNOWNACTIONMSG
         AHERRSAVEDATAMSG
         AHERRREFRESHDATAMSG
+        AHERROPENDOORSMSG
     );
 
     ##  --
@@ -89,16 +92,20 @@ BEGIN {
         AHSDDEL  => 'Data is getting Deleted',                  ##  action handler save data is removed by user data is getting deleted in database
         AHSDNEW  => 'New Data is getting Inserted in Database',  ##  action handler save data is added a new value by user data is getting inserted in to database
         AHSAVEDATAMSG => 'Successfully saved your Data to the Database',
-        AHSAVEDATANOCHANGESMSG => 'The Database is Up To Date nothing has to be saved'
+        AHSAVEDATANOCHANGESMSG => 'The Database is Up To Date nothing has to be saved',
+        AHDOOPENDOORMSG => 'The Door is getting marked to be Oppened',
+        AHNOTOPENDOORMSG => 'The Door remains closed'
+        AHOPENDOORSMSG => 'The Door(s) has been succesfully marked to be Oppened, please check the BookBox'
     };
 
     ##  --
     ##  action handler exceptions
 
     use constant {
-        AHUNKNOWNACTIONMSG => 'unknown request',
-        AHERRSAVEDATAMSG => 'Failed to save your Data to the Database, please try again later. If the Problem preexists, contact your Informatic Service Group.',
-        AHERRREFRESHDATAMSG => 'Failed to Refresh the Data, please try again later. If the Problem preexists, contact your Informatic Service Group'
+        AHUNKNOWNACTIONMSG  => 'unknown request',
+        AHERRSAVEDATAMSG    => 'Failed to save your Data to the Database, please try again later. If the Problem preexists, contact your Informatic Service Group.',
+        AHERRREFRESHDATAMSG => 'Failed to Refresh the Data, please try again later. If the Problem preexists, contact your Informatic Service Group',
+        AHERROPENDOORSMSG      => 'Failed to Mark Door(s) to be opened, If the Problem preexists, contact your Informatic Service Group'
     };
 
 }

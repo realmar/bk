@@ -130,6 +130,9 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     touch $PA/log/{production,development}.log
     touch $PA/logs/{production,development}.log
 
+    echo 'Sppting BK Services'
+    systemctl stop bk{backend,frontend,frontendwebsockets}.service
+
     echo 'Setting up the database'
     echo 'AFTER DATABASE IS SET UP EXIT THE SQLITE3 CONSOLE WITH .exit TO CONTINUE THE SETUP'
 
@@ -310,7 +313,6 @@ if [[ $INST1 =~ ^(yes|y) ]] || [[ -z $INST1 ]]; then
     echo ''
 
     echo 'Copying Services, this may take long'
-    systemctl stop bk{backend,frontend,frontendwebsockets}.service
     systemctl disable bk{backend,frontend,frontendwebsockets}.service
     rm -rf /lib/systemd/system/bk*
     cp $PA/services/* /lib/systemd/system/.

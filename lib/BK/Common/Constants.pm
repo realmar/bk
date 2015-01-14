@@ -57,11 +57,15 @@ BEGIN {
         AHSAVEDATA               ##  ActionHandler (AH) facility for Save Data from the Input (Client) to the Database
         AHSAVEDATAWRITE          ##  Logging facility for Message (take note) at ActionHandler what happens with the Database (SQL Code)
         AHKEEPALIVE              ##  ActionHandler (AH) facility for Keep Alive requests for the WebSockets
+        AHOPENDOORS               ##  ActionHandler (AH) facility for Opening a Doors
         AHNOTCHANGED             ##  Logging facility for Message (take note) at ActionHandler if the Database has not changed
         AHDATABASECHANGED        ##  Logging facility for Message (take note) at ActionHandler if the Database has changed
+        AHDOOPENDOOR             ##  Database Entry for Opening a Door
+        AHNOTOPENDOOR            ##  Database Entry for not Opening a Door
         AHERRSAVEDATA            ##  Logging facility for Error at ActionHandler Save Data to Database, Database error
         AHERRREFRESHDATA         ##  Logging facility for Error at ActionHandler Refresh Data to Client, failed to access Database, Database error
         AHSUCCSAVEDATA           ##  Logging facility for Message (success) at ActionHandler Save Data Logging facility for JavaScript Messages
+        AHSUCCOPENDOORS          ##  Logging facility for Message (success) at ActionHandler Oppening Doors Lagging facility for JavaScript Messages
         AHUNKNOWNACTION          ##  Logging facility for Error at ActionHandler Unknown Action from Client
         CMERROR                  ##  CommonMessages Logging Typ Error
         CMINFO                   ##  CommonMessages Logging Typ Info
@@ -206,30 +210,35 @@ BEGIN {
         AHREFRESH       => 'ahrefresh',
         AHSAVEDATA      => 'ahsavedata',
         AHSAVEDATAWRITE => 'ahsavedatawrite',
-        AHKEEPALIVE     => 'ahkeepalive'
+        AHKEEPALIVE     => 'ahkeepalive',
+        AHOPENDOORS      => 'ahopendoor'
     };
 
     ##  --
     ##  action handler change types
 
     use constant {
-        AHNOTCHANGED => 'ahnotchanged',
-        AHDATABASECHANGED => 'ahdbchanged'
+        AHNOTCHANGED      => 'ahnotchanged',
+        AHDATABASECHANGED => 'ahdbchanged',
+        AHDOOPENDOOR      => 1,
+        AHNOTOPENDOOR     => 0
     };
 
     ##  --
     ##  action handler errors
 
     use constant {
-        AHERRSAVEDATA => 'aherrsavedata',
-        AHERRREFRESHDATA => 'aherrrefreshdata'
+        AHERRSAVEDATA    => 'aherrsavedata',
+        AHERRREFRESHDATA => 'aherrrefreshdata',
+        AHERROPENDOORS   => 'aherropendoors'
     };
 
     ##  --
     ##  action handler messages
 
     use constant {
-        AHSUCCSAVEDATA => 'ahsuccsavedata'
+        AHSUCCSAVEDATA  => 'ahsuccsavedata',
+        AHSUCCOPENDOORS => 'ahsuccopendoors'
     };
 
     ##  --
