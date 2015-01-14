@@ -125,13 +125,6 @@ sub ProcessAction {
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHOPENDOORS, $self->{_data});
             $self->FromJSON();
             my $sav_data_response = $self->MarkToOpenDoors();
-            if($sav_data_response eq Constants::INTERNALERROR) {
-                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERROPENDOORS, MessagesTextConstants::AHERROPENDOORS);
-            }elsif($sav_data_response eq Constants::AHREFRESH) {
-                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERROPENDOORS, MessagesTextConstants::AHERRREFRESHDATAMSG);
-            }else{
-                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSUCCOPENDOORS, MessagesTextConstants::AHOPENDOORSMSG);
-            }
             last;
         }
         case Constants::AHKEEPALIVE {
@@ -204,40 +197,6 @@ sub SaveData {
 
 sub MarkToOpenDoors {
     my $self = shift;
-
-    my $database_changed = 0;
-
-    $CommonVariables::database_connection->BeginWork();
-
-    for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
-        switch ($self->{_data}->[$i]) {
-            case (Constants::NOTOPENDOORNUM) {
-                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHOPENDOORS, MessagesTextConstants::AHNOTOPENDOORMSG);
-                last;
-            }
-            case (Constants::DOOPENDOORNUM) {
-                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHOPENDOORS, MessagesTextConstants::AHDOOPENDOORMSG);
-                if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'opendoor' => Constants::DOOPENDOORNUM}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
-                    return Constants::INTERNALERROR;
-                }
-                $database_changed = 1;
-                last;
-            }
-            else {
-                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHOPENDOORS, MessagesTextConstants::AHUNKNOWNACTION);
-                last;
-            }
-        }
-    }
-
-    $CommonVariables::database_connection->CommitChanges();
-
-    my $ah_refresh_data = $self->RefreshData();
-    if(!$ah_refresh_data) {
-        return $database_changed;
-    }else{
-        return $ah_refresh_data;
-    }
 }
 
 sub GetAllEntries {
@@ -303,7 +262,7 @@ sub PrepareDataToSend {
 
 __END__
 
-=head1 BK::Frontend::ActionHandler
+=head1 BK::Handler::ActionHandler
 
 ActionHandler.pm
 
