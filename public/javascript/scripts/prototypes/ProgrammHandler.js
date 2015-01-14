@@ -29,6 +29,7 @@ function ProgrammHandler() {
     this.ConnectToWebSocket           = ConnectToWebSocket;           //  Connects to the WebSocket
     this.SetConnectionType            = SetConnectionType;            //  Sets the Connection Type
     this.RefreshData                  = RefreshData;                  //  Refreshes the Bookbox and Messages Data, does not save the data
+    this.OpenDoors                    = OpenDoors                     //  Sends Request to open a or some Doors
     this.SaveData                     = SaveData;                     //  Saves the Data from the Bookboxes to the Server
     this.CheckBookboxStates           = CheckBookboxStates;           //  Checks the Bookbox States
     this.CheckMSGDataObjects          = CheckMSGDataObjects;          //  Checks the MSGDataObjects States
@@ -118,6 +119,25 @@ function ProgrammHandler() {
                     this.bk_ajax_data.AJAXGetData(ACTION_SAVEDATA, JSON.stringify(bookbox_data), AJAX_SEND_TYPE_POST);
                     break;
             }
+        }
+    }
+
+    function OpenDoors(doors) {
+        DisplayLoadingMessage();
+        var opendoors = new Array();
+        for(var i = 0; i < DOORS_COUNT; i++) {
+            opendoors[i] = NOT_OPEN_DOOR;
+        }
+        for(var i = 0; i < doors.length; i++) {
+            opendoors[doors[i]] = DO_OPEN_DOOR;
+        }
+        switch (this.conn_type) {
+            case CONN_TYPE_WEBSOCKETS:
+                this.bk_websocket.SendMSGWS(ACTION_OPEN_DOORS, opendoors);
+                break;
+            case CONN_TYPE_AJAX:
+                this.bk_ajax_data.AJAXGetData(ACTION_OPEN_DOORS, JSON.stringify(opendoors), AJAX_SEND_TYPE_POST);
+                break;
         }
     }
 }

@@ -12,6 +12,7 @@ var CONN_TYPE_WEBSOCKETS = 'conn_type_websockets';
 var ACTION_REFRESH    = 'ahrefresh';
 var ACTION_SAVEDATA   = 'ahsavedata';
 var ACTION_KEEP_ALIVE = 'ahkeepalive';
+var ACTION_OPEN_DOORS = 'ahopendoors';
 
 var AH_NOT_CHANGED = 'ahnotchanged';
 
@@ -22,16 +23,17 @@ var WS_SEND_ABORD   = 2;
 var AJAX_SEND_TYPE_GET  = 'get';
 var AJAX_SEND_TYPE_POST = 'post';
 
-var DISPLAY_NONE      = 'display_none';
-var MSG_ERRORS        = 'msg_errors'
-var MSG_USER          = 'msg_user';
-var NO_CONN_ERROR     = 'no_connection_error';
-var AH_ERROR          = 'ah_error';
-var AH_MESSAGE        = 'ah_message';
-var AH_SUCC_SAVE_DATA = 'ah_succ_save_data';
-var CHAG_CONT         = 'chag_cont';
-var NO_CONN_SAVE_ERR  = 'no_conn_save_err';
-var DBL_DATA          = 'dbl_data';
+var DISPLAY_NONE       = 'display_none';
+var MSG_ERRORS         = 'msg_errors'
+var MSG_USER           = 'msg_user';
+var NO_CONN_ERROR      = 'no_connection_error';
+var AH_ERROR           = 'ah_error';
+var AH_MESSAGE         = 'ah_message';
+var AH_SUCC_SAVE_DATA  = 'ah_succ_save_data';
+var AH_SUCC_OPEN_DOORS = 'ah_succ_open_doors';
+var CHAG_CONT          = 'chag_cont';
+var NO_CONN_SAVE_ERR   = 'no_conn_save_err';
+var DBL_DATA           = 'dbl_data';
 
 var GET_DOM_DATA_DOUBLE_ENTRY = 'double_dom_data_entry';
 
@@ -43,3 +45,8 @@ var PREPEND = 'prepend';
 
 var USER_FRINDELY_MSG     = 'user_friendly_string';
 var NOT_USER_FRIENDLY_MSG = 'not_user_friendly_string';
+
+var DOORS_COUNT = 11;
+
+var DO_OPEN_DOOR = 1;
+var NOT_OPEN_DOOR = 0;

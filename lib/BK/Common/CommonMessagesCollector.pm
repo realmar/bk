@@ -42,8 +42,8 @@ sub new {
                 ##  Constants::DBBEGINWORK     => 1,
                 ##  Constants::DBCOMMIT        => 1,
                 ##  Constants::AHSAVEDATAWRITE => 1,
-                Constants::AHSUCCSAVEDATA      => 1
-
+                Constants::AHSUCCSAVEDATA      => 1,
+                Constants::AHSUCCOPENDOORS     => 1
             }
         }
     };

@@ -230,7 +230,7 @@ BEGIN {
         AHSAVEDATA      => 'ahsavedata',
         AHSAVEDATAWRITE => 'ahsavedatawrite',
         AHKEEPALIVE     => 'ahkeepalive',
-        AHOPENDOORS      => 'ahopendoor'
+        AHOPENDOORS      => 'ahopendoors'
     };
 
     ##  --
