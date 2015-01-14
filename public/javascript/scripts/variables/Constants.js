@@ -50,3 +50,6 @@ var DOORS_COUNT = 11;
 
 var DO_OPEN_DOOR = 1;
 var NOT_OPEN_DOOR = 0;
+
+var OPEN_DOOR = 'opendoor';
+var DOORS_USER = 'frontend';
