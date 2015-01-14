@@ -74,11 +74,10 @@ sub CheckDoors {
         $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DOORSEXEPTIONCHECKDOORS, MessagesTextConstants::DOORSERRCHECKDOORS);
     }
     while (my $db_entries_row = $db_entries->fetchrow_hashref) {
-        $db_entries_hash{$db_entries_row->{doornumber}} = $db_entries_row->{username};
-        if(${ $db_entries_row->{opendoor} } == 1) {
-            $self->OpenDoor(${ $db_entries_row->{doornumber} }, Constants::DOOROPENBYFRONTEND);
+        if($db_entries_row->{opendoor} == 1) {
+            $self->OpenDoor($db_entries_row->{doornumber}, Constants::DOOROPENBYFRONTEND);
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::OPENDOOR, MessagesTextConstants::NOTOPENDOOR);
-            if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'opendoor' => Constants::NOTOPENDOORNUM}, {'doornumber' => ${ $db_entries_row->{doornumber}} }) eq Constants::INTERNALERROR) {
+            if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'opendoor' => Constants::NOTOPENDOORNUM}, {'doornumber' => $db_entries_row->{doornumber}}) eq Constants::INTERNALERROR) {
                 $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DOORSEXEPTIONCHECKDOORS, MessagesTextConstants::DOORSERRCHECKDOORS);
             }
         }

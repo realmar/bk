@@ -44,8 +44,8 @@ function ActionHandler(msg_data_arg) {
                     var new_message_obj = AddMessageData($("div#msg_user_client"), MakeMsgDOMString([MSG_USER, AH_SUCC_SAVE_DATA], String(date_time_throw_time.toLocaleDateString() + " " + date_time_throw_time.toLocaleTimeString()), null, this.msg_data["all_infos"][msg_cat][i][MSG_STRING], USER_FRINDELY_MSG), PREPEND);
                     InitializeRemoveMSGButton(new_message_obj.find(".remove_msg"));
                 }else if(msg_cat == AH_SUCC_OPEN_DOORS.replace(/\_/gi, "")) {
-                    if($("div#msg_user_client > p." + AH_SUCC_OPEN_DOORS)) {
-                        RemoveMessageData($("div#msg_user_client > p." + AH_SUCC_OPEN_DOORS));
+                    if($("div#msg_user_client > p." + AH_SUCC_SAVE_DATA)) {
+                        RemoveMessageData($("div#msg_user_client > p." + AH_SUCC_SAVE_DATA));
                     }
                     var new_message_obj = AddMessageData($("div#msg_user_client"), MakeMsgDOMString([MSG_USER, AH_SUCC_SAVE_DATA], String(date_time_throw_time.toLocaleDateString() + " " + date_time_throw_time.toLocaleTimeString()), null, this.msg_data["all_infos"][msg_cat][i][MSG_STRING], USER_FRINDELY_MSG), PREPEND);
                     InitializeRemoveMSGButton(new_message_obj.find(".remove_msg"));
