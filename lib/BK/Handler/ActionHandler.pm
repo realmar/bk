@@ -124,7 +124,14 @@ sub ProcessAction {
         case Constants::AHOPENDOORS {
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHOPENDOORS, $self->{_data});
             $self->FromJSON();
-            my $sav_data_response = $self->MarkToOpenDoors();
+            my $sav_data_response = $self->RequestOpenDoors();
+            if($sav_data_response eq Constants::INTERNALERROR) {
+                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRSAVEDATA, MessagesTextConstants::AHERRSAVEDATAMSG);
+            }elsif($sav_data_response eq Constants::AHREFRESH) {
+                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRREFRESHDATA, MessagesTextConstants::AHERRREFRESHDATAMSG);
+            }else{
+                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSUCCOPENDOORS, MessagesTextConstants::AHOPENDOORSMSG);
+            }
             last;
         }
         case Constants::AHKEEPALIVE {
@@ -195,8 +202,40 @@ sub SaveData {
     }
 }
 
-sub MarkToOpenDoors {
+sub RequestOpenDoors {
     my $self = shift;
+
+    my $database_changed = 0;
+
+    for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
+        if($self->{_data}[$i]->{Constants::OPENDOOR} == Constants::TRUE) {
+            if($self->{_data}[$i]->{user} ne Constants::DOORSUSER) {
+                my $database_entries = $CommonVariables::database_connection->ReadEntryDatabase('Users', {'username' => $self->{_data}[$i]->{user}});
+
+                while(my $database_entries_row = $database_entries->fetchrow_hashref) {
+                    my $doors_open = $doors->OpenDoor($database_entries_row->{doornumber}, $self->{_data}[$i]->{user});
+                    if(defined($doors_open)) {
+                        $CommonVariables::database_connection->BeginWork();
+                        if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}}) eq Constants::INTERNALERROR) {
+                            $database_changed = Constants::INTERNALERROR;
+                        }
+                        $CommonVariables::database_connection->CommitChanges();
+                        if($is_existent) $CommonVariables::doors->OpenDoor($i, $self->{_data}[$i]->{user});
+                    }
+                }
+
+            }else{
+                $CommonVariables::doors->OpenDoor($i, $self->{_data}[$i]->{user})
+            }
+        }
+    }
+
+    my $ah_refresh_data = $self->RefreshData();
+    if(!$ah_refresh_data) {
+        return $database_changed;
+    }else{
+        return $ah_refresh_data;
+    }
 }
 
 sub GetAllEntries {

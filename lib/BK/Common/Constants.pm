@@ -14,6 +14,8 @@ BEGIN {
     use Exporter 'import';
 
     our @EXPORT = qw(
+        TRUE                     ##  Booleaon for 1
+        FALSE                    ##  Boolean for 0
         HEXNULL                  ##  represent 0 in hex 0x0
         HEXTWOBYTEONE            ##  represent two byte in hex 0xFFFF (byte 0 := 0000000 ;; byte 1 := 00000000)
         DOORSOUTPUT              ##  ARRAY with door number to pin port mapping (eg. 0 => 0x1 ;; 1 => 0x2)
@@ -26,7 +28,8 @@ BEGIN {
         DOORCLOSED               ##  Logging facility for Message (success) at door close (update Pin)
         AHDOOPENDOOR             ##  Database Entry for Opening a Door
         AHNOTOPENDOOR            ##  Database Entry for not Opening a Door
-        DOOROPENBYFRONTEND       ##  Username for Oppening a Door when invoked by Frontend
+        DOORSUSER                ##  Username for Oppening a Door when invoked by Frontend
+        OPENDOOR                 ##  Hash key of value wheter the door should be open or not
         DBRETRIES                ##  Time a sql execute is executed bevor an cannot access db error is thrown (look at ./lib/BK/Common/DatabaseAccess.db)
         DBRETRIESTIME            ##  Time to wait until a retrie if a sql execuation is not successfull
         DBERRCONN                ##  Logging facility for Error at Database Connect
@@ -61,7 +64,7 @@ BEGIN {
         AHSAVEDATA               ##  ActionHandler (AH) facility for Save Data from the Input (Client) to the Database
         AHSAVEDATAWRITE          ##  Logging facility for Message (take note) at ActionHandler what happens with the Database (SQL Code)
         AHKEEPALIVE              ##  ActionHandler (AH) facility for Keep Alive requests for the WebSockets
-        AHOPENDOORS               ##  ActionHandler (AH) facility for Opening a Doors
+        AHOPENDOORS              ##  ActionHandler (AH) facility for Opening a Doors
         AHNOTCHANGED             ##  Logging facility for Message (take note) at ActionHandler if the Database has not changed
         AHDATABASECHANGED        ##  Logging facility for Message (take note) at ActionHandler if the Database has changed
         AHERRSAVEDATA            ##  Logging facility for Error at ActionHandler Save Data to Database, Database error
@@ -72,9 +75,17 @@ BEGIN {
         CMERROR                  ##  CommonMessages Logging Typ Error
         CMINFO                   ##  CommonMessages Logging Typ Info
         INTERNALERROR            ##  Return Value if an Action is not successfull Internal Error
-        APPENVPRODUCTION          ##  APP Environment Production
-        APPENVDEVELOPMENT         ##  APP Environment Development
+        APPENVPRODUCTION         ##  APP Environment Production
+        APPENVDEVELOPMENT        ##  APP Environment Development
         );
+
+    ##  --
+    ##  booleans
+    
+    use constant {
+        TRUE  => 1,
+        FALSE => 0
+    };
 
     ##  --
     ##  hex numbers
@@ -132,11 +143,11 @@ BEGIN {
     ##  doors users
 
     use constant {
-        DOOROPENBYFRONTEND => 'frontend'
+        DOORSUSER => 'frontend'
     };
 
     ##  --
-    ##  check doors
+    ##  open doors
 
     use constant {
         OPENDOOR => 'opendoor'

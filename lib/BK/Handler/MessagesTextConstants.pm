@@ -15,7 +15,6 @@ BEGIN {
 
     our @EXPORT = qw(
         DOORSERRORCODE
-        DOORSERRCHECKDOORS
         DOORSNUMBER
         DOORSUSERNAME
         DBERRCONNMSG
@@ -36,8 +35,8 @@ BEGIN {
         AHSDDEL
         AHSDNEW
         AHSAVEDATAMSG
-        AHDOOPENDOORMSG
-        AHNOTOPENDOORMSG
+        AHSAVEDATANOCHANGESMSG
+        AHOPENDOORSMSG
         AHUNKNOWNACTIONMSG
         AHERRSAVEDATAMSG
         AHERRREFRESHDATAMSG
@@ -49,7 +48,6 @@ BEGIN {
 
     use constant {
         DOORSERRORCODE => 'Error Code ',
-        DOORSERRCHECKDOORS => 'Error checking Doors propably because couldnt read or write the Database, Database Error'
     };
 
     ##  --
@@ -102,9 +100,7 @@ BEGIN {
         AHSDNEW  => 'New Data is getting Inserted in Database',  ##  action handler save data is added a new value by user data is getting inserted in to database
         AHSAVEDATAMSG => 'Successfully saved your Data to the Database',
         AHSAVEDATANOCHANGESMSG => 'The Database is Up To Date nothing has to be saved',
-        AHDOOPENDOORMSG => 'The Door is getting marked to be Oppened',
-        AHNOTOPENDOORMSG => 'The Door is getting marked to be closed',
-        AHOPENDOORSMSG => 'The Door(s) has been succesfully marked to be Oppened, please check the BookBox'
+        AHOPENDOORSMSG => 'The Door(s) has been succesfully Oppened, please check the BookBox'
     };
 
     ##  --

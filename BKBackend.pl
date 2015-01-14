@@ -9,55 +9,28 @@
 
 use 5.010;
 
-use Cwd qw(abs_path);
-use File::Basename qw(dirname);
-
-use Inline C => Config => MYEXTLIB => '/usr/local/lib/libljacklm.so';
-use Inline C => dirname(abs_path($0)) . '/lib/BK/Backend/SourceC/DoorsInterface.c';
-
 use strict;
 use warnings;
 
-use lib dirname(abs_path($0)) . '/lib/';
+use lib '<BK_PATH>/lib/';
 
 use BK::Common::Constants;
-use BK::Common::MessagesTextConstants;
 use BK::Common::BKFileHandler;
 use BK::Common::CommonMessagesCollector;
 use BK::Common::CommonMessages;
-use BK::Common::DatabaseAccess;
 use BK::Common::CommonVariables;
-use BK::Backend::Doors;
 use BK::Backend::Scanner;
 
-CommonVariables::init_variables('/opt/BK/', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite', Constants::APPENVPRODUCTION);
+CommonVariables::init_variables('/opt/BK/', 'log/message_log', 'log/error_log', undef, undef, Constants::APPENVPRODUCTION);
 
-my $doors = Doors->new(Constants::DOORSOUTPUT);
 my $scanner = Scanner->new();
-
-my $check_doors_thread = threads->create(\&CheckDoorsThread);
 
 while(1) {
     my $input_barc = $scanner->GetInput();
 
     if($input_barc ne '') {
-        my $database_entries = $CommonVariables::database_connection->ReadEntryDatabase('Users', {'username' => $input_barc});
-
-        while(my $database_entries_row = $database_entries->fetchrow_hashref) {
-            my $doors_open = $doors->OpenDoor($database_entries_row->{doornumber}, $input_barc);
-            if(defined($doors_open)) {
-                $CommonVariables::database_connection->BeginWork();
-                $CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}});
-                $CommonVariables::database_connection->CommitChanges();
-            }
-
-            ##  Send E-Mail
-            ##  To Correspondant Person
-        }
     }
 }
-
-$CommonVariables::database_connection->DisconnectFromDatabase();
 
 $CommonVariables::filehandle_log_message->CloseFileHandle();
 $CommonVariables::filehandle_log_error->CloseFileHandle();

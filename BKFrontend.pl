@@ -11,7 +11,7 @@ use 5.010;
 use strict;
 use warnings;
 
-use lib '/opt/BK/lib/';
+use lib '<BK_PATH>/lib/';
 
 use BK::Common::Constants;
 use BK::Common::MessagesTextConstants;
@@ -25,7 +25,7 @@ use BK::Frontend::ActionHandler;
 use Dancer;
 use Template;
 
-CommonVariables::init_variables('/opt/BK/', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite', config->{environment});
+CommonVariables::init_variables('<BK_PATH>', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite', Constants::DOORSOUTPUT, config->{environment});
 
 any ['get'] => '/' => sub {
     template 'index' => {};
