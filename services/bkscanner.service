@@ -1,12 +1,14 @@
 [Unit]
-Description=BKBackend.pl -- Backend for BK
+Description=BKScanner.pl -- Scanner for BK
 After=dev-tty1.device systemd-user-sessions.service
 
 [Service]
+User=bk
+Group=bk
 Type=simple
-PIDFile=/var/run/BKBackend.pid
-ExecStartPre=/bin/rm -rf /var/run/BKBackend.pid
-ExecStart=<BK_PATH>/BKBackend.pl
+PIDFile=/var/run/BKScanner.pid
+ExecStartPre=/bin/rm -rf /var/run/BKScanner.pid
+ExecStart=<BK_PATH>/BKScanner.pl
 StandardInput=tty
 StandardOutput=tty
 TTYPath=/dev/tty1
