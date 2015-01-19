@@ -30,7 +30,8 @@ sub new {
                 Constants::DBERRCOMMIT      => 1,
                 Constants::AHERRREFRESHDATA => 1,
                 Constants::AHERRSAVEDATA    => 1,
-                Constants::AHERROPENDOORS   => 1
+                Constants::AHERROPENDOORS   => 1,
+                Constants::AHERRUSERINPUT   => 1
 
             },
             Constants::CMINFO => {

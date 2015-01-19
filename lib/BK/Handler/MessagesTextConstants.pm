@@ -41,6 +41,7 @@ BEGIN {
         AHERRSAVEDATAMSG
         AHERRREFRESHDATAMSG
         AHERROPENDOORSMSG
+        AHERRUSERINPUTMSG
     );
 
     ##  --
@@ -103,7 +104,8 @@ BEGIN {
         AHUNKNOWNACTIONMSG  => 'unknown request',
         AHERRSAVEDATAMSG    => 'Failed to save your Data to the Database, please try again later. If the Problem preexists, contact your Informatic Service Group.',
         AHERRREFRESHDATAMSG => 'Failed to Refresh the Data, please try again later. If the Problem preexists, contact your Informatic Service Group',
-        AHERROPENDOORSMSG   => 'Failed to open the Door(s), If the Problem preexists, contact your Informatic Service Group'
+        AHERROPENDOORSMSG   => 'Failed to open the Door(s), if the Problem preexists, contact your Informatic Service Group',
+        AHERRUSERINPUTMSG   => 'A User tried to access his / her book at the bookshelf but BK wasnt able to open the door, if the problem preexists, contact your Informatic Service Group'
     };
 
 }

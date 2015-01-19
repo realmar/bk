@@ -71,6 +71,7 @@ BEGIN {
         AHERRSAVEDATA            ##  Logging facility for Error at ActionHandler Save Data to Database, Database error
         AHERRREFRESHDATA         ##  Logging facility for Error at ActionHandler Refresh Data to Client, failed to access Database, Database error
         AHERROPENDOORS           ##  Logging facility for Error at ActionHandler Opening a Door
+        AHERRUSERINPUT           ##  Logging facility for Error at ActionHandler User Input
         AHSUCCSAVEDATA           ##  Logging facility for Message (success) at ActionHandler Save Data Logging facility for JavaScript Messages
         AHSUCCOPENDOORS          ##  Logging facility for Message (success) at ActionHandler Oppening Doors Lagging facility for JavaScript Messages
         AHUNKNOWNACTION          ##  Logging facility for Error at ActionHandler Unknown Action from Client
@@ -261,7 +262,8 @@ BEGIN {
     use constant {
         AHERRSAVEDATA    => 'aherrsavedata',
         AHERRREFRESHDATA => 'aherrrefreshdata',
-        AHERROPENDOORS   => 'aherropendoors'
+        AHERROPENDOORS   => 'aherropendoors',
+        AHERRUSERINPUT   => 'aherruserinput'
     };
 
     ##  --

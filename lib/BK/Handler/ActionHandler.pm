@@ -136,6 +136,19 @@ sub ProcessAction {
             }
             last;
         }
+        case Constants::AHUSERINPUT {
+            $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHUSERINPUT, $self->{_data});
+            $self->FromJSON();
+            my $sav_data_response = $self->RequestOpenDoors();
+            if($sav_data_response eq Constants::INTERNALERROR) {
+                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRSAVEDATA, MessagesTextConstants::AHERRSAVEDATAMSG);
+            }elsif($sav_data_response eq Constants::AHERROPENDOORS) {
+                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRUSERINPUT, MessagesTextConstants::AHERRUSERINPUTMSG);
+            }elsif($sav_data_response eq Constants::AHREFRESH) {
+                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRREFRESHDATA, MessagesTextConstants::AHERRREFRESHDATAMSG);
+            }
+            last;
+        }
         case Constants::AHKEEPALIVE {
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHKEEPALIVE, $self->{_action});
             $self->SetProcAC(1);

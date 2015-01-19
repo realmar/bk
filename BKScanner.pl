@@ -31,7 +31,7 @@ while(1) {
     my $input_barc = $scanner->GetInput();
 
     if($input_barc ne '') {
-        get('http://localhost:<BK_PORT>/' . Constants::AHUSERINPUT . '?msg_data={ "user" : "' . $input_barc . '" }');
+        get('http://localhost:<BK_PORT>/' . Constants::AHUSERINPUT . '?msg_data=[{ "' . Constants::OPENDOOR . '" : ' . Constants::TRUE . ', "user" : "' . $input_barc . '" }]');
     }
 }
 
