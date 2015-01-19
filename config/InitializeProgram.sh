@@ -144,6 +144,7 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     echo 'Applying ' $BK_PORT
 
     sed -i "s/<BK_PORT>/$BK_PORT/g" $PA/public/javascript/scripts/variables/VariablesDefinition.js
+    sed -i "s/<BK_PORT>/$BK_PORT/g" $PA/BKScanner.pl
 
     echo ''
     echo ''

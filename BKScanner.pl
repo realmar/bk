@@ -21,6 +21,8 @@ use BK::Common::CommonMessages;
 use BK::Common::CommonVariables;
 use BK::Scanner::Scanner;
 
+use LWP::Simple;
+
 CommonVariables::init_variables('<BK_PATH>/', 'log/message_log', 'log/error_log', undef, undef, Constants::APPENVPRODUCTION);
 
 my $scanner = Scanner->new();
@@ -29,6 +31,7 @@ while(1) {
     my $input_barc = $scanner->GetInput();
 
     if($input_barc ne '') {
+        get('http://localhost:<BK_PORT>/' . Constants::AHUSERINPUT . '?msg_data={ "user" : "' . $input_barc . '" }');
     }
 }
 

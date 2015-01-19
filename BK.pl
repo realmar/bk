@@ -50,7 +50,8 @@ any [qw(GET)] => '/' => sub {
 
 any [qw(GET POST)] => '/:action' => sub {
     my $self = shift;
-    my ( $action, $msg_data ) = $self->param(['action', 'msg_data']);
+    my $action = $self->stash('action');
+    my $msg_data= $self->param('msg_data');
     my $recv_action = ActionHandler->new($action, $msg_data);
     $recv_action->ProcessAction();
     my $data_to_send = $recv_action->PrepareDataToSend();

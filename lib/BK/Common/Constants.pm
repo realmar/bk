@@ -65,6 +65,7 @@ BEGIN {
         AHSAVEDATAWRITE          ##  Logging facility for Message (take note) at ActionHandler what happens with the Database (SQL Code)
         AHKEEPALIVE              ##  ActionHandler (AH) facility for Keep Alive requests for the WebSockets
         AHOPENDOORS              ##  ActionHandler (AH) facility for Opening a Doors
+        AHUSERINPUT              ##  ActionHandler (AH) facility for getting User Input from the Scanner
         AHNOTCHANGED             ##  Logging facility for Message (take note) at ActionHandler if the Database has not changed
         AHDATABASECHANGED        ##  Logging facility for Message (take note) at ActionHandler if the Database has changed
         AHERRSAVEDATA            ##  Logging facility for Error at ActionHandler Save Data to Database, Database error
@@ -242,7 +243,8 @@ BEGIN {
         AHSAVEDATA      => 'ahsavedata',
         AHSAVEDATAWRITE => 'ahsavedatawrite',
         AHKEEPALIVE     => 'ahkeepalive',
-        AHOPENDOORS      => 'ahopendoors'
+        AHOPENDOORS     => 'ahopendoors',
+        AHUSERINPUT     => 'ahuserinput'
     };
 
     ##  --
