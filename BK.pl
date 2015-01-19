@@ -43,6 +43,21 @@ websocket '/ws' => sub {
     });
 };
 
+any [qw(GET)] => '/' => sub {
+    my $self = shift;
+    $self->render('index');
+};
+
+any [qw(GET POST)] => '/:action' => sub {
+    my $self = shift;
+    my ( $action, $msg_data ) = $self->param(['action', 'msg_data']);
+    my $recv_action = ActionHandler->new($action, $msg_data);
+    $recv_action->ProcessAction();
+    my $data_to_send = $recv_action->PrepareDataToSend();
+    $recv_action->DESTROY();
+    $self->render(text => $data_to_send);
+};
+
 app->start;
 
 __END__
