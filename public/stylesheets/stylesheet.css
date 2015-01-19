@@ -151,17 +151,17 @@ span.remove_msg {
     font-weight: bold;
 }
 
-div#msg_user > p.msg_user > span.remove_msg:hover {
+div#msg_user_client > p.msg_user > span.remove_msg:hover {
     background-color: rgb(22, 74, 0);
     cursor: pointer;
 }
 
-div#msg_user > p.msg_user > span.remove_msg:active {
+div#msg_user_client > p.msg_user > span.remove_msg:active {
     background-color: rgb(4, 58, 0);
     cursor: pointer;
 }
 
-div#msg_errors > p.msg_errors> span.remove_msg:hover {
+div#msg_errors > p.msg_errors > span.remove_msg:hover {
     background-color: rgb(98, 0, 0);
     cursor: pointer;
 }
