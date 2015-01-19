@@ -63,7 +63,7 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     read -p 'Do you want to install the required packages? [Y/n]: ' INSTPKG
     if [[ $INSTPKG =~ ^(yes|y) ]] || [[ -z $INSTPKG ]]; then
         echo 'Installing the required packages'
-        aptitude install git perl apache2 libdancer-perl libmojolicious-perl libinline-perl libinline-c-perl libjson-perl libtemplate-perl libdbi-perl libdbd-sqlite3-perl libusb-1.0-0 linux-headers-586 libc6-dev libusb-1.0-0-dev sqlite3 make unzip gcc
+        aptitude install git perl apache2 libdancer-perl libmojolicious-perl libinline-perl libinline-c-perl libjson-perl libtemplate-perl libdbi-perl libdbd-sqlite3-perl libio-all-lwp-perl libusb-1.0-0 linux-headers-586 libc6-dev libusb-1.0-0-dev sqlite3 make unzip gcc
     else
         echo 'Not installing the required packages'
     fi
@@ -144,7 +144,6 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     echo 'Applying ' $BK_PORT
 
     sed -i "s/<BK_PORT>/$BK_PORT/g" $PA/public/javascript/scripts/variables/VariablesDefinition.js
-    sed -i "s/<BK_PORT>/$BK_PORT/g" $PA/BKScanner.pl
 
     echo ''
     echo ''
@@ -185,6 +184,7 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     sed -i "s/<BK_LOCAL_PORT>/$BK_LOCAL_PORT/g" $PA/Apache2_Config/*
     sed -i "s/<BK_LOCAL_PORT>/$BK_LOCAL_PORT/g" $PA/Apache2_Config/sites-common/*
     sed -i "s/<BK_LOCAL_PORT>/$BK_LOCAL_PORT/g" $PA/services/*
+    sed -i "s/<BK_LOCAL_PORT>/$BK_LOCAL_PORT/g" $PA/BKScanner.pl
     sed -i "s/<HOSTNAME>/localhost/g" $PA/services/*
     read -p 'Do you want to create a Self Signed SSL Certificate? [Y/n]: ' MAKESSC
     if [[ $MAKESSC =~ ^(yes|y) ]] || [[ -z $MAKESSC ]]; then
