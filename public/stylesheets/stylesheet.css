@@ -41,13 +41,16 @@ div.vert_middle,p.vert_middle,img.vert_middle {
     vertical-align: middle;
 }
 
-div.button_standard {
-    background-color: rgb(199, 199, 199);
+div.button_standard_base {
     line-height: 0em;
     margin: 1em 0.4em 0.4em 0em;
     padding: 0.2em;
     width: 8em;
     text-align: center;
+}
+
+div.button_standard {
+    background-color: rgb(199, 199, 199);
 }
 
 div.button_standard:hover {
