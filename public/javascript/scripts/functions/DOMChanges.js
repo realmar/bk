@@ -66,7 +66,7 @@ function GetBookboxDataAndCheckDOMDoubleDataEntries() {  //  Checks if there are
     var bookbox_data = [];
     var dom_double_data_entry_vals = [];
     var dom_double_data_entry = false;
-    $(".bookbox.input_error").removeClass("input_error");
+    $(".bookbox.double_data").removeClass("double_data");
     for(var i = 0; i < $("div.bookbox").length; i++) {
         for(var i2 = 0; i2 < bookbox_data.length; i2++) {
             if(bookbox_data[i2] == $("div#bookbox" + i + "> input.bookbox_input").val() && $("div#bookbox" + i + "> input.bookbox_input").val() != "") {
@@ -80,13 +80,17 @@ function GetBookboxDataAndCheckDOMDoubleDataEntries() {  //  Checks if there are
         for(var i = 0; i < $("div.bookbox").length; i++) {
             for(var i2 = 0; i2 < dom_double_data_entry_vals.length; i2++) {
                 if($("div#bookbox" + i + "> input.bookbox_input").val() == dom_double_data_entry_vals[i2]) {
-                    $("div#bookbox" + i).addClass("input_error");
+                    $("div#bookbox" + i).addClass("double_data");
                     break;
                 }
             }
         }
+        if($("div#msg_user_client_const > p." + DBL_DATA).length <= 0) {
+            AddMessageData($("div#msg_user_client_const"), dom_double_data_entry_tpl, APPEND);
+        }
         return GET_DOM_DATA_DOUBLE_ENTRY;
     }
+    RemoveMessageData($("div#msg_user_client_const > p." + DBL_DATA));
     return bookbox_data;
 }
 

@@ -71,7 +71,7 @@ Created For / At: ETH Zuerich Department Physics
                     <div><div class="desc_legend empty_bookbox display_inline"></div><p class="display_inline">Empty Bookbox</p></div>
                     <div><div class="desc_legend unchanged display_inline"></div><p class="display_inline">Unchanged Content</p></div>
                     <div><div class="desc_legend changed display_inline"></div><p class="display_inline">You Changed Content</p></div>
-                    <div><div class="desc_legend input_error display_inline"></div><p class="display_inline">Error with your Input</p></div>
+                    <div><div class="desc_legend double_data display_inline"></div><p class="display_inline">This Data exists at least twice</p></div>
                 </div>
                 <div>
                     <div id="save_button" class="display_inline vert_middle button_standard"><p>Save</p></div>

@@ -102,23 +102,15 @@ function ProgrammHandler() {
     
     function SaveData() {
         DisplayLoadingMessage();
-        var bookbox_data_check = GetBookboxDataAndCheckDOMDoubleDataEntries();
-        if(bookbox_data_check == GET_DOM_DATA_DOUBLE_ENTRY) {
-            if($("div#msg_errors_const > p." + DBL_DATA).length <= 0) {
-                AddMessageData($("div#msg_errors_const"), dom_double_data_entry_tpl, APPEND);
-            }
-            HideLoadingMessage();
-        }else{
-            var bookbox_data = GetBookboxData();
-            RemoveMessageData($("div#msg_errors_const > p." + DBL_DATA));
-            switch (this.conn_type) {
-                case CONN_TYPE_WEBSOCKETS:
-                    this.bk_websocket.SendMSGWS(ACTION_SAVEDATA, bookbox_data);
-                    break;
-                case CONN_TYPE_AJAX:
-                    this.bk_ajax_data.AJAXGetData(ACTION_SAVEDATA, JSON.stringify(bookbox_data), AJAX_SEND_TYPE_POST);
-                    break;
-            }
+        GetBookboxDataAndCheckDOMDoubleDataEntries();
+        var bookbox_data = GetBookboxData();
+        switch (this.conn_type) {
+            case CONN_TYPE_WEBSOCKETS:
+                this.bk_websocket.SendMSGWS(ACTION_SAVEDATA, bookbox_data);
+                break;
+            case CONN_TYPE_AJAX:
+                this.bk_ajax_data.AJAXGetData(ACTION_SAVEDATA, JSON.stringify(bookbox_data), AJAX_SEND_TYPE_POST);
+                break;
         }
     }
 

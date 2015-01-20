@@ -92,8 +92,8 @@ div.desc_legend {
     margin-right: 1em;
 }
 
-div.input_error {
-    background-color: rgb(255, 168, 168);
+div.double_data {
+    background-color: rgb(198, 168, 255);
 }
 
 img.loading_image {
