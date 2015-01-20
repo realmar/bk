@@ -21,6 +21,10 @@ function InitializeButtons() {  //  Initializes all Buttons
         $("div.bookbox > input.bookbox_input").val("");
     });
     $("div#open_all_doors_button").click(function () {
+        $("div#open_all_doors_button").removeClass("display_inline");
+        $("div#open_all_doors_button").addClass("display_none");
+        $("div#open_all_doors_button_inactive").removeClass("display_none");
+        $("div#open_all_doors_button_inactive").addClass("display_inline");
         programm_handler.OpenDoors([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     });
     $("div.bookbox > p > span.edit_bookbox > span.delete_bookbox").click(function () {

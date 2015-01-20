@@ -116,7 +116,9 @@ function ProgrammHandler() {
 
     function OpenDoors(doors) {
         DisplayLoadingMessage();
-        AddMessageData($("div#msg_user_client_const"), open_doors_tpl, APPEND);
+        if($("div#msg_user_client_const > p." + OPN_DOORS).length <= 0) {
+            AddMessageData($("div#msg_user_client_const"), open_doors_tpl, APPEND);
+        }
         var opendoors = new Array();
         for(var i = 0; i < DOORS_COUNT; i++) {
             opendoors[i] = {};

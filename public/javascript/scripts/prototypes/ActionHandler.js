@@ -64,6 +64,10 @@ function ActionHandler(msg_data_arg) {
             }
         }
         RemoveMessageData($("div#msg_user_client_const > p." + OPN_DOORS));
+        $("div#open_all_doors_button").removeClass("display_none");
+        $("div#open_all_doors_button").addClass("display_inline");
+        $("div#open_all_doors_button_inactive").removeClass("display_inline");
+        $("div#open_all_doors_button_inactive").addClass("display_none");
         HideLoadingMessage();
     }
 }

@@ -60,6 +60,10 @@ div.button_standard:active {
     cursor: pointer;
 }
 
+div.button_standard_inactive {
+    background-color: rgb(232, 232, 232);
+}
+
 div.bookbox {
     margin: 8px;
     padding: 8px;
