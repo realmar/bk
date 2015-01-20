@@ -113,7 +113,7 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     touch $PA/logs/{production,development}.log
 
     echo 'Stopping BK Services, this may take long'
-    systemctl stop bk{scanner,}.service
+    systemctl stop {bk,bkscanner}.service
 
     echo 'Setting up the database'
     echo 'AFTER DATABASE IS SET UP EXIT THE SQLITE3 CONSOLE WITH .exit TO CONTINUE THE SETUP'
@@ -236,11 +236,6 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     echo ''
     echo ''
 
-    echo 'Enabling BK Web Services'
-    systemctl enable bk.service
-    echo 'Starting BK Web Services'
-    systemctl start bk.service
-
     read -p 'Do you want to configure the BK Backend Service (WARNING: this will disable all GETTYs and will run BKBackend on TTY1) [Y/n]' $CONFBKB
     if [[ $CONFBKB =~ ^(Y|y) ]] || [[ -z $CONFBKB ]]; then
         if [[ -d /etc/systemd/system/getty.target.wants ]]; then
@@ -254,6 +249,11 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
         echo 'You have to configure BK Backend manually'
         echo 'Take a look at the BK Installation guide'
     fi
+
+    echo 'Enabling BK Web Services'
+    systemctl enable bk.service
+    echo 'Starting BK Web Services'
+    systemctl start bk.service
 
     echo ''
     echo ''

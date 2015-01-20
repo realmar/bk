@@ -38,7 +38,7 @@ websocket '/ws' => sub {
         $recv_action->FromJSON();
         $recv_action->PrepareWebSocketData();
         $recv_action->ProcessAction();
-        if($recv_action->GetAHAction() != Constants::AHUSERINPUT) {
+        if($recv_action->GetAHAction() ne Constants::AHUSERINPUT) {
             $self->send($recv_action->PrepareDataToSend()) if !$recv_action->GetProcAC();
         }
         $recv_action->DESTROY();
@@ -56,7 +56,7 @@ any [qw(GET POST)] => '/:action' => sub {
     my $msg_data= $self->param('msg_data');
     my $recv_action = ActionHandler->new($action, $msg_data);
     $recv_action->ProcessAction();
-    if($recv_action->GetAHAction() != Constants::AHUSERINPUT) {
+    if($recv_action->GetAHAction() ne Constants::AHUSERINPUT) {
         my $data_to_send = $recv_action->PrepareDataToSend();
         $recv_action->DESTROY();
         $self->render(text => $data_to_send);
