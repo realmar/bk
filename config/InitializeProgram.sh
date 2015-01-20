@@ -102,6 +102,18 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
         echo 'Not downloading and installing the LabJack drivers'
     fi
 
+    read -p 'Generating BK User bk if a User named bk exists it will be deleted continue? [Y/n]: ' GENUSER
+    if [[ $GENUSER =~ ^(no|n) ]]; then
+        echo 'Not configuring BK User'
+        echo 'Abording installation of BK'
+        exit 0;
+    fi
+    if [[ `getent passwd bk` ]]; then
+        deluser bk
+    fi
+    useradd bk
+    echo 'Configuring Groups for the bk User'
+    usermod -a -G adm bk
     echo 'Setting up other required folders'
 
     rm -rf $PA/{database,log,logs}
@@ -154,17 +166,7 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
         echo 'Abording installation of BK'
         exit 0
     fi
-    read -p 'Generating BK User bk if a User named bk exists it will be deleted continue? [Y/n]: ' GENUSER
-    if [[ $GENUSER =~ ^(no|n) ]]; then
-        echo 'Not configuring BK User'
-        echo 'Abording installation of BK'
-        exit 0;
-    fi
     service apache2 stop
-    if [[ `getent passwd bk` ]]; then
-        deluser bk
-    fi
-    useradd bk
     echo 'Initializing Apache Configuration Files'
     cd /etc/apache2
     sed -i "s|<BK_PATH>|$PA|g" $PA/Apache2_Config/*
