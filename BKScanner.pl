@@ -23,7 +23,7 @@ use BK::Scanner::Scanner;
 
 use LWP::Simple;
 
-CommonVariables::init_variables('<BK_PATH>/', 'log/message_log', 'log/error_log', undef, undef, Constants::APPENVPRODUCTION);
+CommonVariables::init_variables('<BK_LOCAL_PATH>/', 'log/message_log', 'log/error_log', undef, undef, Constants::APPENVPRODUCTION);
 
 my $scanner = Scanner->new();
 
