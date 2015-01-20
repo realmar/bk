@@ -162,7 +162,7 @@ function CheckBookboxStates() {
         }
     }
     if($(".changed.bookbox").length > 0) {
-        if($("div#msg_user_client_const > p").length <= 0) {
+        if($("div#msg_user_client_const > p." + CHAG_CONT).length <= 0) {
             AddMessageData($("div#msg_user_client_const"), apply_changes_tpl, PREPEND);
         }
     }else{
