@@ -40,6 +40,8 @@ websocket '/ws' => sub {
         $recv_action->ProcessAction();
         if($recv_action->GetAHAction() ne Constants::AHUSERINPUT) {
             $self->send($recv_action->PrepareDataToSend()) if !$recv_action->GetProcAC();
+        }else{
+            $self->send(MessagesTextConstants::STATUS200);
         }
         $recv_action->DESTROY();
     });
@@ -58,11 +60,11 @@ any [qw(GET POST)] => '/:action' => sub {
     $recv_action->ProcessAction();
     if($recv_action->GetAHAction() ne Constants::AHUSERINPUT) {
         my $data_to_send = $recv_action->PrepareDataToSend();
-        $recv_action->DESTROY();
         $self->render(text => $data_to_send);
     }else{
-        $recv_action->DESTROY();
+        $self->render(text => MessagesTextConstants::STATUS200);
     }
+    $recv_action->DESTROY();
 };
 
 app->start;

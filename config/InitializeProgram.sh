@@ -274,6 +274,13 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     chgrp bk $PA/{log,logs,database,_Inline}
     chgrp bk $PA/{log,logs,database,_Inline}/*
 
+    echo ''
+    echo ''
+    echo 'PLEASE VERIFY that all Services are running'
+    echo 'systemctl status {bk,bkscanner}'
+    echo ''
+    echo ''
+
     echo '---------------------------------------------------------'
     echo 'Installation Complete'
     echo 'Thank you for choosing our software solutions'
