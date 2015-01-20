@@ -23,7 +23,7 @@ use BK::Scanner::Scanner;
 
 use LWP::Simple;
 
-CommonVariables::init_variables('<BK_LOCAL_PATH>/', 'log/message_log', 'log/error_log', undef, undef, Constants::APPENVPRODUCTION);
+CommonVariables::init_variables('<BK_PATH>/', 'log/message_log', 'log/error_log', undef, undef, Constants::APPENVPRODUCTION);
 
 my $scanner = Scanner->new();
 
@@ -31,7 +31,7 @@ while(1) {
     my $input_barc = $scanner->GetInput();
 
     if($input_barc ne '') {
-        my $request = 'http://localhost:<BK_PORT>/' . Constants::AHUSERINPUT . '?msg_data=[{ "' . Constants::OPENDOOR . '" : ' . Constants::TRUE . ', "user" : "' . $input_barc . '" }]';
+        my $request = 'http://localhost:<BK_LOCAL_PORT>/' . Constants::AHUSERINPUT . '?msg_data=[{ "' . Constants::OPENDOOR . '" : ' . Constants::TRUE . ', "user" : "' . $input_barc . '" }]';
         get($request);
     }
 }

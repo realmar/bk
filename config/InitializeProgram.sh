@@ -181,11 +181,11 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     sed -i "s/<SERVERADMIN>/$SERVERADMIN/g" $PA/Apache2_Config/sites-common/*
     read -p 'Enter the Port on which BK should run locally: ' BK_LOCAL_PORT
     echo 'Applying ' $BK_LOCAL_PORT
-    sed -i "s/<BK_LOCAL_PORT>/$BK_LOCAL_PORT/g" $PA/Apache2_Config/*
-    sed -i "s/<BK_LOCAL_PORT>/$BK_LOCAL_PORT/g" $PA/Apache2_Config/sites-common/*
-    sed -i "s/<BK_LOCAL_PORT>/$BK_LOCAL_PORT/g" $PA/services/*
-    sed -i "s/<BK_LOCAL_PORT>/$BK_LOCAL_PORT/g" $PA/BKScanner.pl
-    sed -i "s/<HOSTNAME>/localhost/g" $PA/services/*
+    sed -i "s|<BK_LOCAL_PORT>|$BK_LOCAL_PORT|g" $PA/Apache2_Config/*
+    sed -i "s|<BK_LOCAL_PORT>|$BK_LOCAL_PORT|g" $PA/Apache2_Config/sites-common/*
+    sed -i "s|<BK_LOCAL_PORT>|$BK_LOCAL_PORT|g" $PA/services/*
+    sed -i "s|<BK_LOCAL_PORT>|$BK_LOCAL_PORT|g" $PA/BKScanner.pl
+    sed -i "s|<HOSTNAME>|localhost|g" $PA/services/*
     read -p 'Do you want to create a Self Signed SSL Certificate? [Y/n]: ' MAKESSC
     if [[ $MAKESSC =~ ^(yes|y) ]] || [[ -z $MAKESSC ]]; then
         echo 'Creating SSL Self-Signed Certificates'
