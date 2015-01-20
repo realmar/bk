@@ -34,6 +34,7 @@ var AH_SUCC_OPEN_DOORS = 'ah_succ_open_doors';
 var CHAG_CONT          = 'chag_cont';
 var NO_CONN_SAVE_ERR   = 'no_conn_save_err';
 var DBL_DATA           = 'dbl_data';
+var OPN_DOORS          = 'opn_doors';
 
 var GET_DOM_DATA_DOUBLE_ENTRY = 'double_dom_data_entry';
 

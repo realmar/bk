@@ -63,6 +63,7 @@ function ActionHandler(msg_data_arg) {
                 InitializeRemoveMSGButton(new_message_obj.find(".remove_msg"));
             }
         }
+        RemoveMessageData($("div#msg_user_client_const > p." + OPN_DOORS));
         HideLoadingMessage();
     }
 }

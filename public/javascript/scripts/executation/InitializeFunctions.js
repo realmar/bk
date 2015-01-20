@@ -20,6 +20,9 @@ function InitializeButtons() {  //  Initializes all Buttons
     $("div#delete_all_button").click(function () {
         $("div.bookbox > input.bookbox_input").val("");
     });
+    $("div#open_all_doors_button").click(function () {
+        programm_handler.OpenDoors([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    });
     $("div.bookbox > p > span.edit_bookbox > span.delete_bookbox").click(function () {
         $(this).parent().parent().next("input.bookbox_input").val("");
     });

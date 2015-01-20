@@ -20,3 +20,4 @@ var apply_changes_tpl         = '<p class="' + MSG_USER + ' ' + CHAG_CONT + ' ' 
 var no_connection_err_tpl     = '<p class="' + MSG_ERRORS + ' ' + NO_CONN_ERROR + ' ' + AH_ERROR + '">ERROR: conn_err<br>Could not connect to Server, it seems that you are Offline<br>Check you Internet Connection</p>';
 var no_conn_save_err_tpl      = '<p class="' + MSG_ERRORS + ' ' + NO_CONN_SAVE_ERR + ' ' + AH_ERROR + '">ERROR: conn_err<br>Could not save your Data because you are Offline<br>Check your Internet Connection and Try Again</p>';
 var dom_double_data_entry_tpl = '<p class="' + MSG_USER + ' ' + DBL_DATA + ' ' + AH_MESSAGE + '">There is Data which exists at least twice, if you think this is wrong, check your Input</p>';
+var open_doors_tpl            = '<p class="' + MSG_USER + ' ' + OPN_DOORS + ' ' + AH_MESSAGE + '">Opening Door(s) please hold on ...</p>';
