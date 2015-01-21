@@ -12,6 +12,7 @@ ExecStart=<BK_PATH>/BKScanner.pl
 StandardInput=tty
 StandardOutput=tty
 TTYPath=/dev/tty1
+Restart=always
 
 [Install]
 WantedBy=multi-user.target

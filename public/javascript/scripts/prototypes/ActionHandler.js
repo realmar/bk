@@ -25,7 +25,7 @@ function ActionHandler(msg_data_arg) {
         programm_handler.CheckBookboxStates();
         for(var i = 0; i < this.msg_data["msg_data"].length; i++) {
             var current_bookbox = $("div#bookbox" + i + "> input.bookbox_input");
-            if(current_bookbox.parent().hasClass("empty_bookbox") || current_bookbox.parent().hasClass("unchanged") || programm_handler.last_data_state.length <= 0 || (current_bookbox.parent().hasClass("changed") && this.msg_data["msg_data"][i] == null && programm_handler.last_data_state[i] != null)) {
+            if(current_bookbox.parent().hasClass("changed") || programm_handler.last_data_state.length <= 0 || (current_bookbox.parent().hasClass("changed") && this.msg_data["msg_data"][i] == null && programm_handler.last_data_state[i] != null)) {
                 current_bookbox.val(this.msg_data["msg_data"][i]);
             }
         }

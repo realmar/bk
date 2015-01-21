@@ -7,6 +7,7 @@ Group=bk
 PIDFile=/var/run/BK.pid
 ExecStartPre=/bin/rm -rf /var/run/BK.pid
 ExecStart=<BK_PATH>/BK.pl daemon -m production -l http://<HOSTNAME>:<BK_LOCAL_PORT>
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
