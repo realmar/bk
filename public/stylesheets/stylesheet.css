@@ -76,10 +76,6 @@ div.display_none,p.display_none {
     display: none;
 }
 
-div.padding_null {
-    padding: 0px;
-}
-
 div.msg {
     padding: 0.1em;
     margin-top: 1em;
