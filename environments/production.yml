@@ -1,6 +1,0 @@
-log: 'warning'
-startup_info: 0
-show_errors: 0
-server: <HOSTNAME>
-port: <BK_PORT>
-auto_reload: 0
