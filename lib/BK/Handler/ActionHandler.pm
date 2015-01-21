@@ -221,6 +221,19 @@ sub RequestOpenDoors {
     my $self = shift;
 
     my $database_changed = 0;
+    my $open_all_doors = 1;
+
+    for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
+        if($self->{_data}[$i]->{Constants::OPENDOOR} == Constants::FALSE) {
+            $open_all_doors = 0;
+        }
+    }
+
+    if($open_all_doors && scalar(@{$self->{_data}}) != (scalar(Constants::DOORSOUTPUT) - 1)) {
+        $open_all_doors = 0;
+    }
+
+    my $opened_all_doors = 0;
 
     for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
         if($self->{_data}[$i]->{Constants::OPENDOOR} == Constants::TRUE) {
@@ -228,7 +241,12 @@ sub RequestOpenDoors {
                 my $database_entries = $CommonVariables::database_connection->ReadEntryDatabase('Users', {'username' => $self->{_data}[$i]->{user}});
 
                 while(my $database_entries_row = $database_entries->fetchrow_hashref) {
-                    my $doors_open = $CommonVariables::doors->OpenDoor($database_entries_row->{doornumber}, $self->{_data}[$i]->{user});
+                    if($open_all_doors && !$opened_all_doors) {
+                        $opened_all_doors = 1;
+                        my $doors_open = $CommonVariables::doors->OpenDoor(scalar(Constants::DOORSOUTPUT), $self->{_data}[$i]->{user});
+                    }else{
+                        my $doors_open = $CommonVariables::doors->OpenDoor($database_entries_row->{doornumber}, $self->{_data}[$i]->{user});
+                    }
                     if(defined($doors_open)) {
                         $CommonVariables::database_connection->BeginWork();
                         if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}}) eq Constants::INTERNALERROR) {
@@ -241,7 +259,13 @@ sub RequestOpenDoors {
                 }
 
             }else{
-                if(!defined($CommonVariables::doors->OpenDoor($i, $self->{_data}[$i]->{user}))) {
+                if($open_all_doors && !$opened_all_doors) {
+                    $opened_all_doors = 1;
+                    my $doors_open = $CommonVariables::doors->OpenDoor(scalar(Constants::DOORSOUTPUT), $self->{_data}[$i]->{user});
+                }else{
+                    my $doors_open = $CommonVariables::doors->OpenDoor($i, $self->{_data}[$i]->{user})
+                }
+                if(!defined($doors_open)) {
                     $database_changed = Constants::AHERROPENDOORS;
                 }
             }

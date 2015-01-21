@@ -113,6 +113,7 @@ BEGIN {
         0x100,  ##  D8
         0x200,  ##  D9
         0x400,  ##  D10
+        0xffff  ##  all pins
     ];
 
     ##  --
