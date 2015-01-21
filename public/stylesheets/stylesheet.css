@@ -98,6 +98,8 @@ div.desc_legend {
     width: 10px;
     height: 10px;
     margin-right: 1em;
+    padding: 6px;
+    vertical-align: middle;
 }
 
 div.double_data {

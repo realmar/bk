@@ -66,7 +66,7 @@ function ProgrammHandler() {
             this.bk_ajax_data = null;
             this.bk_ajax_data = new AJAXRequest(ajax_path);
             this.intervals_collector.RegisterInterval(['RefreshData'], 'bk_ajax_data_refresh', 8, {dtshort : 2000, dtlong : 60000});
-            this.intervals_collector.RegisterInterval(['ConnectToWebSocket'], 'bk_websocket_try_connect', 8, {dtshort : 2800, dtlong : 600000});
+            this.intervals_collector.RegisterInterval(['ConnectToWebSocket'], 'bk_websocket_try_connect', 8, {dtshort : 2800, dtlong : 60000});
             this.intervals_collector.UpgradeInterval('bk_websocket_try_connect', true);
             this.SetConnectionType(CONN_TYPE_AJAX);
             RemoveMessageData($("." + NO_CONN_ERROR));
