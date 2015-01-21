@@ -45,7 +45,7 @@ function IntervalsCollector() {
             }
             var this_interval = programm_handler.intervals_collector.intervals[name];
             if(this_interval.tries.do) {
-                if(this_interval.tries.counter <= 0) {
+                if(this_interval.tries.count <= 0) {
                     this_interval.dt = this_interval.diff_times.long;
                 }else{
                     this_interval.tries.count--;
