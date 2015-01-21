@@ -95,7 +95,7 @@ BEGIN {
         AHSDNEW  => 'New Data is getting Inserted in Database',  ##  action handler save data is added a new value by user data is getting inserted in to database
         AHSAVEDATAMSG => 'Successfully saved your Data to the Database',
         AHSAVEDATANOCHANGESMSG => 'The Database is Up To Date nothing has to be saved',
-        AHOPENDOORSMSG => 'The Door(s) has been succesfully Oppened, please check the BookBox'
+        AHOPENDOORSMSG => 'The Door(s) has been succesfully opened, please check the BookBox'
     };
 
     ##  --
@@ -104,7 +104,7 @@ BEGIN {
     use constant {
         AHUNKNOWNACTIONMSG  => 'unknown request',
         AHERRSAVEDATAMSG    => 'Failed to save your Data to the Database, please try again later. If the Problem preexists, contact your Informatic Service Group.',
-        AHERRREFRESHDATAMSG => 'Failed to Refresh the Data, please try again later. If the Problem preexists, contact your Informatic Service Group',
+        AHERRREFRESHDATAMSG => 'Failed to refresh the Data, please try again later. If the Problem preexists, contact your Informatic Service Group',
         AHERROPENDOORSMSG   => 'Failed to open the Door(s), if the Problem preexists, contact your Informatic Service Group',
         AHERRUSERINPUTMSG   => 'A User tried to access his / her book at the bookshelf but BK wasnt able to open the door, if the problem preexists, contact your Informatic Service Group'
     };
