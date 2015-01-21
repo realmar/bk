@@ -21,6 +21,10 @@ main {
     margin-left: auto;
 }
 
+footer {
+    font-size: 0,6em;
+}
+
 div#desc_legend_container {
     vertical-align: top;
     margin-left: 2em;
