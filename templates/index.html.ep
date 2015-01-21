@@ -9,87 +9,36 @@ Created For / At: ETH Zuerich Department Physics
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <base href="">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta http-equiv="cache-control" content="no-cache" />
-        <meta http-equiv="pragma" content="no-cache" />
-        <meta http-equiv="content-language" content="en,de" />
-        <meta name="application-name" content="BK" />
-        <meta name="author" content="Anastassios Martakos" />
-        <meta name="company" content="ETH Zuerich" />
-        <meta name="keywords" content="Buecherkastern Bibliothek BK Verwalten" />
-        <meta name="description" content="This is the Frontend of the Buecherkasten Bibliothek BK of the D-Phys ETH Zuerich Management Tool" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>BK - Buecherkasten Library - Department of Physics</title>
-        <link href="stylesheets/stylesheet.css" rel="stylesheet" />
-        <link rel="ICON" href="images/bklogo.png" />
-        <link rel="SHORTCUT ICON" href="images/bklogo.png" />
-        <script src="javascript/source/jquery.min.js"></script>
-        <script src="javascript/scripts/variables/Constants.js"></script>
-        <script src="javascript/scripts/variables/VariablesDefinition.js"></script>
-        <script src="javascript/scripts/prototypes/ActionHandler.js"></script>
-        <script src="javascript/scripts/prototypes/AJAXData.js"></script>
-        <script src="javascript/scripts/prototypes/ProgrammHandler.js"></script>
-        <script src="javascript/scripts/prototypes/WebSockets.js"></script>
-        <script src="javascript/scripts/prototypes/Intervals.js"></script>
-        <script src="javascript/scripts/functions/DOMChanges.js"></script>
-        <script src="javascript/scripts/executation/InitializeFunctions.js"></script>
-        <script src="javascript/scripts/executation/Main.js"></script>
-    </head>
+    %= include 'head'
     <body>
         <div id="container">
-            <header>
-                <h1 class="display_inline">Buecherkasten Library</h1>
-                <p id="connection_type_ajax" class="display_inline connection_type display_none">running on AJAX (slow mode) : your connection may be slower than normal</p>
-                <p id="connection_type_websockets" class="display_inline connection_type display_none">running on WebSockets (fast mode) : you should experience the best speed performance</p>
-            </header>
-
+            %= include 'header'
             <main>
                 <div class="display_inline">
                     <div>
-                        <div id="bookbox0" class="display_inline bookbox"><p class="bookbox_text">BookBox 1<span class="edit_bookbox"><span class="edit_bookbox_common open_bookbox">O</span><span class="edit_bookbox_common undo_bookbox">U</span><span class="edit_bookbox_common delete_bookbox">X</span></span></p><input class="bookbox_input" type="text"><input class="bookbox_id" type="hidden" value="0"></div>
-                        <div id="bookbox1" class="display_inline bookbox"><p class="bookbox_text">BookBox 2<span class="edit_bookbox"><span class="edit_bookbox_common open_bookbox">O</span><span class="edit_bookbox_common undo_bookbox">U</span><span class="edit_bookbox_common delete_bookbox">X</span></span></p><input class="bookbox_input" type="text"><input class="bookbox_id" type="hidden" value="1"></div>
-                        <div id="bookbox2" class="display_inline bookbox"><p class="bookbox_text">BookBox 3<span class="edit_bookbox"><span class="edit_bookbox_common open_bookbox">O</span><span class="edit_bookbox_common undo_bookbox">U</span><span class="edit_bookbox_common delete_bookbox">X</span></span></p><input class="bookbox_input" type="text"><input class="bookbox_id" type="hidden" value="2"></div>
-                        <div id="bookbox3" class="display_inline bookbox"><p class="bookbox_text">BookBox 4<span class="edit_bookbox"><span class="edit_bookbox_common open_bookbox">O</span><span class="edit_bookbox_common undo_bookbox">U</span><span class="edit_bookbox_common delete_bookbox">X</span></span></p><input class="bookbox_input" type="text"><input class="bookbox_id" type="hidden" value="3"></div>
+                        %= include 'bookbox', bbnumber => '0'
+                        %= include 'bookbox', bbnumber => '1'
+                        %= include 'bookbox', bbnumber => '2'
+                        %= include 'bookbox', bbnumber => '3'
                     </div>
 
                     <div>
-                        <div id="bookbox4" class="display_inline bookbox"><p class="bookbox_text">BookBox 5<span class="edit_bookbox"><span class="edit_bookbox_common open_bookbox">O</span><span class="edit_bookbox_common undo_bookbox">U</span><span class="edit_bookbox_common delete_bookbox">X</span></span></p><input class="bookbox_input" type="text"><input class="bookbox_id" type="hidden" value="4"></div>
-                        <div id="bookbox5" class="display_inline bookbox"><p class="bookbox_text">BookBox 6<span class="edit_bookbox"><span class="edit_bookbox_common open_bookbox">O</span><span class="edit_bookbox_common undo_bookbox">U</span><span class="edit_bookbox_common delete_bookbox">X</span></span></p><input class="bookbox_input" type="text"><input class="bookbox_id" type="hidden" value="5"></div>
-                        <div id="bookbox6" class="display_inline bookbox"><p class="bookbox_text">BookBox 7<span class="edit_bookbox"><span class="edit_bookbox_common open_bookbox">O</span><span class="edit_bookbox_common undo_bookbox">U</span><span class="edit_bookbox_common delete_bookbox">X</span></span></p><input class="bookbox_input" type="text"><input class="bookbox_id" type="hidden" value="6"></div>
-                        <div id="bookbox7" class="display_inline bookbox"><p class="bookbox_text">BookBox 8<span class="edit_bookbox"><span class="edit_bookbox_common open_bookbox">O</span><span class="edit_bookbox_common undo_bookbox">U</span><span class="edit_bookbox_common delete_bookbox">X</span></span></p><input class="bookbox_input" type="text"><input class="bookbox_id" type="hidden" value="7"></div>
+                        %= include 'bookbox', bbnumber => '4'
+                        %= include 'bookbox', bbnumber => '5'
+                        %= include 'bookbox', bbnumber => '6'
+                        %= include 'bookbox', bbnumber => '7'
                     </div>
 
                     <div>
-                        <div id="bookbox8" class="display_inline bookbox"><p class="bookbox_text">BookBox 9<span class="edit_bookbox"><span class="edit_bookbox_common open_bookbox">O</span><span class="edit_bookbox_common undo_bookbox">U</span><span class="edit_bookbox_common delete_bookbox">X</span></span></p><input class="bookbox_input" type="text"><input class="bookbox_id" type="hidden" value="8"></div>
-                        <div id="bookbox9" class="display_inline bookbox"><p class="bookbox_text">BookBox 10<span class="edit_bookbox"><span class="edit_bookbox_common open_bookbox">O</span><span class="edit_bookbox_common undo_bookbox">U</span><span class="edit_bookbox_common delete_bookbox">X</span></span></p><input class="bookbox_input" type="text"><input class="bookbox_id" type="hidden" value="9"></div>
-                        <div id="bookbox10" class="display_inline bookbox"><p class="bookbox_text">BookBox 11<span class="edit_bookbox"><span class="edit_bookbox_common open_bookbox">O</span><span class="edit_bookbox_common undo_bookbox">U</span><span class="edit_bookbox_common delete_bookbox">X</span></span></p><input class="bookbox_input" type="text"><input class="bookbox_id" type="hidden" value="10"></div>
+                        %= include 'bookbox', bbnumber => '8'
+                        %= include 'bookbox', bbnumber => '9'
+                        %= include 'bookbox', bbnumber => '10'
                     </div>
                 </div>
-                <div id="desc_legend_container" class="display_inline">
-                    <div><div class="desc_legend empty_bookbox display_inline"></div><p class="display_inline">Empty Bookbox</p></div>
-                    <div><div class="desc_legend unchanged display_inline"></div><p class="display_inline">Unchanged Content</p></div>
-                    <div><div class="desc_legend changed display_inline"></div><p class="display_inline">You Changed Content</p></div>
-                    <div><div class="desc_legend double_data display_inline"></div><p class="display_inline">This Data exists at least twice</p></div>
-                </div>
-                <div>
-                    <div id="save_button" class="display_inline vert_middle button_standard_base button_standard"><p>Save</p></div>
-                    <div id="delete_all_button" class="display_inline vert_middle button_standard_base button_standard"><p>Delete All</p></div>
-                    <div id="refresh_button" class="display_inline vert_middle button_standard_base button_standard"><p>Refresh</p></div>
-                    <div id="open_all_doors_button" class="display_inline vert_middle button_standard_base button_standard"><p>Open All Doors</p></div>
-                    <div id="open_all_doors_button_inactive" class="display_none vert_middle button_standard_base button_standard_inactive"><p>Open All Doors</p></div>
-                    <div id="loading" class="display_inline vert_middle display_none"><img class="display_inline vert_middle loading_image" src="images/loading.gif"><p class="display_inline vert_middle loading_text">Loading ..</p></div>
-                    <div id="msg_user_client_const" class="msg vert_middle display_none"></div>
-                    <div id="msg_errors_const" class="msg vert_middle display_none"></div>
-                    <div id="msg_user_client" class="msg vert_middle display_none"></div>
-                    <div id="msg_errors" class="msg vert_middle display_none"></div>
-                </div>
+                %= include 'desc_legend_container'
+                %= include 'bk_controlling'
             </main>
-
-            <footer>
-                <p>Created By<br><b>Anastassios Martakos</b> <a target="_blank" href="https://nic.phys.ethz.ch/">ISG</a> <a target="_blank" href="https://www.phys.ethz.ch/">D-PHYS</a> <a target="_blank"  href="https://www.ethz.ch/">ETH Z&uuml;rich</a> </p>
-            </footer>
+            %= include 'footer'
         </div>
     </body>
 </html>

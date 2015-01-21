@@ -144,12 +144,6 @@ function CheckBookboxStates() {
     for(var i = 0; i < $("div.bookbox").length; i++) {
         var current_bookbox = $("div#bookbox" + i);
         if(($("div#bookbox" + i + "> input.bookbox_input").val() != programm_handler.last_data_state[i]) && !($("div#bookbox" + i + "> input.bookbox_input").val() == "" && programm_handler.last_data_state[i] == null)) {
-            if(current_bookbox.hasClass("unchanged")) {
-                current_bookbox.removeClass("unchanged");
-            }
-            if(current_bookbox.hasClass("empty_bookbox")) {
-                current_bookbox.removeClass("empty_bookbox");
-            }
             current_bookbox.addClass("changed");
         }else{
             if(current_bookbox.hasClass("changed")) {

@@ -86,11 +86,11 @@ div.empty_bookbox {
 }
 
 div.unchanged {
-    background-color: rgb(196, 212, 255);   
+    background-color: rgb(196, 212, 255);
 }
 
 div.changed {
-    background-color: rgb(255, 238, 212);
+    border: solid rgb(255, 238, 212) 6px;
 }
 
 div.desc_legend {

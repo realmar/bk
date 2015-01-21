@@ -1,0 +1,5 @@
+<header>
+    <h1 class="display_inline">Buecherkasten Library</h1>
+    <p id="connection_type_ajax" class="display_inline connection_type display_none">running on AJAX (slow mode) : your connection may be slower than normal</p>
+    <p id="connection_type_websockets" class="display_inline connection_type display_none">running on WebSockets (fast mode) : you should experience the best speed performance</p>
+</header>

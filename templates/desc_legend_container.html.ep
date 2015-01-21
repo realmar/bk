@@ -1,0 +1,6 @@
+<div id="desc_legend_container" class="display_inline">
+    <div><div class="desc_legend empty_bookbox display_inline"></div><p class="display_inline">Empty Bookbox</p></div>
+    <div><div class="desc_legend unchanged display_inline"></div><p class="display_inline">Unchanged Content</p></div>
+    <div><div class="desc_legend changed display_inline"></div><p class="display_inline">You Changed Content</p></div>
+    <div><div class="desc_legend double_data display_inline"></div><p class="display_inline">This Data exists at least twice</p></div>
+</div>
