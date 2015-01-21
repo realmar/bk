@@ -16,6 +16,8 @@ but it can be expanded when nesseccary
 
 or a correspondand web server configuration
 
+or the RECOMMEDED VERSION run the InitializeProgram.sh script
+
 ADDITIONALLY adapt the enviroment config files locatet in the environments folder
 
 ## Log Files
