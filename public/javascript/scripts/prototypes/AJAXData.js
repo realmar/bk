@@ -40,6 +40,8 @@ function AJAXRequest(ajax_path_arg) {
         if(send_type == ACTION_SAVEDATA && $("." + NO_CONN_SAVE_ERR).length > 0) {
             RemoveMessageData($("." + NO_CONN_SAVE_ERR));
         }
+        programm_handler.intervals_collector.UpgradeInterval('bk_ajax_data_refresh', false);
+        programm_handler.intervals_collector.ResetCounter('bk_ajax_data_refresh');
     }
     
     function AJAXFail(e, send_type) {  //  Shows an Error Message that it could not get Data from the Server
@@ -48,6 +50,7 @@ function AJAXRequest(ajax_path_arg) {
             if(send_type == ACTION_SAVEDATA) {
                 AddMessageData($("div#msg_errors_const"), no_connection_err_tpl, APPEND);
             }
+            programm_handler.intervals_collector.UpgradeInterval('bk_ajax_data_refresh', true);
         }
         HideLoadingMessage();
     }

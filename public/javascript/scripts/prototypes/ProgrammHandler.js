@@ -46,16 +46,16 @@ function ProgrammHandler() {
         }
         InitializeBookboxStates();
         InitializeButtons();
-        this.intervals_collector.RegisterInterval(['CheckBookboxStates'], 20, 'input_check');
-        this.intervals_collector.RegisterInterval(['CheckMSGDataObjects'], 20, 'msg_data_objects_check');
+        this.intervals_collector.RegisterInterval(['CheckBookboxStates'], 'input_check', 0, {dtshort : 20, dtlong : 0});
+        this.intervals_collector.RegisterInterval(['CheckMSGDataObjects'], 'msg_data_objects_check', 0, {dtshort : 20, dtlong : 0});
     }
     
     function InitializeConnTypeWebSockets() {
         this.intervals_collector.RemoveInterval('bk_websocket_try_connect');
         this.intervals_collector.RemoveInterval('bk_ajax_data_refresh');
         this.bk_ajax_data = null;
-        this.intervals_collector.RegisterInterval(['bk_websocket', 'KeepAliveWS'], 1800, 'bk_websocket_keep_alive');
-        this.intervals_collector.RegisterInterval(['RefreshData'], 2000, 'bk_websocket_refresh');
+        this.intervals_collector.RegisterInterval(['bk_websocket', 'KeepAliveWS'], 'bk_websocket_keep_alive', 0, {dtshort : 1800, dtlong : 0});
+        this.intervals_collector.RegisterInterval(['RefreshData'], 'bk_websocket_refresh', 0, {dtshort : 2000, dtlong : 0});
         RemoveMessageData($("." + NO_CONN_ERROR));
     }
 
@@ -65,8 +65,9 @@ function ProgrammHandler() {
             this.intervals_collector.RemoveInterval('bk_websocket_refresh');
             this.bk_ajax_data = null;
             this.bk_ajax_data = new AJAXRequest(ajax_path);
-            this.intervals_collector.RegisterInterval(['RefreshData'], 2000, 'bk_ajax_data_refresh');
-            this.intervals_collector.RegisterInterval(['ConnectToWebSocket'], 2800, 'bk_websocket_try_connect');
+            this.intervals_collector.RegisterInterval(['RefreshData'], 'bk_ajax_data_refresh', 8, {dtshort : 2000, dtlong : 60000});
+            this.intervals_collector.RegisterInterval(['ConnectToWebSocket'], 'bk_websocket_try_connect', 8, {dtshort : 2800, dtlong : 600000});
+            this.intervals_collector.UpgradeInterval('bk_websocket_try_connect', true);
             this.SetConnectionType(CONN_TYPE_AJAX);
             RemoveMessageData($("." + NO_CONN_ERROR));
         }
