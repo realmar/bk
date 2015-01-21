@@ -69,11 +69,15 @@ div.button_standard_inactive {
 
 div.bookbox {
     margin: 8px;
-    padding: 8px;
+    padding: 14px;
 }
 
 div.display_none,p.display_none {
     display: none;
+}
+
+div.padding_null {
+    padding: 0px;
 }
 
 div.msg {
@@ -91,6 +95,7 @@ div.unchanged {
 
 div.changed {
     border: solid rgb(255, 238, 212) 6px;
+    padding: 8px;
 }
 
 div.desc_legend {
