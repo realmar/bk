@@ -43,15 +43,15 @@ __END__
 
 =head1 NAME
 
-BKBackend - Reads STDIN and does Comparing operations for the BuecherkastenBibliothek
+BK - Reads STDIN and sends an HTTP Request to BK
 
 =head1 SYNOPSIS
 
-BKBackend.pl
+BK.pl
 
 =head1 DESCRIPTION
 
-Reads STDIN line per line and compares input with database username fields, if one field matches, sets this filed to NULL and opens the correspondant door saved in relation to the username in the database
+Reads STDIN and sends an HTTP Request to BK
 
 =head1 OPTIONS / FLAGS
 

@@ -380,7 +380,7 @@ GetProcAC() - Gets proc_ac in ActionHandler
 ProcessAction() - Processes Action takes inforamtions from itself from aciton and data
 RefreshData() - Gets Database Entries and writes them do data
 SaveData() - Writes data to Database
-MarkToOpenDoors() - Marks Doors to be opened in the Database
+RequestOpenDoors() - Opens Doors
 GetAllEntries() - Gets Database Entires and Returns them
 ToJSON() - Convert data to JSON
 FromJSON() - Converts data from JSON

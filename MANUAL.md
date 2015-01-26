@@ -11,10 +11,10 @@ To Deploy please read the README.md
   -  SQLite Database
 
 ### BK
-This is the al in one frontend meaning, it is the webserver, door opener and reads / writes to the database
+This is the all in one frontend meaning, it is the webserver, door opener and reads / writes to the database
 
 ### BKScanner
-Only get the user input from the barcode reader and makes an http request to localhost to the BK
+Only get the user input from the barcode reader and makes an http request to localhost to BK
 
 ### SQLite Database
 Stores the informations which door is to which user assigned

@@ -62,12 +62,12 @@ function IntervalsCollector() {
         }
     }
 
-    function ResetCounter(name) {
+    function ResetCounter(name) {  //  Resets the settings of an Interval
         this.intervals[name].tries.count = this.intervals[name].tries.counter;
         this.intervals[name].dt = this.intervals[name].diff_times.short;
     }
 
-    function UpgradeInterval(name, updown) {
+    function UpgradeInterval(name, updown) {  //  Upgrades an Interval, sets wether the Interval gets downgraded or not
         this.intervals[name].tries.do = updown;
     }
 }

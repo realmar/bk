@@ -73,15 +73,15 @@ __END__
 
 =head1 NAME
 
-BKFrontendWebSockets - CGI Script for BK Webfrontend over WS / WSS connections
+BKFrontendWebSockets - CGI Script for BK all in one Handler
 
 =head1 SYNOPSIS
 
-BKFrontentWebSockets.pl
+BK.pl
 
 =head1 DESCRIPTION
 
-Sends Webfrontend to Client, saves Input over Webfrontend to Database, reads Database to display content to Webfrontend, works with WS and WSS protocols this are Protocols for the HTML 5 and upwards Websockets
+All in one Handler is a Webserver and opens Doors
 Uses Perl Mojolicious
 
 =head1 OPTIONS / FLAGS
@@ -90,7 +90,7 @@ None
 
 =head1 USAGE
 
-perl BKFrontendWebSockets.pl daemon -l http://*:3003/
+perl BK.pl daemon -l http://0.0.0.0:3004/
 
 =head1 FILES
 
