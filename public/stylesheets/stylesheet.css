@@ -74,6 +74,7 @@ div.button_standard_inactive {
 div.bookbox {
     margin: 8px;
     padding: 14px;
+    width: 19%;
 }
 
 div.display_none,p.display_none {

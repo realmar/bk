@@ -14,7 +14,7 @@ Created For / At: ETH Zuerich Department Physics
         <div id="container">
             %= include 'header'
             <main>
-                <div class="display_inline">
+                <div class="display_inline" style="width: 75%;">
                     <div>
                         %= include 'bookbox', bbnumber => '0'
                         %= include 'bookbox', bbnumber => '1'
