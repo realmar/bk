@@ -119,10 +119,9 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     rm -rf $PA/{database,log,logs}
 
     echo 'Generating Log Files and Directories'
-    mkdir $PA/{database,log,logs,_Inline}
+    mkdir $PA/{database,log,logs}
     touch $PA/log/{message,error}_log
     touch $PA/log/{production,development}.log
-    touch $PA/logs/{production,development}.log
 
     echo 'Stopping BK Services, this may take long'
     systemctl stop {bk,bkscanner}.service
@@ -191,20 +190,16 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     if [[ $MAKESSC =~ ^(yes|y) ]] || [[ -z $MAKESSC ]]; then
         sed -i "s|<CERT_PATH>|/etc/apache2/certs/localcerts/bk|g" $PA/Apache2_Config/sites-common/*
         echo 'Creating SSL Self-Signed Certificates'
-        if [[ ! -d /etc/ssl/localcerts/bk/apache2 ]]; then
-            mkdir -p /etc/apache2/certs/localcerts/bk
-        fi
-        rm -rf /etc/ssl/localcerts/bk/apache2/$HOSTNAME*
-        openssl req -new -x509 -days 365 -nodes -out /etc/apache2/certs/localcerts/bk/$HOSTNAME.crt -keyout /etc/apache2/certs/localcerts/bk/$HOSTNAME.key
-        chmod 600 /etc/apache2/certs/localcerts/bk/$HOSTNAME*
+        mkdir -p /etc/apache2/certs/localcerts/bk/ssl.{crt,key}
+        rm -rf /etc/apache2/certs/localcerts/bk/ssl.{crt,key}/$HOSTNAME*
+        openssl req -new -x509 -days 365 -nodes -out /etc/apache2/certs/localcerts/bk/ssl.crt/$HOSTNAME.crt -keyout /etc/apache2/certs/localcerts/bk/ssl.key/$HOSTNAME.key
+        chmod 600 /etc/apache2/certs/localcerts/bk/ssl.{crt,key}/$HOSTNAME*
     else
         sed -i "s|<CERT_PATH>|/etc/apache2/certs/bk|g" $PA/Apache2_Config/sites-common/*
-        if [[ ! -d /etc/apache2/certs/bk ]]; then
-            mkdir -p /etc/apache2/certs/bk
-        fi
+        mkdir -p /etc/apache2/certs/bk/ssl.{crt,key}
         echo ''
         echo ''
-        echo 'Please place your certificates here: /etc/apache2/certs/bk'
+        echo 'Please place your certificates here: /etc/apache2/certs/bk/ssl.{crt,key}'
         echo "and name them: $HOSTNAME.{pem,key} or edit the Apache2 configuration files"
         echo ''
         echo ''
@@ -270,18 +265,18 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     echo 'Correcting Permissions'
     chown bk $PA
     chgrp bk $PA
-    chmod a-rwx $PA/{log,logs,database}
-    chmod a-rwx $PA/{log,logs,database}/*
-    chmod u+rwx $PA/{log,logs,database}
-    chmod u+rw $PA/{log,logs,database}/*
-    chmod g+rwx $PA/{log,logs,database}
-    chmod g+rw $PA/{log,logs,database}/*
+    chmod a-rwx $PA/{log,database}
+    chmod a-rwx $PA/{log,database}/*
+    chmod u+rwx $PA/{log,database}
+    chmod u+rw $PA/{log,database}/*
+    chmod g+rwx $PA/{log,database}
+    chmod g+rw $PA/{log,database}/*
 
-    chown bk $PA/{log,logs,database}
-    chown bk $PA/{log,logs,database}/*
+    chown bk $PA/{log,database}
+    chown bk $PA/{log,database}/*
 
-    chgrp bk $PA/{log,logs,database}
-    chgrp bk $PA/{log,logs,database}/*
+    chgrp bk $PA/{log,database}
+    chgrp bk $PA/{log,database}/*
 
     echo ''
     echo ''
