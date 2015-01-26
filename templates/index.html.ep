@@ -16,23 +16,23 @@ Created For / At: ETH Zuerich Department Physics
             <main>
                 <div class="display_inline">
                     <div>
-                        %= include 'bookbox', bbnumber => '0'
                         %= include 'bookbox', bbnumber => '1'
                         %= include 'bookbox', bbnumber => '2'
                         %= include 'bookbox', bbnumber => '3'
+                        %= include 'bookbox', bbnumber => '4'
                     </div>
 
                     <div>
-                        %= include 'bookbox', bbnumber => '4'
                         %= include 'bookbox', bbnumber => '5'
                         %= include 'bookbox', bbnumber => '6'
                         %= include 'bookbox', bbnumber => '7'
+                        %= include 'bookbox', bbnumber => '8'
                     </div>
 
                     <div>
-                        %= include 'bookbox', bbnumber => '8'
                         %= include 'bookbox', bbnumber => '9'
                         %= include 'bookbox', bbnumber => '10'
+                        %= include 'bookbox', bbnumber => '11'
                     </div>
                 </div>
                 %= include 'desc_legend_container'

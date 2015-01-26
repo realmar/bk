@@ -136,10 +136,8 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     echo ''
     echo ''
 
-    read -p 'Enter the hostname of the BK - BuecherKasten server: ' HOSTNAME
+    read -p 'Enter the hostname of the BK - BuecherKasten server NOT FQDN (WITHOUT DOMAIN): ' HOSTNAME
     echo 'Applying: ' $HOSTNAME
-
-    sed -i "s/<HOSTNAME>/$HOSTNAME/g" $PA/public/javascript/scripts/variables/VariablesDefinition.js
 
     echo ''
     echo ''
@@ -191,22 +189,22 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     sed -i "s|<HOSTNAME>|localhost|g" $PA/services/*
     read -p 'Do you want to create a Self Signed SSL Certificate? [Y/n]: ' MAKESSC
     if [[ $MAKESSC =~ ^(yes|y) ]] || [[ -z $MAKESSC ]]; then
-        sed -i "s|<CERT_PATH>|/etc/ssl/localcerts/bk/apache2|g" $PA/Apache2_Config/sites-common/*
+        sed -i "s|<CERT_PATH>|/etc/apache2/certs/localcerts/bk|g" $PA/Apache2_Config/sites-common/*
         echo 'Creating SSL Self-Signed Certificates'
         if [[ ! -d /etc/ssl/localcerts/bk/apache2 ]]; then
-            mkdir -p /etc/ssl/localcerts/bk/apache2
+            mkdir -p /etc/apache2/certs/localcerts/bk
         fi
         rm -rf /etc/ssl/localcerts/bk/apache2/$HOSTNAME*
-        openssl req -new -x509 -days 365 -nodes -out /etc/ssl/localcerts/bk/apache2/$HOSTNAME.crt -keyout /etc/ssl/localcerts/bk/apache2/$HOSTNAME.key
-        chmod 600 /etc/ssl/localcerts/apache2/bk*
+        openssl req -new -x509 -days 365 -nodes -out /etc/apache2/certs/localcerts/bk/$HOSTNAME.crt -keyout /etc/apache2/certs/localcerts/bk/$HOSTNAME.key
+        chmod 600 /etc/apache2/certs/localcerts/bk/$HOSTNAME*
     else
-        sed -i "s|<CERT_PATH>|/etc/ssl/bk/apache2|g" $PA/Apache2_Config/sites-common/*
-        if [[ ! -d /etc/ssl/bk/apache2 ]]; then
-            mkdir -p /etc/ssl/bk/apache2
+        sed -i "s|<CERT_PATH>|/etc/apache2/certs/bk|g" $PA/Apache2_Config/sites-common/*
+        if [[ ! -d /etc/apache2/certs/bk ]]; then
+            mkdir -p /etc/apache2/certs/bk
         fi
         echo ''
         echo ''
-        echo 'Please place your certificates here: /etc/ssl/bk/apache2/'
+        echo 'Please place your certificates here: /etc/apache2/certs/bk'
         echo "and name them: $HOSTNAME.{pem,key} or edit the Apache2 configuration files"
         echo ''
         echo ''
@@ -240,8 +238,8 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
 
     echo 'Copying Services, this may take long'
     systemctl disable bk{scanner,}.service
-    rm -rf /lib/systemd/system/bk{scanner,}.service
-    cp $PA/services/* /lib/systemd/system/.
+    rm -rf /etc/systemd/system/bk{scanner,}.service
+    cp $PA/services/* /etc/systemd/system/.
     systemctl daemon-reload
 
     echo ''
@@ -270,23 +268,25 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     echo ''
 
     echo 'Correcting Permissions'
-    chmod a-rwx $PA/{log,logs,database,_Inline}
-    chmod a-rwx $PA/{log,logs,database,_Inline}/*
-    chmod u+rwx $PA/{log,logs,database,_Inline}
-    chmod u+rw $PA/{log,logs,database,_Inline}/*
-    chmod g+rwx $PA/{log,logs,database,_Inline}
-    chmod g+rw $PA/{log,logs,database,_Inline}/*
+    chown bk $PA
+    chgrp bk $PA
+    chmod a-rwx $PA/{log,logs,database}
+    chmod a-rwx $PA/{log,logs,database}/*
+    chmod u+rwx $PA/{log,logs,database}
+    chmod u+rw $PA/{log,logs,database}/*
+    chmod g+rwx $PA/{log,logs,database}
+    chmod g+rw $PA/{log,logs,database}/*
 
-    chown bk $PA/{log,logs,database,_Inline}
-    chown bk $PA/{log,logs,database,_Inline}/*
+    chown bk $PA/{log,logs,database}
+    chown bk $PA/{log,logs,database}/*
 
-    chgrp bk $PA/{log,logs,database,_Inline}
-    chgrp bk $PA/{log,logs,database,_Inline}/*
+    chgrp bk $PA/{log,logs,database}
+    chgrp bk $PA/{log,logs,database}/*
 
     echo ''
     echo ''
     echo 'PLEASE VERIFY that all Services are running'
-    echo 'systemctl status {bk,bkscanner}'
+    echo 'systemctl status {apache2,bk,bkscanner}'
     echo ''
     echo ''
 
