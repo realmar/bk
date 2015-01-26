@@ -191,10 +191,13 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     sed -i "s|<HOSTNAME>|localhost|g" $PA/services/*
     read -p 'Do you want to create a Self Signed SSL Certificate? [Y/n]: ' MAKESSC
     if [[ $MAKESSC =~ ^(yes|y) ]] || [[ -z $MAKESSC ]]; then
-        sed -i "s|<CERT_PATH>|/etc/ssl/localcerts/apache2|g" $PA/Apache2_Config/sites-common/*
+        sed -i "s|<CERT_PATH>|/etc/ssl/localcerts/bk/apache2|g" $PA/Apache2_Config/sites-common/*
         echo 'Creating SSL Self-Signed Certificates'
-        rm -rf /etc/ssl/localcerts/apache2/$HOSTNAME*
-        openssl req -new -x509 -days 365 -nodes -out /etc/ssl/localcerts/apache2/$HOSTNAME.crt -keyout /etc/ssl/localcerts/apache2/$HOSTNAME.key
+        if [[ ! -d /etc/ssl/localcerts/bk/apache2 ]]; then
+            mkdir -p /etc/ssl/localcerts/bk/apache2
+        fi
+        rm -rf /etc/ssl/localcerts/bk/apache2/$HOSTNAME*
+        openssl req -new -x509 -days 365 -nodes -out /etc/ssl/localcerts/bk/apache2/$HOSTNAME.crt -keyout /etc/ssl/localcerts/bk/apache2/$HOSTNAME.key
         chmod 600 /etc/ssl/localcerts/apache2/bk*
     else
         sed -i "s|<CERT_PATH>|/etc/ssl/bk/apache2|g" $PA/Apache2_Config/sites-common/*
