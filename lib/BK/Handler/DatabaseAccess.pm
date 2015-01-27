@@ -57,6 +57,7 @@ sub DisconnectFromDatabase {
         or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDISCONN, MessagesTextConstants::DBERRDISCONNMSG . $self->{_db}->errstr);
     $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBDISCONN, MessagesTextConstants::DBDISCONNMSG);
     $self->{_db};
+    return 0;
 }
 
 ##  --

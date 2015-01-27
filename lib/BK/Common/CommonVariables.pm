@@ -49,6 +49,8 @@ sub init_variables {
     if (defined($error_log_path)) { $filehandle_log_error = BKFileHandler->new('>>', $bk_path . $error_log_path); }
     if (defined($database_handler) && defined($database_path)) { $database_connection = DatabaseAccess->new($database_handler, $bk_path . $database_path); }
     if (defined($doors_arg)) { $doors = Doors->new($doors_arg); }
+
+    return 0;
 }
 
 return 1;

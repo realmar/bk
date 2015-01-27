@@ -1,14 +1,14 @@
 
+<!DOCTYPE html>
+
 <!--
 Project Name:     BuecherkastenBibliothek BK
 Author:           Anastassios Martakos
 Language:         English / HTML
 Created For / At: ETH Zuerich Department Physics
---!>
+-->
 
-<!DOCTYPE html>
-
-<html>
+<html lang="en">
     %= include 'head'
     <body>
         <div id="container">
