@@ -170,7 +170,7 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     rm -rf /etc/apache2/{apache2,ports}.conf
     cp $PA/Apache2_Config/{apache2,ports}.conf /etc/apache2/.
     a2dissite {000-default.conf,default-ssl.conf}
-    a2dissite {bk-ssl_proxy,bk_redirect_ssl_proxy}.conf
+    a2dissite bk.conf
     rm -rf /etc/apache2/sites-available/bk*
     rm -rf /etc/apache2/sites-common/bk*
     read -p 'Enter the contact creditals of the Serveradmin MUST BE AN E-MAIL ADDRESS: ' SERVERADMIN
@@ -221,8 +221,7 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     cp -a $PA/Apache2_Config/* /etc/apache2/sites-available/.
     rm -rf /etc/apache2/sites-available/{apache2,ports}.conf
     mv /etc/apache2/sites-available/sites-common /etc/apache2/.
-    a2ensite bk_redirect_ssl_proxy.conf
-    a2ensite bk-ssl_proxy.conf
+    a2ensite bk.conf
     a2enmod proxy{_http,_wstunnel,}
     a2enmod {ldap,authnz_ldap}
     service apache2 start
