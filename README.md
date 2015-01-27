@@ -70,3 +70,8 @@ Drivers: on LabJack Website
 Functionality: power is sent through the digital pins to the magnet on the door for a defined tim e to open the doors  
 Programming Method 0: Perl  
 Programming Method 1: ProfiLab
+
+## Notes
+### Issues
+  -  When $self-{_db}->disconnect called an error is invoked therefore the DatabaseAccess destructor is commented out, is not that clean, should be fixed one day at the time
+  -  WebSockets doesn't work on Safari clients, propably because Safari doesn't send the auth header with the wss protocol

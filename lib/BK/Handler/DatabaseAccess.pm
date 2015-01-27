@@ -32,14 +32,14 @@ sub new {
     return $self;
 }
 
-sub DESTROY {
-    my $self = shift;
-
-    $self->DisconnectFromDatabase();
-    $self->{handle}->close() if $self->{handle};
-
-    return 0;
-}
+##  sub DESTROY {
+##      my $self = shift;
+##  
+##      $self->DisconnectFromDatabase();
+##      $self->{handle}->close() if $self->{handle};
+##  
+##      return 0;
+##  }
 
 sub ConnectToDatabase {
     my ($self, $driver, $file) = @_;
@@ -56,7 +56,6 @@ sub DisconnectFromDatabase {
     $self->{_db}->disconnect
         or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDISCONN, MessagesTextConstants::DBERRDISCONNMSG . $self->{_db}->errstr);
     $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBDISCONN, MessagesTextConstants::DBDISCONNMSG);
-    $self->{_db} = undef;
     return 0;
 }
 
