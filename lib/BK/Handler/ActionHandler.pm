@@ -67,7 +67,6 @@ sub ProcessAction {
         case Constants::AHREFRESH {
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHREFRESH, Constants::AHREFRESH);
             if($self->RefreshData()) {
-                $self->SUPER::ThrowMessage(Constants::ERROR);
                 $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRREFRESHDATA, MessagesTextConstants::AHERRREFRESHDATAMSG);
             }
             last;
