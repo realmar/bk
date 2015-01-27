@@ -25,7 +25,15 @@ use BK::Handler::MessagesTextConstants;
 use Mojolicious::Lite;
 use Mojo::IOLoop;
 
-CommonVariables::init_variables('<BK_PATH>/', 'log/message_log', 'log/error_log', 'database/BKDatabase.db', 'SQLite', Constants::DOORSOUTPUT, app->mode);
+CommonVariables::init_variables({
+        'bk_path'          => '<BK_PATH>/',
+        'message_log_path' => 'log/message_log',
+        'error_log_path'   =>'log/error_log',
+        'database_path'    => 'database/BKDatabase.db',
+        'database_handler' => 'SQLite',
+        'doors'            => Constants::DOORSOUTPUT,
+        'app_env'          => app->mode
+});
 
 websocket '/ws' => sub {
     my $self = shift;

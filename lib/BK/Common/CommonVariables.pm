@@ -40,15 +40,25 @@ our $app_environment;
 our $doors;
 
 sub init_variables {
-    my ($bk_path, $message_log_path, $error_log_path, $database_path, $database_handler, $doors_arg, $app_env) = @_;
-    
-    $app_environment = $app_env;
+    my ( $common_variables ) = @_;
+
+    ##  common_variables = {
+    ##      bk_path
+    ##      message_log_path
+    ##      error_log_path
+    ##      database_handler
+    ##      database_path
+    ##      doors
+    ##      app_env
+    ##  };
+
+    $app_environment = $common_variables->{app_env};
 
     $common_messages_collector = CommonMessagesCollector->new();
-    if (defined($message_log_path)) { $filehandle_log_message = BKFileHandler->new('>>', $bk_path . $message_log_path); }
-    if (defined($error_log_path)) { $filehandle_log_error = BKFileHandler->new('>>', $bk_path . $error_log_path); }
-    if (defined($database_handler) && defined($database_path)) { $database_connection = DatabaseAccess->new($database_handler, $bk_path . $database_path); }
-    if (defined($doors_arg)) { $doors = Doors->new($doors_arg); }
+    if (defined($common_variables->{message_log_path})) { $filehandle_log_message = BKFileHandler->new('>>', $common_variables->{bk_path} . $common_variables->{message_log_path}); }
+    if (defined($common_variables->{error_log_path})) { $filehandle_log_error = BKFileHandler->new('>>', $common_variables->{bk_path} . $common_variables->{error_log_path}); }
+    if (defined($common_variables->{database_handler}) && defined($common_variables->{database_path})) { $database_connection = DatabaseAccess->new($common_variables->{database_handler}, $common_variables->{bk_path} . $common_variables->{database_path}); }
+    if (defined($common_variables->{doors_arg})) { $doors = Doors->new($common_variables->{doors}); }
 
     return 0;
 }
