@@ -20,8 +20,8 @@ use BK::Common::Constants;
 use BK::Handler::DatabaseAccess;
 
 sub new {
-    $class = shift;
-    $self = {
+    my $class = shift;
+    my $self = {
         _owner_desc => Constants::DOORS,
         _doors      => shift
     };

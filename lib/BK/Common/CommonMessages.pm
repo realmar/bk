@@ -16,8 +16,8 @@ use warnings;
 use Switch;
 
 use BK::Common::Constants;
-use BK::Handler::DatabaseAccess;
 use BK::Common::CommonVariables;
+use BK::Handler::DatabaseAccess;
 
 sub new {
     my $class = shift;
@@ -58,25 +58,25 @@ sub ThrowMessage {
 }
 
 sub CreateLogString {
-    my ($owner_typ, $msg_prio, $msg_typ, $msg_string) = @_;
-    return '[' . localtime . '][' . $owner_typ . '][' . $msg_prio . '][' . $msg_typ . '] ' . $msg_string . "\n";
+    my ($owner_type, $msg_prio, $msg_type, $msg_string) = @_;
+    return '[' . localtime . '][' . $owner_type . '][' . $msg_prio . '][' . $msg_type . '] ' . $msg_string . "\n";
 }
 
 sub LogError {
-    my ($self, $msg_prio, $msg_typ, $msg_string) = @_;
+    my ($self, $msg_prio, $msg_type, $msg_string) = @_;
 
     if($self->{_owner_desc} eq Constants::DB) {
         $self->RollbackChanges();
     }
-    CommonVariables::filehandle_log_error->WriteToFile(CommonMessages::CreateLogString($self->{_owner_desc}, $msg_prio, $msg_typ, $msg_string));
+    CommonVariables::filehandle_log_error->WriteToFile(CommonMessages::CreateLogString($self->{_owner_desc}, $msg_prio, $msg_type, $msg_string));
 
     return $self;
 }
 
 sub LogMessage {
-    my ($self, $msg_prio, $msg_typ, $msg_string) = @_;
+    my ($self, $msg_prio, $msg_type, $msg_string) = @_;
     if($CommonVariables::app_environment eq Constants::APPENVDEVELOPMENT) {
-        CommonVariables::filehandle_log_message->WriteToFile(CommonMessages::CreateLogString($self->{_owner_desc}, $msg_prio, $msg_typ, $msg_string));
+        CommonVariables::filehandle_log_message->WriteToFile(CommonMessages::CreateLogString($self->{_owner_desc}, $msg_prio, $msg_type, $msg_string));
     }
     return $self;
 }
@@ -112,12 +112,12 @@ GetMessageHash() - Returns a Hash representation of the Log Object
 =head2 Methods
 
 ThrowMessage( [msg_prio - STRING], [msg_type - STRING], [msg_string - STRING] ) - Saves Message to itself, and itself to the CommonMessagesCollector Object, writes Message to Log File
-LogError( [msg_prio - STRING], [msg_typ - STRING], [msg_string - STRING] ) - Saves Message to Error Log File
-LogMessage( [msg_prio - STIRNG], [msg_typ - STRING], [msg_string - STRING] ) - Saves Message to Message Log File
+LogError( [msg_prio - STRING], [msg_type - STRING], [msg_string - STRING] ) - Saves Message to Error Log File
+LogMessage( [msg_prio - STIRNG], [msg_type - STRING], [msg_string - STRING] ) - Saves Message to Message Log File
 
 =head2 Functions
 
-CreateLogString( [owner_typ - STRING], [msg_prio - STRING], [msg_typ - STRING], [msg_string - STRING] ) - Returns a Log String suitable for Logging in Log Files
+CreateLogString( [owner_type - STRING], [msg_prio - STRING], [msg_type - STRING], [msg_string - STRING] ) - Returns a Log String suitable for Logging in Log Files
 
 =head2 Synopsis
 

@@ -56,7 +56,7 @@ sub DisconnectFromDatabase {
     $self->{_db}->disconnect
         or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDISCONN, MessagesTextConstants::DBERRDISCONNMSG . $self->{_db}->errstr);
     $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBDISCONN, MessagesTextConstants::DBDISCONNMSG);
-    $self->{_db};
+    $self->{_db} = undef;
     return 0;
 }
 
@@ -72,14 +72,14 @@ sub CreateEntryDatabase {
     if(!$database_query->execute()) {
         for(0..Constants::DBRETRIES) {
             $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCREATE, MessagesTextConstants::DBERRCREATEMSG . $self->{_db}->errstr);
-            sleep(Constanst::DBRETRIESTIME);
+            sleep(Constants::DBRETRIESTIME);
             if($database_query->execute()) {
-                $self->SUPER::ThrowMessage(Constanst::LOG, Constanst::DBCREATE, $sql_query);
+                $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBCREATE, $sql_query);
                 return 0;
             }
         }
     }else{
-        $self->SUPER::ThrowMessage(Constanst::LOG, Constanst::DBCREATE, $sql_query);
+        $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBCREATE, $sql_query);
         return 0;
     }
 
@@ -102,8 +102,8 @@ sub ReadEntryDatabase {
     my $database_query = $self->{_db}->prepare($sql_query);
     if(!$database_query->execute()) {
         db_retries : for(0..Constants::DBRETRIES) {
-            $self->SUPER::ThrowMessage(Constanst::ERROR, Constants::DBERRREAD, MessagesTextConstants::DBERRREADMSG . $self->{_db}->errstr);
-            sleep(Constanst::DBRETRIESTIME);
+            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRREAD, MessagesTextConstants::DBERRREADMSG . $self->{_db}->errstr);
+            sleep(Constants::DBRETRIESTIME);
             if($database_query->execute()) {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBREAD, $sql_query);
                 return $database_query;
@@ -114,7 +114,7 @@ sub ReadEntryDatabase {
         return $database_query;
     }
 
-    $self->SUPER::ThrowMessage(Constanst::ERROR, Constants::DBERRREAD, MessagesTextConstants::DBERRREADMSG . $self->{_db}->errstr);
+    $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRREAD, MessagesTextConstants::DBERRREADMSG . $self->{_db}->errstr);
 
     return Constants::INTERNALERROR;
 }
@@ -154,7 +154,7 @@ sub UpdateEntryDatabase {
     if(!$database_query->execute()) {
         db_retries : for(0..Constants::DBRETRIES) {
             $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRUPDATE, MessagesTextConstants::DBERRUPDATEMSG . $self->{_db}->errstr);
-            sleep(Constanst::DBRETRIESTIME);
+            sleep(Constants::DBRETRIESTIME);
             if($database_query->execute()) {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBUPDATE, $sql_query);
                 return 0;
@@ -180,7 +180,7 @@ sub DeleteEntryDatabase {
 
     my $sql_query = 'DELETE FROM ' . $table;
 
-    foreach $name_values_key (keys(%name_values)) {
+    foreach my $name_values_key (keys(%name_values)) {
         $sql_query .= ' WHERE ' . $name_values_key . '="' . $name_values{$name_values_key} . '"';
     }
 
@@ -188,7 +188,7 @@ sub DeleteEntryDatabase {
     if(!$database_query->execute()) {
         db_retries : for(0..Constants::DBRETRIES) {
             $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDELETE, MessagesTextConstants::DBERRDELETEMSG . $self->{_db}->errstr);
-            sleep(Constanst::DBRETRIESTIME);
+            sleep(Constants::DBRETRIESTIME);
             if($database_query->execute()) {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBDELETE, $sql_query);
                 return 0;
@@ -207,7 +207,7 @@ sub DeleteEntryDatabase {
 sub BeginWork {
     my $self = shift;
     $self->{_db}->begin_work()
-        or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRBEGINWORK, Constants::DBERRBEGINWORKMSG . $self->{_db}->errstr);
+        or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRBEGINWORK, MessagesTextConstants::DBERRBEGINWORKMSG . $self->{_db}->errstr);
     $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBBEGINWORK, MessagesTextConstants::DBBEGINWORKMSG);
     return $self->{_db};
 }

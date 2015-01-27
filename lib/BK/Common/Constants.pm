@@ -18,72 +18,72 @@ BEGIN {
     use Exporter 'import';
 
     our @EXPORT = qw(
-        TRUE                     ##  Booleaon for 1
-        FALSE                    ##  Boolean for 0
-        HEXNULL                  ##  represent 0 in hex 0x0
-        HEXTWOBYTEONE            ##  represent two byte in hex 0xFFFF (byte 0 := 0000000 ;; byte 1 := 00000000)
-        DOORSOUTPUT              ##  ARRAY with door number to pin port mapping (eg. 0 => 0x1 ;; 1 => 0x2)
-        DOORCOUNT                ##  Number of doors
-        DOORSSENDSIGNALTIME      ##  Time in Seconds how long a Pin will ouput a Signal
-        DOORSEXEPTIONOPENEND     ##  Logging facility for Error at door open (update Pin)
-        DOORSEXEPTIONCLOSED      ##  Logging facility for Error at door close(update Pin)
-        DOORSEXEPTIONCHECKDOORS  ##  Logging facility for Error at Check Doors, Database Error
-        DOOROPENED               ##  Logging facility for Message (success) at door open (update Pin)
-        DOORCLOSED               ##  Logging facility for Message (success) at door close (update Pin)
-        AHDOOPENDOOR             ##  Database Entry for Opening a Door
-        AHNOTOPENDOOR            ##  Database Entry for not Opening a Door
-        DOORSUSER                ##  Username for Oppening a Door when invoked by Frontend
-        OPENDOOR                 ##  Hash key of value wheter the door should be open or not
-        DBRETRIES                ##  Time a sql execute is executed bevor an cannot access db error is thrown (look at ./lib/BK/Common/DatabaseAccess.db)
-        DBRETRIESTIME            ##  Time to wait until a retrie if a sql execuation is not successfull
-        DBERRCONN                ##  Logging facility for Error at Database Connect
-        DBERRDISCONN             ##  Logging facility for Error at Database Disconnect
-        DBERRCREATE              ##  Logging facility for Error at Database Create
-        DBERRREAD                ##  Logging facility for Error at Database Read
-        DBERRUPDATE              ##  Logging facility for Error at Database Update
-        DBERRDELETE              ##  Logging facility for Error at Database Delete
-        DBERRBEGINWORK           ##  Logging facility for Error at Database Begin Work (start Transaction)
-        DBERRCOMMIT              ##  Logging facility for Error at Database Commit (stop Transaction / execute Transaction / make Changes permanent)
-        DBERRROLLBACK            ##  Logging facility for Error at Database Rollback (undo changes made in the current open Transaction)
-        DBCONN                   ##  Logging facility for Message (success) at Database Connect
-        DBDISCONN                ##  Logging facility for Message (success) at Database Disconnect
-        DBCREATE                 ##  Logging facility for Message (success) at Database Create
-        DBREAD                   ##  Logging facility for Message (success) at Database Read
-        DBUPDATE                 ##  Logging facility for Message (success) at Database Update
-        DBDELETE                 ##  Logging facility for Message (success) at Database Delete
-        DBBEGINWORK              ##  Logging facility for Message (success) at Database Begin Work (start Transaction)
-        DBCOMMIT                 ##  Logging facility for Message (success) at Database Commit (stop Transaction / execute Transaction / make changes permanent)
-        DBROLLBACK               ##  Logging facility for Message (success) at Database Rollback (undo changed made in the current open Transaction)
-        SCLOGGOTINPUT            ##  Logging facility for Message (take note) at got input in BKBackend from STDIN (Scanner Object, look at ./lib/BK/Backend/Scanner.pm)
-        ERROR                    ##  Logging Type for Error
-        LOG                      ##  Logging Type for Log
-        DB                       ##  Owner Description for database
-        DOORS                    ##  Owner Description for doors
-        SCANNER                  ##  Owner Description for scanner
-        ACTIONHANDLER            ##  Owner Description for actionhandler
-        COMMONMESSAGESCOLLECTOR  ##  Owner Description for commonmessagescollector
-        THROWTIME                ##  Time a message (Log or Error) is thrown, key value for the log object CommonMessages
-        MSGSTRING                ##  Message String (Log or Error), key value for log object CommonMessages
-        AHREFRESH                ##  ActionHandler (AH) facility for Sending all Database Entries to the Client
-        AHSAVEDATA               ##  ActionHandler (AH) facility for Save Data from the Input (Client) to the Database
-        AHSAVEDATAWRITE          ##  Logging facility for Message (take note) at ActionHandler what happens with the Database (SQL Code)
-        AHKEEPALIVE              ##  ActionHandler (AH) facility for Keep Alive requests for the WebSockets
-        AHOPENDOORS              ##  ActionHandler (AH) facility for Opening a Doors
-        AHUSERINPUT              ##  ActionHandler (AH) facility for getting User Input from the Scanner
-        AHNOTCHANGED             ##  Logging facility for Message (take note) at ActionHandler if the Database has not changed
-        AHDATABASECHANGED        ##  Logging facility for Message (take note) at ActionHandler if the Database has changed
-        AHERRSAVEDATA            ##  Logging facility for Error at ActionHandler Save Data to Database, Database error
-        AHERRREFRESHDATA         ##  Logging facility for Error at ActionHandler Refresh Data to Client, failed to access Database, Database error
-        AHERROPENDOORS           ##  Logging facility for Error at ActionHandler Opening a Door
-        AHERRUSERINPUT           ##  Logging facility for Error at ActionHandler User Input
-        AHSUCCSAVEDATA           ##  Logging facility for Message (success) at ActionHandler Save Data Logging facility for JavaScript Messages
-        AHSUCCOPENDOORS          ##  Logging facility for Message (success) at ActionHandler Oppening Doors Lagging facility for JavaScript Messages
-        AHUNKNOWNACTION          ##  Logging facility for Error at ActionHandler Unknown Action from Client
-        CMERROR                  ##  CommonMessages Logging Typ Error
-        CMINFO                   ##  CommonMessages Logging Typ Info
-        INTERNALERROR            ##  Return Value if an Action is not successfull Internal Error
-        APPENVPRODUCTION         ##  APP Environment Production
-        APPENVDEVELOPMENT        ##  APP Environment Development
+        TRUE                   
+        FALSE                  
+        HEXNULL                
+        HEXTWOBYTEONE          
+        DOORSOUTPUT            
+        DOORCOUNT              
+        DOORSSENDSIGNALTIME    
+        DOORSEXEPTIONOPENEND   
+        DOORSEXEPTIONCLOSED    
+        DOORSEXEPTIONCHECKDOORS
+        DOOROPENED             
+        DOORCLOSED             
+        AHDOOPENDOOR           
+        AHNOTOPENDOOR          
+        DOORSUSER              
+        OPENDOOR               
+        DBRETRIES              
+        DBRETRIESTIME          
+        DBERRCONN              
+        DBERRDISCONN           
+        DBERRCREATE            
+        DBERRREAD              
+        DBERRUPDATE            
+        DBERRDELETE            
+        DBERRBEGINWORK         
+        DBERRCOMMIT            
+        DBERRROLLBACK          
+        DBCONN                 
+        DBDISCONN              
+        DBCREATE               
+        DBREAD                 
+        DBUPDATE               
+        DBDELETE               
+        DBBEGINWORK            
+        DBCOMMIT               
+        DBROLLBACK             
+        SCLOGGOTINPUT          
+        ERROR                  
+        LOG                    
+        DB                     
+        DOORS                  
+        SCANNER                
+        ACTIONHANDLER          
+        COMMONMESSAGESCOLLECTOR
+        THROWTIME              
+        MSGSTRING              
+        AHREFRESH              
+        AHSAVEDATA             
+        AHSAVEDATAWRITE        
+        AHKEEPALIVE            
+        AHOPENDOORS            
+        AHUSERINPUT            
+        AHNOTCHANGED           
+        AHDATABASECHANGED      
+        AHERRSAVEDATA          
+        AHERRREFRESHDATA       
+        AHERROPENDOORS         
+        AHERRUSERINPUT         
+        AHSUCCSAVEDATA         
+        AHSUCCOPENDOORS        
+        AHUNKNOWNACTION        
+        CMERROR                
+        CMINFO                 
+        INTERNALERROR          
+        APPENVPRODUCTION       
+        APPENVDEVELOPMENT      
         );
 
     ##  --
@@ -222,7 +222,7 @@ BEGIN {
     };
 
     ##  --
-    ##  owner typ
+    ##  owner type
 
     use constant {
         BKFILEHANDLER           => 'bkfilehandler',
@@ -304,3 +304,75 @@ BEGIN {
 }
 
 1;
+
+__END__
+
+=head1 Constants Description
+
+TRUE                     ##  Boolean for 1
+FALSE                    ##  Boolean for 0
+HEXNULL                  ##  represent 0 in hex 0x0
+HEXTWOBYTEONE            ##  represent two byte in hex 0xFFFF (byte 0 := 0000000 ;; byte 1 := 00000000)
+DOORSOUTPUT              ##  ARRAY with door number to pin port mapping (eg. 0 => 0x1 ;; 1 => 0x2)
+DOORCOUNT                ##  Number of doors
+DOORSSENDSIGNALTIME      ##  Time in Seconds how long a Pin will ouput a Signal
+DOORSEXEPTIONOPENEND     ##  Logging facility for Error at door open (update Pin)
+DOORSEXEPTIONCLOSED      ##  Logging facility for Error at door close(update Pin)
+DOORSEXEPTIONCHECKDOORS  ##  Logging facility for Error at Check Doors, Database Error
+DOOROPENED               ##  Logging facility for Message (success) at door open (update Pin)
+DOORCLOSED               ##  Logging facility for Message (success) at door close (update Pin)
+AHDOOPENDOOR             ##  Database Entry for Opening a Door
+AHNOTOPENDOOR            ##  Database Entry for not Opening a Door
+DOORSUSER                ##  Username for Oppening a Door when invoked by Frontend
+OPENDOOR                 ##  Hash key of value wheter the door should be open or not
+DBRETRIES                ##  Time a sql execute is executed bevor an cannot access db error is thrown (look at ./lib/BK/Common/DatabaseAccess.db)
+DBRETRIESTIME            ##  Time to wait until a retrie if a sql execuation is not successfull
+DBERRCONN                ##  Logging facility for Error at Database Connect
+DBERRDISCONN             ##  Logging facility for Error at Database Disconnect
+DBERRCREATE              ##  Logging facility for Error at Database Create
+DBERRREAD                ##  Logging facility for Error at Database Read
+DBERRUPDATE              ##  Logging facility for Error at Database Update
+DBERRDELETE              ##  Logging facility for Error at Database Delete
+DBERRBEGINWORK           ##  Logging facility for Error at Database Begin Work (start Transaction)
+DBERRCOMMIT              ##  Logging facility for Error at Database Commit (stop Transaction / execute Transaction / make Changes permanent)
+DBERRROLLBACK            ##  Logging facility for Error at Database Rollback (undo changes made in the current open Transaction)
+DBCONN                   ##  Logging facility for Message (success) at Database Connect
+DBDISCONN                ##  Logging facility for Message (success) at Database Disconnect
+DBCREATE                 ##  Logging facility for Message (success) at Database Create
+DBREAD                   ##  Logging facility for Message (success) at Database Read
+DBUPDATE                 ##  Logging facility for Message (success) at Database Update
+DBDELETE                 ##  Logging facility for Message (success) at Database Delete
+DBBEGINWORK              ##  Logging facility for Message (success) at Database Begin Work (start Transaction)
+DBCOMMIT                 ##  Logging facility for Message (success) at Database Commit (stop Transaction / execute Transaction / make changes permanent)
+DBROLLBACK               ##  Logging facility for Message (success) at Database Rollback (undo changed made in the current open Transaction)
+SCLOGGOTINPUT            ##  Logging facility for Message (take note) at got input in BKBackend from STDIN (Scanner Object, look at ./lib/BK/Backend/Scanner.pm)
+ERROR                    ##  Logging Type for Error
+LOG                      ##  Logging Type for Log
+DB                       ##  Owner Description for database
+DOORS                    ##  Owner Description for doors
+SCANNER                  ##  Owner Description for scanner
+ACTIONHANDLER            ##  Owner Description for actionhandler
+COMMONMESSAGESCOLLECTOR  ##  Owner Description for commonmessagescollector
+THROWTIME                ##  Time a message (Log or Error) is thrown, key value for the log object CommonMessages
+MSGSTRING                ##  Message String (Log or Error), key value for log object CommonMessages
+AHREFRESH                ##  ActionHandler (AH) facility for Sending all Database Entries to the Client
+AHSAVEDATA               ##  ActionHandler (AH) facility for Save Data from the Input (Client) to the Database
+AHSAVEDATAWRITE          ##  Logging facility for Message (take note) at ActionHandler what happens with the Database (SQL Code)
+AHKEEPALIVE              ##  ActionHandler (AH) facility for Keep Alive requests for the WebSockets
+AHOPENDOORS              ##  ActionHandler (AH) facility for Opening a Doors
+AHUSERINPUT              ##  ActionHandler (AH) facility for getting User Input from the Scanner
+AHNOTCHANGED             ##  Logging facility for Message (take note) at ActionHandler if the Database has not changed
+AHDATABASECHANGED        ##  Logging facility for Message (take note) at ActionHandler if the Database has changed
+AHERRSAVEDATA            ##  Logging facility for Error at ActionHandler Save Data to Database, Database error
+AHERRREFRESHDATA         ##  Logging facility for Error at ActionHandler Refresh Data to Client, failed to access Database, Database error
+AHERROPENDOORS           ##  Logging facility for Error at ActionHandler Opening a Door
+AHERRUSERINPUT           ##  Logging facility for Error at ActionHandler User Input
+AHSUCCSAVEDATA           ##  Logging facility for Message (success) at ActionHandler Save Data Logging facility for JavaScript Messages
+AHSUCCOPENDOORS          ##  Logging facility for Message (success) at ActionHandler Oppening Doors Lagging facility for JavaScript Messages
+AHUNKNOWNACTION          ##  Logging facility for Error at ActionHandler Unknown Action from Client
+CMERROR                  ##  CommonMessages Logging Type Error
+CMINFO                   ##  CommonMessages Logging Type Info
+INTERNALERROR            ##  Return Value if an Action is not successfull Internal Error
+APPENVPRODUCTION         ##  APP Environment Production
+APPENVDEVELOPMENT        ##  APP Environment Development
+
