@@ -116,10 +116,10 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     usermod -a -G adm bk
     echo 'Setting up other required folders'
 
-    rm -rf $PA/{database,log,logs}
+    rm -rf $PA/{database,log}
 
     echo 'Generating Log Files and Directories'
-    mkdir $PA/{database,log,logs}
+    mkdir $PA/{database,log}
     touch $PA/log/{message,error}_log
     touch $PA/log/{production,development}.log
 
