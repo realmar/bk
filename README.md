@@ -24,7 +24,7 @@ ADDITIONALLY adapt the enviroment config files locatet in the environments folde
 Follow the steps describes in InitializeProgram.sh or just run it and answer the questions  
 All operations have to be done with root access  
   -  **Install the appropriate version of the linux-headers for your operating system**
-  -  **look at the install script, which version of the libjacklm.so is compiled you may need to adapt the version number so it can be renamed correctly**
+  -  **look at the install script, which version of the libjacklm.so is compiled you may need to adapt the version number so it can be renamed correctly**  
 There are some hardcoded variables in the code of BK which are adjustet by the install script if you do the installation manually you have to set those variables
 
 ## Log Files
@@ -57,16 +57,16 @@ Is the actual webserver which delivers the data, runs only on localhost (recomme
 
 ## LabJack
 ### Old System
-Vorname: Stefan
-Nachname: Meyer
-Tel.: +41 44 633 20 72
-E-Mail 0: stefan.meyer@phys.ethz.ch
+Vorname: Stefan  
+Nachname: Meyer  
+Tel.: +41 44 633 20 72  
+E-Mail 0: stefan.meyer@phys.ethz.ch  
 E-Mail 1: meyer@phys.ethz.ch
 
 ### New System with BK
-Hardware Name: LabJack U12
-Connection to Computer: USB
-Drivers: on LabJack Website
-Functionality: power is sent through the digital pins to the magnet on the door for a defined tim e to open the doors
-Programming Method 0: Perl
+Hardware Name: LabJack U12  
+Connection to Computer: USB  
+Drivers: on LabJack Website  
+Functionality: power is sent through the digital pins to the magnet on the door for a defined tim e to open the doors  
+Programming Method 0: Perl  
 Programming Method 1: ProfiLab

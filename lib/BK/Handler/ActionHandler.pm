@@ -38,45 +38,9 @@ sub DESTROY {
     return 0;
 }
 
-sub SetActionHandler {
-    my ($self, $action, $data) = @_;
-
-    if(defined($action) && defined($data)) {
-        $self->{_action} = $action;
-        $self->{_data}   = $data;
-    }
-
-    return $self;
-}
-
-sub GetActionHandler {
-    my $self = shift;
-    return {
-        'action' => $self->{_action},
-        'data'   => $self->{_data}
-    };
-}
-
-sub SetAHAction {
-    my ($self, $action) = @_;
-    $self->{_action} = $action if defined($action);
-    return $self->{_action};
-}
-
-sub SetAHData {
-    my ($self, $data) = @_;
-    $self->{_data} = $data if defined($data);
-    return $self->{_data};
-}
-
 sub GetAHAction {
     my $self = shift;
     return $self->{_action};
-}
-
-sub GetAHData {
-    my $self = shift;
-    return $self->{_data};
 }
 
 sub SetProcAC {
@@ -363,16 +327,11 @@ _proc_ac - INT if there was an recognized or relevant Action
 
 =head2 Setter
 
-SetActionHandler( [action - STRING], [data - STRING/ARRAY] ) - Sets ActionHandler
-SetAHAction( [action - STRING] ) - Sets action in ActionHandler
-SetAHData( [data - STRING/ARRAY] ) - Sets data in ActionHandler
 SetProcAC( [proc_ac - INT] ) - Sets proc_ac in ActionHandler
 
 =head2 Getter
 
-GetActionHandler() - Gets ActionHandler
 GetAHAction() - Gets action in ActionHandler
-GetAHData() - Gets data in ActionHandler
 GetProcAC() - Gets proc_ac in ActionHandler
 
 =head2 Methods

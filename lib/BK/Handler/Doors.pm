@@ -25,17 +25,6 @@ sub new {
     return $self;
 }
 
-sub SetDoors {
-    my ($self, $doors) = @_;
-    $self->{_doors} = $doors if defined($doors);
-    return $self->{_doors};
-}
-
-sub GetDoors {
-    my $self = shift;
-    return $self->{_doors};
-}
-
 sub OpenDoor {
     my ($self, $door, $username) = @_;
 
@@ -76,14 +65,6 @@ Modul for controling the Pins on the LabJack basically open the Doors on the Bue
 _owner_desc - STRING owner for logging
 _doors - ARRAY with all doors
 
-=head2 Setter
-
-SetDoors( [doors - ARRAY] ) - Set Doors
-
-=head2 Getter
-
-GetDoors() - Get Doors return Doors ARRAY
-
 =head2 Methods
 
 OpenDoor( [door - INT], [username - STRING] ) - Sends signal to a specific pin on the LabJack defined as [door - INT], [username - STRING] is required only for logging purposes
@@ -91,6 +72,4 @@ OpenDoor( [door - INT], [username - STRING] ) - Sends signal to a specific pin o
 =head2 Synopsis
 
 my $doors = Doors->new( [doors - ARRAY] );
-$doors->SetDoors( [doors - ARRAY] );
-my $doors_array = $doors->GetDoors();
 $doors->OpenDoors( [door - INT], [username - STRING] );
