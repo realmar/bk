@@ -147,7 +147,7 @@ sub SaveData {
 
     my $database_changed = 0;
 
-    &CommonVariables::database_connection->BeginWork();
+    CommonVariables::database_connection->BeginWork();
 
     for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
         switch ($self->{_data}->[$i]) {
@@ -157,7 +157,7 @@ sub SaveData {
             }
             case ('') {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDDEL);
-                if(&CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
+                if(CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
                     return Constants::INTERNALERROR;
                 }
                 $database_changed = 1;
@@ -165,7 +165,7 @@ sub SaveData {
             }
             else {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDNEW);
-                if(&CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => $self->{_data}[$i]}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
+                if(CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => $self->{_data}[$i]}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
                     return Constants::INTERNALERROR;
                 }
                 $database_changed = 1;
@@ -174,7 +174,7 @@ sub SaveData {
         }
     }
 
-    &CommonVariables::database_connection->CommitChanges();
+    CommonVariables::database_connection->CommitChanges();
 
     my $ah_refresh_data = $self->RefreshData();
     if(!$ah_refresh_data) {
@@ -206,16 +206,16 @@ sub RequestOpenDoors {
     for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
         if($self->{_data}[$i]->{Constants::OPENDOOR} == Constants::TRUE) {
             if($self->{_data}[$i]->{user} ne Constants::DOORSUSER) {
-                my $database_entries = &CommonVariables::database_connection->ReadEntryDatabase('Users', {'username' => $self->{_data}[$i]->{user}});
+                my $database_entries = CommonVariables::database_connection->ReadEntryDatabase('Users', {'username' => $self->{_data}[$i]->{user}});
 
                 while(my $database_entries_row = $database_entries->fetchrow_hashref) {
-                    $doors_open = &CommonVariables::doors->OpenDoor($database_entries_row->{doornumber}, $self->{_data}[$i]->{user});
+                    $doors_open = CommonVariables::doors->OpenDoor($database_entries_row->{doornumber}, $self->{_data}[$i]->{user});
                     if(defined($doors_open)) {
-                        &CommonVariables::database_connection->BeginWork();
-                        if(&CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}}) eq Constants::INTERNALERROR) {
+                        CommonVariables::database_connection->BeginWork();
+                        if(CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}}) eq Constants::INTERNALERROR) {
                             $database_changed = Constants::INTERNALERROR;
                         }
-                        &CommonVariables::database_connection->CommitChanges();
+                        CommonVariables::database_connection->CommitChanges();
                     }else{
                         $database_changed = Constants::AHERROPENDOORS;
                     }
@@ -226,13 +226,13 @@ sub RequestOpenDoors {
                 if($open_all_doors) {
                     if(!$opened_all_doors) {
                         $opened_all_doors = 1;
-                        $doors_open = &CommonVariables::doors->OpenDoor(Constants::DOORCOUNT, $self->{_data}[$i]->{user});
+                        $doors_open = CommonVariables::doors->OpenDoor(Constants::DOORCOUNT, $self->{_data}[$i]->{user});
                         if(!defined($doors_open)) {
                             $database_changed = Constants::AHERROPENDOORS;
                         }
                     }
                 }else{
-                    $doors_open = &CommonVariables::doors->OpenDoor($i, $self->{_data}[$i]->{user});
+                    $doors_open = CommonVariables::doors->OpenDoor($i, $self->{_data}[$i]->{user});
                     if(!defined($doors_open)) {
                         $database_changed = Constants::AHERROPENDOORS;
                     }
@@ -255,7 +255,7 @@ sub GetAllEntries {
 
     my %db_entries_hash;
     my @db_entries_array;
-    my $db_entries = &CommonVariables::database_connection->ReadEntryDatabase('Users', {});
+    my $db_entries = CommonVariables::database_connection->ReadEntryDatabase('Users', {});
     if($db_entries eq Constants::INTERNALERROR) {
         return Constants::INTERNALERROR;
     }
@@ -299,12 +299,12 @@ sub PrepareDataToSend {
 
     $self->{_data} = {
         'msg_data' => $self->{_data},
-        'all_errors' => &CommonVariables::common_messages_collector->GetAllCommons(Constants::CMERROR),
-        'all_infos' => &CommonVariables::common_messages_collector->GetAllCommons(Constants::CMINFO)
+        'all_errors' => CommonVariables::common_messages_collector->GetAllCommons(Constants::CMERROR),
+        'all_infos' => CommonVariables::common_messages_collector->GetAllCommons(Constants::CMINFO)
     };
     $self->ToJSON();
 
-    &CommonVariables::common_messages_collector->ResetAllStates();
+    CommonVariables::common_messages_collector->ResetAllStates();
 
     return $self->{_data};
 }

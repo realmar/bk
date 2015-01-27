@@ -32,7 +32,7 @@ sub new {
 sub OpenDoor {
     my ($self, $door, $username) = @_;
 
-    my $doors_opened_err = &CommonVariables::SetPins(Constants::HEXTWOBYTEONE, Constants::HEXNULL, Constants::DOORSOUTPUT->[$door], Constants::HEXNULL);
+    my $doors_opened_err = CommonVariables::SetPins(Constants::HEXTWOBYTEONE, Constants::HEXNULL, Constants::DOORSOUTPUT->[$door], Constants::HEXNULL);
 
     if($doors_opened_err > 0) {
         $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DOORSEXEPTIONOPENEND, MessagesTextConstants::DOORSERRORCODE . $doors_opened_err);
@@ -41,7 +41,7 @@ sub OpenDoor {
         sleep(Constants::DOORSSENDSIGNALTIME);
     }
 
-    my $doors_closed_err = &CommonVariables::SetPins(Constants::HEXTWOBYTEONE, Constants::HEXNULL, Constants::HEXNULL, Constants::HEXNULL);
+    my $doors_closed_err = CommonVariables::SetPins(Constants::HEXTWOBYTEONE, Constants::HEXNULL, Constants::HEXNULL, Constants::HEXNULL);
 
     if($doors_closed_err > 0) {
         $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DOORSEXEPTIONCLOSED, MessagesTextConstants::DOORSERRORCODE . $doors_closed_err);
