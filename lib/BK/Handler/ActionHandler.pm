@@ -9,6 +9,10 @@
 
 package ActionHandler;
 
+use 5.010;
+use strict;
+use warnings;
+
 use parent -norequire, 'CommonMessages';
 
 use BK::Common::Constants;

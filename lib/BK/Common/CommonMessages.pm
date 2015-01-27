@@ -9,6 +9,10 @@
 
 package CommonMessages;
 
+use 5.010;
+use strict;
+use warnings;
+
 use Switch;
 
 use BK::Common::Constants;

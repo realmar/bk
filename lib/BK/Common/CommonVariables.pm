@@ -9,6 +9,10 @@
 
 package CommonVariables;
 
+use 5.010;
+use strict;
+use warnings;
+
 use Inline C => Config => MYEXTLIB => '/usr/local/lib/libljacklm.so';
 use Inline C => '<BK_PATH>/lib/BK/Handler/SourceC/DoorsInterface.c';
 

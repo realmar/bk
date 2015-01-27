@@ -11,6 +11,10 @@ BEGIN {
 
     package MessagesTextConstants;
 
+    use 5.010;
+    use strict;
+    use warnings;
+
     use Exporter 'import';
 
     our @EXPORT = qw(
