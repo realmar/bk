@@ -20,6 +20,13 @@ or the RECOMMEDED VERSION run the InitializeProgram.sh script
 
 ADDITIONALLY adapt the enviroment config files locatet in the environments folder
 
+## Installation
+Follow the steps describes in InitializeProgram.sh or just run it and answer the questions  
+All operations have to be done with root access  
+  -  **Install the appropriate version of the linux-headers for your operating system**
+  -  **look at the install script, which version of the libjacklm.so is compiled you may need to adapt the version number so it can be renamed correctly**
+There are some hardcoded variables in the code of BK which are adjustet by the install script if you do the installation manually you have to set those variables
+
 ## Log Files
   -  All three Apps log in the same log files **log/message_log** and **log/error_log**
   -  BKFrontentWebSockets.pl logs also in the **log/development.log** or **log/production.log** depending on the running mode
