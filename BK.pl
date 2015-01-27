@@ -69,6 +69,9 @@ any [qw(GET POST)] => '/:action' => sub {
 
 app->start;
 
+&CommonVariables::filehandle_log_message->CloseFileHandle();
+&CommonVariables::filehandle_log_error->CloseFileHandle();
+
 __END__
 
 =head1 NAME

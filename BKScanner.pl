@@ -36,8 +36,8 @@ while(1) {
     }
 }
 
-$CommonVariables::filehandle_log_message->CloseFileHandle();
-$CommonVariables::filehandle_log_error->CloseFileHandle();
+&CommonVariables::filehandle_log_message->CloseFileHandle();
+&CommonVariables::filehandle_log_error->CloseFileHandle();
 
 __END__
 
