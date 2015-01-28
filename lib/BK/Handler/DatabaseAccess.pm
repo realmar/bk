@@ -124,26 +124,17 @@ sub UpdateEntryDatabase {
     my %set_values_hash = %{$set_values};
     my %name_values_hash = %{$name_values};
 
-    my $sql_query = 'UPDATE ' . $table;
-
-    my $first_set_entry = 2;
+    my $sql_query = 'UPDATE ' . $table . ' SET ';
+    my @set_values;
 
     foreach my $set_values_key (keys(%set_values_hash)) {
-        if(defined($first_set_entry)) {
-            if($set_values_hash{$set_values_key} ne 'null') {
-                $sql_query .= ' SET ' . $set_values_key . '="' . $set_values_hash{$set_values_key} . '"';
-            }else{
-                $sql_query .= ' SET ' . $set_values_key . '=' . $set_values_hash{$set_values_key};
-            }
-            $first_set_entry = undef;
-        }else{
-            if($set_values_hash{$set_values_key} ne 'null') {
-                $sql_query .= ', ' . $set_values_key . '="' . $set_values_hash{$set_values_key} . '"';
-            }else{
-                $sql_query .= ', ' . $set_values_key . '=' . $set_values_hash{$set_values_key};
-            }
+        my $set_value = $set_values_hash{$set_values_key};
+        if($set_value ne 'null') {
+            $set_value = '"' . $set_value . '"';
         }
+        push(@set_values, $set_values_key . '=' . $set_value);
     }
+    $sql_query .= join( ',', @set_values);
 
     foreach my $name_values_key (keys(%name_values_hash)) {
         $sql_query .= ' WHERE ' . $name_values_key . '=' . $name_values_hash{$name_values_key};
