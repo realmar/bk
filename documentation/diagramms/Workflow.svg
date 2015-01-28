@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="68cm" height="23cm" viewBox="-324 109 1342 458" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="-184" y="111" width="126" height="318"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-184" y="111" width="126" height="318"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="-121" y="273.9">
+      <tspan x="-121" y="273.9">BKScanner</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="205" y="110" width="465" height="319"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="205" y="110" width="465" height="319"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="437.5" y="273.4">
+      <tspan x="437.5" y="273.4">BK</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="911.075" y="110" width="105.85" height="317"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="911.075" y="110" width="105.85" height="317"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="964" y="264.4">
+      <tspan x="964" y="264.4">Web Browser</tspan>
+      <tspan x="964" y="280.4">(Client)</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="207" y="463" width="463" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="207" y="463" width="463" height="44"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="438.5" y="488.9">
+      <tspan x="438.5" y="488.9">SQLite Database</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M -287.5 479 L -172.5,479 C -155.25,496.4 -149.5,505.1 -149.5,522.5 C -149.5,539.9 -155.25,548.6 -172.5,566 L -287.5,566 L -310.5,522.5 L -287.5,479z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M -287.5 479 L -172.5,479 C -155.25,496.4 -149.5,505.1 -149.5,522.5 C -149.5,539.9 -155.25,548.6 -172.5,566 L -287.5,566 L -310.5,522.5 L -287.5,479"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="-230" y="526.5">
+      <tspan x="-230" y="526.5">Barcode Scanner</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="437.786" y1="438.732" x2="438.214" y2="453.268"/>
+    <polygon style="fill: #000000" points="437.566,431.235 442.858,441.084 437.786,438.732 432.862,441.378 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="437.566,431.235 442.858,441.084 437.786,438.732 432.862,441.378 "/>
+    <polygon style="fill: #000000" points="438.434,460.765 433.142,450.916 438.214,453.268 443.138,450.622 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="438.434,460.765 433.142,450.916 438.214,453.268 443.138,450.622 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="-58" y1="270" x2="195.264" y2="269.519"/>
+    <polygon style="fill: #000000" points="202.764,269.504 192.773,274.523 195.264,269.519 192.754,264.523 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="202.764,269.504 192.773,274.523 195.264,269.519 192.754,264.523 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="679.736" y1="269.46" x2="901.339" y2="268.54"/>
+    <polygon style="fill: #000000" points="672.236,269.491 682.215,264.449 679.736,269.46 682.257,274.449 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="672.236,269.491 682.215,264.449 679.736,269.46 682.257,274.449 "/>
+    <polygon style="fill: #000000" points="908.839,268.509 898.86,273.551 901.339,268.54 898.818,263.551 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="908.839,268.509 898.86,273.551 901.339,268.54 898.818,263.551 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="-230" y1="479" x2="-129.849" y2="433.059"/>
+    <polygon style="fill: #000000" points="-123.032,429.932 -130.037,438.646 -129.849,433.059 -134.206,429.557 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-123.032,429.932 -130.037,438.646 -129.849,433.059 -134.206,429.557 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="-27" y="261">
+    <tspan x="-27" y="261">HTTP Request to localhost</tspan>
+  </text>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="709" y="261">
+    <tspan x="709" y="261">HTTPS and WSS Requests</tspan>
+  </text>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="296" y="449">
+    <tspan x="296" y="449">DBD DBI Connection</tspan>
+  </text>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="-324" y="456">
+    <tspan x="-324" y="456">Acts like a Keyboard</tspan>
+  </text>
+</svg>

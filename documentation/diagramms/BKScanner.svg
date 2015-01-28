@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="15cm" height="7cm" viewBox="444 76 281 133" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <polygon style="fill: #ffffff" points="459.64,77 724,77 710.169,115 445.809,115 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="459.64,77 724,77 710.169,115 445.809,115 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="584.904" y="99.9">
+      <tspan x="584.904" y="99.9">Get Input from Barcodescanner</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="459" y="169" width="239" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="459" y="169" width="239" height="38"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="578.5" y="191.9">
+      <tspan x="578.5" y="191.9">HTTP request to localhost BK</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="577.989" y1="115" x2="578.408" y2="159.264"/>
+    <polygon style="fill: #000000" points="578.479,166.764 573.384,156.812 578.408,159.264 583.384,156.717 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="578.479,166.764 573.384,156.812 578.408,159.264 583.384,156.717 "/>
+  </g>
+</svg>

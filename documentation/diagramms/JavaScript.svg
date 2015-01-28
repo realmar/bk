@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="82cm" height="25cm" viewBox="43 102 1632 491" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="166.325" y="103" width="181.35" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="166.325" y="103" width="181.35" height="38"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="257" y="125.9">
+      <tspan x="257" y="125.9">wait for ready Document</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="186.975" y="339" width="146.05" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="186.975" y="339" width="146.05" height="38"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="260" y="361.9">
+      <tspan x="260" y="361.9">Initialize Programm</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 107.425 189 L 412.575,189 C 458.347,196.8 473.605,200.7 473.605,208.5 C 473.605,216.3 458.347,220.2 412.575,228 L 107.425,228 L 46.395,208.5 L 107.425,189z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 107.425 189 L 412.575,189 C 458.347,196.8 473.605,200.7 473.605,208.5 C 473.605,216.3 458.347,220.2 412.575,228 L 107.425,228 L 46.395,208.5 L 107.425,189"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="260" y="212.5">
+      <tspan x="260" y="212.5">programm_handler (ProgrammHandler Object)</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="257" y1="141" x2="257.784" y2="176.266"/>
+    <polygon style="fill: #000000" points="257.95,183.764 252.729,173.878 257.784,176.266 262.727,173.656 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="257.95,183.764 252.729,173.878 257.784,176.266 262.727,173.656 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="260" y1="228" x2="260" y2="329.264"/>
+    <polygon style="fill: #000000" points="260,336.764 255,326.764 260,329.264 265,326.764 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="260,336.764 255,326.764 260,329.264 265,326.764 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="260,228 260,272 664.2,272 664.2,238.736 "/>
+    <polygon style="fill: #000000" points="664.2,231.236 669.2,241.236 664.2,238.736 659.2,241.236 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="664.2,231.236 669.2,241.236 664.2,238.736 659.2,241.236 "/>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 546.1 189 L 782.3,189 C 817.73,197 829.54,201 829.54,209 C 829.54,217 817.73,221 782.3,229 L 546.1,229 L 498.86,209 L 546.1,189z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 546.1 189 L 782.3,189 C 817.73,197 829.54,201 829.54,209 C 829.54,217 817.73,221 782.3,229 L 546.1,229 L 498.86,209 L 546.1,189"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="664.2" y="213">
+      <tspan x="664.2" y="213">intervals_collector (Intervals object)</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 909.1 187 L 1140.9,187 C 1175.67,195 1187.26,199 1187.26,207 C 1187.26,215 1175.67,219 1140.9,227 L 909.1,227 L 862.74,207 L 909.1,187z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 909.1 187 L 1140.9,187 C 1175.67,195 1187.26,199 1187.26,207 C 1187.26,215 1175.67,219 1140.9,227 L 909.1,227 L 862.74,207 L 909.1,187"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1025" y="211">
+      <tspan x="1025" y="211">bk_ajax_data (AJAXRequest Object)</tspan>
+    </text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="260,377 260,398 1025,398 1025,236.736 "/>
+    <polygon style="fill: #000000" points="1025,229.236 1030,239.236 1025,236.736 1020,239.236 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1025,229.236 1030,239.236 1025,236.736 1020,239.236 "/>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 1273.17 183.901 L 1516.47,183.901 C 1552.96,191.901 1565.13,195.901 1565.13,203.901 C 1565.13,211.901 1552.96,215.901 1516.47,223.901 L 1273.17,223.901 L 1224.51,203.901 L 1273.17,183.901z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 1273.17 183.901 L 1516.47,183.901 C 1552.96,191.901 1565.13,195.901 1565.13,203.901 C 1565.13,211.901 1552.96,215.901 1516.47,223.901 L 1273.17,223.901 L 1224.51,203.901 L 1273.17,183.901"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1394.82" y="207.901">
+      <tspan x="1394.82" y="207.901">bk_websocket (BKWebSocket Object)</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 65.7442 451.401 C 106.574,456.901 126.989,456.901 167.819,451.401 C 208.649,445.901 229.064,445.901 269.894,451.401 L 269.894,484.401 C 229.064,478.901 208.649,478.901 167.819,484.401 C 126.989,489.901 106.574,489.901 65.7442,484.401 L 65.7442,451.401z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 65.7442 451.401 C 106.574,456.901 126.989,456.901 167.819,451.401 C 208.649,445.901 229.064,445.901 269.894,451.401 L 269.894,484.401 C 229.064,478.901 208.649,478.901 167.819,484.401 C 126.989,489.901 106.574,489.901 65.7442,484.401 L 65.7442,451.401"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="167.819" y="471.901">
+      <tspan x="167.819" y="471.901">CheckBookboxStates (Interval)</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 65.5442 517.401 C 108.854,522.901 130.509,522.901 173.819,517.401 C 217.129,511.901 238.784,511.901 282.094,517.401 L 282.094,550.401 C 238.784,544.901 217.129,544.901 173.819,550.401 C 130.509,555.901 108.854,555.901 65.5442,550.401 L 65.5442,517.401z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 65.5442 517.401 C 108.854,522.901 130.509,522.901 173.819,517.401 C 217.129,511.901 238.784,511.901 282.094,517.401 L 282.094,550.401 C 238.784,544.901 217.129,544.901 173.819,550.401 C 130.509,555.901 108.854,555.901 65.5442,550.401 L 65.5442,517.401"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="173.819" y="537.901">
+      <tspan x="173.819" y="537.901">CheckMSGDataObjects (Interval)</tspan>
+    </text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="186.975,358 44.7442,358 44.7442,467.901 56.0081,467.901 "/>
+    <polygon style="fill: #000000" points="63.5081,467.901 53.5081,472.901 56.0081,467.901 53.5081,462.901 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="63.5081,467.901 53.5081,472.901 56.0081,467.901 53.5081,462.901 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="186.975,358 44.5442,358 44.5442,533.901 55.8081,533.901 "/>
+    <polygon style="fill: #000000" points="63.3081,533.901 53.3081,538.901 55.8081,533.901 53.3081,528.901 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="63.3081,533.901 53.3081,538.901 55.8081,533.901 53.3081,528.901 "/>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 1120.82 316.401 C 1150.42,321.901 1165.22,321.901 1194.82,316.401 C 1224.42,310.901 1239.22,310.901 1268.82,316.401 L 1268.82,349.401 C 1239.22,343.901 1224.42,343.901 1194.82,349.401 C 1165.22,354.901 1150.42,354.901 1120.82,349.401 L 1120.82,316.401z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 1120.82 316.401 C 1150.42,321.901 1165.22,321.901 1194.82,316.401 C 1224.42,310.901 1239.22,310.901 1268.82,316.401 L 1268.82,349.401 C 1239.22,343.901 1224.42,343.901 1194.82,349.401 C 1165.22,354.901 1150.42,354.901 1120.82,349.401 L 1120.82,316.401"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1194.82" y="336.901">
+      <tspan x="1194.82" y="336.901">RefreshData (Interval)</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 1120.62 402.401 C 1161.9,407.901 1182.54,407.901 1223.82,402.401 C 1265.1,396.901 1285.74,396.901 1327.02,402.401 L 1327.02,435.401 C 1285.74,429.901 1265.1,429.901 1223.82,435.401 C 1182.54,440.901 1161.9,440.901 1120.62,435.401 L 1120.62,402.401z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 1120.62 402.401 C 1161.9,407.901 1182.54,407.901 1223.82,402.401 C 1265.1,396.901 1285.74,396.901 1327.02,402.401 L 1327.02,435.401 C 1285.74,429.901 1265.1,429.901 1223.82,435.401 C 1182.54,440.901 1161.9,440.901 1120.62,435.401 L 1120.62,402.401"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1223.82" y="422.901">
+      <tspan x="1223.82" y="422.901">ConnectToWebSocket (Interval)</tspan>
+    </text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1082.95,227 1082.95,332.901 1111.08,332.901 "/>
+    <polygon style="fill: #000000" points="1118.58,332.901 1108.58,337.901 1111.08,332.901 1108.58,327.901 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1118.58,332.901 1108.58,337.901 1111.08,332.901 1108.58,327.901 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1082.95,227 1082.95,418.901 1110.88,418.901 "/>
+    <polygon style="fill: #000000" points="1118.38,418.901 1108.38,423.901 1110.88,418.901 1108.38,413.901 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1118.38,418.901 1108.38,423.901 1110.88,418.901 1108.38,413.901 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1223.82,435.401 1223.82,472.901 1394.82,472.901 1394.82,233.637 "/>
+    <polygon style="fill: #000000" points="1394.82,226.137 1399.82,236.137 1394.82,233.637 1389.82,236.137 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1394.82,226.137 1399.82,236.137 1394.82,233.637 1389.82,236.137 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1333.99,223.901 1333.99,332.901 1278.55,332.901 "/>
+    <polygon style="fill: #000000" points="1271.05,332.901 1281.05,327.901 1278.55,332.901 1281.05,337.901 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1271.05,332.901 1281.05,327.901 1278.55,332.901 1281.05,337.901 "/>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 1520.34 307.401 C 1550.93,312.901 1566.23,312.901 1596.82,307.401 C 1627.41,301.901 1642.7,301.901 1673.29,307.401 L 1673.29,340.401 C 1642.7,334.901 1627.41,334.901 1596.82,340.401 C 1566.23,345.901 1550.93,345.901 1520.34,340.401 L 1520.34,307.401z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 1520.34 307.401 C 1550.93,312.901 1566.23,312.901 1596.82,307.401 C 1627.41,301.901 1642.7,301.901 1673.29,307.401 L 1673.29,340.401 C 1642.7,334.901 1627.41,334.901 1596.82,340.401 C 1566.23,345.901 1550.93,345.901 1520.34,340.401 L 1520.34,307.401"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1596.82" y="327.901">
+      <tspan x="1596.82" y="327.901">KeepAliveWS (Interval)</tspan>
+    </text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1455.64,223.901 1455.64,323.901 1510.61,323.901 "/>
+    <polygon style="fill: #000000" points="1518.11,323.901 1508.11,328.901 1510.61,323.901 1508.11,318.901 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1518.11,323.901 1508.11,328.901 1510.61,323.901 1508.11,318.901 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="1015.77" y="476.901" width="166.1" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1015.77" y="476.901" width="166.1" height="38"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1098.82" y="499.801">
+      <tspan x="1098.82" y="499.801">ActionHandler (object)</tspan>
+    </text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1194.82,349.401 1194.82,371.901 1098.82,371.901 1098.82,467.165 "/>
+    <polygon style="fill: #000000" points="1098.82,474.665 1093.82,464.665 1098.82,467.165 1103.82,464.665 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1098.82,474.665 1093.82,464.665 1098.82,467.165 1103.82,464.665 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="946.419" y="553.901" width="302.8" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="946.419" y="553.901" width="302.8" height="38"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1097.82" y="576.801">
+      <tspan x="1097.82" y="576.801">Update Website and show potentially Errors</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="1098.82" y1="514.901" x2="1098.07" y2="544.168"/>
+    <polygon style="fill: #000000" points="1097.88,551.666 1093.13,541.541 1098.07,544.168 1103.13,541.797 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1097.88,551.666 1093.13,541.541 1098.07,544.168 1103.13,541.797 "/>
+  </g>
+</svg>
