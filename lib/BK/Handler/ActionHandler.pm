@@ -19,7 +19,6 @@ use BK::Common::Constants;
 use BK::Common::CommonMessagesCollector;
 use BK::Handler::DatabaseAccess;
 
-use Switch;
 use JSON;
 
 sub new {
@@ -63,69 +62,57 @@ sub ProcessAction {
 
     $self->SetProcAC(0);
 
-    switch ($self->{_action}) {
-        case Constants::AHREFRESH {
-            $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHREFRESH, Constants::AHREFRESH);
-            if($self->RefreshData()) {
-                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRREFRESHDATA, MessagesTextConstants::AHERRREFRESHDATAMSG);
-            }
-            last;
+    if($self->{_action} eq Constants::AHREFRESH) {
+        $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHREFRESH, Constants::AHREFRESH);
+        if($self->RefreshData()) {
+            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRREFRESHDATA, MessagesTextConstants::AHERRREFRESHDATAMSG);
         }
-        case Constants::AHSAVEDATA {
-            $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, $self->{_data});
-            $self->FromJSON();
-            my $sav_data_response = $self->SaveData();
-            if($sav_data_response eq Constants::INTERNALERROR) {
-                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRSAVEDATA, MessagesTextConstants::AHERRSAVEDATAMSG);
-            }elsif($sav_data_response eq Constants::AHREFRESH) {
-                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRREFRESHDATA, MessagesTextConstants::AHERRREFRESHDATAMSG);
+    }elsif($self->{_action} eq Constants::AHSAVEDATA) {
+        $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATA, $self->{_data});
+        $self->FromJSON();
+        my $sav_data_response = $self->SaveData();
+        if($sav_data_response eq Constants::INTERNALERROR) {
+            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRSAVEDATA, MessagesTextConstants::AHERRSAVEDATAMSG);
+        }elsif($sav_data_response eq Constants::AHREFRESH) {
+            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRREFRESHDATA, MessagesTextConstants::AHERRREFRESHDATAMSG);
+        }else{
+            if(!$sav_data_response) {
+                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSUCCSAVEDATA, MessagesTextConstants::AHSAVEDATANOCHANGESMSG);
             }else{
-                if(!$sav_data_response) {
-                    $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSUCCSAVEDATA, MessagesTextConstants::AHSAVEDATANOCHANGESMSG);
-                }else{
-                    $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSUCCSAVEDATA, MessagesTextConstants::AHSAVEDATAMSG);
-                }
+                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSUCCSAVEDATA, MessagesTextConstants::AHSAVEDATAMSG);
             }
-            last;
         }
-        case Constants::AHOPENDOORS {
-            $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHOPENDOORS, $self->{_data});
-            $self->FromJSON();
-            my $sav_data_response = $self->RequestOpenDoors();
-            if($sav_data_response eq Constants::INTERNALERROR) {
-                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRSAVEDATA, MessagesTextConstants::AHERRSAVEDATAMSG);
-            }elsif($sav_data_response eq Constants::AHERROPENDOORS) {
-                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERROPENDOORS, MessagesTextConstants::AHERROPENDOORSMSG);
-            }elsif($sav_data_response eq Constants::AHREFRESH) {
-                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRREFRESHDATA, MessagesTextConstants::AHERRREFRESHDATAMSG);
-            }else{
-                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSUCCOPENDOORS, MessagesTextConstants::AHOPENDOORSMSG);
-            }
-            last;
+    }elsif($self->{_action} eq Constants::AHOPENDOORS) {
+        $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHOPENDOORS, $self->{_data});
+        $self->FromJSON();
+        my $sav_data_response = $self->RequestOpenDoors();
+        if($sav_data_response eq Constants::INTERNALERROR) {
+            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRSAVEDATA, MessagesTextConstants::AHERRSAVEDATAMSG);
+        }elsif($sav_data_response eq Constants::AHERROPENDOORS) {
+            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERROPENDOORS, MessagesTextConstants::AHERROPENDOORSMSG);
+        }elsif($sav_data_response eq Constants::AHREFRESH) {
+            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRREFRESHDATA, MessagesTextConstants::AHERRREFRESHDATAMSG);
+        }else{
+            $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSUCCOPENDOORS, MessagesTextConstants::AHOPENDOORSMSG);
         }
-        case Constants::AHUSERINPUT {
-            $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHUSERINPUT, $self->{_data});
-            $self->FromJSON();
-            my $sav_data_response = $self->RequestOpenDoors();
-            if($sav_data_response eq Constants::INTERNALERROR) {
-                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRSAVEDATA, MessagesTextConstants::AHERRSAVEDATAMSG);
-            }elsif($sav_data_response eq Constants::AHERROPENDOORS) {
-                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRUSERINPUT, MessagesTextConstants::AHERRUSERINPUTMSG);
-            }elsif($sav_data_response eq Constants::AHREFRESH) {
-                $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRREFRESHDATA, MessagesTextConstants::AHERRREFRESHDATAMSG);
-            }
-            last;
+    }elsif($self->{_action} eq Constants::AHUSERINPUT) {
+        $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHUSERINPUT, $self->{_data});
+        $self->FromJSON();
+        my $sav_data_response = $self->RequestOpenDoors();
+        if($sav_data_response eq Constants::INTERNALERROR) {
+            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRSAVEDATA, MessagesTextConstants::AHERRSAVEDATAMSG);
+        }elsif($sav_data_response eq Constants::AHERROPENDOORS) {
+            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRUSERINPUT, MessagesTextConstants::AHERRUSERINPUTMSG);
+        }elsif($sav_data_response eq Constants::AHREFRESH) {
+            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRREFRESHDATA, MessagesTextConstants::AHERRREFRESHDATAMSG);
         }
-        case Constants::AHKEEPALIVE {
-            $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHKEEPALIVE, $self->{_action});
-            $self->SetProcAC(1);
-            last;
-        }
-        else {
-            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHUNKNOWNACTION, $self->{_action});
-            $self->SetProcAC(1);
-            last;
-        }
+    }elsif($self->{_action} eq Constants::AHKEEPALIVE) {
+        $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHKEEPALIVE, $self->{_action});
+        $self->SetProcAC(1);
+    }else{
+        $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHUNKNOWNACTION, $self->{_action});
+        $self->SetProcAC(1);
+        last;
     }
 
     return 0;
@@ -150,27 +137,20 @@ sub SaveData {
     $CommonVariables::database_connection->BeginWork();
 
     for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
-        switch ($self->{_data}->[$i]) {
-            case (Constants::AHNOTCHANGED) {
-                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDIDEN);
-                last;
+        if($self->{_data}->[$i] eq Constants::AHNOTCHANGED) {
+            $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDIDEN);
+        }elsif($self->{_data}->[$i] eq '') {
+            $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDDEL);
+            if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
+                return Constants::INTERNALERROR;
             }
-            case ('') {
-                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDDEL);
-                if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
-                    return Constants::INTERNALERROR;
-                }
-                $database_changed = 1;
-                last;
+            $database_changed = 1;
+        }else{
+            $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDNEW);
+            if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => $self->{_data}[$i]}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
+                return Constants::INTERNALERROR;
             }
-            else {
-                $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDNEW);
-                if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => $self->{_data}[$i]}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
-                    return Constants::INTERNALERROR;
-                }
-                $database_changed = 1;
-                last;
-            }
+            $database_changed = 1;
         }
     }
 

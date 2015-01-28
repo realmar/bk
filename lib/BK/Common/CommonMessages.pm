@@ -13,8 +13,6 @@ use 5.010;
 use strict;
 use warnings;
 
-use Switch;
-
 use BK::Common::Constants;
 use BK::Common::CommonVariables;
 use BK::Handler::DatabaseAccess;
@@ -41,17 +39,12 @@ sub GetMessageHash {
 sub ThrowMessage {
     my ($self, $msg_prio, $msg_type, $msg_string) = @_;
 
-    switch ($msg_prio) {
-        case Constants::ERROR {
-            $CommonVariables::common_messages_collector->SetCommon(Constants::CMERROR, $msg_type, CommonMessages->new(time, $msg_string));
-            $self->LogError($msg_prio, $msg_type, $msg_string);
-            last;
-        }
-        case Constants::LOG {
-            $CommonVariables::common_messages_collector->SetCommon(Constants::CMINFO, $msg_type, CommonMessages->new(time, $msg_string));
-            $self->LogMessage($msg_prio, $msg_type, $msg_string);
-            last;
-        }
+    if($msg_prio eq Constants::ERROR) {
+        $CommonVariables::common_messages_collector->SetCommon(Constants::CMERROR, $msg_type, CommonMessages->new(time, $msg_string));
+        $self->LogError($msg_prio, $msg_type, $msg_string);
+    }elsif($msg_prio eq Constants::LOG) {
+        $CommonVariables::common_messages_collector->SetCommon(Constants::CMINFO, $msg_type, CommonMessages->new(time, $msg_string));
+        $self->LogMessage($msg_prio, $msg_type, $msg_string);
     }
 
     return 0;
