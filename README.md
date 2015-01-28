@@ -10,9 +10,14 @@ Dedicated Project for the D-Phys Library at the ETH Zuerich
 but it can be expanded when nesseccary
 
 ## To Deploy
-  1.  perl BKBackend.pl &
-  2.  perl BKFrontend.pl --environment production &
-  3.  perl BKFrontendWebSockets.pl daemon -m production -l ws://0.0.0.0:3003 &
+### Standalone
+  1.  perl BKScanner.pl &
+  2.  perl BK.pl daemon -m production -l ws://0.0.0.0:8008 &
+
+### With Apache2
+  1.  systemctl start bkscanner
+  2.  systemctl start bk
+  3.  systemctl start apache2
 
 or a correspondand web server configuration
 
