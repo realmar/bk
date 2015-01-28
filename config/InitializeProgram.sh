@@ -7,17 +7,6 @@
 ##  Created For / At: ETH Zuerich Department Physics
 #########################################################
 
-##  Backup Files
-##    BKScanner.pl
-##    BK.pl
-##    public/javascript/scripts/variables/VariablesDefinition.js
-##    Apache2_Config/apache2.conf
-##    Apache2_Config/ports.conf
-##    Apache2_Config/bk-ssl_proxy.conf
-##    Apache2_Config/bk_redirect_ssl_proxy.conf
-##    services/bkscanner.service
-##    services/bk.service
-
 echo '-------------------------------------------------------------------------'
 echo 'Welcome to BK - BuecherKasten'
 echo 'Thank you for choosing our software solution'
@@ -28,37 +17,10 @@ echo ''
 read -p 'Do you want to install BK - Buecherkasten? [Y/n]: ' INSTBK
 if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     echo ''
-    read -p 'Enter BK Path (the Folder with all files) [/opt/BK]: ' PA
+    read -p 'Enter the Path where BK is located (BK.pl and BKScanner.pl) [/opt/BK]: ' PA
     if [[ -z $PA ]]; then
         PA=/opt/BK
     fi
-    echo 'Applying to: ' $PA
-
-    if [[ ! -d $PA/backups ]]; then
-        echo 'Generating restore point (Making Backups)'
-        mkdir $PA/backups
-        cp $PA/{BKScanner.pl,BK.pl} $PA/backups/.
-        cp $PA/public/javascript/scripts/variables/VariablesDefinition.js $PA/backups/.
-        cp -a $PA/Apache2_Config $PA/backups/.
-        cp -a $PA/services $PA/backups/.
-    else
-        echo 'Going back to restore point (Restore Backups)'
-        rm -rf $PA/{BKScanner.pl,BK.pl}
-        rm -rf $PA/public/javascript/scripts/variables/VariablesDefinition.js
-        rm -rf $PA/Apache2_Config
-        rm -rf $PA/services
-        cp $PA/backups/{BKScanner.pl,BK.pl} $PA/.
-        cp $PA/backups/VariablesDefinition.js $PA/public/javascript/scripts/variables/.
-        cp -a $PA/backups/Apache2_Config $PA/.
-        cp -a $PA/backups/services $PA/.
-    fi
-    echo ''
-
-    sed -i "s|<BK_PATH>|$PA|g" $PA/{BKScanner.pl,BK.pl}
-    sed -i "s|<BK_PATH>|$PA|g" $PA/lib/BK/Common/CommonVariables.pm
-    sed -i "s|<BK_PATH>|$PA|g" $PA/services/*
-
-    echo ''
 
     read -p 'Do you want to install the required packages? [Y/n]: ' INSTPKG
     if [[ $INSTPKG =~ ^(yes|y) ]] || [[ -z $INSTPKG ]]; then
@@ -134,28 +96,6 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     echo ''
     echo ''
 
-    read -p 'Enter the hostname of the BK - BuecherKasten server NOT FQDN (WITHOUT DOMAIN): ' HOSTNAME
-    echo 'Applying: ' $HOSTNAME
-
-    echo ''
-    echo ''
-
-    BK_PORT=443
-
-    echo "The BK Server should be run on port $BK_PORT"
-    echo "These values will be automatically set in the JavaScript"
-    echo "You can manually change this by editing the public/javascript/scripts/variables/VariablesDefinition.js file and the corresponding Apache2 configuration files"
-
-    echo ''
-    echo ''
-
-    echo 'Applying ' $BK_PORT
-
-    sed -i "s/<BK_PORT>/$BK_PORT/g" $PA/public/javascript/scripts/variables/VariablesDefinition.js
-
-    echo ''
-    echo ''
-
     read -p 'WARNING: webserver Apache2 will be stopped continue? [Y/n]' APACHECONT
     if [[ $APACHECONT =~ ^(no|n) ]]; then
         echo 'Not configuring BK with Apache2, you have to configure BK on your own'
@@ -165,59 +105,30 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     service apache2 stop
     echo 'Initializing Apache Configuration Files'
     cd /etc/apache2
-    sed -i "s|<BK_PATH>|$PA|g" $PA/Apache2_Config/*
-    sed -i "s|<BK_PATH>|$PA|g" $PA/Apache2_Config/sites-common/*
     rm -rf /etc/apache2/{apache2,ports}.conf
     cp $PA/Apache2_Config/{apache2,ports}.conf /etc/apache2/.
     a2dissite {000-default.conf,default-ssl.conf}
     a2dissite bk.conf
     rm -rf /etc/apache2/sites-available/bk*
     rm -rf /etc/apache2/sites-common/bk*
-    read -p 'Enter the contact creditals of the Serveradmin MUST BE AN E-MAIL ADDRESS: ' SERVERADMIN
-    echo 'Applying: ' $SERVERADMIN
-    sed -i "s/<SERVERADMIN>/$SERVERADMIN/g" $PA/Apache2_Config/*
-    sed -i "s/<SERVERADMIN>/$SERVERADMIN/g" $PA/Apache2_Config/sites-common/*
-    read -p 'Enter the Port on which BK should run locally: ' BK_LOCAL_PORT
-    echo 'Applying ' $BK_LOCAL_PORT
-    sed -i "s|<BK_LOCAL_PORT>|$BK_LOCAL_PORT|g" $PA/Apache2_Config/*
-    sed -i "s|<BK_LOCAL_PORT>|$BK_LOCAL_PORT|g" $PA/Apache2_Config/sites-common/*
-    sed -i "s|<BK_LOCAL_PORT>|$BK_LOCAL_PORT|g" $PA/services/*
-    sed -i "s|<BK_LOCAL_PORT>|$BK_LOCAL_PORT|g" $PA/BKScanner.pl
-    sed -i "s|<HOSTNAME>|$HOSTNAME|g" $PA/Apache2_Config/sites-common/*
-    sed -i "s|<HOSTNAME>|localhost|g" $PA/services/*
-    read -p 'Do you want to create a Self Signed SSL Certificate? [Y/n]: ' MAKESSC
-    if [[ $MAKESSC =~ ^(yes|y) ]] || [[ -z $MAKESSC ]]; then
-        sed -i "s|<CERT_PATH>|/etc/apache2/certs/localcerts/bk|g" $PA/Apache2_Config/sites-common/*
-        echo 'Creating SSL Self-Signed Certificates'
-        mkdir -p /etc/apache2/certs/localcerts/bk/ssl.{crt,key}
-        rm -rf /etc/apache2/certs/localcerts/bk/ssl.{crt,key}/$HOSTNAME*
-        openssl req -new -x509 -days 365 -nodes -out /etc/apache2/certs/localcerts/bk/ssl.crt/$HOSTNAME.crt -keyout /etc/apache2/certs/localcerts/bk/ssl.key/$HOSTNAME.key
-        chmod 600 /etc/apache2/certs/localcerts/bk/ssl.{crt,key}/$HOSTNAME*
-    else
-        sed -i "s|<CERT_PATH>|/etc/apache2/certs/bk|g" $PA/Apache2_Config/sites-common/*
-        mkdir -p /etc/apache2/certs/bk/ssl.{crt,key}
-        echo ''
-        echo ''
-        echo 'Please place your certificates here: /etc/apache2/certs/bk/ssl.{crt,key}'
-        echo "and name them: $HOSTNAME.{pem,key} or edit the Apache2 configuration files"
-        echo ''
-        echo ''
-    fi
+    
+    ##  this section is for generating a self signed certificate and is not used but here just for your information how to do this
+    ##  
+    ##      read -p 'Do you want to create a Self Signed SSL Certificate? [Y/n]: ' MAKESSC
+    ##      mkdir -p /etc/apache2/certs/localcerts/bk/ssl.{crt,key}
+    ##      rm -rf /etc/apache2/certs/localcerts/bk/ssl.{crt,key}/$HOSTNAME*
+    ##      openssl req -new -x509 -days 365 -nodes -out /etc/apache2/certs/localcerts/bk/ssl.crt/$HOSTNAME.crt -keyout /etc/apache2/certs/localcerts/bk/ssl.key/$HOSTNAME.key
+    ##      chmod 600 /etc/apache2/certs/localcerts/bk/ssl.{crt,key}/$HOSTNAME*
+
+    mkdir -p /etc/apache2/certs/bk/ssl.{crt,key}
+    echo ''
+    echo ''
+    echo 'Please place your certificates here: /etc/apache2/certs/bk/ssl.{crt,key}'
+    echo "and name them: phd-bookshelf.{pem,key} or edit the Apache2 configuration files"
+    echo ''
+    echo ''
     a2enmod rewrite
     a2enmod ssl
-    sed -i 's/<WS_PROTOCOL>/wss/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
-    sed -i 's/<AJAX_PROTOCOL>/https/g' $PA/public/javascript/scripts/variables/VariablesDefinition.js
-    echo 'Configuring LDAP Users and Groups'
-    read -p 'Enter the a User to grant Access to BK N := no more users [<USERNAME>/n]' LDAPUSER
-    while [[ ! $LDAPUSER =~ (N|n) ]] && [[ ! -z $LDAPUSER ]]; do
-        echo "Require ldap-user $LDAPUSER" >> $PA/Apache2_Config/sites-common/bk_ldap_users_groups.conf
-        read -p 'Enter the a User to grant Access to BK N := no more users [<USERNAME>/n]' LDAPUSER
-    done
-    read -p 'Enter the group to grant Access to BK N := no more groups [<GROUPNAME>/n]' LDAPGROUP
-    while [[ ! $LDAPGROUP =~ (N|n) ]] && [[ ! -z $LDAPGROUP ]]; do
-        echo "Require ldap-group cn=$LDAPGROUP,ou1=Group,ou=Physik Departement,o=ethz,c=ch" >> $PA/Apache2_Config/sites-common/bk_ldap_users_groups.conf
-        read -p 'Enter the group to grant Access to BK N := no more groups [<GROUPNAME>/n]' LDAPGROUP
-    done
     cp -a $PA/Apache2_Config/* /etc/apache2/sites-available/.
     rm -rf /etc/apache2/sites-available/{apache2,ports}.conf
     mv /etc/apache2/sites-available/sites-common /etc/apache2/.
