@@ -59,44 +59,19 @@ sub DisconnectFromDatabase {
     return 0;
 }
 
-##  --
-##  CreateEntryDatabase currenlty not in use
-
-sub CreateEntryDatabase {
-    my ($self, $table, $column) = @_;
-
-    my $sql_query = 'INSERT INTO ' . $table . '(' . $column . ') VALUES(NULL)';
-
-    my $database_query = $self->{_db}->prepare($sql_query);
-    if(!$database_query->execute()) {
-        for(0..Constants::DBRETRIES) {
-            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCREATE, MessagesTextConstants::DBERRCREATEMSG . $self->{_db}->errstr);
-            sleep(Constants::DBRETRIESTIME);
-            if($database_query->execute()) {
-                $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBCREATE, $sql_query);
-                return 0;
-            }
-        }
-    }else{
-        $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBCREATE, $sql_query);
-        return 0;
-    }
-
-    $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRCREATE, MessagesTextConstants::DBERRCREATEMSG . $self->{_db}->errstr);
-
-    return Constants::INTERNALERROR;
-}
-
 sub ReadEntryDatabase {
     my ($self, $table, $name_values) = @_;
 
     my %name_values = %{$name_values};
 
-    my $sql_query = 'SELECT * FROM ' . $table;
+    my $sql_query = 'SELECT * FROM ' . $table . 'WHERE ';
 
-    foreach my $name_values_key (keys(%name_values)) {
-        $sql_query .= ' WHERE ' . $name_values_key . '="' . $name_values{$name_values_key} . '"';
+    my @name_values;
+
+    foreach my $name_values_key (keys(%name_values_hash)) {
+        push(@name_values, $name_values_key . '=' . $name_values_hash{$name_values_key});
     }
+    $sql_query .= join(' AND ', @name_values);
 
     my $database_query = $self->{_db}->prepare($sql_query);
     if(!$database_query->execute()) {
@@ -136,9 +111,13 @@ sub UpdateEntryDatabase {
     }
     $sql_query .= join( ',', @set_values);
 
+    $sql_query .= ' WHERE ';
+    my @name_values;
+
     foreach my $name_values_key (keys(%name_values_hash)) {
-        $sql_query .= ' WHERE ' . $name_values_key . '=' . $name_values_hash{$name_values_key};
+        push(@name_values, $name_values_key . '=' . $name_values_hash{$name_values_key});
     }
+    $sql_query .= join(' AND ', @name_values);
 
     my $database_query = $self->{_db}->prepare($sql_query);
     if(!$database_query->execute()) {
@@ -156,40 +135,6 @@ sub UpdateEntryDatabase {
     }
 
     $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRUPDATE, MessagesTextConstants::DBERRUPDATEMSG . $self->{_db}->errstr);
-
-    return Constants::INTERNALERROR;
-}
-
-##  --
-##  DeleteEntryDatabase currenlty not in use
-
-sub DeleteEntryDatabase {
-    my ($self, $table, $name_values) = @_;
-
-    my %name_values = %{$name_values};
-
-    my $sql_query = 'DELETE FROM ' . $table;
-
-    foreach my $name_values_key (keys(%name_values)) {
-        $sql_query .= ' WHERE ' . $name_values_key . '="' . $name_values{$name_values_key} . '"';
-    }
-
-    my $database_query = $self->{_db}->prepare($sql_query);
-    if(!$database_query->execute()) {
-        db_retries : for(0..Constants::DBRETRIES) {
-            $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDELETE, MessagesTextConstants::DBERRDELETEMSG . $self->{_db}->errstr);
-            sleep(Constants::DBRETRIESTIME);
-            if($database_query->execute()) {
-                $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBDELETE, $sql_query);
-                return 0;
-            }
-        }
-    }else{
-        $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBDELETE, $sql_query);
-        return 0;
-    }
-
-    $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDELETE, MessagesTextConstants::DBERRDELETEMSG . $self->{_db}->errstr);
 
     return Constants::INTERNALERROR;
 }
@@ -247,10 +192,8 @@ None
 
 =head2 Methods
 
-CreateEntryDatabase( [table - STRING], [column - STRING] ) - Creates a new NULL Entry in the Database
 ReadEntryDatabase( [table - STRING], [name_values - HASH] ) - Returns the result of the Database Query, name_values is WHERE key=value in SQL Query
 UpdateEntryDatabase( [table - STRING], [set_values - HASH], [name_values - HASH] ) - Update Database with the given arguments, set_values is SET key=value, name_values is WHERE key=value in SQL Query
-DeleteEntryDatabase( [table - STRING], [name_values - HASH] ) - Deletes an Entry in the Database, name_values is WHERE key=value
 BeginWork() - Starts a Transaction in the Database
 CommitChanges() - Stops / Commits a Transaction in the Database
 RollbackChanges() - Undo changes in the current Transaction
@@ -258,10 +201,8 @@ RollbackChanges() - Undo changes in the current Transaction
 =head2 Synposis
 
 my $database_connection = DatabaseAccess->new( [driver - STRING eg. SQLite], [file - STRING eg. database.db] );
-$database_connection->CreateEntryDatabase( [table - STRING eg. Users], [column - STRING eg. username] );
 $database_connection->ReadEntryDatabase( [table - STRING eg. Users], [name_values - HASH eg. { username => 'testtest' }] );
 $database_connection->UpdateEntryDatabase( [table - STRING eg. Users], [set_values - HASH eg. { username => 'testtest' }], [name_values - HASH eg. { doornumber => 4 }] );
-$database_connection->DeleteEntryDatabase( [table - STRING eg. Users], [name_values - HASH eg. { username => 'testtest' }] );
 $database_connection->BeginWork();
 $database_connection->CommitChanges();
 $database_connection->RollbackChanges();
