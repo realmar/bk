@@ -17,6 +17,7 @@ use parent -norequire, 'CommonMessages';
 
 use BK::Common::Constants;
 use BK::Common::CommonMessagesCollector;
+use BK::Common::CommonVariables;
 use BK::Handler::DatabaseAccess;
 
 use JSON;
@@ -186,22 +187,20 @@ sub RequestOpenDoors {
     for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
         if($self->{_data}[$i]->{Constants::OPENDOOR} == Constants::TRUE) {
             if($self->{_data}[$i]->{user} ne Constants::DOORSUSER) {
-                my $database_entries = $CommonVariables::database_connection->ReadEntryDatabase('Users', {'username' => $self->{_data}[$i]->{user}});
-
+                my $database_entries = CommonVariables::database_connection->ReadEntryDatabase('Users', {'username' => $self->{_data}[$i]->{user}});
                 while(my $database_entries_row = $database_entries->fetchrow_hashref) {
-                    $doors_open = $CommonVariables::doors->OpenDoor($database_entries_row->{doornumber}, $self->{_data}[$i]->{user});
+                    $doors_open = CommonVariables::doors->OpenDoor($database_entries_row->{doornumber}, $self->{_data}[$i]->{user});
                     if(defined($doors_open)) {
-                        $CommonVariables::database_connection->BeginWork();
-                        if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}}) eq Constants::INTERNALERROR) {
+                        CommonVariables::database_connection->BeginWork();
+                        if(CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}}) eq Constants::INTERNALERROR) {
                             $database_changed = Constants::INTERNALERROR;
                         }
-                        $CommonVariables::database_connection->CommitChanges();
+                        CommonVariables::database_connection->CommitChanges();
                     }else{
                         $database_changed = Constants::AHERROPENDOORS;
                     }
                     $doors_open = undef;
                 }
-
             }else{
                 if($open_all_doors) {
                     if(!$opened_all_doors) {

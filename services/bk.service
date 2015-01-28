@@ -6,7 +6,7 @@ User=bk
 Group=bk
 PIDFile=/var/run/BK.pid
 ExecStartPre=/bin/rm -rf /var/run/BK.pid
-ExecStart=<BK_PATH>/BK.pl daemon -m production -l http://<HOSTNAME>:<BK_LOCAL_PORT>
+ExecStart=/opt/BK/BK.pl daemon -m production -l http://localhost:8008
 Restart=always
 
 [Install]

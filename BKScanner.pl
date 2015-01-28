@@ -12,7 +12,7 @@ use 5.010;
 use strict;
 use warnings;
 
-use lib '<BK_PATH>/lib/';
+use lib '/opt/BK/lib/';
 
 use BK::Common::Constants;
 use BK::Common::BKFileHandler;
@@ -24,7 +24,7 @@ use BK::Scanner::Scanner;
 use LWP::Simple;
 
 CommonVariables::init_variables({
-        'bk_path'          => '<BK_PATH>/',
+        'bk_path'          => '/opt/BK/',
         'message_log_path' => 'log/message_log',
         'error_log_path'   => 'log/error_log',
         'database_path'    => undef,
@@ -39,7 +39,7 @@ while(1) {
     my $input_barc = $scanner->GetInput();
 
     if($input_barc ne '') {
-        my $request = 'http://localhost:<BK_LOCAL_PORT>/' . Constants::AHUSERINPUT . '?msg_data=[{ "' . Constants::OPENDOOR . '" : ' . Constants::TRUE . ', "user" : "' . $input_barc . '" }]';
+        my $request = 'http://localhost:8008/' . Constants::AHUSERINPUT . '?msg_data=[{ "' . Constants::OPENDOOR . '" : ' . Constants::TRUE . ', "user" : "' . $input_barc . '" }]';
         get($request);
     }
 }

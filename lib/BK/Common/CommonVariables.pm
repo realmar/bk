@@ -14,7 +14,7 @@ use strict;
 use warnings;
 
 use Inline C => Config => MYEXTLIB => '/usr/local/lib/libljacklm.so';
-use Inline C => '<BK_PATH>/lib/BK/Handler/SourceC/DoorsInterface.c';
+use Inline C => '/opt/BK/lib/BK/Handler/SourceC/DoorsInterface.c';
 
 use BK::Common::CommonMessagesCollector;
 use BK::Common::BKFileHandler;
@@ -58,7 +58,7 @@ sub init_variables {
     if (defined($common_variables->{message_log_path})) { $filehandle_log_message = BKFileHandler->new('>>', $common_variables->{bk_path} . $common_variables->{message_log_path}); }
     if (defined($common_variables->{error_log_path})) { $filehandle_log_error = BKFileHandler->new('>>', $common_variables->{bk_path} . $common_variables->{error_log_path}); }
     if (defined($common_variables->{database_handler}) && defined($common_variables->{database_path})) { $database_connection = DatabaseAccess->new($common_variables->{database_handler}, $common_variables->{bk_path} . $common_variables->{database_path}); }
-    if (defined($common_variables->{doors_arg})) { $doors = Doors->new($common_variables->{doors}); }
+    if (defined($common_variables->{doors})) { $doors = Doors->new($common_variables->{doors}); }
 
     return 0;
 }

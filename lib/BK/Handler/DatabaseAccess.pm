@@ -62,16 +62,22 @@ sub DisconnectFromDatabase {
 sub ReadEntryDatabase {
     my ($self, $table, $name_values) = @_;
 
-    my %name_values = %{$name_values};
+    my %name_values_hash = %{$name_values};
 
-    my $sql_query = 'SELECT * FROM ' . $table . 'WHERE ';
+    my $sql_query = 'SELECT * FROM ' . $table;
 
     my @name_values;
 
     foreach my $name_values_key (keys(%name_values_hash)) {
-        push(@name_values, $name_values_key . '=' . $name_values_hash{$name_values_key});
+        push(@name_values, $name_values_key . '="' . $name_values_hash{$name_values_key} . '"');
     }
+	if(scalar(@name_values > 0)) {
+		$sql_query .= ' WHERE ';
+	}
     $sql_query .= join(' AND ', @name_values);
+
+	say('--');
+	say($sql_query);
 
     my $database_query = $self->{_db}->prepare($sql_query);
     if(!$database_query->execute()) {
