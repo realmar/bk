@@ -76,9 +76,6 @@ sub ReadEntryDatabase {
 	}
     $sql_query .= join(' AND ', @name_values);
 
-	say('--');
-	say($sql_query);
-
     my $database_query = $self->{_db}->prepare($sql_query);
     if(!$database_query->execute()) {
         db_retries : for(0..Constants::DBRETRIES) {
