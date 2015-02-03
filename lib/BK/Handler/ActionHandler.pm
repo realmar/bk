@@ -65,7 +65,7 @@ sub ProcessAction {
 
     if($self->{_action} eq Constants::AHREFRESH) {
         $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHREFRESH, Constants::AHREFRESH);
-        if($self->RefreshData()) {
+        if($self->RefreshData() eq Constants::AHREFRESH) {
             $self->SUPER::ThrowMessage(Constants::ERROR, Constants::AHERRREFRESHDATA, MessagesTextConstants::AHERRREFRESHDATAMSG);
         }
     }elsif($self->{_action} eq Constants::AHSAVEDATA) {
