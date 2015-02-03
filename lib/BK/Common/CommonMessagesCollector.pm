@@ -59,7 +59,7 @@ sub new {
 
 sub SetCommon {
     my ($self, $data_type, $msg_type, $msg_obj) = @_;
-    $self->{_common_messages}->{$msg_type}->{$data_type} = [] if !defined($self->{_common_messages}->{$msg_type}->{$data_type});
+    $self->{_common_messages}->{$msg_type}->{$data_type} ||= [];
     push( @{ $self->{_common_messages}->{$msg_type}->{$data_type} }, $msg_obj);
     return 0;
 }
