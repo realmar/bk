@@ -51,7 +51,6 @@ websocket '/ws' => sub {
         }else{
             $self->send(MessagesTextConstants::STATUS200);
         }
-        $recv_action->DESTROY();
     });
 };
 
@@ -72,7 +71,6 @@ any [qw(GET POST)] => '/:action' => sub {
     }else{
         $self->render(text => MessagesTextConstants::STATUS200);
     }
-    $recv_action->DESTROY();
 };
 
 app->start;
