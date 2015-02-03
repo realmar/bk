@@ -36,7 +36,7 @@ sub OpenDoor {
 
     if($doors_opened_err > 0) {
         $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DOORSEXEPTIONOPENEND, MessagesTextConstants::DOORSERRORCODE . $doors_opened_err);
-        return 1;
+        return 0;
     }
     $self->SUPER::ThrowMessage(Constants::LOG, Constants::DOOROPENED, MessagesTextConstants::DOORSNUMBER . $door . MessagesTextConstants::DOORSUSERNAME . $username);
     sleep(Constants::DOORSSENDSIGNALTIME);
@@ -45,11 +45,11 @@ sub OpenDoor {
 
     if($doors_closed_err > 0) {
         $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DOORSEXEPTIONCLOSED, MessagesTextConstants::DOORSERRORCODE . $doors_closed_err);
-        return 1;
+        return 0;
     }
     $self->SUPER::ThrowMessage(Constants::LOG, Constants::DOORCLOSED, MessagesTextConstants::DOORSNUMBER . $door . MessagesTextConstants::DOORSUSERNAME . $username);
 
-    return undef;
+    return 1;
 }
 
 1;

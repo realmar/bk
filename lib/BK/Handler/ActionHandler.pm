@@ -190,7 +190,7 @@ sub RequestOpenDoors {
                 my $database_entries = CommonVariables::database_connection->ReadEntryDatabase('Users', {'username' => $self->{_data}[$i]->{user}});
                 while(my $database_entries_row = $database_entries->fetchrow_hashref) {
                     $doors_open = CommonVariables::doors->OpenDoor($database_entries_row->{doornumber}, $self->{_data}[$i]->{user});
-                    if(defined($doors_open)) {
+                    if($doors_open) {
                         $CommonVariables::database_connection->BeginWork();
                         if(!$CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}})) {
                             $database_changed = Constants::INTERNALERROR;
@@ -206,7 +206,7 @@ sub RequestOpenDoors {
                     if(!$opened_all_doors) {
                         $opened_all_doors = 1;
                         $doors_open = $CommonVariables::doors->OpenDoor(Constants::DOORCOUNT, $self->{_data}[$i]->{user});
-                        if(!defined($doors_open)) {
+                        if(!$doors_open) {
                             $database_changed = Constants::AHERROPENDOORS;
                         }
                     }
