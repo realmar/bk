@@ -22,16 +22,16 @@ function ActionHandler(msg_data_arg) {
 
     function ProcessAction() {  //  Processes the Data received from the Server, updates the Content in the Bookboxes and Adds Messages
         RemoveMessageData($("div#all_errors > p." + AH_ERROR));
-        programm_handler.CheckBookboxStates();
+        program_handler.CheckBookboxStates();
         for(var i = 0; i < this.msg_data["msg_data"].length; i++) {
             var current_bookbox = $("div#bookbox" + i + "> input.bookbox_input");
-            if(!current_bookbox.parent().hasClass("changed") || programm_handler.last_data_state.length <= 0 || (current_bookbox.parent().hasClass("changed") && this.msg_data["msg_data"][i] == null && programm_handler.last_data_state[i] != null)) {
+            if(!current_bookbox.parent().hasClass("changed") || program_handler.last_data_state.length <= 0 || (current_bookbox.parent().hasClass("changed") && this.msg_data["msg_data"][i] == null && program_handler.last_data_state[i] != null)) {
                 current_bookbox.val(this.msg_data["msg_data"][i]);
             }
         }
         RemoveMessageData($("div#msg_user_client > p." + CHAG_CONT));
 
-        programm_handler.last_data_state = this.msg_data["msg_data"];
+        program_handler.last_data_state = this.msg_data["msg_data"];
         for(var msg_cat in this.msg_data["all_infos"]) {
             for(var i = 0; i < this.msg_data["all_infos"][msg_cat].length; i++) {
                 var date_time_throw_time =  new Date(this.msg_data["all_infos"][msg_cat][i][THROW_TIME] * 1000);

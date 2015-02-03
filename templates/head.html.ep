@@ -18,7 +18,7 @@
     <script src="javascript/scripts/variables/VariablesDefinition.js"></script>
     <script src="javascript/scripts/prototypes/ActionHandler.js"></script>
     <script src="javascript/scripts/prototypes/AJAXData.js"></script>
-    <script src="javascript/scripts/prototypes/ProgrammHandler.js"></script>
+    <script src="javascript/scripts/prototypes/ProgramHandler.js"></script>
     <script src="javascript/scripts/prototypes/WebSockets.js"></script>
     <script src="javascript/scripts/prototypes/Intervals.js"></script>
     <script src="javascript/scripts/functions/DOMChanges.js"></script>

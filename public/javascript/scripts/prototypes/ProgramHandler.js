@@ -13,17 +13,17 @@
 //
 //  Synopsis
 //
-//  var programm_handler = new ProgrammHandler();
-//  programm_handler.InitializeProgramm();
+//  var program_handler = new ProgramHandler();
+//  program_handler.InitializeProgram();
 
-function ProgrammHandler() {
+function ProgramHandler() {
     this.intervals_collector = new IntervalsCollector();  //  Initialized a new IntercalsCollector
     this.conn_type;                                       //  Stores the Connection Type if AJAX or Websockets are used
     this.conn_attempt = WS_SEND_NO_WAIT;                  //  Sets if it has to be waited for teh Websocket to be ready
     this.bk_websocket;                                    //  Stores the Websocket Object
     this.bk_ajax_data;                                    //  Stores the AJAX Object
 
-    this.InitializeProgramm           = InitializeProgramm;           //  Initialized the Programm
+    this.InitializeProgram           = InitializeProgram;           //  Initialized the Program
     this.InitializeConnTypeWebSockets = InitializeConnTypeWebSockets; //  Initialized the WebSocket Content
     this.InitializeConnTypeAJAX       = InitializeConnTypeAJAX;       //  Initialized the AJAX Content
     this.ConnectToWebSocket           = ConnectToWebSocket;           //  Connects to the WebSocket
@@ -39,7 +39,7 @@ function ProgrammHandler() {
 
     this.last_data_state = [];  //  Stores the last state of the Bookboxes
 
-    function InitializeProgramm() {
+    function InitializeProgram() {
         this.intervals_collector.RemoveInterval('bk_websocket_try_connect');
         this.intervals_collector.RemoveInterval('bk_ajax_data_refresh');
         this.intervals_collector.RemoveInterval('bk_websocket_keep_alive');
@@ -65,7 +65,7 @@ function ProgrammHandler() {
     }
 
     function InitializeConnTypeAJAX(reinit) {
-        if(programm_handler.conn_type != CONN_TYPE_AJAX) {
+        if(program_handler.conn_type != CONN_TYPE_AJAX) {
             this.intervals_collector.RemoveInterval('bk_websocket_keep_alive');
             this.intervals_collector.RemoveInterval('bk_websocket_refresh');
             this.bk_ajax_data = null;
@@ -149,7 +149,7 @@ function CheckBookboxStates() {
     var bookbox_data = [];
     for(var i = 0; i < $("div.bookbox").length; i++) {
         var current_bookbox = $("div#bookbox" + i);
-        if(($("div#bookbox" + i + "> input.bookbox_input").val() != programm_handler.last_data_state[i]) && !($("div#bookbox" + i + "> input.bookbox_input").val() == "" && programm_handler.last_data_state[i] == null)) {
+        if(($("div#bookbox" + i + "> input.bookbox_input").val() != program_handler.last_data_state[i]) && !($("div#bookbox" + i + "> input.bookbox_input").val() == "" && program_handler.last_data_state[i] == null)) {
             current_bookbox.addClass("changed");
         }else{
             if(current_bookbox.hasClass("changed")) {

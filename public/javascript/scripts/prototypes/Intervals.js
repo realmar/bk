@@ -23,7 +23,7 @@ function IntervalsCollector() {
     this.ResetCounter = ResetCounter;          //  Method to Reset the states of an Interval
     this.UpgradeInterval = UpgradeInterval;    //  Method to set wether interval will degrade itself or stay up
 
-    function RegisterInterval(func, name, tries, diff_times) {  //  Register an Interval, the func must be an ARRAY with the Functions or Methods as STRING of the desired Functions or Methods, the functions in the Interval has the programm_handler Namespace
+    function RegisterInterval(func, name, tries, diff_times) {  //  Register an Interval, the func must be an ARRAY with the Functions or Methods as STRING of the desired Functions or Methods, the functions in the Interval has the program_handler Namespace
         this.intervals[name] = {
             "dt" : diff_times.dtshort,
             "id" : setTimeout(function () { callback(func, name) }, diff_times.dtshort),
@@ -39,11 +39,11 @@ function IntervalsCollector() {
         }
         var callback = function() {
             if(func.length <= 1) {
-                eval(programm_handler[func[0]]());
+                eval(program_handler[func[0]]());
             }else if(func.length >= 2) {
-                eval(programm_handler[func[0]][func[1]]());
+                eval(program_handler[func[0]][func[1]]());
             }
-            var this_interval = programm_handler.intervals_collector.intervals[name];
+            var this_interval = program_handler.intervals_collector.intervals[name];
             if(this_interval.tries.do) {
                 if(this_interval.tries.count <= 0) {
                     this_interval.dt = this_interval.diff_times.long;

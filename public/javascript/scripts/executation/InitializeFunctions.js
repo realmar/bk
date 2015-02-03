@@ -12,10 +12,10 @@
 
 function InitializeButtons() {  //  Initializes all Buttons
     $("div#save_button").click(function () {
-        programm_handler.SaveData();
+        program_handler.SaveData();
     });
     $("div#refresh_button").click(function () {
-        programm_handler.RefreshData('force_refresh');
+        program_handler.RefreshData('force_refresh');
     });
     $("div#delete_all_button").click(function () {
         $("div.bookbox > input.bookbox_input").val("");
@@ -25,16 +25,16 @@ function InitializeButtons() {  //  Initializes all Buttons
         $("div#open_all_doors_button").addClass("display_none");
         $("div#open_all_doors_button_inactive").removeClass("display_none");
         $("div#open_all_doors_button_inactive").addClass("display_inline");
-        programm_handler.OpenDoors([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+        program_handler.OpenDoors([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     });
     $("div.bookbox > p > span.edit_bookbox > span.delete_bookbox").click(function () {
         $(this).parent().parent().next("input.bookbox_input").val("");
     });
     $("div.bookbox > p > span.edit_bookbox > span.undo_bookbox").click(function () {
-        $(this).parent().parent().next("input.bookbox_input").val(programm_handler.last_data_state[$(this).parent().parent().siblings("input.bookbox_id").val()])
+        $(this).parent().parent().next("input.bookbox_input").val(program_handler.last_data_state[$(this).parent().parent().siblings("input.bookbox_id").val()])
     });
     $("div.bookbox > p > span.edit_bookbox > span.open_bookbox").click(function () {
-        programm_handler.OpenDoors([ parseInt($(this).parent().parent().siblings("input.bookbox_id").attr("value")) ]);
+        program_handler.OpenDoors([ parseInt($(this).parent().parent().siblings("input.bookbox_id").attr("value")) ]);
     });
 }
 

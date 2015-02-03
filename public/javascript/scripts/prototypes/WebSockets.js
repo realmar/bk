@@ -35,7 +35,7 @@ function BKWebSocket(ws_path_arg) {
     function OpenWebSocket(ws_path_arg) {
         this.socket = null;
         this.socket = new WebSocket(ws_path_arg);
-        programm_handler.conn_attempt == WS_SEND_NO_WAIT;
+        program_handler.conn_attempt == WS_SEND_NO_WAIT;
         this.socket.addEventListener("open", this.OnOpenWS);
         this.socket.addEventListener("message", this.OnMessageWS);
         this.socket.addEventListener("close", this.OnCloseWS);
@@ -44,8 +44,8 @@ function BKWebSocket(ws_path_arg) {
 
     function OnOpenWS(e) {
         if(this.readyState == this.OPEN) {
-            programm_handler.InitializeConnTypeWebSockets();
-            programm_handler.SetConnectionType(CONN_TYPE_WEBSOCKETS);
+            program_handler.InitializeConnTypeWebSockets();
+            program_handler.SetConnectionType(CONN_TYPE_WEBSOCKETS);
         }
     }
 
@@ -64,41 +64,41 @@ function BKWebSocket(ws_path_arg) {
     }
 
     function CloseWebSocket() {
-        programm_handler.conn_attempt == WS_SEND_ABORD;
-        programm_handler.InitializeConnTypeAJAX();
+        program_handler.conn_attempt == WS_SEND_ABORD;
+        program_handler.InitializeConnTypeAJAX();
     }
 
     function SendDataWS(data) {
         var ws_tries_local = 0;
-        while(programm_handler.conn_attempt == WS_SEND_WAIT) {
+        while(program_handler.conn_attempt == WS_SEND_WAIT) {
         }
-        if(programm_handler.conn_attempt == WS_SEND_ABORD) {
+        if(program_handler.conn_attempt == WS_SEND_ABORD) {
             return 0;
         }
         if(!this.socket) {
-            programm_handler.conn_attempt = WS_SEND_ABORD;
+            program_handler.conn_attempt = WS_SEND_ABORD;
             return 0;
         }
         if(this.socket.readyState != this.socket.OPEN) {
-            programm_handler.conn_attempt = WS_SEND_WAIT;
+            program_handler.conn_attempt = WS_SEND_WAIT;
             function WaitForWebSocket() {
                 if(!this.socket) {
-                    programm_handler.conn_attempt = WS_SEND_ABORD;
+                    program_handler.conn_attempt = WS_SEND_ABORD;
                     return 0;
                 }
                 if(this.socket.readyState != this.socket.OPEN) {
-                    if(ws_tries_local <= programm_handler.ws_tries) {
+                    if(ws_tries_local <= program_handler.ws_tries) {
                         ws_tries_local++;
-                        setTimeout(WaitForWebSocket(), programm_handler.ws_wait);
+                        setTimeout(WaitForWebSocket(), program_handler.ws_wait);
                     }else{
                         return 0;
                     }
                 }
             }
-            setTimeout(WaitForWebSocket(), programm_handler.ws_wait);
+            setTimeout(WaitForWebSocket(), program_handler.ws_wait);
         }
-        if(programm_handler.conn_attempt != WS_SEND_ABORD) {
-            programm_handler.conn_attempt = WS_SEND_NO_WAIT;
+        if(program_handler.conn_attempt != WS_SEND_ABORD) {
+            program_handler.conn_attempt = WS_SEND_NO_WAIT;
             !this.socket.send(data);
         }
     }

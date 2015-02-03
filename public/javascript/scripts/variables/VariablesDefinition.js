@@ -7,11 +7,11 @@
 /////////////////////////////////////////////////////////
 
 //  --
-//  programm variables
+//  program variables
 
 var ws_path   = "wss://" + window.location.hostname + ":443/ws";
 var ajax_path = "https://" + window.location.hostname + ":443";
-var programm_handler;
+var program_handler;
 
 //  --
 //  template variables

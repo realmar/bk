@@ -8,9 +8,9 @@
 
 //  Description
 //
-//  First Script which is executet creates the programm_handler and Initialize it
+//  First Script which is executet creates the program_handler and Initialize it
 
 $(document).ready(function () {  // Initialized the whole JavaScript part
-    programm_handler = new ProgrammHandler();
-    programm_handler.InitializeProgramm();
+    program_handler = new ProgramHandler();
+    program_handler.InitializeProgram();
 });
