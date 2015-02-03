@@ -56,7 +56,7 @@ sub DisconnectFromDatabase {
     $self->{_db}->disconnect
         or $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRDISCONN, MessagesTextConstants::DBERRDISCONNMSG . $self->{_db}->errstr);
     $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBDISCONN, MessagesTextConstants::DBDISCONNMSG);
-    return 0;
+    return 1;
 }
 
 sub ReadEntryDatabase {
@@ -93,7 +93,7 @@ sub ReadEntryDatabase {
 
     $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRREAD, MessagesTextConstants::DBERRREADMSG . $self->{_db}->errstr);
 
-    return Constants::INTERNALERROR;
+    return 0;
 }
 
 sub UpdateEntryDatabase {
@@ -129,17 +129,17 @@ sub UpdateEntryDatabase {
             sleep(Constants::DBRETRIESTIME);
             if($database_query->execute()) {
                 $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBUPDATE, $sql_query);
-                return 0;
+                return 1;
             }
         }
     }else{
         $self->SUPER::ThrowMessage(Constants::LOG, Constants::DBUPDATE, $sql_query);
-        return 0;
+        return 1;
     }
 
     $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DBERRUPDATE, MessagesTextConstants::DBERRUPDATEMSG . $self->{_db}->errstr);
 
-    return Constants::INTERNALERROR;
+    return 0;
 }
 
 sub BeginWork {

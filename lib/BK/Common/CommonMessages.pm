@@ -47,7 +47,7 @@ sub ThrowMessage {
         $self->LogMessage($msg_prio, $msg_type, $msg_string);
     }
 
-    return 0;
+    return 1;
 }
 
 sub CreateLogString {

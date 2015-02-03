@@ -60,7 +60,7 @@ sub init_variables {
     if (defined($common_variables->{database_handler}) && defined($common_variables->{database_path})) { $database_connection = DatabaseAccess->new($common_variables->{database_handler}, $common_variables->{bk_path} . $common_variables->{database_path}); }
     if (defined($common_variables->{doors})) { $doors = Doors->new($common_variables->{doors}); }
 
-    return 0;
+    return 1;
 }
 
 return 1;

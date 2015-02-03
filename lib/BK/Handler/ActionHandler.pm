@@ -39,7 +39,7 @@ sub DESTROY {
 
     $self->{handle}->close() if $self->{handle};
 
-    return 0;
+    return 1;
 }
 
 sub GetAHAction {
@@ -116,7 +116,7 @@ sub ProcessAction {
         last;
     }
 
-    return 0;
+    return 1;
 }
 
 sub RefreshData {
@@ -127,7 +127,7 @@ sub RefreshData {
         return Constants::AHREFRESH;
     }
 
-    return 0;
+    return 1;
 }
 
 sub SaveData {
@@ -142,13 +142,13 @@ sub SaveData {
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDIDEN);
         }elsif($self->{_data}->[$i] eq '') {
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDDEL);
-            if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
+            if(!$CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $i})) {
                 return Constants::INTERNALERROR;
             }
             $database_changed = 1;
         }else{
             $self->SUPER::ThrowMessage(Constants::LOG, Constants::AHSAVEDATAWRITE, MessagesTextConstants::AHSDNEW);
-            if($CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => $self->{_data}[$i]}, {'doornumber' => $i}) eq Constants::INTERNALERROR) {
+            if(!$CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => $self->{_data}[$i]}, {'doornumber' => $i})) {
                 return Constants::INTERNALERROR;
             }
             $database_changed = 1;
@@ -158,10 +158,10 @@ sub SaveData {
     $CommonVariables::database_connection->CommitChanges();
 
     my $ah_refresh_data = $self->RefreshData();
-    if(!$ah_refresh_data) {
-        return $database_changed;
-    }else{
+    if($ah_refresh_data eq Constants::AHREFRESH) {
         return $ah_refresh_data;
+    }else{
+        return $database_changed;
     }
 }
 
@@ -191,11 +191,11 @@ sub RequestOpenDoors {
                 while(my $database_entries_row = $database_entries->fetchrow_hashref) {
                     $doors_open = CommonVariables::doors->OpenDoor($database_entries_row->{doornumber}, $self->{_data}[$i]->{user});
                     if(defined($doors_open)) {
-                        CommonVariables::database_connection->BeginWork();
-                        if(CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}}) eq Constants::INTERNALERROR) {
+                        $CommonVariables::database_connection->BeginWork();
+                        if(!$CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}})) {
                             $database_changed = Constants::INTERNALERROR;
                         }
-                        CommonVariables::database_connection->CommitChanges();
+                        $CommonVariables::database_connection->CommitChanges();
                     }else{
                         $database_changed = Constants::AHERROPENDOORS;
                     }
@@ -222,10 +222,10 @@ sub RequestOpenDoors {
     }
 
     my $ah_refresh_data = $self->RefreshData();
-    if(!$ah_refresh_data) {
-        return $database_changed;
-    }else{
+    if($ah_refresh_data eq Constants::AHREFRESH) {
         return $ah_refresh_data;
+    }else{
+        return $database_changed;
     }
 }
 
@@ -235,7 +235,7 @@ sub GetAllEntries {
     my %db_entries_hash;
     my @db_entries_array;
     my $db_entries = $CommonVariables::database_connection->ReadEntryDatabase('Users', {});
-    if($db_entries eq Constants::INTERNALERROR) {
+    if(!$db_entries) {
         return Constants::INTERNALERROR;
     }
     while (my $db_entries_row = $db_entries->fetchrow_hashref) {
