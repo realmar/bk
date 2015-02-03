@@ -1,97 +1,91 @@
-# BK README
+BK README
+=========
 
-Author:
-Anastassios Martakos
+What Is This?
+-------------
+BK stands for BuecherKasten, meaning bookshelf. It controls the physical doors connected to a processing unit (LabJack) by reading user input from a barcode scanner.  
+It also provides a web interface to manage which user can open which door.  
+The project is designed for the library of the physics department at ETH Zuerich 
+but it can be expanded when necessary.
 
-## What is this
-This contains the Backend and the Frontend of BK. BK stands for BuecherKasten it controls the physical doors connected to a processing unit by reading user input from a barcode scanner.  
-It also provides a web interface to manage which user has which door.  
-Dedicated Project for the D-Phys Library at the ETH Zuerich 
-but it can be expanded when nesseccary
+Installation
+------------
+The installation steps are described in the script `config/InitializeProgram.sh`.  
+  -  Install the appropriate version of the `linux-headers` for your operating system.
+  -  Look at the install script, which version of the `libjacklm.so` is compiled. You may need to adapt the version number so it can be renamed correctly.
+  -  Run the install script as root and answer the questions.
 
-## To Deploy
+Execution
+---------
 ### Standalone
-  1.  perl BKScanner.pl &
-  2.  perl BK.pl daemon -m production -l ws://0.0.0.0:8008 &
+  1.  `perl BKScanner.pl &`
+  2.  `perl BK.pl daemon -m production -l ws://0.0.0.0:8008 &`
 
-### With Apache2
-  1.  systemctl start bkscanner
-  2.  systemctl start bk
-  3.  systemctl start apache2
+### Services
+  1.  `systemctl start bkscanner`
+  2.  `systemctl start bk`
+  3.  `systemctl start apache2`
 
-or a correspondand web server configuration  
-or the RECOMMEDED VERSION run the config/InitializeProgram.sh script
+Log Files
+---------
+  -  Both apps log to the same files `log/message_log` and `log/error_log`.
+  -  `BK.pl` also logs the Mojolicious messages to the `log/development.log` or `log/production.log`, depending on the mode.
 
-## Installation
-Follow the steps describes in config/InitializeProgram.sh or just run it and answer the questions  
-All operations have to be done with root access  
-  -  **Install the appropriate version of the linux-headers for your operating system**
-  -  **look at the install script, which version of the libjacklm.so is compiled you may need to adapt the version number so it can be renamed correctly**  
-There are some hardcoded variables in the code of BK which are adjustet by the install script if you do the installation manually you have to set those variables
-
-## Log Files
-  -  All three Apps log in the same log files **log/message_log** and **log/error_log**
-  -  BK.pl logs also in the **log/development.log** or **log/production.log** depending on the running mode
-
-## Components
+Components
+----------
   -  BK
   -  BKScanner
   -  SQLite Database
-  -  JavaScript (Client)
+  -  JavaScript Client
 
 ### BK
-This is the Mojolicious all in one frontend meaning, it is the webserver, door opener and reads / writes to the database.
+This is the Mojolicious all-in-one app, meaning, it is the webserver, door opener and accesses the database.
 
-There are different action (routes) which BK can process, this information is taken from the URL. The response is in most cases just the content of the bookboxes.
+There are different actions (routes) which BK can process. This information is taken from the URL. The response is in most cases just the content of the book boxes.
 
 ### BKScanner
-Only get the user input from the barcode reader and makes an http request to localhost to BK.
+It waits for user input from the barcode reader and transmits the username via HTTP request to BK on localhost.
 
 ### SQLite Database
-Stores the informations which door is to which user assigned.
+Stores the information which door is assigned to which user.
 
-### JavaScript (Client)
-Handles the things on the client. It has two connection modes: **AJAX** and **WebSockets** WebSockets is the prefered protocol. If WebSockets are not available it will fall back to AJAX also it starts with a AJAX connection which
-then gets upgraded to a WebSockets connection. With upgrade we mean a new connection is made.
+### JavaScript Client
+It has two connection modes: **AJAX** and **WebSockets**. The client starts with an AJAX connection and then tries to open a WebSocket. If this succeeds, it continues to use WebSockets as the preferred protocol. If WebSockets are no longer available it will fall back to AJAX.
 
-#### Delevoper Note
-You can manually force to use AJAX if you set the **ws_path** to a incorrect URL and then call **program_handler.InitializeConnTypeAJAX** in the console of your browser. To go back just set the **ws_path** to the previous correct URL and then wait until it makes a connection (this can take up to 1 min, because of the retry interval).
+#### Developer Note
+You can manually force to use AJAX if you set the `ws_path` to an incorrect URL and then call `program_handler.InitializeConnTypeAJAX` in the console of your browser. To go back just set the `ws_path` to the previous correct URL and then wait until it makes a connection (this can take up to 1 min, because of the retry interval).
 
-## Services
-There are two services (based on systemd service files) the **bk.service** and the **bkscanner.service** which runs the appropriate script, as the name of these services tells. They are configured that they will restart if they break down.
+Services
+--------
+There are two services, based on `systemd` service files, the `bk.service` and `bkscanner.service` which run the corresponding scripts. They are configured to restart if they crash.
 
-## Webserver
-### Apache2
-Apache2 runs a proxy on the Mojolicious Webserver
-
+Webservers
+----------
 ### Mojolicious
-Is the actual webserver which delivers the data, runs only on localhost (recommeded by init script)
+Is the actual webserver which delivers the data but listens only on localhost.
 
-## LabJack
-### Old System
-Vorname: Stefan  
-Nachname: Meyer  
-Tel.: +41 44 633 20 72  
-E-Mail 0: stefan.meyer@phys.ethz.ch  
-E-Mail 1: meyer@phys.ethz.ch
+### Apache
+Apache runs a proxy for the Mojolicious webserver and is responsible for the authentication via LDAP. The `ws_tunnel` module is required to proxy the WebSocket requests.
 
-### New System with BK
+LabJack
+-------
 Hardware Name: LabJack U12  
 Connection to Computer: USB  
 Drivers: on LabJack Website  
-Functionality: power is sent through the digital pins to the magnet on the door for a defined tim e to open the doors  
-Programming Method 0: Perl  
+Functionality: power is sent through the digital pins to the magnet on the door for a defined time to open the doors  
+Programming Method 0: C  
 Programming Method 1: ProfiLab
 
-## 6 Things you should know
-  1.  This project is developed by Anastassios Martakos (me) so don't search for the contact person (like me before)
-  2.  Has 3 components BK (Mojolocious), BKScanner (just Perl) and JavaScript on the client side
-  3.  Stores data in a SQLite database
-  4.  The Install script is in config not bin
-  5.  It has a GIT repository so use it
-  6.  BK controlls a LabJack which needs drivers and they need to be compiled, it also is accessable through C code and other Languages
+### Developer of the old system
+Name: Stefan Meyer  
+Tel.: +41 44 633 20 72  
+E-Mail: stefan.meyer@phys.ethz.ch
 
-## Notes
-### Issues
-  -  When $self-{_db}->disconnect called an error is invoked therefore the DatabaseAccess destructor is commented out, is not that clean, should be fixed one day at the time
-  -  WebSockets doesn't work on Safari clients, propably because Safari doesn't send the auth header with the wss protocol
+Known issues
+------------
+  -  The call of `$self->{_db}->disconnect` generates an error. Therefore, as a temporary work-around, the `DatabaseAccess` destructor is commented out.
+  -  WebSockets don't work with Safari, probably because Safari doesn't send the auth header with the wss protocol.
+
+Author
+------
+Anastassios Martakos
