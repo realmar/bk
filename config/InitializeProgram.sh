@@ -17,7 +17,7 @@ echo ''
 read -p 'Do you want to install BK - Buecherkasten? [Y/n]: ' INSTBK
 if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     echo ''
-    read -p 'Enter the Path where BK is located (BK.pl and BKScanner.pl) [/opt/BK]: ' PA
+    read -p 'Enter the Path where BK is located (BK and BKScanner) [/opt/BK]: ' PA
     if [[ -z $PA ]]; then
         PA=/opt/BK
     fi

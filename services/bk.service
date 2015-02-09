@@ -1,12 +1,12 @@
 [Unit]
-Description=BK.pl -- Frontend for BK
+Description=BK -- Frontend for BK
 
 [Service]
 User=bk
 Group=bk
 PIDFile=/var/run/BK.pid
 ExecStartPre=/bin/rm -rf /var/run/BK.pid
-ExecStart=/opt/BK/BK.pl daemon -m production -l http://localhost:8008
+ExecStart=/opt/BK/BK daemon -m production -l http://localhost:8008
 Restart=always
 
 [Install]

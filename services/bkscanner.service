@@ -1,5 +1,5 @@
 [Unit]
-Description=BKScanner.pl -- Scanner for BK
+Description=BKScanner -- Scanner for BK
 After=dev-tty1.device systemd-user-sessions.service
 
 [Service]
@@ -8,7 +8,7 @@ Group=bk
 Type=simple
 PIDFile=/var/run/BKScanner.pid
 ExecStartPre=/bin/rm -rf /var/run/BKScanner.pid
-ExecStart=/opt/BK/BKScanner.pl
+ExecStart=/opt/BK/BKScanner
 StandardInput=tty
 StandardOutput=tty
 TTYPath=/dev/tty1

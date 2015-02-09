@@ -18,8 +18,8 @@ The installation steps are described in the script `config/InitializeProgram.sh`
 Execution
 ---------
 ### Standalone
-  1.  `perl BKScanner.pl &`
-  2.  `perl BK.pl daemon -m production -l ws://0.0.0.0:8008 &`
+  1.  `perl BKScanner &`
+  2.  `perl BK daemon -m production -l ws://0.0.0.0:8008 &`
 
 ### Services
   1.  `systemctl start bkscanner`
@@ -29,7 +29,7 @@ Execution
 Log Files
 ---------
   -  Both apps log to the same files `log/message_log` and `log/error_log`.
-  -  `BK.pl` also logs the Mojolicious messages to the `log/development.log` or `log/production.log`, depending on the mode.
+  -  `BK` also logs the Mojolicious messages to the `log/development.log` or `log/production.log`, depending on the mode.
 
 Components
 ----------
