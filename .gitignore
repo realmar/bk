@@ -18,3 +18,6 @@ logs/*
 
 ##  Compilers
 _Inline/*
+
+## Drivers Directory
+drivers/*
