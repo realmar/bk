@@ -1,5 +1,5 @@
 <div id="bookbox<%= $bbnumber %>" class="display_inline bookbox">
-    <p class="bookbox_text">BookBox <%= $bbnumber + 1%>
+    <p class="bookbox_text">Book Box <%= $bbnumber + 1%>
         <span class="edit_bookbox">
             <span class="edit_bookbox_common open_bookbox" title="Open Bookbox">O</span>
             <span class="edit_bookbox_common undo_bookbox" title="Undo Changes">U</span>
