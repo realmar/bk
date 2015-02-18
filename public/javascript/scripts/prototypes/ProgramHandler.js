@@ -122,6 +122,14 @@ function ProgramHandler() {
 
     function OpenDoors(doors) {
         DisplayLoadingMessage();
+	if($("div#msg_errors_const > p." + NO_CONN_ERROR)) {
+            $("div#open_all_doors_button").removeClass("display_none");
+	    $("div#open_all_doors_button").addClass("display_inline");
+            $("div#open_all_doors_button_inactive").removeClass("display_inline");
+            $("div#open_all_doors_button_inactive").addClass("display_none");
+	    HideLoadingMessage();
+	    return 0;
+	}
         if($("div#msg_user_client_const > p." + OPN_DOORS).length <= 0) {
             AddMessageData($("div#msg_user_client_const"), open_doors_tpl, APPEND);
         }
