@@ -7,7 +7,7 @@
 ##  Created For / At: ETH Zuerich Department Physics
 #########################################################
 
-package DatabaseAccess;
+package EMail;
 
 use 5.010;
 use strict;
@@ -33,15 +33,15 @@ sub new {
 sub SendEMail {
     my ( $self,  $user, $door) = @_;
 
-    my $email_to = join(', ', $self->{_emails_to});
+    my $email_to = join(', ', @{ $self->{_emails_to} });
 
     my $email = Email::Simple->create(
         header => [
             To => $email_to,
             From => $self->{_email_from},
-            Subject => 'The user' . $user .  'took his/her book from book box ' . $door
+            Subject => 'The user ' . $user .  ' took his/her book from book box ' . $door
         ],
-        body => 'The user' . $user .  'took his/her book from book box ' . $door
+        body => 'The user ' . $user .  ' took his/her book from book box ' . $door
 
     );
 

@@ -64,7 +64,7 @@ sub init_variables {
     $filehandle_log_message = BKFileHandler->new('>>', $common_variables->{bk_path} . $config_file->[0]->{path}->{log}->{message});
     $filehandle_log_error = BKFileHandler->new('>>', $common_variables->{bk_path} . $config_file->[0]->{path}->{log}->{error});
     $database_connection = DatabaseAccess->new($config_file->[0]->{path}->{database}->{handler}, $common_variables->{bk_path} . $config_file->[0]->{path}->{database}->{file});
-    %email = %{ $config_file->[0]->{emails} };
+    %emails = %{ $config_file->[0]->{emails} };
     $doors = Doors->new($common_variables->{doors});
     $email_handler = EMail->new($emails{to}, $emails{from});
 
