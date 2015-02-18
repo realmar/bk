@@ -88,7 +88,7 @@ Known issues
 
 Developer Notes
 ---------------
-## jBox
+### jBox
 This project is using jBox for its popup in the browser to confirm things.
   -  https://github.com/StephanWagner/jBox
   -  http://stephanwagner.me/jBox
