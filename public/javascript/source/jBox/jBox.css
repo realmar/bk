@@ -178,12 +178,12 @@
 
 .jBox-Confirm-button-submit {
 	text-shadow: 0 -1px 1px rgba(0, 0, 0, .2);
-	background: #5fc04c;
+	background: #477FD5;
 	color: #fff;
 }
 
 .jBox-Confirm-button-submit:hover {
-	background: #53a642;
+	background: #325A98;
 }
 
 .jBox-Confirm-button-cancel:active,
