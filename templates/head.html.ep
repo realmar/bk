@@ -11,11 +11,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>BK - Buecherkasten Library - Department of Physics</title>
     <link href="stylesheets/stylesheet.css" rel="stylesheet" />
-    <link href="javascript/source/jBox/Source/jBox.css" rel="stylesheet" />
+    <link href="javascript/source/jBox/jBox.css" rel="stylesheet" />
     <link rel="ICON" href="images/bklogo.png" />
     <link rel="SHORTCUT ICON" href="images/bklogo.png" />
     <script src="javascript/source/jquery/jquery.min.js"></script>
-    <script src="javascript/source/jBox/Source/jBox.min.js"></script>
+    <script src="javascript/source/jBox/jBox.min.js"></script>
     <script src="javascript/scripts/variables/Constants.js"></script>
     <script src="javascript/scripts/variables/VariablesDefinition.js"></script>
     <script src="javascript/scripts/prototypes/ActionHandler.js"></script>
