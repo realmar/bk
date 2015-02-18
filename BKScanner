@@ -25,10 +25,7 @@ use LWP::Simple;
 
 CommonVariables::init_variables({
         'bk_path'          => '/opt/BK/',
-        'message_log_path' => 'log/message_log',
-        'error_log_path'   => 'log/error_log',
-        'database_path'    => undef,
-        'database_handler' => undef,
+        'config_file'      => 'conf.d/BK.conf',
         'doors'            => undef,
         'app_env'          => Constants::APPENVPRODUCTION
 });

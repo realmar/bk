@@ -21,6 +21,8 @@ use BK::Common::BKFileHandler;
 use BK::Handler::DatabaseAccess;
 use BK::Handler::Doors;
 
+use YAML::Tiny;
+
 use Exporter 'import';
 our @EXPORT = qw(
     $common_messages_collector
@@ -29,6 +31,7 @@ our @EXPORT = qw(
     $database_connection
     $app_environment
     $doors
+    @emails
     init_variables
 );
 
@@ -38,27 +41,28 @@ our $filehandle_log_error;
 our $database_connection;
 our $app_environment;
 our $doors;
+our @emails;
 
 sub init_variables {
     my ( $common_variables ) = @_;
 
     ##  common_variables = {
     ##      bk_path
-    ##      message_log_path
-    ##      error_log_path
-    ##      database_handler
-    ##      database_path
+    ##      config_file
     ##      doors
     ##      app_env
     ##  };
 
+    my $config_file = YAML::Tiny->read($common_variables->{bk_path} . $common_variables->{config_file});
+
     $app_environment = $common_variables->{app_env};
 
     $common_messages_collector = CommonMessagesCollector->new();
-    if (defined($common_variables->{message_log_path})) { $filehandle_log_message = BKFileHandler->new('>>', $common_variables->{bk_path} . $common_variables->{message_log_path}); }
-    if (defined($common_variables->{error_log_path})) { $filehandle_log_error = BKFileHandler->new('>>', $common_variables->{bk_path} . $common_variables->{error_log_path}); }
-    if (defined($common_variables->{database_handler}) && defined($common_variables->{database_path})) { $database_connection = DatabaseAccess->new($common_variables->{database_handler}, $common_variables->{bk_path} . $common_variables->{database_path}); }
-    if (defined($common_variables->{doors})) { $doors = Doors->new($common_variables->{doors}); }
+    $filehandle_log_message = BKFileHandler->new('>>', $common_variables->{bk_path} . $config_file->[0]->{path}->{log}->{message});
+    $filehandle_log_error = BKFileHandler->new('>>', $common_variables->{bk_path} . $config_file->[0]->{path}->{log}->{error});
+    $database_connection = DatabaseAccess->new($config_file->[0]->{path}->{database}->{handler}, $common_variables->{bk_path} . $config_file->[0]->{path}->{database}->{file});
+    @emails = @[ $config_file->[0]->{emails} ];
+    $doors = Doors->new($common_variables->{doors});
 
     return 1;
 }

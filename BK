@@ -27,10 +27,7 @@ use Mojo::IOLoop;
 
 CommonVariables::init_variables({
         'bk_path'          => '/opt/BK/',
-        'message_log_path' => 'log/message_log',
-        'error_log_path'   =>'log/error_log',
-        'database_path'    => 'database/BKDatabase.db',
-        'database_handler' => 'SQLite',
+        'config_file'      => 'conf.d/BK.conf',
         'doors'            => Constants::DOORSOUTPUT,
         'app_env'          => app->mode
 });
