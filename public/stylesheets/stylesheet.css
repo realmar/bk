@@ -206,3 +206,7 @@ span.edit_bookbox_common:active {
     background-color: rgb(68, 68, 68);
     cursor: pointer;
 }
+
+input.bookbox_input {
+    width: 98%;
+}
