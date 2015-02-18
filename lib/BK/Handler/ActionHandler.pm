@@ -196,6 +196,7 @@ sub RequestOpenDoors {
                             $database_changed = Constants::INTERNALERROR;
                         }
                         $CommonVariables::database_connection->CommitChanges();
+                        $CommonVariables::email_handler->SendEMail($self->{_data}[$i]->{user}, $database_entries_row->{doornumber});
                     }else{
                         $database_changed = Constants::AHERROPENDOORS;
                     }

@@ -62,6 +62,7 @@ BEGIN {
         SCANNER                
         ACTIONHANDLER          
         COMMONMESSAGESCOLLECTOR
+        EMAIL
         THROWTIME              
         MSGSTRING              
         AHREFRESH              
@@ -230,7 +231,8 @@ BEGIN {
         DOORS                   => 'doors',
         SCANNER                 => 'scanner',
         ACTIONHANDLER           => 'actionhandler',
-        COMMONMESSAGESCOLLECTOR => 'commonmessagescollector'
+        COMMONMESSAGESCOLLECTOR => 'commonmessagescollector',
+        EMAIL                   => 'email'
     };
 
     ##  --
@@ -353,6 +355,7 @@ DOORS                    ##  Owner Description for doors
 SCANNER                  ##  Owner Description for scanner
 ACTIONHANDLER            ##  Owner Description for actionhandler
 COMMONMESSAGESCOLLECTOR  ##  Owner Description for commonmessagescollector
+EMAIL                    ##  Owner Description for email
 THROWTIME                ##  Time a message (Log or Error) is thrown, key value for the log object CommonMessages
 MSGSTRING                ##  Message String (Log or Error), key value for log object CommonMessages
 AHREFRESH                ##  ActionHandler (AH) facility for Sending all Database Entries to the Client

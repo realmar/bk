@@ -20,6 +20,7 @@ use BK::Common::CommonMessagesCollector;
 use BK::Common::BKFileHandler;
 use BK::Handler::DatabaseAccess;
 use BK::Handler::Doors;
+use BK::Handler::EMail;
 
 use YAML::Tiny;
 
@@ -29,9 +30,10 @@ our @EXPORT = qw(
     $filehandle_log_message
     $filehandle_log_error
     $database_connection
+    $email_handler
     $app_environment
     $doors
-    @emails
+    %emails
     init_variables
 );
 
@@ -39,9 +41,10 @@ our $common_messages_collector;
 our $filehandle_log_message;
 our $filehandle_log_error;
 our $database_connection;
+our $email_handler;
 our $app_environment;
 our $doors;
-our @emails;
+our %emails;
 
 sub init_variables {
     my ( $common_variables ) = @_;
@@ -61,8 +64,9 @@ sub init_variables {
     $filehandle_log_message = BKFileHandler->new('>>', $common_variables->{bk_path} . $config_file->[0]->{path}->{log}->{message});
     $filehandle_log_error = BKFileHandler->new('>>', $common_variables->{bk_path} . $config_file->[0]->{path}->{log}->{error});
     $database_connection = DatabaseAccess->new($config_file->[0]->{path}->{database}->{handler}, $common_variables->{bk_path} . $config_file->[0]->{path}->{database}->{file});
-    @emails = @[ $config_file->[0]->{emails} ];
+    %email = %{ $config_file->[0]->{emails} };
     $doors = Doors->new($common_variables->{doors});
+    $email_handler = EMail->new($emails{to}, $emails{from});
 
     return 1;
 }

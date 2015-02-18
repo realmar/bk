@@ -21,6 +21,7 @@ use BK::Common::CommonVariables;
 use BK::Handler::DatabaseAccess;
 use BK::Handler::ActionHandler;
 use BK::Handler::MessagesTextConstants;
+use BK::Handler::EMail;
 
 use Mojolicious::Lite;
 use Mojo::IOLoop;
