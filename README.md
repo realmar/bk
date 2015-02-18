@@ -86,6 +86,13 @@ Known issues
   -  The call of `$self->{_db}->disconnect` generates an error. Therefore, as a temporary work-around, the `DatabaseAccess` destructor is commented out.
   -  WebSockets don't work with Safari, probably because Safari doesn't send the auth header with the wss protocol.
 
+Developer Notes
+---------------
+## jBox
+This project is using jBox for its popup in the browser to confirm things.
+  -  https://github.com/StephanWagner/jBox
+  -  http://stephanwagner.me/jBox
+
 Author
 ------
 Anastassios Martakos
