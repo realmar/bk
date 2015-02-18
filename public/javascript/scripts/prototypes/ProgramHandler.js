@@ -122,7 +122,7 @@ function ProgramHandler() {
 
     function OpenDoors(doors) {
         DisplayLoadingMessage();
-	if($("div#msg_errors_const > p." + NO_CONN_ERROR)) {
+	if($("div#msg_errors_const > p." + NO_CONN_ERROR).length > 0) {
             $("div#open_all_doors_button").removeClass("display_none");
 	    $("div#open_all_doors_button").addClass("display_inline");
             $("div#open_all_doors_button_inactive").removeClass("display_inline");
