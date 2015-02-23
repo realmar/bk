@@ -33,6 +33,7 @@ sub GetInput {
 
     $self->{_input} = <STDIN>;
     chomp($self->{_input});
+    $self->{_input} = lc($self->{_input});
 
     $self->SUPER::ThrowMessage(Constants::LOG, Constants::SCLOGGOTINPUT, $self->{_input});
 

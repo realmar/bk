@@ -135,6 +135,11 @@ sub SaveData {
 
     my $database_changed = 0;
 
+    for(my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
+        $self->{_data}->[$i] = lc($self->{_data}->[$i]);
+    }
+
+
     $CommonVariables::database_connection->BeginWork();
 
     for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
