@@ -33,6 +33,7 @@ function ProgramHandler() {
     this.SaveData                     = SaveData;                     //  Saves the Data from the Bookboxes to the Server
     this.CheckBookboxStates           = CheckBookboxStates;           //  Checks the Bookbox States
     this.CheckMSGDataObjects          = CheckMSGDataObjects;          //  Checks the MSGDataObjects States
+    this.ToLowercase                  = ToLowercase;                  //  Sets all BookBox input to lowercase
 
     this.ws_tries = 10;  //  Tries count for the WebSocket
     this.ws_wait  = 20;  //  Time to wait between the tries
@@ -40,6 +41,9 @@ function ProgramHandler() {
     this.last_data_state = [];  //  Stores the last state of the Bookboxes
 
     function InitializeProgram() {
+        this.intervals_collector.RemoveInterval('input_check');
+        this.intervals_collector.RemoveInterval('msg_data_objects_check');
+        this.intervals_collector.RemoveInterval('to_lowercase');
         this.intervals_collector.RemoveInterval('bk_websocket_try_connect');
         this.intervals_collector.RemoveInterval('bk_ajax_data_refresh');
         this.intervals_collector.RemoveInterval('bk_websocket_keep_alive');
@@ -50,8 +54,10 @@ function ProgramHandler() {
         this.InitializeConnTypeAJAX();
         InitializeBookboxStates();
         InitializeButtons();
+        InitializeEventListeners();
         this.intervals_collector.RegisterInterval(['CheckBookboxStates'], 'input_check', 0, {dtshort : 20, dtlong : 0});
         this.intervals_collector.RegisterInterval(['CheckMSGDataObjects'], 'msg_data_objects_check', 0, {dtshort : 20, dtlong : 0});
+        this.intervals_collector.RegisterInterval(['ToLowercase'], 'to_lowercase', 0, {dtshort : 20, dtlong : 0});
     }
     
     function InitializeConnTypeWebSockets() {

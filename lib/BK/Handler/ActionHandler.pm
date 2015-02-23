@@ -135,6 +135,11 @@ sub SaveData {
 
     my $database_changed = 0;
 
+    for(my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
+        $self->{_data}->[$i] = lc($self->{_data}->[$i]);
+    }
+
+
     $CommonVariables::database_connection->BeginWork();
 
     for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
@@ -191,11 +196,11 @@ sub RequestOpenDoors {
                 while(my $database_entries_row = $database_entries->fetchrow_hashref) {
                     $doors_open = $CommonVariables::doors->OpenDoor($database_entries_row->{doornumber}, $self->{_data}[$i]->{user});
                     if($doors_open) {
-                        $CommonVariables::database_connection->BeginWork();
-                        if(!$CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}})) {
-                            $database_changed = Constants::INTERNALERROR;
-                        }
-                        $CommonVariables::database_connection->CommitChanges();
+                        ##  $CommonVariables::database_connection->BeginWork();
+                        ##  if(!$CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}})) {
+                        ##      $database_changed = Constants::INTERNALERROR;
+                        ##  }
+                        ##  $CommonVariables::database_connection->CommitChanges();
                         $CommonVariables::email_handler->SendEMail($self->{_data}[$i]->{user}, $database_entries_row->{doornumber});
                     }else{
                         $database_changed = Constants::AHERROPENDOORS;
