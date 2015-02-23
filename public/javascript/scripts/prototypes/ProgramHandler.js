@@ -54,6 +54,7 @@ function ProgramHandler() {
         this.InitializeConnTypeAJAX();
         InitializeBookboxStates();
         InitializeButtons();
+        InitializeEventListeners();
         this.intervals_collector.RegisterInterval(['CheckBookboxStates'], 'input_check', 0, {dtshort : 20, dtlong : 0});
         this.intervals_collector.RegisterInterval(['CheckMSGDataObjects'], 'msg_data_objects_check', 0, {dtshort : 20, dtlong : 0});
         this.intervals_collector.RegisterInterval(['ToLowercase'], 'to_lowercase', 0, {dtshort : 20, dtlong : 0});
