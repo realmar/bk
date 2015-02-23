@@ -1,11 +1,10 @@
 <div id="bookbox<%= $bbnumber %>" class="display_inline bookbox">
-    <p class="bookbox_text">Book Box <%= $bbnumber + 1%>
-        <span class="edit_bookbox">
-            <span class="edit_bookbox_common open_bookbox" title="Open Bookbox">O</span>
-            <span class="edit_bookbox_common undo_bookbox" title="Undo Changes">U</span>
-            <span class="edit_bookbox_common delete_bookbox" title="Delete Content">X</span>
-        </span>
-    </p>
+    <p class="bookbox_text">Book Box <span class="bookbox_number"><%= $bbnumber + 1%></span></p>
     <input class="bookbox_input" type="text">
     <input class="bookbox_id" type="hidden" value="<%= $bbnumber %>">
+    <span class="edit_bookbox">
+        <span class="edit_bookbox_common open_bookbox" title="Open Bookbox">O</span>
+        <span class="edit_bookbox_common undo_bookbox" title="Undo Changes">U</span>
+        <span class="edit_bookbox_common delete_bookbox" title="Delete Content">X</span>
+    </span>
 </div>

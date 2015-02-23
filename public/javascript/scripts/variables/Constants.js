@@ -54,3 +54,5 @@ var NOT_OPEN_DOOR = 0;
 
 var OPEN_DOOR = 'opendoor';
 var DOORS_USER = 'frontend';
+
+var KEY_ENTER = 13;

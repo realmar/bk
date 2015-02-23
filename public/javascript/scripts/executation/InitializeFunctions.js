@@ -47,3 +47,11 @@ function InitializeRemoveMSGButton(msg_button) {  //  Initialized a specific Mes
 function InitializeBookboxStates() {  // Initialized the Bookboxes
     $("div.bookbox").addClass("unchanged");
 }
+
+function InitializeEventListeners() {
+    window.onkeydown = function(e) {
+        if(e.which == KEY_ENTER) {
+            program_handler.SaveData();
+        }
+    }
+}
