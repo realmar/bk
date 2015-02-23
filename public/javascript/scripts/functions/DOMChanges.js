@@ -139,3 +139,9 @@ function MakeMsgDOMString(classes, thow_time , msg_type, msg_string, mode) {  //
     }
     return dom_msg_string;
 }
+
+function ToLowercase() {
+    $('div.bookbox > input.bookbox_input').each(function () {
+        $(this).val($(this).val().toLowerCase());
+    });
+}
