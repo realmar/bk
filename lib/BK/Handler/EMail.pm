@@ -39,9 +39,9 @@ sub SendEMail {
         header => [
             To => $email_to,
             From => $self->{_email_from},
-            Subject => 'The user ' . $user .  ' took his/her book from book box ' . $door
+            Subject => 'The user ' . $user .  ' took his/her book from book box ' . $door . ' on ' . localtime
         ],
-        body => 'The user ' . $user .  ' took his/her book from book box ' . $door
+        body => 'The user ' . $user .  ' took his/her book from book box ' . $door . ' on ' . localtime
 
     );
 
