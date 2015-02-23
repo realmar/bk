@@ -86,16 +86,16 @@ div.msg {
 }
 
 div.empty_bookbox {
-    background-color: rgb(203, 208, 223);
+    background-color: rgb(32, 174, 28);
 }
 
 div.unchanged {
-    background-color: rgb(196, 212, 255);
+    background-color: rgb(214, 38, 38);
 }
 
 div.changed {
-    border: solid rgb(255, 238, 212) 6px;
-    padding: 8px;
+    border: solid rgb(236, 226, 42) 12px;
+    padding: 2px;
 }
 
 div.desc_legend {
@@ -107,7 +107,7 @@ div.desc_legend {
 }
 
 div.double_data {
-    background-color: rgb(198, 168, 255);
+    background-color: rgb(236, 138, 18);
 }
 
 img.loading_image {
@@ -150,8 +150,8 @@ p.ah_error {
     background-color: black;
 }
 
-span.mark_orange {
-    color: rgb(255, 238, 212);
+span.mark_yellow {
+    color: rgb(236, 226, 42);
 }
 
 span.msg_common {
@@ -196,16 +196,16 @@ span.edit_bookbox_common {
     margin-right: 2px;
     margin-left: 2px;
     padding: 2px;
-    background-color: rgb(194, 194, 194);
+    background-color: rgb(255, 255, 255);
 }
 
 span.edit_bookbox_common:hover {
-    background-color: rgb(138, 138, 138);
+    background-color: rgb(195, 195, 195);
     cursor: pointer;
 }
 
 span.edit_bookbox_common:active {
-    background-color: rgb(68, 68, 68);
+    background-color: rgb(148, 148, 148);
     cursor: pointer;
 }
 
