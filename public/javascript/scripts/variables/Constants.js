@@ -56,3 +56,5 @@ var OPEN_DOOR = 'opendoor';
 var DOORS_USER = 'frontend';
 
 var KEY_ENTER = 13;
+
+var MSG_DISAPPAIR_TIME = 20000;

@@ -145,3 +145,9 @@ function ToLowercase() {
         $(this).val($(this).val().toLowerCase());
     });
 }
+
+function RemoveObjectAfterTime(object) {
+    setTimeout(function () {
+        RemoveMessageData(object);
+    }, MSG_DISAPPAIR_TIME);
+}
