@@ -107,18 +107,30 @@ BEGIN {
     ##  signal for the doors
 
     use constant DOORSOUTPUT => [
-        0x1,  ##  D0
-        0x2,  ##  D1
-        0x4,  ##  D2
-        0x8,  ##  D3
-        0x10,  ##  D4
-        0x20,  ##  D5
-        0x40,  ##  D6
-        0x80,  ##  D7
-        0x100,  ##  D8
-        0x200,  ##  D9
-        0x400,  ##  D10
+        0x10,  ##  D0 defined
+        0x8000,  ##  D1 defined
+        0x8,  ##  D2 defined
+        0x4,  ##  D3 defined
+        0x2,  ##  D4 defined
+        0x1,  ##  D5 defined
+        0x200,  ##  D6 defined
+        0x400,  ##  D7 defined
+        0x2000,  ##  D8 defined
+        0x1000,  ##  D9 defined
+        0x800,  ##  D10 defined
         0xffff  ##  all pins
+	##  0x1,  ##  D0
+        ##  0x2,  ##  D1
+        ##  0x4,  ##  D2
+        ##  0x8,  ##  D3
+        ##  0x10,  ##  D4
+        ##  0x20,  ##  D5
+        ##  0x40,  ##  D6
+        ##  0x80,  ##  D7
+        ##  0x100,  ##  D8
+        ##  0x200,  ##  D9
+        ##  0x400,  ##  D10
+
     ];
 
     ##  --
@@ -126,7 +138,7 @@ BEGIN {
 
     use constant {
         DOORCOUNT           => 11,
-        DOORSSENDSIGNALTIME => 2
+        DOORSSENDSIGNALTIME => 1
     };
 
     ##  --
