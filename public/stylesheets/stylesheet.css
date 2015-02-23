@@ -120,6 +120,7 @@ p.loading_text {
 
 p.bookbox_text {
     line-height: 0em;
+    margin-top: 26px;
 }
 
 p.connection_type {
@@ -188,6 +189,7 @@ div#msg_errors > p.msg_errors > span.remove_msg:active {
 span.edit_bookbox {
     float: right;
     font-weight: bold;
+    margin-top: 12px;
 }
 
 span.edit_bookbox_common {
@@ -207,6 +209,12 @@ span.edit_bookbox_common:active {
     cursor: pointer;
 }
 
+span.bookbox_number {
+    font-weight: bold;
+    font-size: 4em;
+}
+
 input.bookbox_input {
     width: 98%;
+    font-size: 1.4em;
 }
