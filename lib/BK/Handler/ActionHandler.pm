@@ -176,7 +176,7 @@ sub RequestOpenDoors {
     my $database_changed = 0;
     my $open_all_doors = 1;
 
-    my %users = {};
+    my %users = ();
 
     for(my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
         if($self->{_data}[$i]->{Constants::OPENDOOR} == Constants::FALSE) {
