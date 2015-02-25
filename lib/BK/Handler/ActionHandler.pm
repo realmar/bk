@@ -176,10 +176,13 @@ sub RequestOpenDoors {
     my $database_changed = 0;
     my $open_all_doors = 1;
 
-    for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
+    my %users = {};
+
+    for(my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
         if($self->{_data}[$i]->{Constants::OPENDOOR} == Constants::FALSE) {
             $open_all_doors = 0;
         }
+        $users{$self->{_data}[$i]->{user}} = 0;
     }
 
     if($open_all_doors && scalar(@{$self->{_data}}) != Constants::DOORCOUNT) {
@@ -189,19 +192,23 @@ sub RequestOpenDoors {
     my $opened_all_doors = 0;
     my $doors_open;
 
-    for (my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
+    for(my $i = 0; $i < scalar(@{$self->{_data}}); $i++) {
         if($self->{_data}[$i]->{Constants::OPENDOOR} == Constants::TRUE) {
             if($self->{_data}[$i]->{user} ne Constants::DOORSUSER) {
-                my $database_entries = $CommonVariables::database_connection->ReadEntryDatabase('Users', {'username' => $self->{_data}[$i]->{user}});
-                while(my $database_entries_row = $database_entries->fetchrow_hashref) {
-                    $doors_open = $CommonVariables::doors->OpenDoor($database_entries_row->{doornumber}, $self->{_data}[$i]->{user});
+                if(!$users{$self->{_data}[$i]->{user}}) {
+                    my @fetched_doors = [];
+                    my $database_entries = $CommonVariables::database_connection->ReadEntryDatabase('Users', {'username' => $self->{_data}[$i]->{user}});
+                    while(my $database_entries_row = $database_entries->fetchrow_hashref) {
+                        push(@fetched_doors, $database_entries_row->{doornumber});
+                    }
+                    $doors_open = $CommonVariables::doors->OpenDoor(@fetched_doors, $self->{_data}[$i]->{user});
                     if($doors_open) {
                         ##  $CommonVariables::database_connection->BeginWork();
                         ##  if(!$CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}})) {
                         ##      $database_changed = Constants::INTERNALERROR;
                         ##  }
                         ##  $CommonVariables::database_connection->CommitChanges();
-                        $CommonVariables::email_handler->SendEMail($self->{_data}[$i]->{user}, $database_entries_row->{doornumber});
+                        $CommonVariables::email_handler->SendEMail($self->{_data}[$i]->{user}, @fetched_doors);
                     }else{
                         $database_changed = Constants::AHERROPENDOORS;
                     }

@@ -31,7 +31,13 @@ sub new {
 }
 
 sub SendEMail {
-    my ( $self,  $user, $door) = @_;
+    my ( $self,  $user, $doors_arg) = @_;
+
+    my @doors = @{ $doors_arg };
+
+    for(my $i = 0; $i < scalar(@doors); $i++) {
+        $doors[$i]++;
+    }
 
     my $email_to = join(', ', @{ $self->{_emails_to} });
 
@@ -39,9 +45,9 @@ sub SendEMail {
         header => [
             To => $email_to,
             From => $self->{_email_from},
-            Subject => 'The user ' . $user .  ' took his/her book from book box ' . ($door + 1) . ' on ' . localtime
+            Subject => 'The user ' . $user .  ' took his/her book from book box ' . join(', ', @doors) . ' on ' . localtime
         ],
-        body => 'The user ' . $user .  ' took his/her book from book box ' . ($door + 1) . ' on ' . localtime
+        body => 'The user ' . $user .  ' took his/her book from book box ' . join(', ', @doors) . ' on ' . localtime
 
     );
 

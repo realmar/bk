@@ -30,15 +30,22 @@ sub new {
 }
 
 sub OpenDoor {
-    my ($self, $door, $username) = @_;
+    my ($self, $doors_arg, $username) = @_;
 
-    my $doors_opened_err = CommonVariables::SetPins(Constants::HEXTWOBYTEONE, Constants::HEXNULL, Constants::DOORSOUTPUT->[$door], Constants::HEXNULL);
+    my @doors = @{ $doors_arg };
+    my $all_doors = 0;
+
+    foreach my $door ( @doors ) {
+        $all_doors = $all_doors | Constants::DOORSOUTPUT->[$door];
+    }
+
+    my $doors_opened_err = CommonVariables::SetPins(Constants::HEXTWOBYTEONE, Constants::HEXNULL, Constants::DOORSOUTPUT->[$all_doors], Constants::HEXNULL);
 
     if($doors_opened_err > 0) {
         $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DOORSEXEPTIONOPENEND, MessagesTextConstants::DOORSERRORCODE . $doors_opened_err);
         return 0;
     }
-    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DOOROPENED, MessagesTextConstants::DOORSNUMBER . $door . MessagesTextConstants::DOORSUSERNAME . $username);
+    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DOOROPENED, MessagesTextConstants::DOORSNUMBER . join(', ', @doors) . MessagesTextConstants::DOORSUSERNAME . $username);
     sleep(Constants::DOORSSENDSIGNALTIME);
 
     my $doors_closed_err = CommonVariables::SetPins(Constants::HEXTWOBYTEONE, Constants::HEXNULL, Constants::HEXNULL, Constants::HEXNULL);
@@ -47,7 +54,7 @@ sub OpenDoor {
         $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DOORSEXEPTIONCLOSED, MessagesTextConstants::DOORSERRORCODE . $doors_closed_err);
         return 0;
     }
-    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DOORCLOSED, MessagesTextConstants::DOORSNUMBER . $door . MessagesTextConstants::DOORSUSERNAME . $username);
+    $self->SUPER::ThrowMessage(Constants::LOG, Constants::DOORCLOSED, MessagesTextConstants::DOORSNUMBER . join(', ', @doors) . MessagesTextConstants::DOORSUSERNAME . $username);
 
     return 1;
 }
