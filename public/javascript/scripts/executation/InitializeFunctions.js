@@ -27,14 +27,14 @@ function InitializeButtons() {  //  Initializes all Buttons
         cancleButton: 'Cancle',
         confirm: OpenAllDoorsClick
     });
-    $("div.bookbox > p > span.edit_bookbox > span.delete_bookbox").click(function () {
-        $(this).parent().parent().next("input.bookbox_input").val("");
+    $("div.bookbox > span.edit_bookbox > span.delete_bookbox").click(function () {
+        $(this).parent().prevAll("input.bookbox_input").val("");
     });
-    $("div.bookbox > p > span.edit_bookbox > span.undo_bookbox").click(function () {
-        $(this).parent().parent().next("input.bookbox_input").val(program_handler.last_data_state[$(this).parent().parent().siblings("input.bookbox_id").val()])
+    $("div.bookbox > span.edit_bookbox > span.undo_bookbox").click(function () {
+        $(this).parent().prevAll("input.bookbox_input").val(program_handler.last_data_state[$(this).parent().siblings("input.bookbox_id").val()])
     });
-    $("div.bookbox > p > span.edit_bookbox > span.open_bookbox").click(function () {
-        program_handler.OpenDoors([ parseInt($(this).parent().parent().siblings("input.bookbox_id").attr("value")) ]);
+    $("div.bookbox > span.edit_bookbox > span.open_bookbox").click(function () {
+        program_handler.OpenDoors([ parseInt($(this).parent().siblings("input.bookbox_id").attr("value")) ]);
     });
 }
 
