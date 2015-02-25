@@ -39,7 +39,7 @@ sub OpenDoor {
         $all_doors = $all_doors | Constants::DOORSOUTPUT->[$door];
     }
 
-    my $doors_opened_err = CommonVariables::SetPins(Constants::HEXTWOBYTEONE, Constants::HEXNULL, Constants::DOORSOUTPUT->[$all_doors], Constants::HEXNULL);
+    my $doors_opened_err = CommonVariables::SetPins(Constants::HEXTWOBYTEONE, Constants::HEXNULL, $all_doors, Constants::HEXNULL);
 
     if($doors_opened_err > 0) {
         $self->SUPER::ThrowMessage(Constants::ERROR, Constants::DOORSEXEPTIONOPENEND, MessagesTextConstants::DOORSERRORCODE . $doors_opened_err);
