@@ -184,7 +184,6 @@ sub RequestOpenDoors {
         }
         $users{$self->{_data}[$i]->{user}} = 0;
     }
-
     if($open_all_doors && scalar(@{$self->{_data}}) != Constants::DOORCOUNT) {
         $open_all_doors = 0;
     }
@@ -196,19 +195,20 @@ sub RequestOpenDoors {
         if($self->{_data}[$i]->{Constants::OPENDOOR} == Constants::TRUE) {
             if($self->{_data}[$i]->{user} ne Constants::DOORSUSER) {
                 if(!$users{$self->{_data}[$i]->{user}}) {
-                    my @fetched_doors = [];
+                    my @fetched_doors = ();
                     my $database_entries = $CommonVariables::database_connection->ReadEntryDatabase('Users', {'username' => $self->{_data}[$i]->{user}});
                     while(my $database_entries_row = $database_entries->fetchrow_hashref) {
-                        push(@fetched_doors, $database_entries_row->{doornumber});
+                        my $test = $database_entries_row->{doornumber};
+                        push(@fetched_doors, $test);
                     }
-                    $doors_open = $CommonVariables::doors->OpenDoor(@fetched_doors, $self->{_data}[$i]->{user});
+                    $doors_open = $CommonVariables::doors->OpenDoor(\@fetched_doors, $self->{_data}[$i]->{user});
                     if($doors_open) {
                         ##  $CommonVariables::database_connection->BeginWork();
                         ##  if(!$CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}})) {
                         ##      $database_changed = Constants::INTERNALERROR;
                         ##  }
                         ##  $CommonVariables::database_connection->CommitChanges();
-                        $CommonVariables::email_handler->SendEMail($self->{_data}[$i]->{user}, @fetched_doors);
+                        $CommonVariables::email_handler->SendEMail($self->{_data}[$i]->{user}, \@fetched_doors);
                     }else{
                         $database_changed = Constants::AHERROPENDOORS;
                     }
