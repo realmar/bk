@@ -212,6 +212,7 @@ sub RequestOpenDoors {
                     }else{
                         $database_changed = Constants::AHERROPENDOORS;
                     }
+                    $users{$self->{_data}[$i]->{user}} = 1;
                     $doors_open = undef;
                 }
             }else{
