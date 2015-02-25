@@ -81,6 +81,10 @@ Name: Stefan Meyer
 Tel.: +41 44 633 20 72  
 E-Mail: stefan.meyer@phys.ethz.ch
 
+Config File
+-----------
+There is a BK config file in `conf.d/BK.conf` which sets some variables for BK. NOTE that the inline c path is still hardcoded, located in `lib/BK/Common/CommonVariables.pm`. The config file is written in YAML and contains hashes and arrays but should be easy to understand.
+
 Known issues
 ------------
   -  The call of `$self->{_db}->disconnect` generates an error. Therefore, as a temporary work-around, the `DatabaseAccess` destructor is commented out.
