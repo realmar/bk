@@ -198,22 +198,24 @@ sub RequestOpenDoors {
                     my @fetched_doors = ();
                     my $database_entries = $CommonVariables::database_connection->ReadEntryDatabase('Users', {'username' => $self->{_data}[$i]->{user}});
                     while(my $database_entries_row = $database_entries->fetchrow_hashref) {
-                        my $test = $database_entries_row->{doornumber};
-                        push(@fetched_doors, $test);
+                        my $fetched_door = $database_entries_row->{doornumber};
+                        push(@fetched_doors, $fetched_door);
                     }
-                    $doors_open = $CommonVariables::doors->OpenDoor(\@fetched_doors, $self->{_data}[$i]->{user});
-                    if($doors_open) {
-                        ##  $CommonVariables::database_connection->BeginWork();
-                        ##  if(!$CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}})) {
-                        ##      $database_changed = Constants::INTERNALERROR;
-                        ##  }
-                        ##  $CommonVariables::database_connection->CommitChanges();
-                        $CommonVariables::email_handler->SendEMail($self->{_data}[$i]->{user}, \@fetched_doors);
-                    }else{
-                        $database_changed = Constants::AHERROPENDOORS;
+                    if(scalar(@fetched_doors) > 0) {
+                        $doors_open = $CommonVariables::doors->OpenDoor(\@fetched_doors, $self->{_data}[$i]->{user});
+                        if($doors_open) {
+                            ##  $CommonVariables::database_connection->BeginWork();
+                            ##  if(!$CommonVariables::database_connection->UpdateEntryDatabase('Users', {'username' => 'null'}, {'doornumber' => $database_entries_row->{doornumber}})) {
+                            ##      $database_changed = Constants::INTERNALERROR;
+                            ##  }
+                            ##  $CommonVariables::database_connection->CommitChanges();
+                            $CommonVariables::email_handler->SendEMail($self->{_data}[$i]->{user}, \@fetched_doors);
+                        }else{
+                            $database_changed = Constants::AHERROPENDOORS;
+                        }
+                        $users{$self->{_data}[$i]->{user}} = 1;
+                        $doors_open = undef;
                     }
-                    $users{$self->{_data}[$i]->{user}} = 1;
-                    $doors_open = undef;
                 }
             }else{
                 if($open_all_doors) {
