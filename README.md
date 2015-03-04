@@ -103,7 +103,7 @@ There are many error codes which could be thrown by the LabJack:
 
 Common Errors:
   -  Error Code 3  -  LabJack n not found.  
-In most cases (could also be a software error in which actually the wrong device ID is given, mentioned in `lib/BK/Handler/SourceC/DoorsInterface.c` variable `id_num`)it is required to unplug and plug the LabJack back in or a similar method, eg. deactivating and activating the device, this opften happens when two instances of BK are running and trying to open doors, therefore for testing it is recommeded to comment the `SetPins` funtion in `lib/BK/Handler/Doors.pm` out
+In most cases (could also be a software error in which actually the wrong device ID is given, mentioned in `lib/BK/Handler/SourceC/DoorsInterface.c` variable `id_num`) it is required to unplug and plug the LabJack back in or a similar method, eg. deactivating and activating the device, this often happens when two instances of BK are running and trying to open doors, therefore, for testing, it is recommeded to comment the `SetPins` function in `lib/BK/Handler/Doors.pm` out
   -  Error Code 40  -  Illegal input.  
 This is a software error, caused when wrong input it given
 
