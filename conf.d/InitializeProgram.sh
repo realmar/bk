@@ -91,7 +91,7 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     echo 'Setting up the database'
     echo 'AFTER DATABASE IS SET UP EXIT THE SQLITE3 CONSOLE WITH .exit TO CONTINUE THE SETUP'
 
-    sqlite3 -init $PA/config/DBConfig.sql $PA/database/BKDatabase.db
+    sqlite3 -init $PA/conf.d/DBConfig.sql $PA/database/BKDatabase.db
 
     echo ''
     echo ''
