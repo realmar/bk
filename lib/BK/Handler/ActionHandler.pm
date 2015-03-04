@@ -219,13 +219,13 @@ sub RequestOpenDoors {
                 if($open_all_doors) {
                     if(!$opened_all_doors) {
                         $opened_all_doors = 1;
-                        $doors_open = $CommonVariables::doors->OpenDoor(Constants::DOORCOUNT, $self->{_data}[$i]->{user});
+                        $doors_open = $CommonVariables::doors->OpenDoor([ Constants::DOORCOUNT ], $self->{_data}[$i]->{user});
                         if(!$doors_open) {
                             $database_changed = Constants::AHERROPENDOORS;
                         }
                     }
                 }else{
-                    $doors_open = $CommonVariables::doors->OpenDoor($i, $self->{_data}[$i]->{user});
+                    $doors_open = $CommonVariables::doors->OpenDoor([ $i ], $self->{_data}[$i]->{user});
                     if(!$doors_open) {
                         $database_changed = Constants::AHERROPENDOORS;
                     }
