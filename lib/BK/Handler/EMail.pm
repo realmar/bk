@@ -82,9 +82,9 @@ None
 
 =head2 Methods
 
-SendEMail() - sends an e-amil
+SendEMail( [ user - STRING ], [ doors - ARRAY REF ] ) - sends an e-amil
 
 =head2 Synposis
 
-my $email_handler = EMail->new( [ to - receipients is an array ], [ from - STRING represents the sender ] );
-$email_handler->SendEMail( [ user - STRING ], [ door - STRING ] );
+my $email_handler = EMail->new( [ to - ARRAY receipients ], [ from - STRING represents the sender ] );
+$email_handler->SendEMail( [ user - STRING ], [ doors - ARRAY REF ] );

@@ -44,7 +44,7 @@ sub GetInput {
 
 __END__
 
-=head1 BK::Backend::Scanner
+=head1 BK::Scanner::Scanner
 
 Scanner.pm
 
@@ -52,7 +52,7 @@ Scanner.pm
 
 Scanner Object gets input from the STDIN and returns it, it is only an object for logging the STDIN
 
-=head2 Consturctor
+=head2 Constructor
 
 _owner_desc - STRING owner for logging
 _input - STRING the last Input is saved there

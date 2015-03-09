@@ -72,3 +72,17 @@ sub init_variables {
 }
 
 return 1;
+
+__END__
+
+=head1 BK::Common::CommonVariables
+
+CommonVariables.pm
+
+=head2 Description
+
+Sets some global variables needed by BK
+
+=head2 Synopsis
+
+CommonVariables::init_variables( [ bk_path - STRING ], [ config_file - STRING ], [ doors - ARRAY ], [ app_env - STRING] );

@@ -63,7 +63,7 @@ sub OpenDoor {
 
 __END__
 
-=head1 BK::Backend::Doors
+=head1 BK::Handler::Doors
 
 Doors.pm
 
@@ -78,9 +78,9 @@ _doors - ARRAY with all doors
 
 =head2 Methods
 
-OpenDoor( [door - INT], [username - STRING] ) - Sends signal to a specific pin on the LabJack defined as [door - INT], [username - STRING] is required only for logging purposes
+OpenDoor( [doors - ARRAY REF], [username - STRING] ) - Sends signal to a specific pin on the LabJack defined as [doors - ARRAY REF], [username - STRING] is required only for logging purposes
 
 =head2 Synopsis
 
 my $doors = Doors->new( [doors - ARRAY] );
-$doors->OpenDoors( [door - INT], [username - STRING] );
+$doors->OpenDoors( [doors - ARRAY REF], [username - STRING] );

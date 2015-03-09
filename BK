@@ -80,7 +80,7 @@ __END__
 
 =head1 NAME
 
-BKFrontendWebSockets - CGI Script for BK all in one Handler
+BK - CGI Script for BK all in one Handler
 
 =head1 SYNOPSIS
 
@@ -101,8 +101,8 @@ perl BK.pl daemon -l http://0.0.0.0:3004/
 
 =head1 FILES
 
-./lib/Common/*
-./lib/Frontend/*
+./lib/BK/Common/*
+./lib/BK/Handler/*
 ./databases/*
 
 =head1 SEE ALSO

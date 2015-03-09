@@ -52,7 +52,7 @@ BK - Reads STDIN and sends an HTTP Request to BK
 
 =head1 SYNOPSIS
 
-BK.pl
+BKScanner.pl
 
 =head1 DESCRIPTION
 
@@ -64,12 +64,12 @@ None
 
 =head1 USAGE
 
-perl BKBackend.pl
+perl BKScanner.pl
 
 =head1 FILES
 
-./lib/Common/*
-./lib/Backend/*
+./lib/BK/Common/*
+./lib/BK/Scanner/*
 ./databases/*
 
 =head1 SEE ALSO
