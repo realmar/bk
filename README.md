@@ -78,8 +78,6 @@ Programming Method 1: ProfiLab
 
 ### Developer of the old system
 Name: Stefan Meyer  
-Tel.: +41 44 633 20 72  
-E-Mail: stefan.meyer@phys.ethz.ch
 
 Config File
 -----------
