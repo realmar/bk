@@ -10,7 +10,7 @@ but it can be expanded when necessary.
 
 Installation
 ------------
-The installation steps are described in the script `conf.d/InitializeProgram.sh`.  
+**The installation steps are described in the script** `conf.d/InitializeProgram.sh`.  
   -  Install the appropriate version of the `linux-headers` for your operating system.
   -  Look at the install script, which version of the `libjacklm.so` is compiled. You may need to adapt the version number so it can be renamed correctly.
   -  Run the install script as root and answer the questions.
