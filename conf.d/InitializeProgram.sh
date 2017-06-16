@@ -27,7 +27,7 @@ if [[ $INSTBK =~ ^(yes|y) ]] || [[ -z $INSTBK ]]; then
     read -p 'Do you want to install the required packages? [Y/n]: ' INSTPKG
     if [[ $INSTPKG =~ ^(yes|y) ]] || [[ -z $INSTPKG ]]; then
         /bin/echo 'Installing the required packages'
-        /usr/bin/aptitude install git perl apache2 libmojolicious-perl libinline-perl libinline-c-perl libjson-perl libtemplate-perl libdbi-perl libdbd-sqlite3-perl libio-all-lwp-perl libyaml-tiny-perl libemail-sender-perl libusb-1.0-0 linux-headers-586 libc6-dev libusb-1.0-0-dev sqlite3 make unzip gcc
+        /usr/bin/aptitude install build-essential git perl apache2 libmojolicious-perl libinline-perl libinline-c-perl libjson-perl libtemplate-perl libdbi-perl libdbd-sqlite3-perl libio-all-lwp-perl libyaml-tiny-perl libemail-sender-perl libusb-1.0-0 linux-headers libc6-dev libusb-1.0-0-dev sqlite3 make unzip gcc
     else
         /bin/echo 'Not installing the required packages'
     fi
