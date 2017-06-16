@@ -14,6 +14,8 @@ Installation
   -  Run the install script as root and answer the questions.
   -  Now you will need to install the apache2 certificates. See error message: `systemctl status apache2`.
 
+The librarian has to configure BK over the web. (Assigning the doors to the users) Meaning that if BK gets newly installed because of a hardware defect all of the data from the defect BK is lost.
+
 Execution
 ---------
 ### Standalone
